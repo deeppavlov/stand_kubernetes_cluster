@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ner
+spec:
+  selector:
+    app: ner_ru_en
+  type: LoadBalancer
+  externalIPs:
+  - 192.168.10.136
+  ports:
+  - name: ner-ru
+    protocol: TCP
+    port: 6004
+    targetPort: 6004
+  - name: ner-en
+    protocol: TCP
+    port: 6006
+    targetPort: 6006

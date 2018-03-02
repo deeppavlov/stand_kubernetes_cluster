@@ -129,7 +129,7 @@ Make Docker images and push them to registry. Here is the basic reference:
 1. Docker docs, push/pull operations: https://docs.docker.com/registry/
 2. Docker docs, image naming: https://docs.docker.com/registry/introduction/#understanding-image-naming
 
-## Cluster payload deployment
+## Cluster payload deployment and management
 For now stand cluster solution presumes following deployment of stand skills and services (payload):
 ```
 Image => Deployment => Pod => Service
@@ -143,6 +143,41 @@ So far, payload deployment includes following steps:
 
 For **deployments** and **services** definition you can reference:
 1. Kubernetes docs, deployments: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
-2. Kubernetes docs, deployments API:
+2. Kubernetes docs, deployments API: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/#deployment-v1-apps
 3. Kubernetes docs, services: https://kubernetes.io/docs/concepts/services-networking/service/
-4. Kubernetes docs, services API:
+4. Kubernetes docs, services API: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/#service-v1-core
+
+Create deployment or service:
+```
+kubectl create -f <deployment-or-service.yaml>
+```
+
+List all deployments:
+```
+kubectl get deployment
+```
+
+List all services:
+```
+kubectl get service
+```
+
+Get deployment info:
+```
+kubectl describe deployment <deployment name>
+```
+
+Get service info:
+```
+kubectl describe service <service name>
+```
+
+Stop service:
+```
+kubectl delete service <service name>
+```
+
+Remove deployment:
+```
+kubectl delete service <service name>
+```
