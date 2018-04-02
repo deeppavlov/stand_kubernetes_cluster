@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: stand-squad-ru-dp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stand-squad-ru-dp
+    spec:
+      containers:
+      - name: stand-squad-ru
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/squad_ru
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        ports:
+          - name: cp6005
+            protocol: TCP
+            containerPort: 6005
+            #hostPort: 6005
+        volumeMounts:
+        - name: logs-nfs
+          mountPath: ~/vol
+      volumes:
+      - name: logs-nfs
+        emptyDir: {}
