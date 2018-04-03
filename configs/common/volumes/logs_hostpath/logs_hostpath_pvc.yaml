@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: logs-hostpath-sc
+  storageClassName: stand-demo-logs-hostpath-sc
   resources:
     requests:
       storage: 1Gi
