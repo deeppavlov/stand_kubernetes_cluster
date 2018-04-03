@@ -16,7 +16,6 @@ spec:
           - name: cp6006
             protocol: TCP
             containerPort: 6006
-            #hostPort: 6006
         volumeMounts:
         - name: volume-logs
           mountPath: /vol
@@ -24,5 +23,5 @@ spec:
       - name: volume-logs
         #emptyDir: {}
         persistentVolumeClaim:
-          claimName: stand-logs-pvc-rbd
-          #claimName: stand-logs-pvc-hostpath
+          #claimName: stand-logs-pvc-rbd
+          claimName: stand-logs-pvc-hostpath

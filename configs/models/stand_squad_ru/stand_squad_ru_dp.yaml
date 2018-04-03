@@ -19,10 +19,12 @@ spec:
           - name: cp6005
             protocol: TCP
             containerPort: 6005
-            #hostPort: 6005
         volumeMounts:
-        - name: logs-nfs
-          mountPath: ~/vol
+        - name: volume-logs
+          mountPath: /vol
       volumes:
-      - name: logs-nfs
-        emptyDir: {}
+      - name: volume-logs
+        #emptyDir: {}
+        persistentVolumeClaim:
+          #claimName: stand-logs-pvc-rbd
+          claimName: stand-logs-pvc-hostpath

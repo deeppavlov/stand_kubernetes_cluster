@@ -5,8 +5,8 @@ metadata:
 spec:
   storageClassName: host-path
   capacity:
-    storage: 50Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/home/share"
+    path: "/home/share/stand_demo/logs/"
