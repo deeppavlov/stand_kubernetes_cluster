@@ -1,10 +1,10 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: stand-logs-pv-hostpath
+  name: logs-hostpath-pv
   namespace: stand-demo
 spec:
-  storageClassName: stand-logs-sc-hostpath
+  storageClassName: logs-hostpath-sc
   capacity:
     storage: 1Gi
   accessModes:

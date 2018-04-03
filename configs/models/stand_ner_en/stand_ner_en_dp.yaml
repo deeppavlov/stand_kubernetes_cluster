@@ -25,4 +25,4 @@ spec:
         #emptyDir: {}
         persistentVolumeClaim:
           #claimName: stand-logs-pvc-rbd
-          claimName: stand-logs-pvc-hostpath
+          claimName: logs-hostpath-pvc
