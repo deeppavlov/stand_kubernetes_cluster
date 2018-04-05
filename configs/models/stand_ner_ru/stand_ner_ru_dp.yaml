@@ -1,26 +1,26 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: stand-ner-en-dp
+  name: stand-ner-ru-dp
   namespace: stand-demo
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
-        app: stand-ner-en-dp
+        app: stand-ner-ru-dp
     spec:
       containers:
-      - name: stand-ner-en
-        image: kubeadm.ipavlov.mipt.ru:5000/stand/ner_en
+      - name: stand-ner-ru
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/ner_ru
         ports:
-          - name: cp6006
+          - name: cp6004
             protocol: TCP
-            containerPort: 6006
+            containerPort: 6004
         volumeMounts:
         - name: volume-logs
-          mountPath: /vol
-        - name: podinfo
+          mountPath: /logs
+        - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
         env:
@@ -36,7 +36,7 @@ spec:
       - name: volume-logs
         persistentVolumeClaim:
           claimName: logs-hostpath-pvc
-      - name: podinfo
+      - name: volume-podinfo
         downwardAPI:
           items:
             - path: "labels"
