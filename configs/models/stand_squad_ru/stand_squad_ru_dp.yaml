@@ -4,7 +4,7 @@ metadata:
   name: stand-squad-ru-dp
   namespace: stand-demo
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -22,10 +22,29 @@ spec:
             containerPort: 6005
         volumeMounts:
         - name: volume-logs
-          mountPath: /vol
+          mountPath: /logs
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       volumes:
       - name: volume-logs
-        #emptyDir: {}
         persistentVolumeClaim:
-          #claimName: stand-logs-pvc-rbd
           claimName: logs-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+            - path: "annotations"
+              fieldRef:
+                fieldPath: metadata.annotations

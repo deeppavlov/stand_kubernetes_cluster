@@ -12,5 +12,5 @@ spec:
   ports:
   - name: stand-squad-ru
     protocol: TCP
-    port: 6005
+    port: 7005
     targetPort: cp6005
