@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-intent-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: stand-intent-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: stand-intent-en
+    protocol: TCP
+    port: 7007
+    targetPort: cp6007
