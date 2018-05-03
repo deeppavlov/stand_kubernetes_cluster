@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-ranking-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: stand-ranking-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: stand-odqa-en
+    protocol: TCP
+    port: 7009
+    targetPort: cp6009
