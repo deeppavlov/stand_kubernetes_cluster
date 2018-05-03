@@ -13,9 +13,6 @@ spec:
       containers:
       - name: stand-ranking-en
         image: kubeadm.ipavlov.mipt.ru:5000/stand/ranking_en
-        resources:
-          limits:
-            nvidia.com/gpu: 1
         ports:
           - name: cp6009
             protocol: TCP
