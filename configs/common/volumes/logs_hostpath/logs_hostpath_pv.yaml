@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: stand-demo-logs-hostpath-pv
+  namespace: stand-demo
+spec:
+  storageClassName: stand-demo-logs-hostpath-sc
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/stand_demo/logs/"

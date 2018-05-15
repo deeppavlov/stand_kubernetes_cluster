@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: logs-hostpath-pvc
+  namespace: stand-demo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: stand-demo-logs-hostpath-sc
+  resources:
+    requests:
+      storage: 1Gi
