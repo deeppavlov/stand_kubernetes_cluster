@@ -41,7 +41,7 @@
 7. Specify virtual environment path (if necessary) in `run_en_ranking.sh`
 8. Run model:
     ```
-    ./run_en_ranking.sh
+    ./run_ranking_en.sh
     ```
 
 ## Building and running with Docker:
