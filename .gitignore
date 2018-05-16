@@ -2,6 +2,11 @@
 
 models/dp_lpg.log
 
+models/stand_ner_en/env/
+models/stand_ner_en/DeepPavlov/
+models/stand_ner_en/dp_lpg.log
+models/stand_ner_en/stand_ner_en.log
+
 models/stand_ner_ru/env/
 models/stand_ner_ru/DeepPavlov/
 models/stand_ner_ru/dp_lpg.log
