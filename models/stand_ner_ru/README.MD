@@ -1,4 +1,4 @@
-# Demo stand. Model: Ranking (English)
+# Demo stand. Model: NER (Russian)
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/models/stand_ner_ru` directory
