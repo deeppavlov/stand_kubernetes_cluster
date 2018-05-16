@@ -53,7 +53,7 @@
 
    https://github.com/deepmipt/stand_docker_base
   
-2. Go to the `stand_kubernetes_cluster/models/stand_ranking_en` directory
+2. Go to the `stand_kubernetes_cluster/models/stand_ner_ru` directory
 
 3. Build Docker image:
    ```
