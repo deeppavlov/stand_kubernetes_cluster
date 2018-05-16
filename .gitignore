@@ -1,1 +1,9 @@
 .idea/
+
+
+models/dp_lpg.log
+
+models/stand_ranking_en/DeepPavlov/
+models/stand_ranking_en/dp_lpg.log
+models/stand_ranking_en/stand_ranking_en.log
+
