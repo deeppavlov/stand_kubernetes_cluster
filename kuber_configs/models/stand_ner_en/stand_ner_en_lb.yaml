@@ -12,5 +12,5 @@ spec:
   ports:
   - name: stand-ner-en
     protocol: TCP
-    port: 7011
-    targetPort: cp6011
+    port: 7010
+    targetPort: cp6010

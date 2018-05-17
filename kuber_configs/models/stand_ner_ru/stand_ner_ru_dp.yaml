@@ -4,7 +4,7 @@ metadata:
   name: stand-ner-ru-dp
   namespace: stand-demo
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:

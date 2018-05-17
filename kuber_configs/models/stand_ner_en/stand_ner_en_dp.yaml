@@ -4,7 +4,7 @@ metadata:
   name: stand-ner-en-dp
   namespace: stand-demo
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -14,9 +14,9 @@ spec:
       - name: stand-ner-en
         image: kubeadm.ipavlov.mipt.ru:5000/stand/ner_en
         ports:
-          - name: cp6011
+          - name: cp6010
             protocol: TCP
-            containerPort: 6011
+            containerPort: 6010
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
