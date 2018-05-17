@@ -3,7 +3,7 @@
     "host": "0.0.0.0",
     "port": 6010,
     "model_endpoint": "/answer",
-    "model_args_names": ["context"]
+    "model_args_names": ["text1"]
   },
   "model_defaults": {}
 }
