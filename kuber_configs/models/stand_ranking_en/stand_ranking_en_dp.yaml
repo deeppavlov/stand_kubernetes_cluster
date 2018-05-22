@@ -14,9 +14,9 @@ spec:
       - name: stand-ranking-en
         image: kubeadm.ipavlov.mipt.ru:5000/stand/ranking_en
         ports:
-          - name: cp6009
-            protocol: TCP
-            containerPort: 6009
+        - name: cp6009
+          protocol: TCP
+          containerPort: 6009
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
@@ -32,6 +32,25 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+      - name: stand-ssl-proxy
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/ssl_proxy
+        ports:
+        - name: cp7009
+          protocol: TCP
+          containerPort: 7009
+        volumeMounts:
+        - name: volume-secret
+          mountPath: /etc/secret
+          readOnly: true
+        env:
+        - name: USE_SECRET
+          value: "true"
+        - name: LISTENED_PORT
+          value: "7009"
+        - name: PROXYED_HOST
+          value: "127.0.0.1"
+        - name: PROXYED_PORT
+          value: "6009"
       volumes:
       - name: volume-logs
         persistentVolumeClaim:
@@ -39,9 +58,12 @@ spec:
       - name: volume-podinfo
         downwardAPI:
           items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
-            - path: "annotations"
-              fieldRef:
-                fieldPath: metadata.annotations
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      - name: volume-secret
+        secret:
+          secretName: stand-ssl-proxy-st
