@@ -1,6 +1,7 @@
 .idea/
 
 models/dp_lpg.log
+kuber_configs/common/secrets/ssl_proxy/secret/*
 
 models/stand_ner_en/env/
 models/stand_ner_en/DeepPavlov/
