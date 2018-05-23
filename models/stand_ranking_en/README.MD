@@ -25,21 +25,24 @@
         pip install http://lnsigo.mipt.ru/export/en_core_web_sm-2.0.0.tar.gz
         python3.6 -m spacy link en_core_web_sm en --force
         ```
-    4. Download model components:
+    4. Download NLTK data:
+        ```
+        $ python3
+        >>> import nltk
+        >>> nltk.download('punkt')
+        >>> exit()
+        ```
+    5. Download model components:
         ```
         python3.6 -m deeppavlov.deep download deeppavlov/configs/ranking/insurance_config.json
         ```
-    5. Download NLTK data:
-    ```
-    $ python3
-    >>> import nltk
-    >>> nltk.download('punkt')
-    >>> exit()
-    ```
+    6. Return to the `stand_ranking_en` dir:
+        ```
+        cd ..
+        ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `utils/server_utils/server_config.json`
-6. Return to the `stand_ranking_en` dir
-7. Specify virtual environment path (if necessary) in `run_en_ranking.sh`
-8. Run model:
+6. Specify virtual environment path (if necessary) in `run_en_ranking.sh`
+7. Run model:
     ```
     ./run_ranking_en.sh
     ```

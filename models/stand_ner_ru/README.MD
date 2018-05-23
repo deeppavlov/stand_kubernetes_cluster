@@ -29,22 +29,22 @@
         pip install http://lnsigo.mipt.ru/export/en_core_web_sm-2.0.0.tar.gz
         python3.6 -m spacy link en_core_web_sm en --force
         ```
-    5. Return to the `stand_ner_en` dir:
-        ```
-        cd ..
-        ```
-    6. Download model components:
-        ```
-        python3.6 -m deeppavlov.deep download configs/ner_rus.json
-        ```
-    7. Download NLTK data:
+    5. Download NLTK data:
         ```
         $ python3
         >>> import nltk
         >>> nltk.download('punkt')
         >>> exit()
         ```
-5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `utils/server_utils/server_config.json`
+    6. Return to the `stand_ner_en` dir:
+        ```
+        cd ..
+        ```
+    7. Download model components:
+        ```
+        python3.6 -m deeppavlov.deep download configs/ner_rus.json
+        ```
+5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `DeepPavlov/utils/server_utils/server_config.json`
 6. Specify `CUDA_VISIBLE_DEVICES` and virtual environment path (if necessary) in `run_ner_ru.sh`
 7. Run model:
     ```
