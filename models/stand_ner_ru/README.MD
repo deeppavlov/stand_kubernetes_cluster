@@ -45,7 +45,7 @@
         >>> exit()
         ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `utils/server_utils/server_config.json`
-6. Specify virtual environment path (if necessary) in `run_ner_ru.sh`
+6. Specify `CUDA_VISIBLE_DEVICES` and virtual environment path (if necessary) in `run_ner_ru.sh`
 7. Run model:
     ```
     ./run_ner_ru.sh
