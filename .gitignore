@@ -18,4 +18,9 @@ models/stand_ranking_en/DeepPavlov/
 models/stand_ranking_en/dp_lpg.log
 models/stand_ranking_en/stand_ranking_en.log
 
+models/stand_squad_en/env/
+models/stand_squad_en/DeepPavlov/
+models/stand_squad_en/dp_lpg.log
+models/stand_squad_en/stand_squad_en.log
+
 utils/stand_ssl_proxy/certs/*
