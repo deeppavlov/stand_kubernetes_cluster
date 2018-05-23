@@ -17,9 +17,9 @@ spec:
           limits:
             nvidia.com/gpu: 1
         ports:
-          - name: cp6008
-            protocol: TCP
-            containerPort: 6008
+        - name: cp6008
+          protocol: TCP
+          containerPort: 6008
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
@@ -42,9 +42,9 @@ spec:
       - name: volume-podinfo
         downwardAPI:
           items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
-            - path: "annotations"
-              fieldRef:
-                fieldPath: metadata.annotations
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
