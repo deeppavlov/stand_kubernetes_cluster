@@ -13,4 +13,4 @@ spec:
   - name: stand-odqa-en
     protocol: TCP
     port: 7009
-    targetPort: cp7009
+    targetPort: cp6009

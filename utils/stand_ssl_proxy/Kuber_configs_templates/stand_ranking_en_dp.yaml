@@ -32,6 +32,25 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+      - name: stand-ssl-proxy
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/ssl_proxy
+        ports:
+        - name: cp7009
+          protocol: TCP
+          containerPort: 7009
+        volumeMounts:
+        - name: volume-secret
+          mountPath: /etc/secret
+          readOnly: true
+        env:
+        - name: USE_SECRET
+          value: "true"
+        - name: LISTENED_PORT
+          value: "7009"
+        - name: PROXYED_HOST
+          value: "127.0.0.1"
+        - name: PROXYED_PORT
+          value: "6009"
       volumes:
       - name: volume-logs
         persistentVolumeClaim:
@@ -45,3 +64,6 @@ spec:
           - path: "annotations"
             fieldRef:
               fieldPath: metadata.annotations
+      - name: volume-secret
+        secret:
+          secretName: stand-ssl-proxy-st
