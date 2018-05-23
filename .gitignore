@@ -23,4 +23,9 @@ models/stand_squad_en/DeepPavlov/
 models/stand_squad_en/dp_lpg.log
 models/stand_squad_en/stand_squad_en.log
 
+models/stand_squad_ru/env/
+models/stand_squad_ru/DeepPavlov/
+models/stand_squad_ru/dp_lpg.log
+models/stand_squad_ru/stand_squad_ru.log
+
 utils/stand_ssl_proxy/certs/*
