@@ -41,7 +41,7 @@
         cd ..
         ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `utils/server_utils/server_config.json`
-6. Specify virtual environment path (if necessary) in `run_en_ranking.sh`
+6. Specify virtual environment path (if necessary) in `run_ranking_en.sh`
 7. Run model:
     ```
     ./run_ranking_en.sh
