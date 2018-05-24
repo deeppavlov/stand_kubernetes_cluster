@@ -3,34 +3,8 @@
 models/dp_lpg.log
 kuber_configs/common/secrets/ssl_proxy/secret/*
 
-models/stand_ner_en/env/
-models/stand_ner_en/DeepPavlov/
-models/stand_ner_en/dp_lpg.log
-models/stand_ner_en/stand_ner_en.log
-
-models/stand_ner_ru/env/
-models/stand_ner_ru/DeepPavlov/
-models/stand_ner_ru/dp_lpg.log
-models/stand_ner_ru/stand_ner_ru.log
-
-models/stand_ranking_en/env/
-models/stand_ranking_en/DeepPavlov/
-models/stand_ranking_en/dp_lpg.log
-models/stand_ranking_en/stand_ranking_en.log
-
-models/stand_squad_en/env/
-models/stand_squad_en/DeepPavlov/
-models/stand_squad_en/dp_lpg.log
-models/stand_squad_en/stand_squad_en.log
-
-models/stand_squad_ru/env/
-models/stand_squad_ru/DeepPavlov/
-models/stand_squad_ru/dp_lpg.log
-models/stand_squad_ru/stand_squad_ru.log
-
-models/stand_intent_en/env/
-models/stand_intent_en/DeepPavlov/
-models/stand_intent_en/dp_lpg.log
-models/stand_intent_en/stand_intent_en.log
+models/*/env/
+models/*/DeepPavlov/
+models/*/*.log
 
 utils/stand_ssl_proxy/certs/*
