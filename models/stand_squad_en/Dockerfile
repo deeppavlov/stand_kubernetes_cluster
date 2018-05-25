@@ -8,6 +8,11 @@ RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/sq
     cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json && \
     pip install tensorflow-gpu==1.4.0
 
+RUN mkdir -p /base/DeepPavlov/download/embeddings && \
+    cd /base/DeepPavlov/download/embeddings && \
+    wget http://lnsigo.mipt.ru/export/embeddings/wiki-news-300d-1M.vec && \
+    wget http://lnsigo.mipt.ru/export/embeddings/wiki-news-300d-1M-char.vec
+
 EXPOSE 6008
 
 ENV MODEL_NAME="stand_squad_en"

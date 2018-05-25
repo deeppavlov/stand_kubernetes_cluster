@@ -8,6 +8,11 @@ RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/sq
     cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json && \
     pip install tensorflow-gpu==1.4.0
 
+RUN mkdir -p /base/DeepPavlov/download/embeddings && \
+    cd /base/DeepPavlov/download/embeddings && \
+    wget http://lnsigo.mipt.ru/export/embeddings/ft_native_300_ru_wiki_lenta_nltk_word_tokenize/ft_native_300_ru_wiki_lenta_nltk_word_tokenize.vec && \
+    wget http://lnsigo.mipt.ru/export/embeddings/ft_native_300_ru_wiki_lenta_nltk_word_tokenize-char.vec
+
 EXPOSE 6005
 
 ENV MODEL_NAME="stand_squad_ru"
