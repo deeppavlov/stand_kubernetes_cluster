@@ -18,7 +18,7 @@ RUN mkdir -p /base/DeepPavlov/download/odqa && \
 
 EXPOSE 6012
 
-ENV MODEL_NAME="stand_odqa_en"
+ENV MODEL_NAME="stand_odqa_ru"
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
