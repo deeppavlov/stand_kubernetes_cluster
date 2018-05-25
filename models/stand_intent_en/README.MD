@@ -34,7 +34,7 @@
         ```
     5. Download model components:
         ```
-        python3.6 -m deeppavlov.deep download deeppavlov/configs/intents/intents_dstc2.json
+        python3.6 -m deeppavlov.deep download deeppavlov/configs/intents/intents_snips.json
         ```
     6. Return to the `stand_intent_en` dir:
         ```
