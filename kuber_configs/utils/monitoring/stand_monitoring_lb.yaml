@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-monitoring-lb
+spec:
+  selector:
+    app: stand-monitoring-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: stand-monitoring
+    protocol: TCP
+    port: 9090
+    targetPort: cp9090

@@ -1,0 +1,12 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: logs-monitoring-hostpath-pv
+spec:
+  storageClassName: logs-monitoring-hostpath-sc
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/stand_demo/logs/"
