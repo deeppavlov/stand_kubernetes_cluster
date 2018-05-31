@@ -4,7 +4,7 @@ VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/ranking/insurance_config.json && \
+RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance.json && \
     cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
 
 EXPOSE 6009
@@ -20,4 +20,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/ranking/insurance_config.json > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance.json > $LOG_PATH 2>&1
