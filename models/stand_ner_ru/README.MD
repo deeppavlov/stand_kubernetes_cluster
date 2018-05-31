@@ -36,7 +36,7 @@
         >>> nltk.download('punkt')
         >>> exit()
         ```
-    6. Return to the `stand_ner_en` dir:
+    6. Return to the `stand_ner_ru` dir:
         ```
         cd ..
         ```
