@@ -20,27 +20,23 @@
         ```
         python setup.py develop
         ```
-    3. Install tensorflow-gpu:
-        ```
-        pip install tensorflow-gpu=={{TF_VERSION}}
-        ```
-    4. Install `spacy` dependencies:
+    3. Install `spacy` dependencies:
         ```
         pip install http://lnsigo.mipt.ru/export/en_core_web_sm-2.0.0.tar.gz
         python3.6 -m spacy link en_core_web_sm en --force
         ```
-    5. Download NLTK data:
+    4. Download NLTK data:
         ```
         $ python3
         >>> import nltk
         >>> nltk.download('punkt')
         >>> exit()
         ```
-    6. Download model components:
+    5. Download model components:
         ```
         python3.6 -m deeppavlov.deep download deeppavlov/configs/{{CONFIG_FILE}}
         ```
-    7. Return to the `{{FULL_MODEL_NAME}}` dir:
+    6. Return to the `{{FULL_MODEL_NAME}}` dir:
         ```
         cd ..
         ```
