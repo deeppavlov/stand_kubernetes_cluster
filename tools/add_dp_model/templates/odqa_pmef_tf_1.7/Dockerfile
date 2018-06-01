@@ -19,7 +19,7 @@ RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/{{
     cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
 
 RUN cd /base/DeepPavlov && \
-    python3.6 setup.py develop
+    pip install tensorflow-gpu=={{TF_VERSION}}
 
 EXPOSE {{PORT}}
 
