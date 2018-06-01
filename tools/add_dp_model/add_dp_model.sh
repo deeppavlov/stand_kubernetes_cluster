@@ -2,7 +2,7 @@
 
 # USER INPUT
 # =============================================================================
-TEMPLATE='custom'
+TEMPLATE='odqa_pmef_tf_1.7'
 BRANCH='odqa_pmef_tf_1.7'
 
 MODEL_NAME='ranker_drones_en'
