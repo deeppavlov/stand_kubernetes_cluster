@@ -9,7 +9,8 @@ RUN cd /base/DeepPavlov && \
     git fetch && \
     git pull origin {{BRANCH}} && \
     python3.6 setup.py develop && \
-    pip uninstall tensorflow-gpu
+    pip uninstall tensorflow-gpu && \
+    pip install tensorflow=={{TF_VERSION}}
 
 RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
     cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
