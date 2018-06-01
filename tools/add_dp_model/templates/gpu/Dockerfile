@@ -1,15 +1,16 @@
-FROM stand/docker_deeppavlov:cuda-8.0
+FROM stand/docker_deeppavlov:cuda-{{CUDA_VERSION}}
 
 VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance.json && \
-    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
+RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
+    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json && \
+    pip install tensorflow-gpu=={{TF_VERSION}}
 
-EXPOSE 6009
+EXPOSE {{PORT}}
 
-ENV MODEL_NAME="stand_ranking_en"
+ENV MODEL_NAME={{FULL_MODEL_NAME}}
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
@@ -20,4 +21,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance.json > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} > $LOG_PATH 2>&1

@@ -34,7 +34,7 @@
         ```
     5. Download model components:
         ```
-        python3.6 -m deeppavlov.deep download deeppavlov/configs/ranking/insurance_config.json
+        python3.6 -m deeppavlov.deep download deeppavlov/configs/ranking/ranking_insurance.json
         ```
     6. Return to the `stand_ranking_en` dir:
         ```

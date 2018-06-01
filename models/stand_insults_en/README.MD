@@ -1,7 +1,7 @@
-# Demo stand. Model: NER (Russian)
+# Demo stand. Model: Штыгдеы Вуеусешщт (English)
 
 ## Installation and start
-1. Go to the `stand_kubernetes_cluster/models/stand_ner_ru` directory
+1. Go to the `stand_kubernetes_cluster/models/stand_insults_en` directory
 2. Create a virtual environment with `Python 3.6`:
     ```
     virtualenv env -p python3.6
@@ -20,35 +20,31 @@
         ```
         python setup.py develop
         ```
-    3. Install tensorflow-gpu:
-        ```
-        pip install tensorflow-gpu==1.4.0
-        ```
-    4. Install `spacy` dependencies:
+    3. Install `spacy` dependencies:
         ```
         pip install http://lnsigo.mipt.ru/export/en_core_web_sm-2.0.0.tar.gz
         python3.6 -m spacy link en_core_web_sm en --force
         ```
-    5. Download NLTK data:
+    4. Download NLTK data:
         ```
         $ python3
         >>> import nltk
         >>> nltk.download('punkt')
         >>> exit()
         ```
-    6. Return to the `stand_ner_ru` dir:
+    5. Download model components:
+        ```
+        python3.6 -m deeppavlov.deep download deeppavlov/configs/sentiment/insults_kaggle.json
+        ```
+    6. Return to the `stand_insults_en` dir:
         ```
         cd ..
         ```
-    7. Download model components:
-        ```
-        python3.6 -m deeppavlov.deep download configs/ner_rus.json
-        ```
-5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `DeepPavlov/utils/server_utils/server_config.json`
-6. Specify `CUDA_VISIBLE_DEVICES` and virtual environment path (if necessary) in `run_ner_ru.sh`
+5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `utils/server_utils/server_config.json`
+6. Specify virtual environment path (if necessary) in `run_insults_en.sh`
 7. Run model:
     ```
-    ./run_ner_ru.sh
+    ./run_insults_en.sh
     ```
 
 ## Building and running with Docker:
@@ -56,13 +52,13 @@
 
    https://github.com/deepmipt/stand_docker_base
   
-2. Go to the `stand_kubernetes_cluster/models/stand_ner_ru` directory
+2. Go to the `stand_kubernetes_cluster/models/stand_insults_en` directory
 
 3. Build Docker image:
    ```
-   sudo docker build -t stand/ner_ru .
+   sudo docker build -t stand/insults_en .
    ```
 4. Run Docker image:
    ```
-   sudo docker run -p <host_port>:6004 --runtime=nvidia --device=/dev/nvidia<gpu_unit_int_id> -v /path/to/host/vol/map/dir:/logs stand/ner_ru
+   sudo docker run -p <host_port>:6006 -v /path/to/host/vol/map/dir:/logs stand/insults_en
    ```
