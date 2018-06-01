@@ -12,7 +12,7 @@ TF_VERSION='1.4.0'
 
 PORT='6001'
 CLUSTER_PORT='7001'
-MODEL_ARGS="['text1']"
+MODEL_ARGS='["text1"]'
 
 PREFIX='stand'
 DOCKER_REGISTRY='kubeadm.ipavlov.mipt.ru:5000'
@@ -55,6 +55,7 @@ for file in $(find "$TEMP_FOLDER" -type f -print0 | xargs -0 -I{} printf "%s\n" 
     done;
 done
 
+rm -rf "$MODELS_FOLDER"'/'"$FULL_MODEL_NAME"
 mkdir -p "$MODELS_FOLDER"'/'"$FULL_MODEL_NAME"
 
 cp -r "$TEMP_FOLDER"'/configs' "$MODELS_FOLDER"'/'"$FULL_MODEL_NAME"'/configs'
@@ -63,6 +64,7 @@ cp "$TEMP_FOLDER"'/dockerignore' "$MODELS_FOLDER"'/'"$FULL_MODEL_NAME"'/.dockeri
 cp "$TEMP_FOLDER"'/README.MD' "$MODELS_FOLDER"'/'"$FULL_MODEL_NAME"'/README.MD'
 cp "$TEMP_FOLDER"'/run_model.sh' "$MODELS_FOLDER"'/'"$FULL_MODEL_NAME"'/'"$RUN_FILE"
 
+rm -rf "$KUBER_CONFIGS_FOLDER"'/'"$FULL_MODEL_NAME"
 mkdir -p "$KUBER_CONFIGS_FOLDER"'/'"$FULL_MODEL_NAME"
 
 cp "$TEMP_FOLDER"'/kuber_dp.yaml' "$KUBER_CONFIGS_FOLDER"'/'"$FULL_MODEL_NAME"'/'"$KUBER_DP_FILE"
