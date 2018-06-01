@@ -1,0 +1,9 @@
+{
+  "common_defaults": {
+    "host": "0.0.0.0",
+    "port": 6019,
+    "model_endpoint": "/answer",
+    "model_args_names": ["text1", "text2"]
+  },
+  "model_defaults": {}
+}
