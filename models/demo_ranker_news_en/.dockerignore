@@ -1,0 +1,4 @@
+env/
+DeepPavlov/
+dp_lpg.log
+demo_ranker_news_en.log
