@@ -12,7 +12,7 @@ TF_VERSION='1.7.0'
 
 PORT='6020'
 CLUSTER_PORT='7020'
-MODEL_ARGS="['text1']"
+MODEL_ARGS='["text1"]'
 
 PREFIX='demo'
 DOCKER_REGISTRY='kubeadm.ipavlov.mipt.ru:5000'
