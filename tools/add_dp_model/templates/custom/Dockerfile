@@ -5,9 +5,9 @@ WORKDIR /app
 ADD . /app
 
 RUN cd /base/DeepPavlov && \
+    git checkout {{BRANCH}} && \
     git fetch && \
     git pull origin {{BRANCH}} && \
-    git checkout {{BRANCH}} && \
     python3.6 setup.py develop && \
     pip uninstall tensorflow-gpu
 
