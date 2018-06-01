@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-ranker-drones-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: demo-ranker-drones-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: demo-ranker-drones-en
+    protocol: TCP
+    port: 7020
+    targetPort: cp6020
