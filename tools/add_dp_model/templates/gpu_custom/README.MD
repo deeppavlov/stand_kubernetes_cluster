@@ -22,8 +22,7 @@
         ```
     3. Install `spacy` dependencies:
         ```
-        pip install http://lnsigo.mipt.ru/export/en_core_web_sm-2.0.0.tar.gz
-        python3.6 -m spacy link en_core_web_sm en --force
+        python -m spacy download en
         ```
     4. Download NLTK data:
         ```
