@@ -35,12 +35,12 @@
         ```
         python3.6 -m deeppavlov.deep download deeppavlov/configs/{{CONFIG_FILE}}
         ```
-    6. Return to the `{{FULL_MODEL_NAME}}` dir:
+    7. Return to the `{{FULL_MODEL_NAME}}` dir:
         ```
         cd ..
         ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `DeepPavlov/utils/server_utils/server_config.json`
-6. Specify `CUDA_VISIBLE_DEVICES` and virtual environment path (if necessary) in `{{RUN_FILE}}`
+6. Specify virtual environment path (if necessary) in `{{RUN_FILE}}`
 7. Run model:
     ```
     ./{{RUN_FILE}}
@@ -59,5 +59,5 @@
    ```
 4. Run Docker image:
    ```
-   sudo docker run -p <host_port>:{{PORT}} --runtime=nvidia --device=/dev/nvidia<gpu_unit_int_id> -v /path/to/host/vol/map/dir:/logs {{PREFIX}}/{{MODEL_NAME}}
+   sudo docker run -p <host_port>:{{PORT}} -v /path/to/host/vol/map/dir:/logs {{PREFIX}}/{{MODEL_NAME}}
    ```
