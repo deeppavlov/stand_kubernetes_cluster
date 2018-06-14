@@ -2,13 +2,13 @@
 
 # USER INPUT
 # =============================================================================
-TEMPLATE='odqa_pmef_tf_1.7'
-BRANCH='odqa_pmef_tf_1.7'
+TEMPLATE='no_gpu_custom'
+BRANCH='odqa_tfidf'
 
-MODEL_NAME='ranker_drones_en'
-CONFIG_FILE='odqa/en_ranker_drones.json'
+MODEL_NAME='ranker_tfidf_drones_en'
+CONFIG_FILE='odqa/en_ranker_tfidf_drones.json'
 CUDA_VERSION='9.0'
-TF_VERSION='1.7.0'
+TF_VERSION='1.8.0'
 
 PORT='6020'
 CLUSTER_PORT='7020'
