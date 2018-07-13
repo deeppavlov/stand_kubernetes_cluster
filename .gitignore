@@ -1,1 +1,12 @@
 .idea/
+
+models/dp_lpg.log
+kuber_configs/common/secrets/ssl_proxy/secret/*
+
+models/*/env/
+models/*/DeepPavlov/
+models/*/*.log
+models/*/kpi2017/
+models/*/deepreply/
+
+utils/stand_ssl_proxy/certs/*
