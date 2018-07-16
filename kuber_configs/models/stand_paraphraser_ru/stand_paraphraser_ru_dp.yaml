@@ -1,0 +1,47 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: stand-paraphraser-ru-dp
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stand-paraphraser-ru-dp
+    spec:
+      containers:
+      - name: stand-paraphraser-ru
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/paraphraser_ru
+        ports:
+        - name: cp6003
+          protocol: TCP
+          containerPort: 6003
+        volumeMounts:
+        - name: volume-logs
+          mountPath: /logs
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      volumes:
+      - name: volume-logs
+        persistentVolumeClaim:
+          claimName: logs-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations

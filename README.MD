@@ -1,3 +1,5 @@
+# This is obsolete README, will be refreshed soon
+
 # Demo stand. Kubernetes cluster
 
 ## Components deployment
