@@ -1,6 +1,6 @@
 {
   "general": {
-    "polling_interval": 3,
+    "polling_interval": 120,
     "notification": "slack"
   },
   "notification": {
