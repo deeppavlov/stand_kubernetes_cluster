@@ -35,7 +35,8 @@ def notify(bad_urls: list):
 
     if channel == 'slack':
         webhook = channel_config['webhook']
-        payload = {'text': notification}
+        channel_notification = f'@channel {notification}'
+        payload = {'text': channel_notification}
         _ = requests.post(webhook, json=payload)
 
 
