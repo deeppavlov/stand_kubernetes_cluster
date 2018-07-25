@@ -17,6 +17,9 @@ spec:
         - name: cp9090
           protocol: TCP
           containerPort: 9090
+        - name: cp3000
+          protocol: TCP
+          containerPort: 3000
         volumeMounts:
         - name: volume-logs
           mountPath: /logs

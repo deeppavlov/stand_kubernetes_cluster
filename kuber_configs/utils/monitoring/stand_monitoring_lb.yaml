@@ -9,7 +9,11 @@ spec:
   externalIPs:
   - 10.11.1.251
   ports:
-  - name: stand-monitoring
+  - name: stand-monitoring-prometheus
     protocol: TCP
     port: 9090
     targetPort: cp9090
+  - name: stand-monitoring-grafana
+    protocol: TCP
+    port: 9091
+    targetPort: cp3000
