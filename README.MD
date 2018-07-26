@@ -249,48 +249,51 @@ For **Deployments** and **Services** definition you can reference:
 We run demo stand payload in `stand-demo` **Namespace**. So we should use `-n stand-demo` flag in all `kubectl` operations with demo stand objects.
 
 Demo stand objects listing:
+1. List **Services**:
+    ```
+    kubectl -n stand-demo get services
+    ```
+2. List **Deployments**:
+    ```
+    kubectl -n stand-demo get deployments
+    ```
+3. List **Pods**:
+    ```
+    kubectl -n stand-demo get pods
+    ```
 
-
-
-
-Also our 
-
-run with `--ignore-preflight-errors=all` option
-
-
-We deploy 
-
-Create deployment or service:
-```
-kubectl create -f <deployment-or-service.yaml>
-```
-
-List all deployments:
-```
-kubectl get deployment
-```
-
-List all services:
-```
-kubectl get service
-```
-
-Get deployment info:
-```
-kubectl describe deployment <deployment name>
-```
-
-Get service info:
-```
-kubectl describe service <service name>
-```
-
-Stop service:
-```
-kubectl delete service <service name>
-```
-
-Remove deployment:
-```
-kubectl delete service <service name>
-```
+Get detailed information about object:
+1. **Service**:
+    ```
+    kubectl -n stand-demo describe service <service_name>
+    ```
+2. **Deployment**:
+    ```
+    kubectl -n stand-demo describe deployment <deployment_name>
+    ```
+3. **Pod**:
+    ```
+    kubectl -n stand-demo describe pod <pod_name>
+    ```
+    
+Delete object:
+1. **Service**:
+    ```
+    kubectl -n stand-demo delete service <service_name>
+    ```
+    Or:
+    ```
+    kubectl delete -f <service_config.yaml>
+    ```
+2. **Deployment**:
+    ```
+    kubectl -n stand-demo delete deployment <deployment_name>
+    ```
+    Or:
+    ```
+    kubectl delete -f <deployment_config.yaml>
+    ```
+3. **Pod** (new pod will be instantly created instead of deleted):
+    ```
+    kubectl -n stand-demo delete pod <pod_name>
+    ```
