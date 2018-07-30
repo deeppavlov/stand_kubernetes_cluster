@@ -103,7 +103,7 @@ All commands are assumed to be executed on the master node. We use **Flannel** a
 
 1. Clone the repo and `cd` to the `kube_scripts` dir:
     ```
-    https://github.com/deepmipt/stand_kubernetes_cluster.git
+    git clone https://github.com/deepmipt/stand_kubernetes_cluster.git
     cd stand_kubernetes_cluster/tools/kube_scripts
     ``` 
 2. Initiate cluster master node:
