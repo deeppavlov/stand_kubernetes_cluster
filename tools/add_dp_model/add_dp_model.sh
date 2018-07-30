@@ -2,19 +2,19 @@
 
 # USER INPUT
 # =============================================================================
-TEMPLATE='no_gpu_custom'
-BRANCH='odqa_tfidf'
+TEMPLATE='gpu'
+BRANCH='dev'
 
-MODEL_NAME='ranker_tfidf_drones_en'
-CONFIG_FILE='odqa/en_ranker_tfidf_drones.json'
-CUDA_VERSION='9.0'
-TF_VERSION='1.8.0'
+MODEL_NAME='model_ru'
+CONFIG_FILE='model/model.json'
+CUDA_VERSION='8.0'
+TF_VERSION='1.4.0'
 
-PORT='6020'
-CLUSTER_PORT='7020'
+PORT='6001'
+CLUSTER_PORT='7001'
 MODEL_ARGS='["text1"]'
 
-PREFIX='demo'
+PREFIX='stand'
 DOCKER_REGISTRY='kubeadm.ipavlov.mipt.ru:5000'
 # =============================================================================
 
