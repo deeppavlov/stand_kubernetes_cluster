@@ -33,7 +33,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
       - name: stand-ssl-proxy
-        image: kubeadm.ipavlov.mipt.ru:5000/stand/ssl_proxy
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/ssl_pod_proxy
         ports:
         - name: cp7009
           protocol: TCP

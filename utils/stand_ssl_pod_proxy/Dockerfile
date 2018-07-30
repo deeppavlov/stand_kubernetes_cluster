@@ -7,7 +7,7 @@ WORKDIR /usr/src
 RUN mkdir -p /etc/certs
 ADD certs/* /etc/certs/
 ADD start.sh /usr/src/
-ADD ssl_proxy.conf /etc/nginx/conf.d/
+ADD ssl_pod_proxy.conf /etc/nginx/conf.d/
 
 RUN chmod +x start.sh
 
