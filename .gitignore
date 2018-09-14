@@ -1,10 +1,9 @@
 .idea/
 *env/
+*.log
 
 kuber_configs/common/secrets/ssl_proxy/secret/*
 utils/stand_ssl_proxy/certs/*
-
-models/dp_lpg.log
 
 models/*/DeepPavlov/
 models/*/*.log

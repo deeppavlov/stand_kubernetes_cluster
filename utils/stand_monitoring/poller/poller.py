@@ -1,7 +1,8 @@
 import json
 
-import requests
 import polling
+import requests
+from requests import Response
 
 
 config_path = './config.json'
@@ -9,15 +10,37 @@ with open(config_path, 'r') as f_config:
     config = json.load(f_config)
 
 
-def probe(urls: dict, payload: dict):
+def probe(urls: dict, payload: dict, response_patterns: dict):
     probe_result = {}
+    urls_post = urls['post']
+    urls_get = urls['get']
 
-    for payload_type, urls_list in urls.items():
+    for payload_type, urls_list in urls_post.items():
         for url in urls_list:
-            r = requests.post(url, json=payload[payload_type])
-            probe_result[url] = True if r.status_code == 200 else False
+            pattern = response_patterns[url] if url in response_patterns.keys() else response_patterns['default']
+            try:
+                response = requests.post(url, json=payload[payload_type])
+                probe_result[url] = assert_response(response, pattern)
+            except Exception:
+                probe_result[url] = False
+
+    for url in urls_get:
+        pattern = response_patterns[url] if url in response_patterns.keys() else response_patterns['default']
+        try:
+            response = requests.get(url)
+            probe_result[url] = assert_response(response, pattern)
+        except Exception:
+            probe_result[url] = False
 
     return probe_result
+
+
+def assert_response(response: Response, pattern: dict):
+    if 'code' in pattern.keys():
+        if pattern['code'] != response.status_code:
+            return False
+
+    return True
 
 
 def act(urls_status: dict, probe_result: dict):
@@ -44,15 +67,16 @@ def start_pooling():
     polling_interval = config['general']['polling_interval']
     urls = config['urls']
     payload = config['payload']
+    response_patterns = config['response_patterns']
 
-    urls_status = probe(urls, payload)
+    urls_status = probe(urls, payload, response_patterns)
 
     def estimate(prob: dict):
         return urls_status != prob
 
     while True:
         probe_result = polling.poll(
-            lambda: probe(urls, payload),
+            lambda: probe(urls, payload, response_patterns),
             check_success=estimate,
             step=polling_interval,
             poll_forever=True)

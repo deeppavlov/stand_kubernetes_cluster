@@ -14,8 +14,6 @@
     },
     "1arg_batch": {
       "text1": [
-        "Where can I buy some drones?",
-        "What is the maximum speed of drones?",
         "Who am I?"
       ]
     },
@@ -25,23 +23,37 @@
     }
   },
   "urls": {
-    "1arg_standard": [
-      "https://7004.lnsigo.mipt.ru/answer",
-      "https://7010.lnsigo.mipt.ru/answer",
-      "https://7007.lnsigo.mipt.ru/answer",
-      "https://7009.lnsigo.mipt.ru/answer",
-      "https://7006.lnsigo.mipt.ru/answer",
-      "https://7011.lnsigo.mipt.ru/answer",
-      "https://7012.lnsigo.mipt.ru/answer"
-    ],
-    "1arg_batch": [
-      "https://7020.lnsigo.mipt.ru/answer"
-    ],
-    "2arg_standard": [
-      "https://7003.lnsigo.mipt.ru/answer",
-      "https://7005.lnsigo.mipt.ru/answer",
-      "https://7008.lnsigo.mipt.ru/answer",
-      "https://7019.lnsigo.mipt.ru/answer"
+    "post": {
+      "1arg_standard": [
+        "https://7004.lnsigo.mipt.ru/answer",
+        "https://7010.lnsigo.mipt.ru/answer",
+        "https://7007.lnsigo.mipt.ru/answer",
+        "https://7009.lnsigo.mipt.ru/answer",
+        "https://7006.lnsigo.mipt.ru/answer",
+        "https://7011.lnsigo.mipt.ru/answer",
+        "https://7012.lnsigo.mipt.ru/answer"
+      ],
+      "1arg_batch": [
+        "https://7020.lnsigo.mipt.ru/answer",
+        "https://7013.lnsigo.mipt.ru/answer"
+      ],
+      "2arg_standard": [
+        "https://7003.lnsigo.mipt.ru/answer",
+        "https://7005.lnsigo.mipt.ru/answer",
+        "https://7008.lnsigo.mipt.ru/answer",
+        "https://7019.lnsigo.mipt.ru/answer"
+      ]
+    },
+    "get": [
+      "https://2242.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates"
     ]
+  },
+  "response_patterns": {
+    "default": {
+      "code": 200
+    },
+    "https://2242.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates": {
+      "code": 401
+    }
   }
 }
