@@ -45,7 +45,8 @@
       ]
     },
     "get": [
-      "https://2242.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates"
+      "https://2242.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates",
+      "https://2258.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates"
     ]
   },
   "response_patterns": {
