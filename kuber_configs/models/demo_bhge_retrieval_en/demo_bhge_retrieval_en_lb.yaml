@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-bhge-retrieval-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: demo-bhge-retrieval-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: demo-bhge-retrieval-en
+    protocol: TCP
+    port: 7021
+    targetPort: cp6021
