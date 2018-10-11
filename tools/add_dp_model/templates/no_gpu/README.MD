@@ -20,13 +20,13 @@
         ```
         python setup.py develop
         ```
-    3. Install model dependencies:
-        ```
-        python3.6 -m deeppavlov install deeppavlov/configs/{{CONFIG_FILE}}
-        ```
-    4. Download model components:
+    3. Download model components:
         ```
         python3.6 -m deeppavlov download deeppavlov/configs/{{CONFIG_FILE}}
+        ```
+    4. Install model dependencies:
+        ```
+        python3.6 -m deeppavlov install deeppavlov/configs/{{CONFIG_FILE}}
         ```
     5. Return to the `{{FULL_MODEL_NAME}}` dir:
         ```
