@@ -1,7 +1,7 @@
 # Demo stand. Model: 
 
 ## Installation and start
-1. Go to the `stand_kubernetes_cluster/models/demo_ranker_tfidf_drones_en` directory
+1. Go to the `stand_kubernetes_cluster/models/stand_intents_en` directory
 2. Create a virtual environment with `Python 3.6`:
     ```
     virtualenv env -p python3.6
@@ -16,34 +16,27 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Install the requirements:
+    2. Install DeepPavlov:
         ```
         python setup.py develop
         ```
-    3. Install `spacy` dependencies:
+    3. Download model components:
         ```
-        python -m spacy download en
+        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/intents_snips.json
         ```
-    4. Download NLTK data:
+    4. Install model dependencies:
         ```
-        $ python3
-        >>> import nltk
-        >>> nltk.download('punkt')
-        >>> exit()
+        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/intents_snips.json
         ```
-    5. Download model components:
-        ```
-        python3.6 -m deeppavlov.deep download deeppavlov/configs/odqa/en_ranker_tfidf_drones.json
-        ```
-    7. Return to the `demo_ranker_tfidf_drones_en` dir:
+    5. Return to the `stand_intents_en` dir:
         ```
         cd ..
         ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `DeepPavlov/utils/server_utils/server_config.json`
-6. Specify virtual environment path (if necessary) in `run_ranker_tfidf_drones_en.sh`
+6. Specify virtual environment path (if necessary) in `run_intents_en.sh`
 7. Run model:
     ```
-    ./run_ranker_tfidf_drones_en.sh
+    ./run_intents_en.sh
     ```
 
 ## Building and running with Docker:
@@ -51,13 +44,13 @@
 
    https://github.com/deepmipt/stand_docker_base
   
-2. Go to the `stand_kubernetes_cluster/models/demo_ranker_tfidf_drones_en` directory
+2. Go to the `stand_kubernetes_cluster/models/stand_intents_en` directory
 
 3. Build Docker image:
    ```
-   sudo docker build -t demo/ranker_tfidf_drones_en .
+   sudo docker build -t stand/intents_en .
    ```
 4. Run Docker image:
    ```
-   sudo docker run -p <host_port>:6020 -v /path/to/host/vol/map/dir:/logs demo/ranker_tfidf_drones_en
+   sudo docker run -p <host_port>:6007 -v /path/to/host/vol/map/dir:/logs stand/intents_en
    ```

@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-ranker-tfidf-drones-en-lb
+  name: stand-intents-en-lb
   namespace: stand-demo
 spec:
   selector:
-    app: demo-ranker-tfidf-drones-en-dp
+    app: stand-intents-en-dp
   type: LoadBalancer
   externalIPs:
   - 10.11.1.251
   ports:
-  - name: demo-ranker-tfidf-drones-en
+  - name: stand-intents-en
     protocol: TCP
-    port: 7020
-    targetPort: cp6020
+    port: 7007
+    targetPort: cp6007

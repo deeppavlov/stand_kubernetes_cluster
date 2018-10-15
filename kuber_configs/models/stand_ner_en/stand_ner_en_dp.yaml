@@ -13,9 +13,6 @@ spec:
       containers:
       - name: stand-ner-en
         image: kubeadm.ipavlov.mipt.ru:5000/stand/ner_en
-        resources:
-          limits:
-            nvidia.com/gpu: 1
         ports:
         - name: cp6010
           protocol: TCP
