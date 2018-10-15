@@ -11,7 +11,8 @@ RUN cd /base/DeepPavlov && \
     python3.6 setup.py develop
 
 RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
-    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
+    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
+    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_config.json
 
 EXPOSE {{PORT}}
 
