@@ -1,4 +1,4 @@
 #!/bin/bash
 source ./env/bin/activate &&
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64/ &&
-nohup python3.6 -m deeppavlov.deep riseapi DeepPavlov/deeppavlov/configs/ranking/ranking_insurance.json > ./stand_ranking_en.log 2>&1 &
+nohup python3.6 -m deeppavlov.deep riseapi DeepPavlov/deeppavlov/configs/ranking/ranking_insurance_interact.json > ./stand_ranking_en.log 2>&1 &

@@ -16,26 +16,19 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Install the requirements:
+    2. Install DeepPavlov:
         ```
         python setup.py develop
         ```
-    3. Install `spacy` dependencies:
+    3. Download model components:
         ```
-        python -m spacy download en
+        python3.6 -m deeppavlov download deeppavlov/configs/{{CONFIG_FILE}}
         ```
-    4. Download NLTK data:
+    4. Install model dependencies:
         ```
-        $ python3
-        >>> import nltk
-        >>> nltk.download('punkt')
-        >>> exit()
+        python3.6 -m deeppavlov install deeppavlov/configs/{{CONFIG_FILE}}
         ```
-    5. Download model components:
-        ```
-        python3.6 -m deeppavlov.deep download deeppavlov/configs/{{CONFIG_FILE}}
-        ```
-    7. Return to the `{{FULL_MODEL_NAME}}` dir:
+    5. Return to the `{{FULL_MODEL_NAME}}` dir:
         ```
         cd ..
         ```

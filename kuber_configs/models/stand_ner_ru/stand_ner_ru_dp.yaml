@@ -13,9 +13,6 @@ spec:
       containers:
       - name: stand-ner-ru
         image: kubeadm.ipavlov.mipt.ru:5000/stand/ner_ru
-        resources:
-          limits:
-            nvidia.com/gpu: 1
         ports:
         - name: cp6004
           protocol: TCP

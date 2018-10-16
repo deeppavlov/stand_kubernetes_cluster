@@ -2,12 +2,12 @@
 
 # USER INPUT
 # =============================================================================
-TEMPLATE='gpu'
-BRANCH='dev'
+TEMPLATE='no_gpu'
+BRANCH='master'
 
 MODEL_NAME='model_ru'
 CONFIG_FILE='model/model.json'
-CUDA_VERSION='8.0'
+CUDA_VERSION='9.0'
 TF_VERSION='1.4.0'
 
 PORT='6001'

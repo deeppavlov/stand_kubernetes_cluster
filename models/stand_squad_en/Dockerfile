@@ -1,21 +1,16 @@
-FROM stand/docker_deeppavlov:cuda-8.0
+FROM stand/docker_deeppavlov:cuda-9.0
 
 VOLUME /logs
 WORKDIR /app
 ADD . /app
 
 RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/squad/squad.json && \
-    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json && \
-    pip install tensorflow-gpu==1.4.0
-
-RUN mkdir -p /base/DeepPavlov/download/embeddings && \
-    cd /base/DeepPavlov/download/embeddings && \
-    wget http://lnsigo.mipt.ru/export/embeddings/wiki-news-300d-1M.vec && \
-    wget http://lnsigo.mipt.ru/export/embeddings/wiki-news-300d-1M-char.vec
+    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/squad/squad.json && \
+    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_config.json
 
 EXPOSE 6008
 
-ENV MODEL_NAME="stand_squad_en"
+ENV MODEL_NAME=stand_squad_en
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 

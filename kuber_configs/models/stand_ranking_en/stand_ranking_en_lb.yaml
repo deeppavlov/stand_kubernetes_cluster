@@ -10,7 +10,7 @@ spec:
   externalIPs:
   - 10.11.1.251
   ports:
-  - name: stand-odqa-en
+  - name: stand-ranking-en
     protocol: TCP
     port: 7009
     targetPort: cp6009

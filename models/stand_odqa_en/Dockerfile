@@ -1,24 +1,22 @@
-FROM stand/docker_deeppavlov:cuda-8.0
+FROM stand/docker_deeppavlov:cuda-9.0
 
 VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_prod.json && \
-    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json && \
-    pip install tensorflow-gpu==1.4.0
+RUN cd /base/DeepPavlov && \
+    git checkout odqa_reader && \
+    git fetch && \
+    git pull origin odqa_reader && \
+    python3.6 setup.py develop
 
-RUN mkdir -p /base/DeepPavlov/download/odqa && \
-    mkdir -p /base/DeepPavlov/download/embeddings && \
-    cd /base/DeepPavlov/download/odqa && \
-    wget http://lnsigo.mipt.ru/export/datasets/wikipedia/enwiki.db && \
-    cd /base/DeepPavlov/download/embeddings && \
-    wget http://lnsigo.mipt.ru/export/embeddings/wiki-news-300d-1M.vec && \
-    wget http://lnsigo.mipt.ru/export/embeddings/wiki-news-300d-1M-char.vec
+RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_wiki.json && \
+    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_wiki.json && \
+    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_config.json
 
 EXPOSE 6011
 
-ENV MODEL_NAME="stand_odqa_en"
+ENV MODEL_NAME=stand_odqa_en
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
@@ -29,4 +27,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_prod.json > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_wiki.json > $LOG_PATH 2>&1

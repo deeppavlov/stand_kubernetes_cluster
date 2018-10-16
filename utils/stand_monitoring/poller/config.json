@@ -5,43 +5,52 @@
   },
   "notification": {
     "slack": {
-      "webhook": "https://hooks.slack.com/services/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"
+      "webhook": ""
     }
   },
   "payload": {
     "1arg_standard": {
       "text1": "How can I check our beautiful services?"
     },
+    "2arg_standard": {
+      "text1": "I want to check our beautiful services.",
+      "text2": "What I want to check?"
+    },
     "1arg_batch": {
       "text1": [
-        "Who am I?"
+        "How can I check our beautiful services?"
       ]
     },
-    "2arg_standard": {
-      "text1": "'I want to check our beautiful services.",
-      "text2": "'What I want to check?"
+    "2arg_batch": {
+      "text1": [
+        "I want to check our beautiful services."
+      ],
+      "text2": [
+        "What I want to check?"
+      ]
     }
   },
   "urls": {
     "post": {
-      "1arg_standard": [
+      "1arg_standard": [],
+      "2arg_standard": [
+        "https://7003.lnsigo.mipt.ru/answer",
+        "https://7019.lnsigo.mipt.ru/answer"
+      ],
+      "1arg_batch": [
         "https://7004.lnsigo.mipt.ru/answer",
         "https://7010.lnsigo.mipt.ru/answer",
         "https://7007.lnsigo.mipt.ru/answer",
         "https://7009.lnsigo.mipt.ru/answer",
         "https://7006.lnsigo.mipt.ru/answer",
         "https://7011.lnsigo.mipt.ru/answer",
-        "https://7012.lnsigo.mipt.ru/answer"
+        "https://7012.lnsigo.mipt.ru/answer",
+        "https://7021.lnsigo.mipt.ru/answer",
+        "https://7022.lnsigo.mipt.ru/answer"
       ],
-      "1arg_batch": [
-        "https://7020.lnsigo.mipt.ru/answer",
-        "https://7013.lnsigo.mipt.ru/answer"
-      ],
-      "2arg_standard": [
-        "https://7003.lnsigo.mipt.ru/answer",
+      "2arg_batch": [
         "https://7005.lnsigo.mipt.ru/answer",
-        "https://7008.lnsigo.mipt.ru/answer",
-        "https://7019.lnsigo.mipt.ru/answer"
+        "https://7008.lnsigo.mipt.ru/answer"
       ]
     },
     "get": [

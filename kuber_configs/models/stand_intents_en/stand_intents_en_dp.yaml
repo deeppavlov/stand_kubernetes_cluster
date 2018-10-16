@@ -1,22 +1,22 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: demo-ranker-tfidf-drones-en-dp
+  name: stand-intents-en-dp
   namespace: stand-demo
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: demo-ranker-tfidf-drones-en-dp
+        app: stand-intents-en-dp
     spec:
       containers:
-      - name: demo-ranker-tfidf-drones-en
-        image: kubeadm.ipavlov.mipt.ru:5000/demo/ranker_tfidf_drones_en
+      - name: stand-intents-en
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/intents_en
         ports:
-        - name: cp6020
+        - name: cp6007
           protocol: TCP
-          containerPort: 6020
+          containerPort: 6007
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
