@@ -8,10 +8,11 @@ RUN cd /base/DeepPavlov && \
     git checkout {{BRANCH}} && \
     git fetch && \
     git pull origin {{BRANCH}} && \
-    python3.6 setup.py develop
+    python3.6 setup.py develop && \
+    pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.0.0/en_core_web_sm-2.0.0.tar.gz#en_core_web_sm
 
 RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
-    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_config.json
+    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
 
 EXPOSE {{PORT}}
 
