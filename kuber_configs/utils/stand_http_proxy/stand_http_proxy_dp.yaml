@@ -1,25 +1,25 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: stand-http-proxy-dp
+  name: stand-http-proxy-basil-dp
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: stand-http-proxy-dp
+        app: stand-http-proxy-basil-dp
     spec:
       containers:
-      - name: stand-http-proxy
+      - name: stand-http-proxy-basil
         image: kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy
         ports:
-        - name: cp7050
+        - name: cp7054
           protocol: TCP
-          containerPort: 7050
+          containerPort: 7054
         env:
         - name: LISTENED_PORT
-          value: "7050"
+          value: "7054"
         - name: PROXYED_HOST
-          value: "0.0.0.0"
+          value: "192.168.20.110"
         - name: PROXYED_PORT
-          value: "5000"
+          value: "7054"

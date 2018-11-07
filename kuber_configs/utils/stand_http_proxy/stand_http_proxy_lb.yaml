@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: stand-http-proxy-lb
+  name: stand-http-proxy-basil-lb
 spec:
   selector:
-    app: stand-http-proxy-dp
+    app: stand-http-proxy-basil-dp
   type: LoadBalancer
   externalIPs:
   - 10.11.1.251
   ports:
   - name: stand-http-proxy
     protocol: TCP
-    port: 7050
-    targetPort: cp7050
+    port: 7054
+    targetPort: cp7054
