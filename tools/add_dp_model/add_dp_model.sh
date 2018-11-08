@@ -2,19 +2,19 @@
 
 # USER INPUT
 # =============================================================================
-TEMPLATE='no_gpu_very_custom'
-BRANCH='retrieval_demo'
+TEMPLATE='no_gpu_custom'
+BRANCH='0.1.0a'
 
-MODEL_NAME='bhge_odqa_tables_en_02'
-CONFIG_FILE='odqa/bhge/bhge_odqa_tables.json'
+MODEL_NAME='ner_ru'
+CONFIG_FILE='ner/ner_rus.json'
 CUDA_VERSION='9.0'
 TF_VERSION='1.8.0'
 
-PORT='6026'
-CLUSTER_PORT='7026'
+PORT='6004'
+CLUSTER_PORT='7004'
 MODEL_ARGS='["text1"]'
 
-PREFIX='demo'
+PREFIX='stand'
 DOCKER_REGISTRY='kubeadm.ipavlov.mipt.ru:5000'
 # =============================================================================
 

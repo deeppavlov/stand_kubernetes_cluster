@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "agent_name": "/",
+  "log_path": "/logs/{{FULL_MODEL_NAME}}/dialog_logs",
+  "logfile_max_size_kb": 10240
+}
