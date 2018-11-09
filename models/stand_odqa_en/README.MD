@@ -16,10 +16,10 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Switch to branch odqa_reader and update it:
+    2. Switch to branch 0.1.0a and update it:
         ```
-        git checkout odqa_reader
-        git pull origin odqa_reader
+        git checkout 0.1.0a
+        git pull origin 0.1.0a
         ```
     3. Install DeepPavlov:
         ```

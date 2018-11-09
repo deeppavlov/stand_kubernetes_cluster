@@ -16,19 +16,24 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Install DeepPavlov:
+    2. Switch to branch 0.1.0a and update it:
+        ```
+        git checkout 0.1.0a
+        git pull origin 0.1.0a
+        ```
+    3. Install DeepPavlov:
         ```
         python setup.py develop
         ```
-    3. Download model components:
+    4. Download model components:
         ```
         python3.6 -m deeppavlov download deeppavlov/configs/ner/ner_rus.json
         ```
-    4. Install model dependencies:
+    5. Install model dependencies:
         ```
         python3.6 -m deeppavlov install deeppavlov/configs/ner/ner_rus.json
         ```
-    5. Return to the `stand_ner_ru` dir:
+    6. Return to the `stand_ner_ru` dir:
         ```
         cd ..
         ```
