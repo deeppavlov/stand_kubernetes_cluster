@@ -10,7 +10,8 @@ RUN cd /base/DeepPavlov && \
     git pull origin retrieval_demo && \
     python3.6 setup.py develop && \
     pip uninstall -y tensorflow-gpu && \
-    pip install tensorflow==1.8.0
+    pip install tensorflow==1.8.0 && \
+    pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.0.0/en_core_web_sm-2.0.0.tar.gz#en_core_web_sm
 
 RUN python3.6 -m deeppavlov download /base/DeepPavlov/deeppavlov/configs/odqa/bhge/bhge_odqa.json && \
     cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
