@@ -1,4 +1,4 @@
-# Demo stand. Model: {{MODEL_CAPTION}}
+# Demo stand. Model: {{MODEL_NAME}}
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/{{MODELS_FOLDER}}{{FULL_MODEL_NAME}}` directory
