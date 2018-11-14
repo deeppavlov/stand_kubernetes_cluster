@@ -1,0 +1,37 @@
+{
+  "deployer": {
+    "model_groups": {
+      "stand": [],
+      "demo": [],
+      "all": []
+    }
+  },
+  "models": [
+    {
+      "MODEL_NAME": "default",
+      "PREFIX": "@",
+      "CONFIG_FILE": "",
+      "TEMPLATE": "",
+      "BRANCH": "",
+      "CUDA_VERSION": "",
+      "TF_VERSION": "",
+      "PORT": "",
+      "CLUSTER_PORT": "",
+      "MODEL_ARGS": [],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
+    },
+    {
+      "MODEL_NAME": "ner_ru",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "ner/ner_rus.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "0.1.0a",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6004,
+      "CLUSTER_PORT": 7004,
+      "MODEL_ARGS": ["text1"],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
+    }
+  ]
+}
