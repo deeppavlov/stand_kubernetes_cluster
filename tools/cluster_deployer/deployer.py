@@ -2,9 +2,17 @@ import argparse
 import json
 import shutil
 import re
+import logging
+from datetime import datetime
+from collections import namedtuple
 from pathlib import Path
+from abc import ABCMeta, abstractmethod
+from multiprocessing import Process, Queue, Event
 
 MODELS_FOLDER = 'models/'
+DEPLOYER_PIPELINE = []
+
+Logger = logging.getLoggerClass()
 
 root_dir = Path(__file__, '..', '..', '..').resolve()
 deployer_dir = root_dir / 'tools' / 'cluster_deployer'
@@ -12,14 +20,31 @@ templates_dir = root_dir / 'tools' / 'add_dp_model' / 'templates'
 models_dir = root_dir / MODELS_FOLDER
 kuber_configs_dir = root_dir / 'kuber_configs' / 'models'
 temp_dir = deployer_dir / 'temp'
-results_dir = deployer_dir / 'results'
+log_dir = deployer_dir / 'log'
 config_file_path = deployer_dir / 'config.json'
+
+DeployerStage = namedtuple('DeployerStage', ['stage', 'stage_name', 'in_queue', 'out_queue'])
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model', help='full model name with prefix', type=str)
 parser.add_argument('-g', '--group', help='model group name', type=str)
 parser.add_argument('-c', '--custom', action='store_true', help='generate deploying files for editing')
 parser.add_argument('-l', '--list', action='store_true', help='list available models from config')
+
+
+def get_logger(log_file_name: str) -> Logger:
+    log_dir.mkdir(parents=True, exist_ok=True)
+
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+
+    file_handler = logging.FileHandler(log_dir / log_file_name)
+    file_handler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    return logger
 
 
 def make_config_from_file(config_path: Path) -> dict:
@@ -54,27 +79,26 @@ def make_config_from_file(config_path: Path) -> dict:
     return config
 
 
-def get_dir_files_recursive(path: Path) -> list:
-    result = []
-
-    for item in path.iterdir():
-        if item.is_dir():
-            result.extend(get_dir_files_recursive(item))
-        else:
-            result.append(item)
-
-    return result
-
-
 def make_deployment_files(model_config: dict, make: bool = True, move: bool = True) -> None:
+    def get_dir_files_recursive(path: Path) -> list:
+        files_list = []
+
+        for item in path.iterdir():
+            if item.is_dir():
+                files_list.extend(get_dir_files_recursive(item))
+            else:
+                files_list.append(item)
+
+        return files_list
+
     deploy_files_dir = Path(temp_dir, f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}').resolve()
 
     if not (make or move):
         raise ValueError(f'At least one of make and move params must be True')
 
     if make:
-        if temp_dir.is_dir() and not temp_dir.samefile('/'):
-            shutil.rmtree(temp_dir, ignore_errors=True)
+        if deploy_files_dir.is_dir() and not deploy_files_dir.samefile('/'):
+            shutil.rmtree(deploy_files_dir, ignore_errors=True)
 
         shutil.copytree(templates_dir / model_config['TEMPLATE'], deploy_files_dir)
         deploy_files = get_dir_files_recursive(deploy_files_dir)
@@ -114,6 +138,87 @@ def make_deployment_files(model_config: dict, make: bool = True, move: bool = Tr
         deploy_files_dir.rename(model_path)
 
 
+class DeploymentStatus:
+    def __init__(self, full_model_name: str):
+        self.full_model_name: str = full_model_name
+        self.finish: bool = False
+        self.traceback: str = None
+
+
+class Deployer:
+    def __init__(self, config: dict):
+        self.config: dict = config
+        self.stages: list = []
+        self.full_model_names: set = set()
+
+        self.pipline: list = DEPLOYER_PIPELINE
+        self.pipline.append(FinalDeployerStage)
+
+        utc_timestamp_str = datetime.strftime(datetime.utcnow(), '%Y-%m-%d_%H-%M-%S_%f')
+        log_file_name = f'{utc_timestamp_str}_deployment.log'
+        self.logger: Logger = get_logger(log_file_name)
+
+        for stage_class in self.pipline:
+            in_queue = Queue()
+            out_queue = Queue()
+
+            stage_instance: AbstractDeployerStage = stage_class(self.config, in_queue, out_queue)
+            stage_instance.start()
+
+            stage = DeployerStage(stage=stage_instance, stage_name=stage_instance.stage_name,
+                                  in_queue=in_queue, out_queue=out_queue)
+
+            self.stages.append(stage)
+
+    def deploy(self, full_model_names: list):
+        self.full_model_names = set(full_model_names)
+        for full_model_name in full_model_names:
+            deployment_status = DeploymentStatus(full_model_name)
+            self.stages[0].in_queue.put(deployment_status)
+
+        while len(self.full_model_names) > 0:
+            for stage_i, stage in enumerate(self.stages):
+                deployment_status: DeploymentStatus = stage.out_queue.get()
+                if deployment_status.finish:
+                    self.logger.info(f"Finished processing {deployment_status.full_model_name}")
+                    self.full_model_names = self.full_model_names - {*[deployment_status.full_model_name]}
+                else:
+                    self.stages[stage_i + 1].in_queue.put(deployment_status)
+
+        for stage in self.stages:
+            stage.stage.terminate()
+
+
+class AbstractDeployerStage(Process, metaclass=ABCMeta):
+    def __init__(self, config: dict, stage_name: str, in_queue: Queue, out_queue: Queue):
+        super(AbstractDeployerStage, self).__init__()
+        self.config = config
+        self.stage_name: str = stage_name
+        self.in_queue: Queue = in_queue
+        self.out_queue: Queue = out_queue
+        self.exit: Event = Event()
+
+    def run(self):
+        while True:
+            in_deployment_status = self.in_queue.get()
+            out_deployment_status = self._act(in_deployment_status)
+            self.out_queue.put(out_deployment_status)
+
+    @abstractmethod
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        pass
+
+
+class FinalDeployerStage(AbstractDeployerStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'finish_stage'
+        super(FinalDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        deployment_status.finish = True
+        return deployment_status
+
+
 def deploy():
     args = parser.parse_args()
     model = args.model
@@ -122,7 +227,10 @@ def deploy():
     list = args.list
 
     config = make_config_from_file(config_file_path)
-    make_deployment_files(config['models']['stand_ner_ru'])
+    deployer = Deployer(config)
+    deployer.deploy(['stand_ner_ru'])
+
+    #make_deployment_files(config['models']['stand_ner_ru'])
 
 
 if __name__ == '__main__':
