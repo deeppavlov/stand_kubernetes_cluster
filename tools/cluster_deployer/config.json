@@ -37,9 +37,20 @@
       "TF_VERSION": "",
       "PORT": 6004,
       "CLUSTER_PORT": 7004,
-      "MODEL_ARGS": [
-        "text1"
-      ],
+      "MODEL_ARGS": ["text1"],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
+    },
+    {
+      "MODEL_NAME": "ner_en",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "ner/ner_ontonotes.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "0.1.0a",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6010,
+      "CLUSTER_PORT": 7010,
+      "MODEL_ARGS": ["text1"],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
     }
   ]
