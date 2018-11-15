@@ -3,6 +3,9 @@ import json
 import shutil
 import re
 import logging
+from traceback import print_exc
+from typing import Optional
+from enum import Enum
 from datetime import datetime
 from collections import namedtuple
 from pathlib import Path
@@ -13,6 +16,7 @@ MODELS_FOLDER = 'models/'
 DEPLOYER_PIPELINE = []
 
 Logger = logging.getLoggerClass()
+DeployerStage = namedtuple('DeployerStage', ['stage', 'stage_name', 'in_queue', 'out_queue'])
 
 root_dir = Path(__file__, '..', '..', '..').resolve()
 deployer_dir = root_dir / 'tools' / 'cluster_deployer'
@@ -23,28 +27,11 @@ temp_dir = deployer_dir / 'temp'
 log_dir = deployer_dir / 'log'
 config_file_path = deployer_dir / 'config.json'
 
-DeployerStage = namedtuple('DeployerStage', ['stage', 'stage_name', 'in_queue', 'out_queue'])
-
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model', help='full model name with prefix', type=str)
 parser.add_argument('-g', '--group', help='model group name', type=str)
 parser.add_argument('-c', '--custom', action='store_true', help='generate deploying files for editing')
 parser.add_argument('-l', '--list', action='store_true', help='list available models from config')
-
-
-def get_logger(log_file_name: str) -> Logger:
-    log_dir.mkdir(parents=True, exist_ok=True)
-
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-
-    file_handler = logging.FileHandler(log_dir / log_file_name)
-    file_handler.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-
-    return logger
 
 
 def make_config_from_file(config_path: Path) -> dict:
@@ -138,11 +125,18 @@ def make_deployment_files(model_config: dict, make: bool = True, move: bool = Tr
         deploy_files_dir.rename(model_path)
 
 
+class LogLevel(Enum):
+    INFO = logging.INFO
+    WARNING = logging.WARNING
+    ERROR = logging.ERROR
+
+
 class DeploymentStatus:
     def __init__(self, full_model_name: str):
         self.full_model_name: str = full_model_name
         self.finish: bool = False
-        self.traceback: str = None
+        self.log_level: Optional[LogLevel] = None
+        self.log_message: Optional[str] = None
 
 
 class Deployer:
@@ -156,7 +150,7 @@ class Deployer:
 
         utc_timestamp_str = datetime.strftime(datetime.utcnow(), '%Y-%m-%d_%H-%M-%S_%f')
         log_file_name = f'{utc_timestamp_str}_deployment.log'
-        self.logger: Logger = get_logger(log_file_name)
+        self.logger: Logger = self._get_logger(log_dir / log_file_name)
 
         for stage_class in self.pipline:
             in_queue = Queue()
@@ -170,20 +164,41 @@ class Deployer:
 
             self.stages.append(stage)
 
-    def deploy(self, full_model_names: list):
+    @staticmethod
+    def _get_logger(log_file_path: Path) -> Logger:
+        log_dir.mkdir(parents=True, exist_ok=True)
+
+        logger = logging.getLogger()
+        logger.setLevel(logging.DEBUG)
+
+        file_handler = logging.FileHandler(log_file_path)
+        file_handler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+        return logger
+
+    def deploy(self, full_model_names: list) -> None:
         self.full_model_names = set(full_model_names)
         for full_model_name in full_model_names:
             deployment_status = DeploymentStatus(full_model_name)
-            self.stages[0].in_queue.put(deployment_status)
+            first_stage: AbstractDeployerStage = self.stages[0]
+            self.logger.info(f'Starting {first_stage.stage_name} deploying stage '
+                             f'for {deployment_status.full_model_name}')
+            first_stage.in_queue.put(deployment_status)
 
         while len(self.full_model_names) > 0:
             for stage_i, stage in enumerate(self.stages):
                 deployment_status: DeploymentStatus = stage.out_queue.get()
+                self.logger.log(deployment_status.log_level.value, deployment_status.log_message)
                 if deployment_status.finish:
-                    self.logger.info(f"Finished processing {deployment_status.full_model_name}")
                     self.full_model_names = self.full_model_names - {*[deployment_status.full_model_name]}
                 else:
-                    self.stages[stage_i + 1].in_queue.put(deployment_status)
+                    next_stage: AbstractDeployerStage = self.stages[stage_i + 1]
+                    self.logger.info(f'Starting {next_stage.stage_name} deploying stage '
+                                     f'for {deployment_status.full_model_name}')
+                    next_stage.in_queue.put(deployment_status)
 
         for stage in self.stages:
             stage.stage.terminate()
@@ -198,7 +213,7 @@ class AbstractDeployerStage(Process, metaclass=ABCMeta):
         self.out_queue: Queue = out_queue
         self.exit: Event = Event()
 
-    def run(self):
+    def run(self) -> None:
         while True:
             in_deployment_status = self.in_queue.get()
             out_deployment_status = self._act(in_deployment_status)
@@ -215,11 +230,19 @@ class FinalDeployerStage(AbstractDeployerStage):
         super(FinalDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
-        deployment_status.finish = True
-        return deployment_status
+        try:
+            deployment_status.finish = True
+            deployment_status.log_level = LogLevel.INFO
+            deployment_status.log_message = f'Finished deployment for {deployment_status.full_model_name}'
+        except Exception:
+            tr = print_exc()
+            deployment_status.log_level = LogLevel.ERROR
+            deployment_status.log_message = f'Error occured during {self.stage_name}\n{tr}'
+        finally:
+            return deployment_status
 
 
-def deploy():
+def deploy() -> None:
     args = parser.parse_args()
     model = args.model
     group = args.group
