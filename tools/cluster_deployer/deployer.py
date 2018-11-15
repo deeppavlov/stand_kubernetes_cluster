@@ -1,7 +1,8 @@
 import shutil
 import logging
+from pprint import pprint
 from queue import Empty
-from traceback import print_stack
+from traceback import extract_stack, format_list
 from typing import Optional
 from enum import Enum
 from datetime import datetime
@@ -70,10 +71,11 @@ class Deployer:
         return logger
 
     def deploy(self, full_model_names: list) -> None:
+        first_stage: AbstractDeployerStage = self.stages[0]
         self.full_model_names = set(full_model_names)
+
         for full_model_name in full_model_names:
             deployment_status = DeploymentStatus(full_model_name)
-            first_stage: AbstractDeployerStage = self.stages[0]
             self.logger.info(f'Starting {first_stage.stage_name} deploying stage '
                              f'for {deployment_status.full_model_name}')
             first_stage.in_queue.put(deployment_status)
@@ -81,8 +83,13 @@ class Deployer:
         while len(self.full_model_names) > 0:
             for stage_i, stage in enumerate(self.stages):
                 stage: AbstractDeployerStage = stage
+
                 try:
                     deployment_status: DeploymentStatus = stage.out_queue.get_nowait()
+                except Empty:
+                    deployment_status = None
+
+                if deployment_status:
                     self.logger.log(deployment_status.log_level.value, deployment_status.log_message)
                     if deployment_status.finish:
                         self.full_model_names = self.full_model_names - {*[deployment_status.full_model_name]}
@@ -91,8 +98,6 @@ class Deployer:
                         self.logger.info(f'Starting {next_stage.stage_name} deploying stage '
                                          f'for {deployment_status.full_model_name}')
                         next_stage.in_queue.put(deployment_status)
-                except Empty:
-                    pass
 
         for stage in self.stages:
             stage: DeployerStage = stage
@@ -180,7 +185,7 @@ class MakeFilesDeployerStage(AbstractDeployerStage):
             deployment_status.log_message = f'Finished deployment for {deployment_status.full_model_name}'
 
         except Exception:
-            tr = print_stack()
+            tr = '\n'.join(format_list(extract_stack()))
             deployment_status.log_level = LogLevel.ERROR
             deployment_status.log_message = f'Error occurred during {self.stage_name} stage:\n{tr}'
 
@@ -200,7 +205,7 @@ class FinalDeployerStage(AbstractDeployerStage):
             deployment_status.log_message = f'Finished deployment for {deployment_status.full_model_name}'
 
         except Exception:
-            tr = print_stack()
+            tr = '\n'.join(format_list(extract_stack()))
             deployment_status.log_level = LogLevel.ERROR
             deployment_status.log_message = f'Error occurred during {self.stage_name} stage:\n{tr}'
 
