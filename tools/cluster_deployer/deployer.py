@@ -1,4 +1,3 @@
-import argparse
 import shutil
 import logging
 from queue import Empty
@@ -11,16 +10,10 @@ from pathlib import Path
 from abc import ABCMeta, abstractmethod
 from multiprocessing import Process, Queue, Event
 
-from tools.cluster_deployer.utils import safe_delete_path, make_config_from_file, fill_placeholders_from_dict
+from tools.cluster_deployer.utils import safe_delete_path, fill_placeholders_from_dict
 
 Logger = logging.getLoggerClass()
 DeployerStage = namedtuple('DeployerStage', ['stage', 'stage_name', 'in_queue', 'out_queue'])
-
-parser = argparse.ArgumentParser()
-parser.add_argument('-m', '--model', help='full model name with prefix', type=str)
-parser.add_argument('-g', '--group', help='model group name', type=str)
-parser.add_argument('-c', '--custom', action='store_true', help='generate deploying files for editing')
-parser.add_argument('-l', '--list', action='store_true', help='list available models from config')
 
 
 class LogLevel(Enum):
@@ -102,6 +95,7 @@ class Deployer:
                     pass
 
         for stage in self.stages:
+            stage: DeployerStage = stage
             stage.stage.terminate()
 
         safe_delete_path(self.config['paths']['temp_dir'])
@@ -212,23 +206,3 @@ class FinalDeployerStage(AbstractDeployerStage):
 
         finally:
             return deployment_status
-
-
-def deploy() -> None:
-    args = parser.parse_args()
-    model = args.model
-    group = args.group
-    custom = args.custom
-    list = args.list
-
-    config_file_path = Path(__file__, '..').resolve() / 'config.json'
-    config = make_config_from_file(config_file_path, Path(__file__, '..', '..', '..').resolve())
-
-    #pipeline = []
-    pipeline = [MakeFilesDeployerStage]
-    deployer = Deployer(config, pipeline)
-    deployer.deploy(['stand_ner_ru'])
-
-
-if __name__ == '__main__':
-    deploy()
