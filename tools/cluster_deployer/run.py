@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 
 from tools.cluster_deployer.utils import make_config_from_file
-from tools.cluster_deployer.deployer import Deployer, MakeFilesDeployerStage, BuildImageDeployerStage
+from tools.cluster_deployer.deployer import Deployer, MakeFilesDeploymentStage, BuildImageDeploymentStage
 
 
 parser = argparse.ArgumentParser()
@@ -22,7 +22,7 @@ def main() -> None:
     config_file_path = Path(__file__, '..').resolve() / 'config.json'
     config = make_config_from_file(config_file_path, Path(__file__, '..', '..', '..').resolve())
 
-    pipeline = [MakeFilesDeployerStage, BuildImageDeployerStage]
+    pipeline = [MakeFilesDeploymentStage, BuildImageDeploymentStage]
     deployer = Deployer(config, pipeline)
     deployer.deploy(['stand_ner_ru', 'stand_ner_en'])
 

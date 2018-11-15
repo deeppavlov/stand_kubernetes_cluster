@@ -41,7 +41,7 @@ class Deployer:
         self.full_model_names: set = set()
 
         self.pipline: list = pipeline
-        self.pipline.append(FinalDeployerStage)
+        self.pipline.append(FinalDeploymentStage)
 
         utc_timestamp_str = datetime.strftime(datetime.utcnow(), '%Y-%m-%d_%H-%M-%S_%f')
         log_file_name = f'{utc_timestamp_str}_deployment.log'
@@ -51,7 +51,7 @@ class Deployer:
             in_queue = Queue()
             out_queue = Queue()
 
-            stage_instance: AbstractDeployerStage = stage_class(self.config, in_queue, out_queue)
+            stage_instance: AbstractDeploymentStage = stage_class(self.config, in_queue, out_queue)
             stage_instance.start()
 
             stage = DeployerStage(stage=stage_instance, stage_name=stage_instance.stage_name,
@@ -74,7 +74,7 @@ class Deployer:
         return logger
 
     def deploy(self, full_model_names: list) -> None:
-        first_stage: AbstractDeployerStage = self.stages[0]
+        first_stage: AbstractDeploymentStage = self.stages[0]
         self.full_model_names = set(full_model_names)
 
         for full_model_name in full_model_names:
@@ -85,7 +85,7 @@ class Deployer:
 
         while len(self.full_model_names) > 0:
             for stage_i, stage in enumerate(self.stages):
-                stage: AbstractDeployerStage = stage
+                stage: AbstractDeploymentStage = stage
 
                 try:
                     deployment_status: DeploymentStatus = stage.out_queue.get_nowait()
@@ -97,7 +97,7 @@ class Deployer:
                     if deployment_status.finish:
                         self.full_model_names = self.full_model_names - {*[deployment_status.full_model_name]}
                     else:
-                        next_stage: AbstractDeployerStage = self.stages[stage_i + 1]
+                        next_stage: AbstractDeploymentStage = self.stages[stage_i + 1]
                         self.logger.info(f'Starting {next_stage.stage_name} deploying stage '
                                          f'for {deployment_status.full_model_name}')
                         next_stage.in_queue.put(deployment_status)
@@ -109,9 +109,9 @@ class Deployer:
         safe_delete_path(self.config['paths']['temp_dir'])
 
 
-class AbstractDeployerStage(Process, metaclass=ABCMeta):
+class AbstractDeploymentStage(Process, metaclass=ABCMeta):
     def __init__(self, config: dict, stage_name: str, in_queue: Queue, out_queue: Queue):
-        super(AbstractDeployerStage, self).__init__()
+        super(AbstractDeploymentStage, self).__init__()
         self.config = config
         self.stage_name: str = stage_name
         self.in_queue: Queue = in_queue
@@ -139,10 +139,10 @@ class AbstractDeployerStage(Process, metaclass=ABCMeta):
         pass
 
 
-class MakeFilesDeployerStage(AbstractDeployerStage):
+class MakeFilesDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
         stage_name = 'Make Deployment Files'
-        super(MakeFilesDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
+        super(MakeFilesDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         def get_dir_files_recursive(path: Path) -> list:
@@ -198,10 +198,10 @@ class MakeFilesDeployerStage(AbstractDeployerStage):
         return deployment_status
 
 
-class BuildImageDeployerStage(AbstractDeployerStage):
+class BuildImageDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
         stage_name = 'Build Docker Image'
-        super(BuildImageDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
+        super(BuildImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
@@ -218,10 +218,10 @@ class BuildImageDeployerStage(AbstractDeployerStage):
         return deployment_status
 
 
-class FinalDeployerStage(AbstractDeployerStage):
+class FinalDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
         stage_name = 'Finish Deployment'
-        super(FinalDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
+        super(FinalDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         deployment_status.finish = True

@@ -1,5 +1,11 @@
 {
   "docker_base_url": "unix://var/run/docker.sock",
+  "gpu_template": ["gpu", "gpu_configs"],
+  "model_groups": {
+    "stand": [],
+    "demo": [],
+    "all": []
+  },
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
     "templates_dir": "{{root_dir}}/tools/add_dp_model/templates/",
@@ -8,11 +14,6 @@
     "kuber_configs_dir": "{{root_dir}}/kuber_configs/models/",
     "temp_dir": "{{deployer_dir}}/temp/",
     "log_dir": "{{deployer_dir}}/log/"
-  },
-  "model_groups": {
-    "stand": [],
-    "demo": [],
-    "all": []
   },
   "models": [
     {
