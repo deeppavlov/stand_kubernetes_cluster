@@ -25,13 +25,22 @@ models_dir = root_dir / MODELS_FOLDER
 kuber_configs_dir = root_dir / 'kuber_configs' / 'models'
 temp_dir = deployer_dir / 'temp'
 log_dir = deployer_dir / 'log'
-config_file_path = deployer_dir / 'config.json'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model', help='full model name with prefix', type=str)
 parser.add_argument('-g', '--group', help='model group name', type=str)
 parser.add_argument('-c', '--custom', action='store_true', help='generate deploying files for editing')
 parser.add_argument('-l', '--list', action='store_true', help='list available models from config')
+
+
+def fill_placeholders_from_dict(str_in: str, values_dict: dict) -> str:
+    pattern = r'{{([A-Za-z_]+)}}'
+    str_out = re.sub(pattern,
+                     lambda x: json.dumps(values_dict[x.group(1)])
+                     if isinstance(values_dict[x.group(1)], (list, dict))
+                     else str(values_dict[x.group(1)]),
+                     str_in)
+    return str_out
 
 
 def make_config_from_file(config_path: Path) -> dict:
@@ -94,15 +103,10 @@ def make_deployment_files(model_config: dict, make: bool = True, move: bool = Tr
             with open(deploy_file, 'r') as f:
                 file = f.read()
 
-            pattern = r'{{([A-Z_]+)}}'
-            result = re.sub(pattern,
-                            lambda x: json.dumps(model_config[x.group(1)])
-                            if isinstance(model_config[x.group(1)], list)
-                            else str(model_config[x.group(1)]),
-                            file)
+            file = fill_placeholders_from_dict(file, model_config)
 
             with open(deploy_file, 'w') as f:
-                f.write(result)
+                f.write(file)
 
         Path(deploy_files_dir, 'kuber_dp.yaml').rename(deploy_files_dir / model_config['KUBER_DP_FILE'])
         Path(deploy_files_dir, 'kuber_lb.yaml').rename(deploy_files_dir / model_config['KUBER_LB_FILE'])
@@ -249,6 +253,7 @@ def deploy() -> None:
     custom = args.custom
     list = args.list
 
+    config_file_path = Path(__file__, '..').resolve() / 'config.json'
     config = make_config_from_file(config_file_path)
     deployer = Deployer(config)
     deployer.deploy(['stand_ner_ru'])
