@@ -117,9 +117,19 @@ class AbstractDeployerStage(Process, metaclass=ABCMeta):
 
     def run(self) -> None:
         while True:
-            in_deployment_status = self.in_queue.get()
-            out_deployment_status = self._act(in_deployment_status)
-            self.out_queue.put(out_deployment_status)
+            deployment_status = self.in_queue.get()
+
+            try:
+                deployment_status = self._act(deployment_status)
+            except Exception:
+                deployment_status.finish = True
+                exc_type, exc_value, exc_tb = sys.exc_info()
+                tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
+                deployment_status.log_level = LogLevel.ERROR
+                deployment_status.log_message = f'Error occurred during {self.stage_name} for ' \
+                                                f'{deployment_status.full_model_name} stage:\n{tr}'
+
+            self.out_queue.put(deployment_status)
 
     @abstractmethod
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
@@ -132,67 +142,57 @@ class MakeFilesDeployerStage(AbstractDeployerStage):
         super(MakeFilesDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
-        try:
-            def get_dir_files_recursive(path: Path) -> list:
-                files_list = []
-                for item in path.iterdir():
-                    if item.is_dir():
-                        files_list.extend(get_dir_files_recursive(item))
-                    else:
-                        files_list.append(item)
-                return files_list
+        def get_dir_files_recursive(path: Path) -> list:
+            files_list = []
+            for item in path.iterdir():
+                if item.is_dir():
+                    files_list.extend(get_dir_files_recursive(item))
+                else:
+                    files_list.append(item)
+            return files_list
 
-            model_config = self.config['models'][deployment_status.full_model_name]
-            temp_dir = self.config['paths']['temp_dir']
-            templates_dir = self.config['paths']['templates_dir']
-            kuber_configs_dir = self.config['paths']['kuber_configs_dir']
-            models_dir = self.config['paths']['models_dir']
+        model_config = self.config['models'][deployment_status.full_model_name]
+        temp_dir = self.config['paths']['temp_dir']
+        templates_dir = self.config['paths']['templates_dir']
+        kuber_configs_dir = self.config['paths']['kuber_configs_dir']
+        models_dir = self.config['paths']['models_dir']
 
-            deploy_files_dir = Path(temp_dir, f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}').resolve()
-            safe_delete_path(deploy_files_dir)
-            shutil.copytree(templates_dir / model_config['TEMPLATE'], deploy_files_dir)
-            deploy_files = get_dir_files_recursive(deploy_files_dir)
+        deploy_files_dir = Path(temp_dir, f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}').resolve()
+        safe_delete_path(deploy_files_dir)
+        shutil.copytree(templates_dir / model_config['TEMPLATE'], deploy_files_dir)
+        deploy_files = get_dir_files_recursive(deploy_files_dir)
 
-            for deploy_file in deploy_files:
-                with open(deploy_file, 'r') as f:
-                    file = f.read()
-                file = fill_placeholders_from_dict(file, model_config)
-                with open(deploy_file, 'w') as f:
-                    f.write(file)
+        for deploy_file in deploy_files:
+            with open(deploy_file, 'r') as f:
+                file = f.read()
+            file = fill_placeholders_from_dict(file, model_config)
+            with open(deploy_file, 'w') as f:
+                f.write(file)
 
-            Path(deploy_files_dir, 'kuber_dp.yaml').rename(deploy_files_dir / model_config['KUBER_DP_FILE'])
-            Path(deploy_files_dir, 'kuber_lb.yaml').rename(deploy_files_dir / model_config['KUBER_LB_FILE'])
-            Path(deploy_files_dir, 'run_model.sh').rename(deploy_files_dir / model_config['RUN_FILE'])
-            Path(deploy_files_dir, 'dockerignore').rename(deploy_files_dir / '.dockerignore')
+        Path(deploy_files_dir, 'kuber_dp.yaml').rename(deploy_files_dir / model_config['KUBER_DP_FILE'])
+        Path(deploy_files_dir, 'kuber_lb.yaml').rename(deploy_files_dir / model_config['KUBER_LB_FILE'])
+        Path(deploy_files_dir, 'run_model.sh').rename(deploy_files_dir / model_config['RUN_FILE'])
+        Path(deploy_files_dir, 'dockerignore').rename(deploy_files_dir / '.dockerignore')
 
-            # move Kubernetes configs
-            kuber_config_path = kuber_configs_dir / model_config['FULL_MODEL_NAME']
-            if kuber_config_path.is_dir() and not kuber_config_path.samefile('/'):
-                shutil.rmtree(kuber_config_path, ignore_errors=True)
-            kuber_config_path.mkdir(parents=True, exist_ok=True)
-            Path(deploy_files_dir / model_config['KUBER_DP_FILE']).rename(
-                kuber_config_path / model_config['KUBER_DP_FILE'])
-            Path(deploy_files_dir / model_config['KUBER_LB_FILE']).rename(
-                kuber_config_path / model_config['KUBER_LB_FILE'])
+        # move Kubernetes configs
+        kuber_config_path = kuber_configs_dir / model_config['FULL_MODEL_NAME']
+        if kuber_config_path.is_dir() and not kuber_config_path.samefile('/'):
+            shutil.rmtree(kuber_config_path, ignore_errors=True)
+        kuber_config_path.mkdir(parents=True, exist_ok=True)
+        Path(deploy_files_dir / model_config['KUBER_DP_FILE']).rename(
+            kuber_config_path / model_config['KUBER_DP_FILE'])
+        Path(deploy_files_dir / model_config['KUBER_LB_FILE']).rename(
+            kuber_config_path / model_config['KUBER_LB_FILE'])
 
-            # move model building files
-            model_path = models_dir / model_config['FULL_MODEL_NAME']
-            safe_delete_path(model_path)
-            deploy_files_dir.rename(model_path)
+        # move model building files
+        model_path = models_dir / model_config['FULL_MODEL_NAME']
+        safe_delete_path(model_path)
+        deploy_files_dir.rename(model_path)
 
-            deployment_status.log_level = LogLevel.INFO
-            deployment_status.log_message = f'Finished making deployment files for {deployment_status.full_model_name}'
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'Finished making deployment files for {deployment_status.full_model_name}'
 
-        except Exception:
-            deployment_status.finish = True
-            exc_type, exc_value, exc_tb = sys.exc_info()
-            tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
-            deployment_status.log_level = LogLevel.ERROR
-            deployment_status.log_message = f'Error occurred during {self.stage_name} for ' \
-                                            f'{deployment_status.full_model_name} stage:\n{tr}'
-
-        finally:
-            return deployment_status
+        return deployment_status
 
 
 class FinalDeployerStage(AbstractDeployerStage):
@@ -201,18 +201,8 @@ class FinalDeployerStage(AbstractDeployerStage):
         super(FinalDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
-        try:
-            deployment_status.finish = True
-            deployment_status.log_level = LogLevel.INFO
-            deployment_status.log_message = f'DEPLOYMENT FINISHED for {deployment_status.full_model_name}'
+        deployment_status.finish = True
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'DEPLOYMENT FINISHED for {deployment_status.full_model_name}'
 
-        except Exception:
-            deployment_status.finish = True
-            exc_type, exc_value, exc_tb = sys.exc_info()
-            tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
-            deployment_status.log_level = LogLevel.ERROR
-            deployment_status.log_message = f'Error occurred during {self.stage_name} for ' \
-                                            f'{deployment_status.full_model_name} stage:\n{tr}'
-
-        finally:
-            return deployment_status
+        return deployment_status
