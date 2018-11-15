@@ -1,10 +1,17 @@
 {
-  "deployer": {
-    "model_groups": {
-      "stand": [],
-      "demo": [],
-      "all": []
-    }
+  "paths": {
+    "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
+    "templates_dir": "{{root_dir}}/tools/add_dp_model/templates/",
+    "models_subdir": "models/",
+    "models_dir": "{{root_dir}}/{{models_subdir}}/",
+    "kuber_configs_dir": "{{root_dir}}/kuber_configs/models/",
+    "temp_dir": "{{deployer_dir}}/temp/",
+    "log_dir": "{{deployer_dir}}/log/"
+  },
+  "model_groups": {
+    "stand": [],
+    "demo": [],
+    "all": []
   },
   "models": [
     {
@@ -30,7 +37,9 @@
       "TF_VERSION": "",
       "PORT": 6004,
       "CLUSTER_PORT": 7004,
-      "MODEL_ARGS": ["text1"],
+      "MODEL_ARGS": [
+        "text1"
+      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
     }
   ]
