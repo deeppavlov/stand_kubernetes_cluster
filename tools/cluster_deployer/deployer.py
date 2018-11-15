@@ -180,11 +180,11 @@ class MakeFilesDeployerStage(AbstractDeployerStage):
             safe_delete_path(model_path)
             deploy_files_dir.rename(model_path)
 
-            deployment_status.finish = True
             deployment_status.log_level = LogLevel.INFO
             deployment_status.log_message = f'Finished making deployment files for {deployment_status.full_model_name}'
 
         except Exception:
+            deployment_status.finish = True
             exc_type, exc_value, exc_tb = sys.exc_info()
             tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
             deployment_status.log_level = LogLevel.ERROR
@@ -207,6 +207,7 @@ class FinalDeployerStage(AbstractDeployerStage):
             deployment_status.log_message = f'DEPLOYMENT FINISHED for {deployment_status.full_model_name}'
 
         except Exception:
+            deployment_status.finish = True
             exc_type, exc_value, exc_tb = sys.exc_info()
             tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
             deployment_status.log_level = LogLevel.ERROR
