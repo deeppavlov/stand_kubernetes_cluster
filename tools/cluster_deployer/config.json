@@ -1,4 +1,5 @@
 {
+  "docker_base_url": "unix://var/run/docker.sock",
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
     "templates_dir": "{{root_dir}}/tools/add_dp_model/templates/",

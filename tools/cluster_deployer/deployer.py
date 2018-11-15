@@ -11,7 +11,10 @@ from pathlib import Path
 from abc import ABCMeta, abstractmethod
 from multiprocessing import Process, Queue, Event
 
+from docker import DockerClient
+
 from tools.cluster_deployer.utils import safe_delete_path, fill_placeholders_from_dict
+
 
 Logger = logging.getLoggerClass()
 DeployerStage = namedtuple('DeployerStage', ['stage', 'stage_name', 'in_queue', 'out_queue'])
@@ -63,7 +66,7 @@ class Deployer:
         logger.setLevel(logging.DEBUG)
 
         file_handler = logging.FileHandler(log_file_path)
-        file_handler.setLevel(logging.DEBUG)
+        file_handler.setLevel(logging.INFO)
         formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
@@ -138,7 +141,7 @@ class AbstractDeployerStage(Process, metaclass=ABCMeta):
 
 class MakeFilesDeployerStage(AbstractDeployerStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Make Files'
+        stage_name = 'Make Deployment Files'
         super(MakeFilesDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
@@ -191,6 +194,26 @@ class MakeFilesDeployerStage(AbstractDeployerStage):
 
         deployment_status.log_level = LogLevel.INFO
         deployment_status.log_message = f'Finished making deployment files for {deployment_status.full_model_name}'
+
+        return deployment_status
+
+
+class BuildImageDeployerStage(AbstractDeployerStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'Build Docker Image'
+        super(BuildImageDeployerStage, self).__init__(config, stage_name, in_queue, out_queue)
+        self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        models_dir_path = self.config['paths']['models_dir']
+        build_dir_path = str(models_dir_path / deployment_status.full_model_name)
+        image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
+        self.docker_client.images.build(path=build_dir_path,
+                                        tag=image_tag,
+                                        rm=True)
+
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'Finished building docker image for {deployment_status.full_model_name}'
 
         return deployment_status
 
