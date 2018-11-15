@@ -1,8 +1,8 @@
 import shutil
 import logging
-from pprint import pprint
+import sys
 from queue import Empty
-from traceback import extract_stack, format_list
+from traceback import format_exception
 from typing import Optional
 from enum import Enum
 from datetime import datetime
@@ -182,12 +182,14 @@ class MakeFilesDeployerStage(AbstractDeployerStage):
 
             deployment_status.finish = True
             deployment_status.log_level = LogLevel.INFO
-            deployment_status.log_message = f'Finished deployment for {deployment_status.full_model_name}'
+            deployment_status.log_message = f'Finished making deployment files for {deployment_status.full_model_name}'
 
         except Exception:
-            tr = '\n'.join(format_list(extract_stack()))
+            exc_type, exc_value, exc_tb = sys.exc_info()
+            tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
             deployment_status.log_level = LogLevel.ERROR
-            deployment_status.log_message = f'Error occurred during {self.stage_name} stage:\n{tr}'
+            deployment_status.log_message = f'Error occurred during {self.stage_name} for ' \
+                                            f'{deployment_status.full_model_name} stage:\n{tr}'
 
         finally:
             return deployment_status
@@ -202,12 +204,14 @@ class FinalDeployerStage(AbstractDeployerStage):
         try:
             deployment_status.finish = True
             deployment_status.log_level = LogLevel.INFO
-            deployment_status.log_message = f'Finished deployment for {deployment_status.full_model_name}'
+            deployment_status.log_message = f'DEPLOYMENT FINISHED for {deployment_status.full_model_name}'
 
         except Exception:
-            tr = '\n'.join(format_list(extract_stack()))
+            exc_type, exc_value, exc_tb = sys.exc_info()
+            tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
             deployment_status.log_level = LogLevel.ERROR
-            deployment_status.log_message = f'Error occurred during {self.stage_name} stage:\n{tr}'
+            deployment_status.log_message = f'Error occurred during {self.stage_name} for ' \
+                                            f'{deployment_status.full_model_name} stage:\n{tr}'
 
         finally:
             return deployment_status
