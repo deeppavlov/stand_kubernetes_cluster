@@ -9,11 +9,13 @@ from datetime import datetime
 from collections import namedtuple
 from pathlib import Path
 from abc import ABCMeta, abstractmethod
-from multiprocessing import Process, Queue, Event
+from multiprocessing import Process, Queue
 
+import requests
 from docker import DockerClient
+from docker.models.containers import Container
 
-from tools.cluster_deployer.utils import safe_delete_path, fill_placeholders_from_dict
+from tools.cluster_deployer.utils import safe_delete_path, fill_placeholders_from_dict, poll
 
 
 Logger = logging.getLoggerClass()
@@ -60,6 +62,9 @@ class Deployer:
             self.stages.append(stage)
 
     def _get_logger(self, log_file_path: Path) -> Logger:
+        # TODO: maintenance
+        safe_delete_path(self.config['paths']['log_dir'])
+
         self.config['paths']['log_dir'].mkdir(parents=True, exist_ok=True)
 
         logger = logging.getLogger()
@@ -116,7 +121,8 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
         self.stage_name: str = stage_name
         self.in_queue: Queue = in_queue
         self.out_queue: Queue = out_queue
-        self.exit: Event = Event()
+        self.container: Optional[Container] = None
+
 
     def run(self) -> None:
         while True:
@@ -131,6 +137,8 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
                 deployment_status.log_level = LogLevel.ERROR
                 deployment_status.log_message = f'Error occurred during {self.stage_name} for ' \
                                                 f'{deployment_status.full_model_name} stage:\n{tr}'
+                if self.container:
+                    self.container.stop()
 
             self.out_queue.put(deployment_status)
 
@@ -160,7 +168,7 @@ class MakeFilesDeploymentStage(AbstractDeploymentStage):
         kuber_configs_dir = self.config['paths']['kuber_configs_dir']
         models_dir = self.config['paths']['models_dir']
 
-        deploy_files_dir = Path(temp_dir, f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}').resolve()
+        deploy_files_dir = Path(temp_dir, f'{model_config["FULL_MODEL_NAME"]}').resolve()
         safe_delete_path(deploy_files_dir)
         shutil.copytree(templates_dir / model_config['TEMPLATE'], deploy_files_dir)
         deploy_files = get_dir_files_recursive(deploy_files_dir)
@@ -208,15 +216,70 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         models_dir_path = self.config['paths']['models_dir']
         build_dir_path = str(models_dir_path / deployment_status.full_model_name)
         image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
-        self.docker_client.images.build(path=build_dir_path,
-                                        tag=image_tag,
-                                        rm=True)
+
+        kwargs = {
+            'path': build_dir_path,
+            'tag': image_tag,
+            'rm': True
+        }
+
+        self.docker_client.images.build(**kwargs)
 
         deployment_status.log_level = LogLevel.INFO
         deployment_status.log_message = f'Finished building docker image for {deployment_status.full_model_name}'
 
         return deployment_status
 
+
+class TestImageDeploymentStage(AbstractDeploymentStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'Test Docker Image'
+        super(TestImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
+        self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        # run docker container from built image
+        image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
+        container_port = self.config['models'][deployment_status.full_model_name]['PORT']
+        local_log_dir = str(Path(self.config['local_log_dir']).expanduser().resolve())
+        container_log_dir = str(Path(self.config['container_log_dir']).expanduser().resolve())
+        dockerfile_template = self.config['models'][deployment_status.full_model_name]['TEMPLATE']
+        gpu_templates = self.config['gpu_templates']
+        local_gpu_device_index = self.config['local_gpu_device_index']
+
+        kwargs = {
+            'image': image_tag,
+            'auto_remove': True,
+            'detach': True,
+            'ports': {container_port: container_port},
+            'volumes': {local_log_dir: {'bind': container_log_dir, 'mode': 'rw'}}
+        }
+
+        if dockerfile_template in gpu_templates:
+            kwargs['runtime'] = 'nvidia'
+            kwargs['devices'] = [f'/dev/nvidia{str(local_gpu_device_index)}']
+
+        self.container: Container = self.docker_client.containers.run(**kwargs)
+
+        # test model API
+        url = self.config['models'][deployment_status.full_model_name]['test_image_url']
+        model_args = self.config['models'][deployment_status.full_model_name]['MODEL_ARGS']
+        json_payload = {arg_name: ['This is probe text.'] for arg_name in model_args}
+        polling_timeout = self.config['models'][deployment_status.full_model_name]['image_polling_timeout_sec']
+
+        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json=json_payload),
+                                            estimator=lambda result: result.status_code == 200,
+                                            interval_sec=1,
+                                            timeout_sec=polling_timeout)
+
+        polling_result = polling_result.json()
+
+        self.container.stop()
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'Finished testing docker image for {deployment_status.full_model_name}, ' \
+                                        f'model response: {polling_result}, elapsed time: {polling_time}'
+
+        return deployment_status
 
 class FinalDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):

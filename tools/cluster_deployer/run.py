@@ -3,7 +3,7 @@ from pathlib import Path
 
 from tools.cluster_deployer.utils import make_config_from_file
 from tools.cluster_deployer.deployer import Deployer, MakeFilesDeploymentStage, BuildImageDeploymentStage
-
+from tools.cluster_deployer.deployer import TestImageDeploymentStage
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model', help='full model name with prefix', type=str)
@@ -22,7 +22,9 @@ def main() -> None:
     config_file_path = Path(__file__, '..').resolve() / 'config.json'
     config = make_config_from_file(config_file_path, Path(__file__, '..', '..', '..').resolve())
 
-    pipeline = [MakeFilesDeploymentStage, BuildImageDeploymentStage]
+    # pipeline = []
+    # pipeline = [TestImageDeploymentStage]
+    pipeline = [MakeFilesDeploymentStage, BuildImageDeploymentStage, TestImageDeploymentStage]
     deployer = Deployer(config, pipeline)
     deployer.deploy(['stand_ner_ru', 'stand_ner_en'])
 

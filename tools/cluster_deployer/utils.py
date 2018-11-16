@@ -2,13 +2,17 @@ import json
 import shutil
 import re
 from pathlib import Path
+from datetime import datetime, timedelta
+from threading import Timer
+from queue import Queue
+from typing import Callable, Any, Tuple
 
 
 def safe_delete_path(path: Path):
     if path.exists():
         if not path.samefile('/'):
             if path.is_dir():
-                shutil.rmtree(path, ignore_errors=True)
+                shutil.rmtree(str(path), ignore_errors=True)
             elif path.is_file():
                 path.unlink()
         else:
@@ -31,8 +35,11 @@ def fill_dict_placeholders_recursive(dict_in: dict) -> dict:
     completed = True
 
     for key, value in dict_in.items():
-        dict_out[key] = fill_placeholders_from_dict(value, dict_in)
-        completed &= not bool(re.search(pattern, dict_out[key]))
+        if isinstance(value, str):
+            dict_out[key] = fill_placeholders_from_dict(value, dict_in)
+            completed &= not bool(re.search(pattern, dict_out[key]))
+        else:
+            dict_out[key] = value
 
     dict_out = dict_out if completed else fill_dict_placeholders_recursive(dict_out)
 
@@ -53,6 +60,14 @@ def make_config_from_file(config_path: Path, root_dir: Path) -> dict:
     config['models'] = {}
 
     for model_config in config['models_list']:
+        model_config: dict = model_config
+
+        model_config['test_image_url'] = model_config.get('test_image_url', None) or config['test_image_url']
+        model_config['test_deployment_url'] = model_config.get('test_deployment_url', None) or config['test_deployment_url']
+
+        model_config: dict = fill_dict_placeholders_recursive(model_config)
+
+        # TODO: remove naming capitalising from config (was made for run_model.sh compatibility)
         model_config['FULL_MODEL_NAME'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}'
         model_config['FULL_MODEL_NAME_DASHED'] = model_config['FULL_MODEL_NAME'].replace('_', '-')
 
@@ -76,4 +91,46 @@ def make_config_from_file(config_path: Path, root_dir: Path) -> dict:
         else:
             raise KeyError(f'Double full model name: {model_config["FULL_MODEL_NAME"]}')
 
+    del config['models_list']
+
     return config
+
+# TODO: nedds refactoring
+def poll(probe: Callable, interval_sec: float, timeout_sec: float,
+         estimator: Callable, *args, **kwargs) -> Tuple[Any, timedelta]:
+
+    interval_sec = 0.001 if interval_sec < 0.001 else round(interval_sec, 3)
+    timeout_sec = 0.001 if timeout_sec < 0.001 else round(timeout_sec, 3)
+
+    queue = Queue()
+
+    def set_timer(in_timestamp: datetime, in_timeout: timedelta):
+        if datetime.utcnow() >= in_timestamp + in_timeout:
+            q_out = {'result': None, 'timeout': True, 'polling_time': None}
+            queue.put(q_out)
+        else:
+            try:
+                result = probe(*args, **kwargs)
+            except Exception:
+                result = None
+
+            if result and estimator(result):
+                q_out = {'result': result, 'timeout': False, 'polling_time': datetime.utcnow() - in_timestamp}
+                queue.put(q_out)
+            else:
+                in_timer = Timer(interval_sec, set_timer, [timestamp, timeout])
+                in_timer.start()
+
+    timestamp = datetime.utcnow()
+    timeout = timedelta(seconds=timeout_sec)
+
+    timer = Timer(interval_sec, set_timer, [timestamp, timeout])
+    timer.start()
+
+    while True:
+        q_in = queue.get()
+        if q_in['timeout']:
+            _ = probe(*args, **kwargs)
+            raise TimeoutError
+        else:
+            return q_in['result'], q_in['polling_time']

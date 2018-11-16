@@ -1,6 +1,11 @@
 {
   "docker_base_url": "unix://var/run/docker.sock",
-  "gpu_template": ["gpu", "gpu_configs"],
+  "test_image_url": "http://0.0.0.0:{{PORT}}/answer",
+  "test_deployment_url": "https://{{PORT}}.lnsigo.mipt.ru",
+  "local_log_dir": "~/dev/logs/",
+  "container_log_dir": "/logs/",
+  "local_gpu_device_index": 0,
+  "gpu_templates": ["gpu", "gpu_configs"],
   "model_groups": {
     "stand": [],
     "demo": [],
@@ -27,7 +32,11 @@
       "PORT": "",
       "CLUSTER_PORT": "",
       "MODEL_ARGS": [],
-      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "test_image_url": "",
+      "test_deployment_url": "",
+      "image_polling_timeout_sec": 60,
+      "deployment_polling_timeout_sec": 60
     },
     {
       "MODEL_NAME": "ner_ru",
@@ -40,7 +49,9 @@
       "PORT": 6004,
       "CLUSTER_PORT": 7004,
       "MODEL_ARGS": ["text1"],
-      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 20,
+      "deployment_polling_timeout_sec": 20
     },
     {
       "MODEL_NAME": "ner_en",
@@ -53,7 +64,9 @@
       "PORT": 6010,
       "CLUSTER_PORT": 7010,
       "MODEL_ARGS": ["text1"],
-      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000"
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 40,
+      "deployment_polling_timeout_sec": 20
     }
   ]
 }
