@@ -1,6 +1,7 @@
 import shutil
 import logging
 import sys
+import yaml
 from queue import Empty
 from traceback import format_exception
 from typing import Optional
@@ -14,6 +15,7 @@ from multiprocessing import Process, Queue
 import requests
 from docker import DockerClient
 from docker.models.containers import Container
+from kubernetes import client as kube_client, config as kube_config
 
 from tools.cluster_deployer.utils import safe_delete_path, fill_placeholders_from_dict, poll
 
@@ -123,7 +125,6 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
         self.in_queue: Queue = in_queue
         self.out_queue: Queue = out_queue
         self.container: Optional[Container] = None
-
 
     def run(self) -> None:
         while True:
@@ -305,11 +306,86 @@ class PushImageDeploymentStage(AbstractDeploymentStage):
         return deployment_status
 
 
+class DeployKuberDeploymentStage(AbstractDeploymentStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'Deploy In Kubernetes'
+        super(DeployKuberDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
+
+        kube_config.load_kube_config()
+        self.kube_apps_v1_beta1_api = kube_client.AppsV1beta1Api()
+        self.kube_core_v1_api = kube_client.CoreV1Api()
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        kuber_configs_dir = self.config['paths']['kuber_configs_dir'] / deployment_status.full_model_name
+        dp_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_NAME']
+        dp_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_FILE']
+        lb_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_NAME']
+        lb_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_FILE']
+
+        with open(kuber_configs_dir / dp_file_name) as f:
+            dp_config = yaml.load(f)
+
+        with open(kuber_configs_dir / lb_file_name) as f:
+            lb_config = yaml.load(f)
+
+        dp_namespace = dp_config['metadata']['namespace']
+        lb_namespace = lb_config['metadata']['namespace']
+
+        # remove existing deployment
+        deployments_raw = kube_client.models.apps_v1beta1_deployment_list.AppsV1beta1DeploymentList = \
+            self.kube_apps_v1_beta1_api.list_namespaced_deployment(namespace=dp_namespace)
+        deployments = [item.metadata.name for item in deployments_raw.items]
+
+        if dp_name in deployments:
+            delete_dp_kwargs = {
+                'name': dp_name,
+                'namespace': dp_namespace,
+                'body': kube_client.V1DeleteOptions(propagation_policy='Background')
+            }
+            self.kube_apps_v1_beta1_api.delete_namespaced_deployment(**delete_dp_kwargs)
+
+        # remove existing load balancer
+        load_balancers_raw: kube_client.models.v1_api_service_list.V1APIServiceList = \
+            self.kube_core_v1_api.list_namespaced_service(namespace=lb_namespace)
+        load_balancers = [item.metadata.name for item in load_balancers_raw.items]
+
+        if lb_name in load_balancers:
+            delete_lb_kwargs = {
+                'name': lb_name,
+                'namespace': lb_namespace,
+                'body': kube_client.V1DeleteOptions(propagation_policy='Background')
+            }
+            self.kube_core_v1_api.delete_namespaced_service(**delete_lb_kwargs)
+
+        # create deployment
+        create_dp_kwargs = {
+            'namespace': dp_namespace,
+            'body': dp_config,
+            'include_uninitialized': True
+        }
+        self.kube_apps_v1_beta1_api.create_namespaced_deployment(**create_dp_kwargs)
+
+        # create load balancer
+        create_lb_kwargs = {
+            'namespace': dp_namespace,
+            'body': lb_config,
+            'include_uninitialized': True
+        }
+        self.kube_core_v1_api.create_namespaced_service(**create_lb_kwargs)
+
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
+                                        f'for [{deployment_status.full_model_name}]'
+
+        return deployment_status
+
+
 class FinalDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
         stage_name = 'Finish Deployment'
         super(FinalDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
+    # TODO: Make optional docker images cleanup
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         deployment_status.finish = True
         deployment_status.log_level = LogLevel.INFO
