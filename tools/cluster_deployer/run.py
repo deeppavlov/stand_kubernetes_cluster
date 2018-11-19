@@ -3,7 +3,7 @@ from pathlib import Path
 
 from tools.cluster_deployer.utils import make_config_from_file
 from tools.cluster_deployer.deployer import Deployer, MakeFilesDeploymentStage, BuildImageDeploymentStage
-from tools.cluster_deployer.deployer import TestImageDeploymentStage
+from tools.cluster_deployer.deployer import TestImageDeploymentStage, PushImageDeploymentStage
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model', help='full model name with prefix', type=str)
@@ -24,7 +24,7 @@ def main() -> None:
 
     # pipeline = []
     # pipeline = [TestImageDeploymentStage]
-    pipeline = [MakeFilesDeploymentStage, BuildImageDeploymentStage, TestImageDeploymentStage]
+    pipeline = [MakeFilesDeploymentStage, BuildImageDeploymentStage, TestImageDeploymentStage, PushImageDeploymentStage]
     deployer = Deployer(config, pipeline)
     deployer.deploy(['stand_ner_ru', 'stand_ner_en'])
 

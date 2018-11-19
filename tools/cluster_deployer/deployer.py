@@ -61,6 +61,7 @@ class Deployer:
 
             self.stages.append(stage)
 
+    # TODO: make individual logger for each model
     def _get_logger(self, log_file_path: Path) -> Logger:
         # TODO: maintenance
         safe_delete_path(self.config['paths']['log_dir'])
@@ -84,8 +85,8 @@ class Deployer:
 
         for full_model_name in full_model_names:
             deployment_status = DeploymentStatus(full_model_name)
-            self.logger.info(f'Starting {first_stage.stage_name} deploying stage '
-                             f'for {deployment_status.full_model_name}')
+            self.logger.info(f'Starting [{first_stage.stage_name}] deploying stage '
+                             f'for [{deployment_status.full_model_name}]')
             first_stage.in_queue.put(deployment_status)
 
         while len(self.full_model_names) > 0:
@@ -103,8 +104,8 @@ class Deployer:
                         self.full_model_names = self.full_model_names - {*[deployment_status.full_model_name]}
                     else:
                         next_stage: AbstractDeploymentStage = self.stages[stage_i + 1]
-                        self.logger.info(f'Starting {next_stage.stage_name} deploying stage '
-                                         f'for {deployment_status.full_model_name}')
+                        self.logger.info(f'Starting [{next_stage.stage_name}] deploying stage '
+                                         f'for [{deployment_status.full_model_name}]')
                         next_stage.in_queue.put(deployment_status)
 
         for stage in self.stages:
@@ -135,8 +136,8 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
                 exc_type, exc_value, exc_tb = sys.exc_info()
                 tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
                 deployment_status.log_level = LogLevel.ERROR
-                deployment_status.log_message = f'Error occurred during {self.stage_name} for ' \
-                                                f'{deployment_status.full_model_name} stage:\n{tr}'
+                deployment_status.log_message = f'Error occurred during [{self.stage_name}] for ' \
+                                                f'[{deployment_status.full_model_name}] stage:\n{tr}'
                 if self.container:
                     self.container.stop()
 
@@ -201,7 +202,8 @@ class MakeFilesDeploymentStage(AbstractDeploymentStage):
         deploy_files_dir.rename(model_path)
 
         deployment_status.log_level = LogLevel.INFO
-        deployment_status.log_message = f'Finished making deployment files for {deployment_status.full_model_name}'
+        deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
+                                        f'for [{deployment_status.full_model_name}]'
 
         return deployment_status
 
@@ -226,7 +228,8 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         self.docker_client.images.build(**kwargs)
 
         deployment_status.log_level = LogLevel.INFO
-        deployment_status.log_message = f'Finished building docker image for {deployment_status.full_model_name}'
+        deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
+                                        f'for [{deployment_status.full_model_name}]'
 
         return deployment_status
 
@@ -276,10 +279,31 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
 
         self.container.stop()
         deployment_status.log_level = LogLevel.INFO
-        deployment_status.log_message = f'Finished testing docker image for {deployment_status.full_model_name}, ' \
+        deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
+                                        f'for [{deployment_status.full_model_name}], ' \
                                         f'model response: {polling_result}, elapsed time: {polling_time}'
 
         return deployment_status
+
+
+class PushImageDeploymentStage(AbstractDeploymentStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'Push Docker Image'
+        super(PushImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
+        self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
+        server_response_generator = self.docker_client.images.push(image_tag, stream=True)
+        server_response = '\n'.join([str(resp_str) for resp_str in server_response_generator])
+
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
+                                        f'for [{deployment_status.full_model_name}], ' \
+                                        f'server response:\n{server_response}'
+
+        return deployment_status
+
 
 class FinalDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
@@ -289,6 +313,6 @@ class FinalDeploymentStage(AbstractDeploymentStage):
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         deployment_status.finish = True
         deployment_status.log_level = LogLevel.INFO
-        deployment_status.log_message = f'DEPLOYMENT FINISHED for {deployment_status.full_model_name}'
+        deployment_status.log_message = f'DEPLOYMENT FINISHED for [{deployment_status.full_model_name}]'
 
         return deployment_status
