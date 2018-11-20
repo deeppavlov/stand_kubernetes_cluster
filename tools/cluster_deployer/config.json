@@ -5,11 +5,24 @@
   "local_log_dir": "~/dev/logs/",
   "container_log_dir": "/logs/",
   "local_gpu_device_index": 0,
-  "gpu_templates": ["gpu", "gpu_configs"],
+  "gpu_templates": [
+    "gpu",
+    "gpu_configs"
+  ],
   "model_groups": {
-    "stand": [],
+    "stand": [
+      "stand_ner_ru",
+      "stand_ner_en",
+      "stand_intents_en",
+      "stand_insults_en",
+      "stand_squad_ru",
+      "stand_squad_en",
+      "stand_odqa_ru",
+      "stand_odqa_en"
+    ],
     "demo": [],
-    "all": ["stand_ner_ru", "stand_ner_en"]
+    "all": [],
+    "custom": []
   },
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
@@ -48,10 +61,12 @@
       "TF_VERSION": "",
       "PORT": 6004,
       "CLUSTER_PORT": 7004,
-      "MODEL_ARGS": ["text1"],
+      "MODEL_ARGS": [
+        "text1"
+      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 60,
-      "deployment_polling_timeout_sec": 300
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
     },
     {
       "MODEL_NAME": "ner_en",
@@ -63,10 +78,133 @@
       "TF_VERSION": "",
       "PORT": 6010,
       "CLUSTER_PORT": 7010,
-      "MODEL_ARGS": ["text1"],
+      "MODEL_ARGS": [
+        "text1"
+      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 60,
-      "deployment_polling_timeout_sec": 300
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
+    },
+    {
+      "MODEL_NAME": "squad_ru",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "squad/squad_ru.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "0.1.0a",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6005,
+      "CLUSTER_PORT": 7005,
+      "MODEL_ARGS": [
+        "text1",
+        "text2"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
+    },
+    {
+      "MODEL_NAME": "squad_en",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "squad/squad.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "0.1.0a",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6008,
+      "CLUSTER_PORT": 7008,
+      "MODEL_ARGS": [
+        "text1",
+        "text2"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
+    },
+    {
+      "MODEL_NAME": "intents_en",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "classifiers/intents_snips.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "0.1.0a",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6007,
+      "CLUSTER_PORT": 7007,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
+    },
+    {
+      "MODEL_NAME": "ranking_en",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "ranking_insurance_interact.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "0.1.0a",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6009,
+      "CLUSTER_PORT": 7009,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
+    },
+    {
+      "MODEL_NAME": "insults_en",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "classifiers/insults_kaggle.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "0.1.0a",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6006,
+      "CLUSTER_PORT": 7006,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
+    },
+    {
+      "MODEL_NAME": "odqa_en",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "odqa/en_odqa_infer_wiki.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "dev",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "1.8.0",
+      "PORT": 6011,
+      "CLUSTER_PORT": 7011,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
+    },
+    {
+      "MODEL_NAME": "odqa_ru",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "odqa/ru_odqa_infer_wiki.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "dev",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "1.8.0",
+      "PORT": 6012,
+      "CLUSTER_PORT": 7012,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200
     }
   ]
 }
