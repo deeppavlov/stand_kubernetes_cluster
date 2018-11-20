@@ -47,9 +47,8 @@ class Deployer:
         self.pipline: list = pipeline
         self.pipline.append(FinalDeploymentStage)
 
-        utc_timestamp_str = datetime.strftime(datetime.utcnow(), '%Y-%m-%d_%H-%M-%S_%f')
-        log_file_name = f'{utc_timestamp_str}_deployment.log'
-        self.logger: Logger = self._get_logger(self.config['paths']['log_dir'] / log_file_name)
+        # TODO: maintenance
+        safe_delete_path(self.config['paths']['log_dir'])
 
         for stage_class in self.pipline:
             in_queue = Queue()
@@ -63,32 +62,34 @@ class Deployer:
 
             self.stages.append(stage)
 
-    # TODO: make individual logger for each model
-    def _get_logger(self, log_file_path: Path) -> Logger:
-        # TODO: maintenance
-        safe_delete_path(self.config['paths']['log_dir'])
-
+    # TODO: beautify logging entries
+    def _setup_loggers(self, full_model_names: list) -> None:
         self.config['paths']['log_dir'].mkdir(parents=True, exist_ok=True)
+        utc_timestamp_str = datetime.strftime(datetime.utcnow(), '%Y-%m-%d_%H-%M-%S_%f')
 
-        logger = logging.getLogger()
-        logger.setLevel(logging.DEBUG)
+        for full_model_name in full_model_names:
+            logger = logging.getLogger(full_model_name)
+            logger.setLevel(logging.DEBUG)
 
-        file_handler = logging.FileHandler(log_file_path)
-        file_handler.setLevel(logging.INFO)
-        formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
+            log_file_name = f'{utc_timestamp_str}_{full_model_name}.log'
+            log_file_path = self.config['paths']['log_dir'] / log_file_name
 
-        return logger
+            file_handler = logging.FileHandler(log_file_path)
+            file_handler.setLevel(logging.INFO)
+            formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
 
     def deploy(self, full_model_names: list) -> None:
         first_stage: AbstractDeploymentStage = self.stages[0]
         self.full_model_names = set(full_model_names)
+        self._setup_loggers(full_model_names)
 
         for full_model_name in full_model_names:
             deployment_status = DeploymentStatus(full_model_name)
-            self.logger.info(f'Starting [{first_stage.stage_name}] deploying stage '
-                             f'for [{deployment_status.full_model_name}]')
+            logger: Logger = logging.getLogger(full_model_name)
+            logger.info(f'Starting [{first_stage.stage_name}] deploying stage '
+                        f'for [{deployment_status.full_model_name}]')
             first_stage.in_queue.put(deployment_status)
 
         while len(self.full_model_names) > 0:
@@ -101,13 +102,14 @@ class Deployer:
                     deployment_status = None
 
                 if deployment_status:
-                    self.logger.log(deployment_status.log_level.value, deployment_status.log_message)
+                    logger: Logger = logging.getLogger(deployment_status.full_model_name)
+                    logger.log(deployment_status.log_level.value, deployment_status.log_message)
                     if deployment_status.finish:
                         self.full_model_names = self.full_model_names - {*[deployment_status.full_model_name]}
                     else:
                         next_stage: AbstractDeploymentStage = self.stages[stage_i + 1]
-                        self.logger.info(f'Starting [{next_stage.stage_name}] deploying stage '
-                                         f'for [{deployment_status.full_model_name}]')
+                        logger.info(f'Starting [{next_stage.stage_name}] deploying stage '
+                                    f'for [{deployment_status.full_model_name}]')
                         next_stage.in_queue.put(deployment_status)
 
         for stage in self.stages:
