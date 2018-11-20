@@ -298,7 +298,10 @@ class PushImageDeploymentStage(AbstractDeploymentStage):
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
         server_response_generator = self.docker_client.images.push(image_tag, stream=True)
-        server_response = '\t{}'.format('\n\t'.join([str(resp_str) for resp_str in server_response_generator]))
+
+        # TODO: make parametrized additional deployment info including
+        server_response = '\t{}'.format([str(resp_str) for resp_str in server_response_generator][-3])
+        # server_response = '\t{}'.format('\n\t'.join([str(resp_str) for resp_str in server_response_generator]))
 
         deployment_status.log_level = LogLevel.INFO
         deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
