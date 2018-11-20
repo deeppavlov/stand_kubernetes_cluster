@@ -9,7 +9,7 @@
   "model_groups": {
     "stand": [],
     "demo": [],
-    "all": []
+    "all": ["stand_ner_ru", "stand_ner_en"]
   },
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
@@ -50,7 +50,7 @@
       "CLUSTER_PORT": 7004,
       "MODEL_ARGS": ["text1"],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 20,
+      "image_polling_timeout_sec": 60,
       "deployment_polling_timeout_sec": 300
     },
     {
@@ -65,7 +65,7 @@
       "CLUSTER_PORT": 7010,
       "MODEL_ARGS": ["text1"],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 40,
+      "image_polling_timeout_sec": 60,
       "deployment_polling_timeout_sec": 300
     }
   ]

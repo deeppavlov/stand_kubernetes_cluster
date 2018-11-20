@@ -17,7 +17,7 @@ from docker import DockerClient
 from docker.models.containers import Container
 from kubernetes import client as kube_client, config as kube_config
 
-from tools.cluster_deployer.utils import safe_delete_path, fill_placeholders_from_dict, poll
+from deployer_utils import safe_delete_path, fill_placeholders_from_dict, poll
 
 
 Logger = logging.getLoggerClass()
