@@ -5,15 +5,16 @@ WORKDIR /app
 ADD . /app
 
 RUN cd /base/DeepPavlov && \
-    git fetch --all --tags --prune && \
     git checkout {{BRANCH}} && \
+    git fetch && \
+    git pull origin {{BRANCH}} && \
     python3.6 setup.py develop && \
     pip uninstall tensorflow-gpu && \
-    pip install tensorflow=={{TF_VERSION}}
+    pip install tensorflow=={{TF_VERSION}} && \
+    pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.0.0/en_core_web_sm-2.0.0.tar.gz#en_core_web_sm
 
 RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
-    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
-    cp /app/configs/*.json /base/DeepPavlov/utils/settings
+    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_utils/server_config.json
 
 RUN cd /base/DeepPavlov && \
     pip install tensorflow-gpu=={{TF_VERSION}}
@@ -26,7 +27,6 @@ ENV DEFAULT_POD_NAME="unknown_pod"
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
-    sed -i "s/\/dialog_logs/\/"$POD_NODE"\/dialog_logs/g" "/base/DeepPavlov/utils/settings/dialog_logger_config.json" && \
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N') && \
     LOG_DIR="/logs/"$MODEL_NAME"/"$POD_NODE"/" && \
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
