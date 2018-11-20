@@ -95,7 +95,8 @@ def make_config_from_file(config_path: Path, root_dir: Path) -> dict:
 
     return config
 
-# TODO: nedds refactoring
+
+# TODO: needs refactoring
 def poll(probe: Callable, interval_sec: float, timeout_sec: float,
          estimator: Callable, *args, **kwargs) -> Tuple[Any, timedelta]:
 

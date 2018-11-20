@@ -135,7 +135,7 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
             except Exception:
                 deployment_status.finish = True
                 exc_type, exc_value, exc_tb = sys.exc_info()
-                tr = '\n'.join(format_exception(exc_type, exc_value, exc_tb))
+                tr = '\t{}'.format('\n\t'.join(format_exception(exc_type, exc_value, exc_tb)))
                 deployment_status.log_level = LogLevel.ERROR
                 deployment_status.log_message = f'Error occurred during [{self.stage_name}] for ' \
                                                 f'[{deployment_status.full_model_name}] stage:\n{tr}'
@@ -296,7 +296,7 @@ class PushImageDeploymentStage(AbstractDeploymentStage):
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
         server_response_generator = self.docker_client.images.push(image_tag, stream=True)
-        server_response = '\n'.join([str(resp_str) for resp_str in server_response_generator])
+        server_response = '\t{}'.format('\n\t'.join([str(resp_str) for resp_str in server_response_generator]))
 
         deployment_status.log_level = LogLevel.INFO
         deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
@@ -376,6 +376,32 @@ class DeployKuberDeploymentStage(AbstractDeploymentStage):
         deployment_status.log_level = LogLevel.INFO
         deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
                                         f'for [{deployment_status.full_model_name}]'
+
+        return deployment_status
+
+
+class TestKuberDeploymentStage(AbstractDeploymentStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'Test Kuber Deployment'
+        super(TestKuberDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        url = self.config['models'][deployment_status.full_model_name]['test_deployment_url']
+        model_args = self.config['models'][deployment_status.full_model_name]['MODEL_ARGS']
+        json_payload = {arg_name: ['This is probe text.'] for arg_name in model_args}
+        polling_timeout = self.config['models'][deployment_status.full_model_name]['deployment_polling_timeout_sec']
+
+        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json=json_payload),
+                                            estimator=lambda result: result.status_code == 200,
+                                            interval_sec=1,
+                                            timeout_sec=polling_timeout)
+
+        polling_result = polling_result.json()
+
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
+                                        f'for [{deployment_status.full_model_name}], ' \
+                                        f'model response: {polling_result}, elapsed time: {polling_time}'
 
         return deployment_status
 

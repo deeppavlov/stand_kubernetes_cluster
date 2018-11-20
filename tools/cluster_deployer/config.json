@@ -1,7 +1,7 @@
 {
   "docker_base_url": "unix://var/run/docker.sock",
   "test_image_url": "http://0.0.0.0:{{PORT}}/answer",
-  "test_deployment_url": "https://{{PORT}}.lnsigo.mipt.ru",
+  "test_deployment_url": "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer",
   "local_log_dir": "~/dev/logs/",
   "container_log_dir": "/logs/",
   "local_gpu_device_index": 0,
@@ -51,7 +51,7 @@
       "MODEL_ARGS": ["text1"],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 20,
-      "deployment_polling_timeout_sec": 20
+      "deployment_polling_timeout_sec": 300
     },
     {
       "MODEL_NAME": "ner_en",
@@ -66,7 +66,7 @@
       "MODEL_ARGS": ["text1"],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 40,
-      "deployment_polling_timeout_sec": 20
+      "deployment_polling_timeout_sec": 300
     }
   ]
 }
