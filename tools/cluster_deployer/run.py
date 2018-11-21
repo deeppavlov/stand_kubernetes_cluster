@@ -17,7 +17,6 @@ parser.add_argument('-c', '--custom', action='store_true', help='generate deploy
 parser.add_argument('-l', '--list', action='store_true', help='list available models from config')
 
 
-# TODO: solve importing issues
 # TODO: refactor templates README.md
 def main() -> None:
     args = parser.parse_args()
