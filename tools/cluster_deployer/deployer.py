@@ -62,6 +62,7 @@ class Deployer:
 
             self.stages.append(stage)
 
+    # TODO: make log entries time correct (custom timestamps)
     # TODO: beautify logging entries
     def _setup_loggers(self, full_model_names: list) -> None:
         self.config['paths']['log_dir'].mkdir(parents=True, exist_ok=True)
