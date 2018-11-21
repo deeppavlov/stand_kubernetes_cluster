@@ -23,7 +23,7 @@ def main() -> None:
     args = parser.parse_args()
     model = args.model
     group = args.group
-    # TODO: implemet custom model config building
+    # TODO: implement custom model config building
     custom = args.custom
     list = args.list
 

@@ -217,6 +217,7 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         super(BuildImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
 
+    # TODO: make optional image cleanup
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         models_dir_path = self.config['paths']['models_dir']
         build_dir_path = str(models_dir_path / deployment_status.full_model_name)
@@ -416,7 +417,7 @@ class FinalDeploymentStage(AbstractDeploymentStage):
         stage_name = 'Finish Deployment'
         super(FinalDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
-    # TODO: Make optional docker images cleanup
+    # TODO: Make optional docker image cleanup
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         deployment_status.finish = True
         deployment_status.log_level = LogLevel.INFO
