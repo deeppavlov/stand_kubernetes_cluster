@@ -66,8 +66,8 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600
     },
     {
       "MODEL_NAME": "ner_en",
@@ -83,8 +83,8 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600
     },
     {
       "MODEL_NAME": "squad_ru",
@@ -101,8 +101,8 @@
         "text2"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600
     },
     {
       "MODEL_NAME": "squad_en",
@@ -119,8 +119,8 @@
         "text2"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600
     },
     {
       "MODEL_NAME": "intents_en",
@@ -136,8 +136,8 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600
     },
     {
       "MODEL_NAME": "ranking_en",
@@ -170,7 +170,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
+      "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 1200
     },
     {
@@ -187,7 +187,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
+      "image_polling_timeout_sec": 1200,
       "deployment_polling_timeout_sec": 2400
     },
     {
@@ -204,8 +204,8 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600
     }
   ]
 }
