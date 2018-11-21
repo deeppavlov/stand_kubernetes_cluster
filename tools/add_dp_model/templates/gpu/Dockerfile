@@ -4,10 +4,10 @@ VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
-    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
-    cp /app/configs/*.json /base/DeepPavlov/utils/settings && \
-    pip install tensorflow-gpu=={{TF_VERSION}}
+RUN pip install tensorflow-gpu && \
+    python3.6 -m deeppavlov download /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
+    python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
+    cp /app/configs/*.json /base/DeepPavlov/utils/settings
 
 EXPOSE {{PORT}}
 
