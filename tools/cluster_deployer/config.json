@@ -7,7 +7,8 @@
   "local_gpu_device_index": 0,
   "gpu_templates": [
     "gpu",
-    "gpu_configs"
+    "gpu_custom",
+    "gpu_obsolete"
   ],
   "model_groups": {
     "stand": [
@@ -179,7 +180,7 @@
       "TEMPLATE": "gpu_custom",
       "BRANCH": "dev",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "1.8.0",
+      "TF_VERSION": "",
       "PORT": 6011,
       "CLUSTER_PORT": 7011,
       "MODEL_ARGS": [
@@ -187,7 +188,7 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "deployment_polling_timeout_sec": 2400
     },
     {
       "MODEL_NAME": "odqa_ru",
@@ -196,7 +197,7 @@
       "TEMPLATE": "gpu_custom",
       "BRANCH": "dev",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "1.8.0",
+      "TF_VERSION": "",
       "PORT": 6012,
       "CLUSTER_PORT": 7012,
       "MODEL_ARGS": [
