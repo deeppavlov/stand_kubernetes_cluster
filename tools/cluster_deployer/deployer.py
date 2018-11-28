@@ -39,6 +39,7 @@ class DeploymentStatus:
 
 
 class Deployer:
+    # TODO: implement Deployer-level shared docker and kuber managemet instances
     def __init__(self, config: dict, pipeline: list):
         self.config: dict = config
         self.stages: list = []
@@ -290,7 +291,7 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
 
 class PushImageDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Push Docker Image'
+        stage_name = 'Push to Local Repo'
         super(PushImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
 
@@ -299,8 +300,7 @@ class PushImageDeploymentStage(AbstractDeploymentStage):
         server_response_generator = self.docker_client.images.push(image_tag, stream=True)
 
         # TODO: make parametrized additional deployment info including
-        server_response = '\t{}'.format([str(resp_str) for resp_str in server_response_generator][-3])
-        # server_response = '\t{}'.format('\n\t'.join([str(resp_str) for resp_str in server_response_generator]))
+        server_response = '\t{}'.format('\n\t'.join([str(resp_str) for resp_str in server_response_generator]))
 
         deployment_status.log_level = LogLevel.INFO
         deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
@@ -406,6 +406,33 @@ class TestKuberDeploymentStage(AbstractDeploymentStage):
         deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
                                         f'for [{deployment_status.full_model_name}], ' \
                                         f'model response: {polling_result}, elapsed time: {polling_time}'
+
+        return deployment_status
+
+
+class PushToDockerHubDeploymentStage(AbstractDeploymentStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'Push to Docker Hub'
+        super(PushToDockerHubDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
+        self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
+        self.docker_client.login(self.config['dockerhub_registry'], self.config['dockerhub_password'])
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        kuber_image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
+        model_name = self.config['models'][deployment_status.full_model_name]['MODEL_NAME']
+        dockerhub_image_tag = f"{self.config['dockerhub_registry']}/{model_name}"
+        image = self.docker_client.images.get(kuber_image_tag)
+        image.tag(dockerhub_image_tag)
+
+        server_response_generator = self.docker_client.images.push(dockerhub_image_tag, stream=True)
+
+        # TODO: make parametrized additional deployment info including
+        server_response = '\t{}'.format('\n\t'.join([str(resp_str) for resp_str in server_response_generator]))
+
+        deployment_status.log_level = LogLevel.INFO
+        deployment_status.log_message = f'Finished [{self.stage_name}] deployment stage ' \
+                                        f'for [{deployment_status.full_model_name}], ' \
+                                        f'server response:\n{server_response}'
 
         return deployment_status
 
