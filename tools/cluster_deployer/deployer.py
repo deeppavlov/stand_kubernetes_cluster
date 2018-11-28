@@ -15,6 +15,7 @@ from multiprocessing import Process, Queue
 import requests
 from docker import DockerClient
 from docker.models.containers import Container
+from docker.errors import ImageNotFound
 from kubernetes import client as kube_client, config as kube_config
 
 from deployer_utils import safe_delete_path, fill_placeholders_from_dict, poll
@@ -34,7 +35,7 @@ class DeploymentStatus:
     def __init__(self, full_model_name: str):
         self.full_model_name: str = full_model_name
         self.finish: bool = False
-        self.extended_stage_info: Optional[str] = None
+        self.extended_stage_info: str = ''
 
 
 class Deployer:
@@ -128,6 +129,7 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
         self.in_queue: Queue = in_queue
         self.out_queue: Queue = out_queue
         self.container: Optional[Container] = None
+        self.extended_log_message = ''
 
     def run(self) -> None:
         while True:
@@ -145,7 +147,7 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
                 out_log_level = LogLevel.INFO
                 out_log_message = f'[{full_model_name}] [{self.stage_name}]: stage finished'
                 deployment_status: DeploymentStatus = self._act(deployment_status)
-                out_extended_log_message = deployment_status.extended_stage_info
+                out_extended_log_message = deployment_status.extended_stage_info.strip().strip(';').strip()
                 deployment_status.extended_stage_info = ''
 
             except Exception:
@@ -229,13 +231,30 @@ class MakeFilesDeploymentStage(AbstractDeploymentStage):
         return deployment_status
 
 
+class DeleteImageDeploymentStage(AbstractDeploymentStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'delete docker image'
+        super(DeleteImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
+        self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        kuber_image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
+
+        try:
+            self.docker_client.images.remove(kuber_image_tag)
+            deployment_status.extended_stage_info = f'removed image tagged {kuber_image_tag}'
+        except ImageNotFound:
+            deployment_status.extended_stage_info = f'image not exists {kuber_image_tag}'
+
+        return deployment_status
+
+
 class BuildImageDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Build Docker Image'
+        stage_name = 'build docker image'
         super(BuildImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
 
-    # TODO: make optional image cleanup
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         models_dir_path = self.config['paths']['models_dir']
         build_dir_path = str(models_dir_path / deployment_status.full_model_name)
@@ -258,7 +277,7 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
 
 class TestImageDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Test Docker Image'
+        stage_name = 'test docker image'
         super(TestImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
 
@@ -306,7 +325,7 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
 
 class PushImageDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Push to Local Repo'
+        stage_name = 'push to cluster repo'
         super(PushImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
 
@@ -322,7 +341,7 @@ class PushImageDeploymentStage(AbstractDeploymentStage):
 # TODO: separate deployment creation from deployment deletion
 class DeployKuberDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Deploy In Kubernetes'
+        stage_name = 'deploy in kubernetes'
         super(DeployKuberDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
         kube_config.load_kube_config()
@@ -392,7 +411,7 @@ class DeployKuberDeploymentStage(AbstractDeploymentStage):
 
 class TestKuberDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Test Kuber Deployment'
+        stage_name = 'test kuber deployment'
         super(TestKuberDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
@@ -418,7 +437,7 @@ class TestKuberDeploymentStage(AbstractDeploymentStage):
 
 class PushToDockerHubDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'Push to Docker Hub'
+        stage_name = 'push to docker hub'
         super(PushToDockerHubDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
         self.docker_client.login(self.config['dockerhub_registry'], self.config['dockerhub_password'])
@@ -446,10 +465,6 @@ class FinalDeploymentStage(AbstractDeploymentStage):
         stage_name = 'FINISH DEPLOYMENT'
         super(FinalDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
-    # TODO: Make optional docker image cleanup
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         deployment_status.finish = True
-        deployment_status.log_level = LogLevel.INFO
-        deployment_status.log_message = f'DEPLOYMENT FINISHED for [{deployment_status.full_model_name}]'
-
         return deployment_status
