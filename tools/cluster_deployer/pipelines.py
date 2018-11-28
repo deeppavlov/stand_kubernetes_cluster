@@ -1,4 +1,4 @@
-from deployer import MakeFilesDeploymentStage, BuildImageDeploymentStage
+from deployer import MakeFilesDeploymentStage, BuildImageDeploymentStage, DeleteKuberDeploymentStage
 from deployer import TestImageDeploymentStage, PushImageDeploymentStage
 from deployer import DeployKuberDeploymentStage, TestKuberDeploymentStage
 from deployer import PushToDockerHubDeploymentStage, DeleteImageDeploymentStage
@@ -62,7 +62,7 @@ pipelines = {
     },
     'delete_kuber': {
         'description': 'delete Kubernetes deployment',
-        'pipeline': []
+        'pipeline': [DeleteKuberDeploymentStage]
     },
     'push_to_registry': {
         'description': 'push images to local registry',
