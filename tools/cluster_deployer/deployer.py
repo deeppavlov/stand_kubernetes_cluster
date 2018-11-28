@@ -337,6 +337,7 @@ class PushImageDeploymentStage(AbstractDeploymentStage):
         return deployment_status
 
 
+# TODO: remove code same with delete kuber deployment stage
 class DeployKuberDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
         stage_name = 'deploy in kubernetes'
