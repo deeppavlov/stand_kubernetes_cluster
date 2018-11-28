@@ -5,7 +5,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from threading import Timer
 from queue import Queue
-from typing import Callable, Any, Tuple
+from typing import Callable, Any, Tuple, Optional
 
 
 def safe_delete_path(path: Path):
@@ -135,3 +135,20 @@ def poll(probe: Callable, interval_sec: float, timeout_sec: float,
             raise TimeoutError
         else:
             return q_in['result'], q_in['polling_time']
+
+
+def prompt_confirmation(question: str, default: Optional[str] = None) -> bool:
+    valid_map = {'y': True, 'yes': True, 'n': False, 'no': False}
+    prompt_map = {None: '[y/n]', 'yes': '[Y/n]', 'no': '[y/N]'}
+
+    if default not in prompt_map.keys():
+        raise ValueError('default option should be None, "yes" or "no"')
+
+    confirm = input(f"{question} {prompt_map[default]}: ").lower().strip()
+
+    if not confirm and default:
+        return prompt_confirmation(default, default)
+    elif confirm in valid_map.keys():
+        return valid_map[confirm]
+    else:
+        return prompt_confirmation(question, default)
