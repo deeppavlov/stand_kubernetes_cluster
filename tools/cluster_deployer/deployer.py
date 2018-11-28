@@ -242,7 +242,6 @@ class DeleteImageDeploymentStage(AbstractDeploymentStage):
 
         try:
             self.docker_client.images.remove(kuber_image_tag)
-            deployment_status.extended_stage_info = f'removed image tagged {kuber_image_tag}'
         except ImageNotFound:
             deployment_status.extended_stage_info = f'image not exists {kuber_image_tag}'
 
