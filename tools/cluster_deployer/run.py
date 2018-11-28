@@ -26,7 +26,7 @@ parser.add_argument('-d', '--dockerhub-pass', default=None, help='Docker Hub pas
 
 # TODO: make docker running containers check and cleanup
 # TODO: implement custom pipelines for models (with pipeline dicts)
-# TODO: refactor templates README.md
+# TODO: get rid of add_dp_model util
 def main() -> None:
     args = parser.parse_args()
 
