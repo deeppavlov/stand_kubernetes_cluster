@@ -60,7 +60,7 @@ def main() -> None:
             print(model_full_name)
     elif model:
         if model in model_full_names:
-            deployer = Deployer(config, FULL_CYCLE_PIPELINE)
+            deployer = Deployer(config, pipelines['all']['pipeline'])
             deployer.deploy([model])
         else:
             print(f'Unknown model full name: {model}')
