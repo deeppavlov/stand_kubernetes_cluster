@@ -47,9 +47,6 @@ class Deployer:
         self.pipline: list = pipeline
         self.pipline.append(FinalDeploymentStage)
 
-        # TODO: maintenance
-        safe_delete_path(self.config['paths']['log_dir'])
-
         for stage_class in self.pipline:
             in_queue = Queue()
             out_queue = Queue()
