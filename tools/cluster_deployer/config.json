@@ -1,4 +1,5 @@
 {
+  "extended_deployer_logging": true,
   "dockerhub_registry": "deeppavlov",
   "docker_base_url": "unix://var/run/docker.sock",
   "test_image_url": "http://0.0.0.0:{{PORT}}/answer",
