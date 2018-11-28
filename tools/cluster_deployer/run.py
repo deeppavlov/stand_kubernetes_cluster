@@ -4,16 +4,10 @@ from pathlib import Path
 from docker import DockerClient
 from docker.errors import APIError
 
+from pipelines import pipelines
 from deployer_utils import make_config_from_file, prompt_confirmation
 from deployer import Deployer
-from deployer import MakeFilesDeploymentStage, BuildImageDeploymentStage
-from deployer import TestImageDeploymentStage, PushImageDeploymentStage
-from deployer import DeployKuberDeploymentStage, TestKuberDeploymentStage
-from deployer import PushToDockerHubDeploymentStage
 
-FULL_CYCLE_PIPELINE = [MakeFilesDeploymentStage, BuildImageDeploymentStage, TestImageDeploymentStage,
-                       PushImageDeploymentStage, DeployKuberDeploymentStage, TestKuberDeploymentStage,
-                       PushToDockerHubDeploymentStage]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--model', default=None, help='full model name with prefix', type=str)
@@ -78,7 +72,7 @@ def main() -> None:
                 absent_models = ', '.join(absent_models)
                 print(f'Unknown model full names: {absent_models}')
             else:
-                deployer = Deployer(config, FULL_CYCLE_PIPELINE)
+                deployer = Deployer(config, pipelines['all']['pipeline'])
                 deployer.deploy(models)
         else:
             print(f'Unknown model group name: {group}')
