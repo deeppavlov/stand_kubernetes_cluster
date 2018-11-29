@@ -53,7 +53,8 @@
       "test_image_url": "",
       "test_deployment_url": "",
       "image_polling_timeout_sec": 60,
-      "deployment_polling_timeout_sec": 60
+      "deployment_polling_timeout_sec": 60,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "ner_ru",
@@ -70,7 +71,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "ner_en",
@@ -87,7 +89,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "squad_ru",
@@ -105,7 +108,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "squad_en",
@@ -123,7 +127,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "intents_en",
@@ -140,7 +145,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "ranking_en",
@@ -157,7 +163,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "insults_en",
@@ -174,7 +181,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 1200
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "odqa_en",
@@ -191,7 +199,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 1200,
-      "deployment_polling_timeout_sec": 2400
+      "deployment_polling_timeout_sec": 2400,
+      "pipeline": "all_up_kuber"
     },
     {
       "MODEL_NAME": "odqa_ru",
@@ -208,7 +217,8 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
     }
   ]
 }

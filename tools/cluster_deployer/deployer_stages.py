@@ -27,8 +27,9 @@ class LogLevel(Enum):
 
 
 class DeploymentStatus:
-    def __init__(self, full_model_name: str):
+    def __init__(self, full_model_name: str, pipeline: list):
         self.full_model_name: str = full_model_name
+        self.pipeline: list = pipeline
         self.finish: bool = False
         self.extended_stage_info: str = ''
 
@@ -426,14 +427,4 @@ class PushToDockerHubDeploymentStage(AbstractDeploymentStage):
 
         images.remove(dockerhub_image_tag)
 
-        return deployment_status
-
-
-class FinalDeploymentStage(AbstractDeploymentStage):
-    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
-        stage_name = 'FINISH DEPLOYMENT'
-        super(FinalDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
-
-    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
-        deployment_status.finish = True
         return deployment_status

@@ -12,7 +12,7 @@ all_stages = [MakeFilesDeploymentStage,
               TestKuberDeploymentStage,
               PushToDockerHubDeploymentStage]
 
-pipelines = {
+preset_pipelines = {
     'all': {
         'description': 'full cycle deployment: from making deploying files up to pushing to Docker Hub',
         'pipeline': [MakeFilesDeploymentStage,

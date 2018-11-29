@@ -4,7 +4,7 @@ from pathlib import Path
 from docker import DockerClient
 from docker.errors import APIError
 
-from pipelines import pipelines
+from pipelines import preset_pipelines
 from deployer_utils import make_config_from_file, prompt_confirmation
 from deployer import Deployer
 
@@ -20,6 +20,43 @@ parser.add_argument('-d', '--dockerhub-pass', default=None, help='Docker Hub pas
 
 
 def build(config: dict, args: argparse.Namespace) -> None:
+    model = args.model
+    group = args.group
+    pipeline = args.pipeline
+
+    if group:
+        models = config['model_groups'].get()
+        if not models:
+            print(f'Group {group} does not exist or empty')
+            return
+    elif model:
+        models = [model]
+    else:
+        print('Please, specify group or model full name')
+        return
+
+    absent_models = set(models) - set(config['models'].keys())
+    if len(absent_models) > 0:
+        absent_models = ', '.join(absent_models)
+        print(f'Unknown model full names: {absent_models}')
+        return
+
+    if pipeline and pipeline not in preset_pipelines.keys():
+        print(f'Unknown pipeline name: {pipeline}')
+        return
+    elif pipeline:
+        for model in models:
+            config['models'][model]['pipeline'] = pipeline
+    else:
+        absent_pipeline_models = []
+        for model in models:
+            if config['models'][model].get('pipeline') not in preset_pipelines.keys():
+                absent_pipeline_models.append(model)
+        if absent_pipeline_models:
+            absent_pipeline_models = ', '.join(absent_pipeline_models)
+            print(f'Incorrect or absent pipeline names for: {absent_pipeline_models}')
+            return
+
     # Test Docker Hub authentication
     dockerhub_password = args.dockerhub_pass
 
@@ -39,39 +76,8 @@ def build(config: dict, args: argparse.Namespace) -> None:
 
     config['dockerhub_password'] = dockerhub_password
 
-    model = args.model
-    group = args.group
-    pipeline = args.pipeline
-
-    if pipeline not in pipelines.keys():
-        print(f'Unknown pipeline name full name: {model}')
-        return
-
-    if model:
-        model_full_names = config['models'].keys()
-
-        if model in model_full_names:
-            deployer = Deployer(config, pipelines[pipeline]['pipeline'])
-            deployer.deploy([model])
-        else:
-            print(f'Unknown model full name: {model}')
-
-    if group:
-        group_names = config['model_groups'].keys()
-
-        if group in group_names:
-            models = config['model_groups'][group]
-            absent_models = set(models) - set(config['models'].keys())
-
-            if len(absent_models) > 0:
-                absent_models = ', '.join(absent_models)
-                print(f'Unknown model full names: {absent_models}')
-            else:
-                deployer = Deployer(config, pipelines['all']['pipeline'])
-                deployer.deploy(models)
-
-        else:
-            print(f'Unknown group name: {group}')
+    deployer = Deployer(config)
+    deployer.deploy(models)
 
 
 def list_names(config: dict, args: argparse.Namespace) -> None:
@@ -84,12 +90,11 @@ def list_names(config: dict, args: argparse.Namespace) -> None:
     if args.action == 'pipelines':
         pipelines_str = '\n\n'.join([f'{name}:\t{content["description"]} '
                                      f'{str([stage.__name__ for stage in content["pipeline"]])}'
-                                     for name, content in pipelines.items()])
+                                     for name, content in preset_pipelines.items()])
         print(pipelines_str)
 
 
 # TODO: make docker running containers check and cleanup
-# TODO: implement custom pipelines for models (with pipeline dicts)
 # TODO: get rid of add_dp_model util
 def main() -> None:
     args = parser.parse_args()
