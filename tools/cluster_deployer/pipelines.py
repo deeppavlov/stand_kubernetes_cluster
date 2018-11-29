@@ -1,7 +1,16 @@
-from deployer import MakeFilesDeploymentStage, BuildImageDeploymentStage, DeleteKuberDeploymentStage
-from deployer import TestImageDeploymentStage, PushImageDeploymentStage
-from deployer import DeployKuberDeploymentStage, TestKuberDeploymentStage
-from deployer import PushToDockerHubDeploymentStage, DeleteImageDeploymentStage
+from deployer_stages import MakeFilesDeploymentStage, BuildImageDeploymentStage, DeleteKuberDeploymentStage
+from deployer_stages import TestImageDeploymentStage, PushImageDeploymentStage
+from deployer_stages import DeployKuberDeploymentStage, TestKuberDeploymentStage
+from deployer_stages import PushToDockerHubDeploymentStage, DeleteImageDeploymentStage
+
+all_stages = [MakeFilesDeploymentStage,
+              DeleteImageDeploymentStage,
+              BuildImageDeploymentStage,
+              TestImageDeploymentStage,
+              PushImageDeploymentStage,
+              DeployKuberDeploymentStage,
+              TestKuberDeploymentStage,
+              PushToDockerHubDeploymentStage]
 
 pipelines = {
     'all': {
