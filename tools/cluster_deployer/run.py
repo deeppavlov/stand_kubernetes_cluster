@@ -10,32 +10,19 @@ from deployer import Deployer
 
 
 parser = argparse.ArgumentParser()
+parser.add_argument('action', help='select action', type=str, choices={'build', 'models', 'groups', 'pipelines'})
+
 parser.add_argument('-m', '--model', default=None, help='full model name with prefix', type=str)
 parser.add_argument('-g', '--group', default=None, help='model group name', type=str)
-parser.add_argument('-c', '--custom', action='store_true', help='generate deploying files for editing')
-parser.add_argument('-l', '--list', action='store_true', help='list available models from config')
+parser.add_argument('-p', '--pipeline', default=None, help='pipeline name', type=str)
 
 parser.add_argument('-d', '--dockerhub-pass', default=None, help='Docker Hub password', type=str)
 
 
-# TODO: make docker running containers check and cleanup
-# TODO: implement custom pipelines for models (with pipeline dicts)
-# TODO: get rid of add_dp_model util
-def main() -> None:
-    args = parser.parse_args()
-
-    model = args.model
-    group = args.group
-    # TODO: implement custom model config making (and building models without configs making)
-    custom = args.custom
-    list = args.list
-
+def build(config: dict, args: argparse.Namespace) -> None:
+    # Test Docker Hub authentication
     dockerhub_password = args.dockerhub_pass
 
-    config_file_path = Path(__file__, '..').resolve() / 'config.json'
-    config = make_config_from_file(config_file_path, Path(__file__, '..', '..', '..').resolve())
-
-    # Test Docker Hub authentication
     if not dockerhub_password:
         prompt_text = 'Docker Hub password was not entered, would you like for proceed without Docker Hub login?'
         if not prompt_confirmation(prompt_text):
@@ -52,30 +39,68 @@ def main() -> None:
 
     config['dockerhub_password'] = dockerhub_password
 
-    model_group_names = config['model_groups'].keys()
-    model_full_names = config['models'].keys()
+    model = args.model
+    group = args.group
+    pipeline = args.pipeline
 
-    if list:
-        for model_full_name in model_full_names:
-            print(model_full_name)
-    elif model:
+    if pipeline not in pipelines.keys():
+        print(f'Unknown pipeline name full name: {model}')
+        return
+
+    if model:
+        model_full_names = config['models'].keys()
+
         if model in model_full_names:
-            deployer = Deployer(config, pipelines['all']['pipeline'])
+            deployer = Deployer(config, pipelines[pipeline]['pipeline'])
             deployer.deploy([model])
         else:
             print(f'Unknown model full name: {model}')
-    elif group:
-        if group in model_group_names:
+
+    if group:
+        group_names = config['model_groups'].keys()
+
+        if group in group_names:
             models = config['model_groups'][group]
             absent_models = set(models) - set(config['models'].keys())
+
             if len(absent_models) > 0:
                 absent_models = ', '.join(absent_models)
                 print(f'Unknown model full names: {absent_models}')
             else:
                 deployer = Deployer(config, pipelines['all']['pipeline'])
                 deployer.deploy(models)
+
         else:
-            print(f'Unknown model group name: {group}')
+            print(f'Unknown group name: {group}')
+
+
+def list_names(config: dict, args: argparse.Namespace) -> None:
+    if args.action == 'models':
+        models_str = '\n'.join(config['models'].keys())
+        print(models_str)
+    if args.action == 'groups':
+        groups_str = '\n'.join([f'{group}:\t\t{", ".join(models)}' for group, models in config['model_groups'].items()])
+        print(groups_str)
+    if args.action == 'pipelines':
+        pipelines_str = '\n\n'.join([f'{name}:\t{content["description"]} '
+                                     f'{str([stage.__name__ for stage in content["pipeline"]])}'
+                                     for name, content in pipelines.items()])
+        print(pipelines_str)
+
+
+# TODO: make docker running containers check and cleanup
+# TODO: implement custom pipelines for models (with pipeline dicts)
+# TODO: get rid of add_dp_model util
+def main() -> None:
+    args = parser.parse_args()
+
+    config_file_path = Path(__file__, '..').resolve() / 'config.json'
+    config = make_config_from_file(config_file_path, Path(__file__, '..', '..', '..').resolve())
+
+    if args.action == 'build':
+        build(config, args)
+    else:
+        list_names(config, args)
 
 
 if __name__ == '__main__':
