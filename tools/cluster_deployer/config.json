@@ -24,7 +24,12 @@
       "stand_odqa_ru",
       "stand_odqa_en"
     ],
-    "demo": [],
+    "demo": [
+      "demo_bhge_retrieval_en",
+      "demo_bhge_odqa_en",
+      "demo_bhge_retrieval_lists_ensemble_en",
+      "demo_bhge_odqa_tables_en"
+    ],
     "all": [],
     "custom": []
   },
@@ -212,6 +217,78 @@
       "TF_VERSION": "",
       "PORT": 6012,
       "CLUSTER_PORT": 7012,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "bhge_retrieval_en",
+      "PREFIX": "demo",
+      "CONFIG_FILE": "odqa/bhge/bhge_retrieval_demo_optimized_2.json",
+      "TEMPLATE": "gpu_obsolete",
+      "BRANCH": "retrieval_demo",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "1.8",
+      "PORT": 6021,
+      "CLUSTER_PORT": 7021,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "bhge_odqa_en",
+      "PREFIX": "demo",
+      "CONFIG_FILE": "odqa/bhge/bhge_odqa.json",
+      "TEMPLATE": "gpu_obsolete",
+      "BRANCH": "retrieval_demo",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "1.8",
+      "PORT": 6022,
+      "CLUSTER_PORT": 7022,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "bhge_retrieval_lists_ensemble_en",
+      "PREFIX": "demo",
+      "CONFIG_FILE": "odqa/bhge/bhge_retrieval_demo_lists_ensemble.json",
+      "TEMPLATE": "no_gpu_obsolete",
+      "BRANCH": "retrieval_demo",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "1.8",
+      "PORT": 6024,
+      "CLUSTER_PORT": 7024,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "image_polling_timeout_sec": 1200,
+      "deployment_polling_timeout_sec": 2400,
+      "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "bhge_odqa_tables_en",
+      "PREFIX": "demo",
+      "CONFIG_FILE": "odqa/bhge/bhge_odqa_tables.json",
+      "TEMPLATE": "no_gpu_obsolete",
+      "BRANCH": "retrieval_demo",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "1.8",
+      "PORT": 6026,
+      "CLUSTER_PORT": 7026,
       "MODEL_ARGS": [
         "text1"
       ],

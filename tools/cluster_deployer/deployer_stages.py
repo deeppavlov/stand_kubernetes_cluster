@@ -13,7 +13,7 @@ from multiprocessing import Process, Queue
 import requests
 from docker import DockerClient
 from docker.models.containers import Container
-from docker.errors import ImageNotFound
+from docker.errors import ImageNotFound, NotFound
 from kubernetes import client as kube_client, config as kube_config
 
 from deployer_utils import safe_delete_path, fill_placeholders_from_dict, poll
@@ -73,7 +73,12 @@ class AbstractDeploymentStage(Process, metaclass=ABCMeta):
                 out_extended_log_message = ''
 
                 if self.container:
-                    self.container.stop()
+                    try:
+                        self.container.stop()
+                    except NotFound:
+                        pass
+                    finally:
+                        self.container = None
 
             log_message = LogMessage(full_model_name=full_model_name,
                                      log_level=out_log_level,
