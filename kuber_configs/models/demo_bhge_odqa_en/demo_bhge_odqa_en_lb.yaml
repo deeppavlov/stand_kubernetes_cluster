@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-bhge-odqa-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: demo-bhge-odqa-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: demo-bhge-odqa-en
+    protocol: TCP
+    port: 7022
+    targetPort: cp6022

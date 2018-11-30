@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-bhge-retrieval-lists-ensemble-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: demo-bhge-retrieval-lists-ensemble-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: demo-bhge-retrieval-lists-ensemble-en
+    protocol: TCP
+    port: 7024
+    targetPort: cp6024
