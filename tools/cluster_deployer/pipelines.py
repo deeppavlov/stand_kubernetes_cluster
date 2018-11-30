@@ -41,7 +41,8 @@ preset_pipelines = {
                      TestImageDeploymentStage,
                      PushImageDeploymentStage,
                      DeployKuberDeploymentStage,
-                     TestKuberDeploymentStage]
+                     TestKuberDeploymentStage,
+                     PushToDockerHubDeploymentStage]
     },
     'from_docker_up_kuber': {
         'description': 'deployment cycle from building images up to deploying in Kubernetes',

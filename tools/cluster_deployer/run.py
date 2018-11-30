@@ -25,7 +25,7 @@ def build(config: dict, args: argparse.Namespace) -> None:
     pipeline = args.pipeline
 
     if group:
-        models = config['model_groups'].get()
+        models = config['model_groups'].get(group)
         if not models:
             print(f'Group {group} does not exist or empty')
             return

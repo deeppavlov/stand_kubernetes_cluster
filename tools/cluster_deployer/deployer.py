@@ -1,9 +1,9 @@
 import logging
 from queue import Empty
 from datetime import datetime
-from collections import namedtuple
 from multiprocessing import Queue
 from typing import Optional
+from copy import deepcopy
 
 from deployer_utils import safe_delete_path
 from deployer_stages import DeploymentStatus, LogMessage, AbstractDeploymentStage
@@ -52,7 +52,7 @@ class Deployer:
 
         for full_model_name in full_model_names:
             pipeline_name = self.config['models'][full_model_name]['pipeline']
-            pipeline = preset_pipelines[pipeline_name]['pipeline']
+            pipeline = deepcopy(preset_pipelines[pipeline_name]['pipeline'])
             deployment_status = DeploymentStatus(full_model_name, pipeline)
 
             info_str = f'\t[{full_model_name}]:\t\t[{", ".join([stage.__name__ for stage in pipeline])}]'
