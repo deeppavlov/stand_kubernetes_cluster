@@ -82,15 +82,24 @@ def build(config: dict, args: argparse.Namespace) -> None:
 
 def list_names(config: dict, args: argparse.Namespace) -> None:
     if args.action == 'models':
-        models_str = '\n'.join(config['models'].keys())
+
+        models_info = [f'{model.get("PREFIX", "-")}_'
+                       f'{model.get("MODEL_NAME", "-")} | '
+                       f'{model.get("TEMPLATE", "-")} | '
+                       f'{model.get("CONFIG_FILE", "-")}' for model in config['models'].values()]
+
+        models_str = '\n'.join(models_info)
         print(models_str)
+
     if args.action == 'groups':
         groups_str = '\n'.join([f'{group}:\t\t{", ".join(models)}' for group, models in config['model_groups'].items()])
         print(groups_str)
+
     if args.action == 'pipelines':
         pipelines_str = '\n\n'.join([f'{name}:\t{content["description"]} '
                                      f'{str([stage.__name__ for stage in content["pipeline"]])}'
                                      for name, content in preset_pipelines.items()])
+
         print(pipelines_str)
 
 
