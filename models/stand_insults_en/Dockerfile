@@ -1,12 +1,26 @@
+# Copyright 2017 Neural Networks and Deep Learning lab, MIPT
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 FROM stand/docker_deeppavlov:cuda-9.0
 
 VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
-    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
-    cp /app/configs/server_config.json /base/DeepPavlov/utils/server_config.json
+RUN python3.6 -m deeppavlov download /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
+    python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
+    cp /app/configs/*.json /base/DeepPavlov/utils/settings
 
 EXPOSE 6006
 
@@ -16,8 +30,9 @@ ENV DEFAULT_POD_NAME="unknown_pod"
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
+    sed -i "s/\/dialog_logs/\/"$POD_NODE"\/dialog_logs/g" "/base/DeepPavlov/utils/settings/dialog_logger_config.json" && \
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N') && \
-    LOG_DIR="/logs/"$MODEL_NAME"/"$POD_NODE"/" && \
+    LOG_DIR="/logs/"$MODEL_NAME"/"$POD_NODE"/logs/" && \
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \

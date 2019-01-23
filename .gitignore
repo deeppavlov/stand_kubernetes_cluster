@@ -1,6 +1,8 @@
 .idea/
 *env/
 *.log
+*temp
+*__pycache__
 
 kuber_configs/common/secrets/ssl_proxy/secret/*
 utils/stand_ssl_proxy/certs/*

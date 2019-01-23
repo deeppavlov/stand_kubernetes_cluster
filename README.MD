@@ -297,3 +297,7 @@ Delete object:
     ```
     kubectl -n stand-demo delete pod <pod_name>
     ```
+
+# License
+
+Apache 2.0 - licensed.

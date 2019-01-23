@@ -1,4 +1,4 @@
-# Demo stand. Model: 
+# Demo stand. Model: ner_ru
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/models/stand_ner_ru` directory
@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:6004 -v /path/to/host/vol/map/dir:/logs stand/ner_ru
    ```
+
+# License
+
+Apache 2.0 - licensed.

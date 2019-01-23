@@ -1,4 +1,4 @@
-# Demo stand. Model: {{MODEL_CAPTION}}
+# Demo stand. Model: {{MODEL_NAME}}
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/{{MODELS_FOLDER}}{{FULL_MODEL_NAME}}` directory
@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:{{PORT}} -v /path/to/host/vol/map/dir:/logs {{PREFIX}}/{{MODEL_NAME}}
    ```
+
+# License
+
+Apache 2.0 - licensed.

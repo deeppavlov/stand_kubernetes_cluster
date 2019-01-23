@@ -1,4 +1,4 @@
-# Demo stand. Model: 
+# Demo stand. Model: squad_en
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/models/stand_squad_en` directory
@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:6008 -v /path/to/host/vol/map/dir:/logs stand/squad_en
    ```
+
+# License
+
+Apache 2.0 - licensed.

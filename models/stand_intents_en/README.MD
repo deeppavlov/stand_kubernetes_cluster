@@ -1,4 +1,4 @@
-# Demo stand. Model: 
+# Demo stand. Model: intents_en
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/models/stand_intents_en` directory
@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:6007 -v /path/to/host/vol/map/dir:/logs stand/intents_en
    ```
+
+# License
+
+Apache 2.0 - licensed.

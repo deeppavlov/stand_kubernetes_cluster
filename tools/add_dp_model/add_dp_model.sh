@@ -2,16 +2,16 @@
 
 # USER INPUT
 # =============================================================================
-TEMPLATE='no_gpu'
-BRANCH='master'
+TEMPLATE='no_gpu_custom'
+BRANCH='0.1.0a'
 
-MODEL_NAME='model_ru'
-CONFIG_FILE='model/model.json'
+MODEL_NAME='ner_ru'
+CONFIG_FILE='ner/ner_rus.json'
 CUDA_VERSION='9.0'
-TF_VERSION='1.4.0'
+TF_VERSION='1.8.0'
 
-PORT='6001'
-CLUSTER_PORT='7001'
+PORT='6004'
+CLUSTER_PORT='7004'
 MODEL_ARGS='["text1"]'
 
 PREFIX='stand'

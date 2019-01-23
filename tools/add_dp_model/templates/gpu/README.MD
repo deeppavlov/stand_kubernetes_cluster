@@ -1,4 +1,4 @@
-# Demo stand. Model: {{MODEL_CAPTION}}
+# Demo stand. Model: {{MODEL_NAME}}
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/{{MODELS_FOLDER}}{{FULL_MODEL_NAME}}` directory
@@ -16,30 +16,19 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Install the requirements:
+    2. Install DeepPavlov:
         ```
         python setup.py develop
         ```
-    3. Install tensorflow-gpu:
+    3. Download model components:
         ```
-        pip install tensorflow-gpu=={{TF_VERSION}}
+        python3.6 -m deeppavlov download deeppavlov/configs/{{CONFIG_FILE}}
         ```
-    4. Install `spacy` dependencies:
+    4. Install model dependencies:
         ```
-        python -m spacy download en
+        python3.6 -m deeppavlov install deeppavlov/configs/{{CONFIG_FILE}}
         ```
-    5. Download NLTK data:
-        ```
-        $ python3
-        >>> import nltk
-        >>> nltk.download('punkt')
-        >>> exit()
-        ```
-    6. Download model components:
-        ```
-        python3.6 -m deeppavlov.deep download deeppavlov/configs/{{CONFIG_FILE}}
-        ```
-    7. Return to the `{{FULL_MODEL_NAME}}` dir:
+    5. Return to the `{{FULL_MODEL_NAME}}` dir:
         ```
         cd ..
         ```
@@ -65,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:{{PORT}} --runtime=nvidia --device=/dev/nvidia<gpu_unit_int_id> -v /path/to/host/vol/map/dir:/logs {{PREFIX}}/{{MODEL_NAME}}
    ```
+
+# License
+
+Apache 2.0 - licensed.

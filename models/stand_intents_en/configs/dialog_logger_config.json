@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "agent_name": "/",
+  "log_path": "/logs/stand_intents_en/dialog_logs",
+  "logfile_max_size_kb": 10240,
+  "ensure_ascii": false
+}

@@ -1,4 +1,4 @@
-# Demo stand. Model: 
+# Demo stand. Model: insults_en
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/models/stand_insults_en` directory
@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:6006 -v /path/to/host/vol/map/dir:/logs stand/insults_en
    ```
+
+# License
+
+Apache 2.0 - licensed.

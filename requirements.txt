@@ -1,0 +1,3 @@
+requests==2.20.0
+docker==3.5.1
+kubernetes==8.0.0

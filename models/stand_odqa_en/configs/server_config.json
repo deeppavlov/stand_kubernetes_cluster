@@ -3,7 +3,21 @@
     "host": "0.0.0.0",
     "port": 6011,
     "model_endpoint": "/answer",
-    "model_args_names": ["text1"]
+    "model_args_names": ["text1"],
+    "https": false,
+    "https_cert_path": "",
+    "https_key_path": "",
+    "stateful": false,
+    "multi_instance": false
+  },
+  "telegram_defaults": {
+    "token": ""
+  },
+  "ms_bot_framework_defaults": {
+    "auth_polling_interval": 3500,
+    "conversation_lifetime": 3600,
+    "auth_app_id": "",
+    "auth_app_secret": ""
   },
   "model_defaults": {}
 }
