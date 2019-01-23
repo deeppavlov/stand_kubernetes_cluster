@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:6010 -v /path/to/host/vol/map/dir:/logs stand/ner_en
    ```
+
+# License
+
+Apache 2.0 - licensed.

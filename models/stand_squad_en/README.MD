@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:6008 -v /path/to/host/vol/map/dir:/logs stand/squad_en
    ```
+
+# License
+
+Apache 2.0 - licensed.

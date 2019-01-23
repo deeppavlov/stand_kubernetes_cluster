@@ -54,3 +54,7 @@
    ```
    sudo docker run -p <host_port>:6012 --runtime=nvidia --device=/dev/nvidia<gpu_unit_int_id> -v /path/to/host/vol/map/dir:/logs stand/odqa_ru
    ```
+
+# License
+
+Apache 2.0 - licensed.
