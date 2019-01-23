@@ -1,4 +1,4 @@
-# Demo stand. Model: 
+# Demo stand. Model: odqa_en
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/models/stand_odqa_en` directory
@@ -16,29 +16,24 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Switch to branch 0.1.0a and update it:
-        ```
-        git checkout 0.1.0a
-        git pull origin 0.1.0a
-        ```
-    3. Install DeepPavlov:
+    2. Install DeepPavlov:
         ```
         python setup.py develop
         ```
-    4. Download model components:
+    3. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/odqa/en_odqa_infer_wiki.json
+        python3.6 -m deeppavlov download deeppavlov/configs/odqa/en_odqa_pop_infer_enwiki20180211.json
         ```
-    5. Install model dependencies:
+    4. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/odqa/en_odqa_infer_wiki.json
+        python3.6 -m deeppavlov install deeppavlov/configs/odqa/en_odqa_pop_infer_enwiki20180211.json
         ```
-    6. Return to the `stand_odqa_en` dir:
+    5. Return to the `stand_odqa_en` dir:
         ```
         cd ..
         ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `DeepPavlov/utils/server_utils/server_config.json`
-6. Specify virtual environment path (if necessary) in `run_odqa_en.sh`
+6. Specify `CUDA_VISIBLE_DEVICES` and virtual environment path (if necessary) in `run_odqa_en.sh`
 7. Run model:
     ```
     ./run_odqa_en.sh
@@ -57,5 +52,5 @@
    ```
 4. Run Docker image:
    ```
-   sudo docker run -p <host_port>:6011 -v /path/to/host/vol/map/dir:/logs stand/odqa_en
+   sudo docker run -p <host_port>:6011 --runtime=nvidia --device=/dev/nvidia<gpu_unit_int_id> -v /path/to/host/vol/map/dir:/logs stand/odqa_en
    ```

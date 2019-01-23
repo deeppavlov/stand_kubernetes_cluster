@@ -13,6 +13,9 @@ spec:
       containers:
       - name: stand-odqa-en
         image: kubeadm.ipavlov.mipt.ru:5000/stand/odqa_en
+        resources:
+          limits:
+            nvidia.com/gpu: 1
         ports:
         - name: cp6011
           protocol: TCP

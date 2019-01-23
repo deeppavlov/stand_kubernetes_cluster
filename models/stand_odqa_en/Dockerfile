@@ -4,13 +4,9 @@ VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN cd /base/DeepPavlov && \
-    git fetch --all --tags --prune && \
-    git checkout 0.1.0a && \
-    python3.6 setup.py develop
-
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_wiki.json && \
-    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_wiki.json && \
+RUN pip install tensorflow-gpu && \
+    python3.6 -m deeppavlov download /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_pop_infer_enwiki20180211.json && \
+    python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_pop_infer_enwiki20180211.json && \
     cp /app/configs/*.json /base/DeepPavlov/utils/settings
 
 EXPOSE 6011
@@ -27,4 +23,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_infer_wiki.json > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/odqa/en_odqa_pop_infer_enwiki20180211.json > $LOG_PATH 2>&1

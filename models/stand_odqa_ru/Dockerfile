@@ -4,13 +4,9 @@ VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN cd /base/DeepPavlov && \
-    git fetch --all --tags --prune && \
-    git checkout 0.1.0a && \
-    python3.6 setup.py develop
-
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/odqa/ru_odqa_infer_wiki.json && \
-    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/odqa/ru_odqa_infer_wiki.json && \
+RUN pip install tensorflow-gpu && \
+    python3.6 -m deeppavlov download /base/DeepPavlov/deeppavlov/configs/odqa/ru_odqa_infer_wiki.json && \
+    python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/odqa/ru_odqa_infer_wiki.json && \
     cp /app/configs/*.json /base/DeepPavlov/utils/settings
 
 EXPOSE 6012

@@ -1,4 +1,4 @@
-# Demo stand. Model: 
+# Demo stand. Model: ner_en
 
 ## Installation and start
 1. Go to the `stand_kubernetes_cluster/models/stand_ner_en` directory
@@ -16,24 +16,19 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Switch to branch 0.1.0a and update it:
-        ```
-        git checkout 0.1.0a
-        git pull origin 0.1.0a
-        ```
-    3. Install DeepPavlov:
+    2. Install DeepPavlov:
         ```
         python setup.py develop
         ```
-    4. Download model components:
+    3. Download model components:
         ```
         python3.6 -m deeppavlov download deeppavlov/configs/ner/ner_ontonotes.json
         ```
-    5. Install model dependencies:
+    4. Install model dependencies:
         ```
         python3.6 -m deeppavlov install deeppavlov/configs/ner/ner_ontonotes.json
         ```
-    6. Return to the `stand_ner_en` dir:
+    5. Return to the `stand_ner_en` dir:
         ```
         cd ..
         ```

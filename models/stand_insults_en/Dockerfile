@@ -4,13 +4,8 @@ VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN cd /base/DeepPavlov && \
-    git fetch --all --tags --prune && \
-    git checkout 0.1.0a && \
-    python3.6 setup.py develop
-
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
-    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
+RUN python3.6 -m deeppavlov download /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
+    python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/classifiers/insults_kaggle.json && \
     cp /app/configs/*.json /base/DeepPavlov/utils/settings
 
 EXPOSE 6006

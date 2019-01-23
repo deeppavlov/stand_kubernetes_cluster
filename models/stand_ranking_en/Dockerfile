@@ -4,14 +4,8 @@ VOLUME /logs
 WORKDIR /app
 ADD . /app
 
-RUN cd /base/DeepPavlov && \
-    git fetch --all --tags --prune && \
-    git checkout 0.1.0a && \
-    python3.6 setup.py develop
-
-RUN python3.6 -m deeppavlov.deep download /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance_interact.json && \
-    python3.6 -m deeppavlov.deep install /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance_interact.json && \
-    pip install git+https://github.com/deepmipt/fastText.git#egg=fastText==0.8.22 && \
+RUN python3.6 -m deeppavlov download /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance_interact.json && \
+    python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/ranking/ranking_insurance_interact.json && \
     cp /app/configs/*.json /base/DeepPavlov/utils/settings
 
 EXPOSE 6009
