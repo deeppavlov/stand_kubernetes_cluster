@@ -59,3 +59,7 @@
    ```
    sudo docker run -p <host_port>:{{PORT}} -v /path/to/host/vol/map/dir:/logs {{PREFIX}}/{{MODEL_NAME}}
    ```
+
+# License
+
+Apache 2.0 - licensed.

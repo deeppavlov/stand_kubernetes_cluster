@@ -18,3 +18,7 @@ This model is based upon obsolete DeepPavlov version and requires custom install
    ```
    sudo docker run -p <host_port>:{{PORT}} -v /path/to/host/vol/map/dir:/logs {{PREFIX}}/{{MODEL_NAME}}
    ```
+
+# License
+
+Apache 2.0 - licensed.

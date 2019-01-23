@@ -18,3 +18,7 @@ This model is based upon obsolete DeepPavlov version and requires custom install
    ```
    sudo docker run -p <host_port>:{{PORT}} --runtime=nvidia --device=/dev/nvidia<gpu_unit_int_id> -v /path/to/host/vol/map/dir:/logs {{PREFIX}}/{{MODEL_NAME}}
    ```
+
+# License
+
+Apache 2.0 - licensed.
