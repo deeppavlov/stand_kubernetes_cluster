@@ -10,6 +10,7 @@ all_stages = [MakeFilesDeploymentStage,
               PushImageDeploymentStage,
               DeployKuberDeploymentStage,
               TestKuberDeploymentStage,
+              DeleteKuberDeploymentStage,
               PushToDockerHubDeploymentStage]
 
 preset_pipelines = {
