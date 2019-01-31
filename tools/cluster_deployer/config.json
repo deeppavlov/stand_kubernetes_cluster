@@ -1,5 +1,7 @@
 {
   "extended_deployer_logging": true,
+  "cluster_ip": "10.11.1.251",
+  "dns_ip": "10.11.1.254",
   "dockerhub_registry": "deeppavlov",
   "docker_base_url": "unix://var/run/docker.sock",
   "test_image_url": "http://0.0.0.0:{{PORT}}/answer",
@@ -49,6 +51,13 @@
       "CLUSTER_PORT": "",
       "MODEL_ARGS": [],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
+      "run_params": {
+        "_flags": [
+          "--stateful"
+        ],
+        "--token": "<telegram_token>"
+      },
       "test_image_url": "",
       "test_deployment_url": "",
       "image_polling_timeout_sec": 60,
@@ -69,6 +78,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber"
@@ -87,6 +97,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber"
@@ -106,6 +117,7 @@
         "text2"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber"
@@ -125,6 +137,7 @@
         "text2"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber"
@@ -143,6 +156,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber"
@@ -161,6 +175,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 600,
       "deployment_polling_timeout_sec": 1200,
       "pipeline": "all_up_kuber"
@@ -179,6 +194,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 1200,
       "pipeline": "all_up_kuber"
@@ -197,6 +213,7 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 1200,
       "deployment_polling_timeout_sec": 2400,
       "pipeline": "all_up_kuber"
@@ -215,9 +232,29 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
       "image_polling_timeout_sec": 600,
       "deployment_polling_timeout_sec": 1200,
       "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "ner_ru_msbf",
+      "PREFIX": "stand",
+      "CONFIG_FILE": "ner/ner_rus.json",
+      "TEMPLATE": "no_gpu",
+      "BRANCH": "",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6050,
+      "CLUSTER_PORT": 7050,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber_no_tests"
     }
   ]
 }
