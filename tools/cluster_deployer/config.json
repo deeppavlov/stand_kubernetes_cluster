@@ -26,6 +26,10 @@
       "stand_odqa_ru",
       "stand_odqa_en"
     ],
+    "dpas": [
+      "dpas_ranking_chitchat_siamese",
+      "dpas_ranking_chitchat_2staged"
+    ],
     "all": [],
     "custom": []
   },
@@ -238,20 +242,53 @@
       "pipeline": "all_up_kuber"
     },
     {
-      "MODEL_NAME": "ner_ru_msbf",
-      "PREFIX": "stand",
-      "CONFIG_FILE": "ner/ner_rus.json",
-      "TEMPLATE": "no_gpu",
-      "BRANCH": "",
+      "MODEL_NAME": "ranking_chitchat_siamese",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_chitchat_siamese_train700K.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "hybrid_ranker",
       "CUDA_VERSION": "9.0",
       "TF_VERSION": "",
-      "PORT": 6050,
-      "CLUSTER_PORT": 7050,
+      "PORT": 6060,
+      "CLUSTER_PORT": 7060,
       "MODEL_ARGS": [
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "riseapi",
+      "run_mode": "interactmsbot",
+      "run_params": {
+        "_flags": [
+          "--stateful"
+        ],
+        "--ms-id": "",
+        "--ms-secret": "''"
+      },
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_chitchat_2staged",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v1.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "hybrid_ranker",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6061,
+      "CLUSTER_PORT": 7061,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "interactmsbot",
+      "run_params": {
+        "_flags": [
+          "--stateful"
+        ],
+        "--ms-id": "",
+        "--ms-secret": "''"
+      },
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber_no_tests"
