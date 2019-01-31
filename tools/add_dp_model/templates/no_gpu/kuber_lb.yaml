@@ -8,7 +8,7 @@ spec:
     app: {{KUBER_DP_NAME}}
   type: LoadBalancer
   externalIPs:
-  - 10.11.1.251
+  - {{CLUSTER_IP}}
   ports:
   - name: {{FULL_MODEL_NAME_DASHED}}
     protocol: TCP
