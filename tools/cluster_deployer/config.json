@@ -27,8 +27,9 @@
       "stand_odqa_en"
     ],
     "dpas": [
-      "dpas_ranking_chitchat_siamese",
-      "dpas_ranking_chitchat_2staged"
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v1",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v2",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v3"
     ],
     "all": [],
     "custom": []
@@ -225,9 +226,9 @@
     {
       "MODEL_NAME": "odqa_ru",
       "PREFIX": "stand",
-      "CONFIG_FILE": "odqa/ru_odqa_infer_wiki.json",
-      "TEMPLATE": "gpu",
-      "BRANCH": "",
+      "CONFIG_FILE": "odqa/ru_odqa_infer_wiki_retr_noans.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "squad_with_retr_data",
       "CUDA_VERSION": "9.0",
       "TF_VERSION": "",
       "PORT": 6012,
@@ -242,15 +243,15 @@
       "pipeline": "all_up_kuber"
     },
     {
-      "MODEL_NAME": "ranking_chitchat_siamese",
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v1",
       "PREFIX": "dpas",
-      "CONFIG_FILE": "ranking/ranking_chitchat_siamese_train700K.json",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v1.json",
       "TEMPLATE": "gpu_custom",
-      "BRANCH": "hybrid_ranker",
+      "BRANCH": "skill_wrapping",
       "CUDA_VERSION": "9.0",
       "TF_VERSION": "",
-      "PORT": 6060,
-      "CLUSTER_PORT": 7060,
+      "PORT": 6061,
+      "CLUSTER_PORT": 7061,
       "MODEL_ARGS": [
         "text1"
       ],
@@ -258,7 +259,8 @@
       "run_mode": "interactmsbot",
       "run_params": {
         "_flags": [
-          "--stateful"
+          "--stateful",
+          "--default-skill"
         ],
         "--ms-id": "",
         "--ms-secret": "''"
@@ -268,15 +270,42 @@
       "pipeline": "all_up_kuber_no_tests"
     },
     {
-      "MODEL_NAME": "ranking_chitchat_2staged",
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v2",
       "PREFIX": "dpas",
-      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v1.json",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v2.json",
       "TEMPLATE": "gpu_custom",
-      "BRANCH": "hybrid_ranker",
+      "BRANCH": "skill_wrapping",
       "CUDA_VERSION": "9.0",
       "TF_VERSION": "",
-      "PORT": 6061,
-      "CLUSTER_PORT": 7061,
+      "PORT": 6062,
+      "CLUSTER_PORT": 7062,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "interactmsbot",
+      "run_params": {
+        "_flags": [
+          "--stateful",
+          "--default-skill"
+        ],
+        "--ms-id": "",
+        "--ms-secret": "''"
+      },
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v3",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v3.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "skill_wrapping",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6063,
+      "CLUSTER_PORT": 7063,
       "MODEL_ARGS": [
         "text1"
       ],
