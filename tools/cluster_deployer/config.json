@@ -32,7 +32,10 @@
       "dpas_ranking_chitchat_2staged_tfidf_smn_v3"
     ],
     "all": [],
-    "custom": []
+    "custom": [
+      "dpas_ru_odqa_infer_wiki",
+      "dpas_ru_odqa_infer_wiki_retr_noans"
+    ]
   },
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
@@ -321,6 +324,54 @@
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ru_odqa_infer_wiki",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "odqa/ru_odqa_infer_wiki.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "dev",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6064,
+      "CLUSTER_PORT": 7064,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "interactmsbot",
+      "run_params": {
+        "_flags": [],
+        "--ms-id": "",
+        "--ms-secret": "''"
+      },
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "ru_odqa_infer_wiki_retr_noans",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "odqa/ru_odqa_infer_wiki_retr_noans.json",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "squad_with_retr_data",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6065,
+      "CLUSTER_PORT": 7065,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "interactmsbot",
+      "run_params": {
+        "_flags": [],
+        "--ms-id": "",
+        "--ms-secret": "''"
+      },
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
     }
   ]
 }
