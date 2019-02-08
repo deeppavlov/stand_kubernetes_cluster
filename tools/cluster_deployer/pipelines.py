@@ -66,10 +66,17 @@ preset_pipelines = {
         'description': 'make deployment files',
         'pipeline': [MakeFilesDeploymentStage]
     },
-    'build_docker': {'description': 'build and test images',
-                     'pipeline': [DeleteImageDeploymentStage,
-                                  BuildImageDeploymentStage,
-                                  TestImageDeploymentStage]},
+    'build_docker': {
+        'description': 'build and test images',
+        'pipeline': [DeleteImageDeploymentStage,
+                     BuildImageDeploymentStage,
+                     TestImageDeploymentStage]
+    },
+    'build_docker_no_tests': {
+        'description': 'build images without tests',
+        'pipeline': [DeleteImageDeploymentStage,
+                     BuildImageDeploymentStage]
+    },
     'delete_docker': {
         'description': 'delete docker images',
         'pipeline': [DeleteImageDeploymentStage]
