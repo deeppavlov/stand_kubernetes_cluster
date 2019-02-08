@@ -29,13 +29,15 @@
     "dpas": [
       "dpas_ranking_chitchat_2staged_tfidf_smn_v1",
       "dpas_ranking_chitchat_2staged_tfidf_smn_v2",
-      "dpas_ranking_chitchat_2staged_tfidf_smn_v3"
-    ],
-    "all": [],
-    "custom": [
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v3",
       "dpas_ru_odqa_infer_wiki",
       "dpas_ru_odqa_infer_wiki_retr_noans"
-    ]
+    ],
+    "demo": [
+      "demo_config_chitchat_vs_odqa"
+    ],
+    "all": [],
+    "custom": []
   },
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
@@ -345,9 +347,9 @@
         "--ms-id": "",
         "--ms-secret": "''"
       },
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200,
-      "pipeline": "all_up_kuber"
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber_no_tests"
     },
     {
       "MODEL_NAME": "ru_odqa_infer_wiki_retr_noans",
@@ -363,14 +365,36 @@
         "text1"
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "interactmsbot",
+      "run_mode": "riseapi",
       "run_params": {
         "_flags": [],
         "--ms-id": "",
         "--ms-secret": "''"
       },
-      "image_polling_timeout_sec": 600,
-      "deployment_polling_timeout_sec": 1200,
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600,
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "config_chitchat_vs_odqa",
+      "PREFIX": "demo",
+      "CONFIG_FILE": "classifiers/config_chitchat_vs_odqa.json",
+      "TEMPLATE": "no_gpu",
+      "BRANCH": "",
+      "CUDA_VERSION": "9.0",
+      "TF_VERSION": "",
+      "PORT": 6066,
+      "CLUSTER_PORT": 7066,
+      "MODEL_ARGS": [
+        "text1"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
+      "run_params": {
+        "_flags": []
+      },
+      "image_polling_timeout_sec": 120,
+      "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber"
     }
   ]
