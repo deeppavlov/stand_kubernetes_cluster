@@ -1,5 +1,5 @@
 from deployer_stages import MakeFilesDeploymentStage, BuildImageDeploymentStage, DeleteKuberDeploymentStage
-from deployer_stages import TestImageDeploymentStage, PushImageDeploymentStage
+from deployer_stages import TestImageDeploymentStage, PushImageDeploymentStage, PullImageDeploymentStage
 from deployer_stages import DeployKuberDeploymentStage, TestKuberDeploymentStage
 from deployer_stages import PushToDockerHubDeploymentStage, DeleteImageDeploymentStage
 
@@ -8,6 +8,7 @@ all_stages = [MakeFilesDeploymentStage,
               BuildImageDeploymentStage,
               TestImageDeploymentStage,
               PushImageDeploymentStage,
+              PullImageDeploymentStage,
               DeployKuberDeploymentStage,
               TestKuberDeploymentStage,
               DeleteKuberDeploymentStage,
@@ -97,6 +98,10 @@ preset_pipelines = {
     'push_to_registry': {
         'description': 'push images to local registry',
         'pipeline': [PushImageDeploymentStage]
+    },
+    'pull_from_registry': {
+        'description': 'push images from local registry',
+        'pipeline': [PullImageDeploymentStage]
     },
     'push_to_docker_hub': {
         'description': 'push images to Docker Hub',
