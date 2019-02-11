@@ -12,7 +12,8 @@
   "gpu_templates": [
     "gpu",
     "gpu_custom",
-    "gpu_obsolete"
+    "gpu_obsolete",
+    "rb_gpu_custom"
   ],
   "model_groups": {
     "stand": [
