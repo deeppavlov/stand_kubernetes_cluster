@@ -76,9 +76,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "ner/ner_rus.json",
       "TEMPLATE": "no_gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6004,
       "CLUSTER_PORT": 7004,
       "MODEL_ARGS": [
@@ -95,9 +93,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "ner/ner_ontonotes.json",
       "TEMPLATE": "no_gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6010,
       "CLUSTER_PORT": 7010,
       "MODEL_ARGS": [
@@ -114,9 +110,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "squad/squad_ru.json",
       "TEMPLATE": "no_gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6005,
       "CLUSTER_PORT": 7005,
       "MODEL_ARGS": [
@@ -134,9 +128,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "squad/squad.json",
       "TEMPLATE": "no_gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6008,
       "CLUSTER_PORT": 7008,
       "MODEL_ARGS": [
@@ -154,9 +146,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "classifiers/intents_snips.json",
       "TEMPLATE": "no_gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6007,
       "CLUSTER_PORT": 7007,
       "MODEL_ARGS": [
@@ -173,9 +163,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "ranking/ranking_insurance_interact.json",
       "TEMPLATE": "no_gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6009,
       "CLUSTER_PORT": 7009,
       "MODEL_ARGS": [
@@ -192,9 +180,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "classifiers/insults_kaggle.json",
       "TEMPLATE": "no_gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6006,
       "CLUSTER_PORT": 7006,
       "MODEL_ARGS": [
@@ -211,9 +197,7 @@
       "PREFIX": "stand",
       "CONFIG_FILE": "odqa/en_odqa_pop_infer_enwiki20180211.json",
       "TEMPLATE": "gpu",
-      "BRANCH": "",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6011,
       "CLUSTER_PORT": 7011,
       "MODEL_ARGS": [
@@ -232,7 +216,6 @@
       "TEMPLATE": "gpu_custom",
       "BRANCH": "squad_with_retr_data",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6012,
       "CLUSTER_PORT": 7012,
       "MODEL_ARGS": [
@@ -251,12 +234,8 @@
       "TEMPLATE": "gpu_custom",
       "BRANCH": "skill_wrapping",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6061,
       "CLUSTER_PORT": 7061,
-      "MODEL_ARGS": [
-        "text1"
-      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "run_mode": "interactmsbot",
       "run_params": {
@@ -267,8 +246,6 @@
         "--ms-id": "",
         "--ms-secret": "''"
       },
-      "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber_no_tests"
     },
     {
@@ -278,12 +255,8 @@
       "TEMPLATE": "gpu_custom",
       "BRANCH": "skill_wrapping",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6062,
       "CLUSTER_PORT": 7062,
-      "MODEL_ARGS": [
-        "text1"
-      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "run_mode": "interactmsbot",
       "run_params": {
@@ -294,8 +267,6 @@
         "--ms-id": "",
         "--ms-secret": "''"
       },
-      "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber_no_tests"
     },
     {
@@ -305,7 +276,6 @@
       "TEMPLATE": "gpu_custom",
       "BRANCH": "skill_wrapping",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6063,
       "CLUSTER_PORT": 7063,
       "MODEL_ARGS": [
@@ -320,8 +290,6 @@
         "--ms-id": "",
         "--ms-secret": "''"
       },
-      "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber_no_tests"
     },
     {
@@ -331,7 +299,6 @@
       "TEMPLATE": "no_gpu_custom",
       "BRANCH": "dev",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6064,
       "CLUSTER_PORT": 7064,
       "MODEL_ARGS": [
@@ -344,8 +311,6 @@
         "--ms-id": "",
         "--ms-secret": "''"
       },
-      "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber_no_tests"
     },
     {
@@ -355,7 +320,6 @@
       "TEMPLATE": "no_gpu_custom",
       "BRANCH": "squad_with_retr_data",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6065,
       "CLUSTER_PORT": 7065,
       "MODEL_ARGS": [
@@ -368,8 +332,6 @@
         "--ms-id": "",
         "--ms-secret": "''"
       },
-      "image_polling_timeout_sec": 120,
-      "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber_no_tests"
     },
     {
