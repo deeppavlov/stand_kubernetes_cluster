@@ -65,13 +65,22 @@ def make_config_from_file(config_path: Path, root_dir: Path, models_config_path:
     config['models_list'] = config['models']
     config['models'] = {}
 
+    template: dict = config['model_template']
+
     for model_config in config['models_list']:
         model_config: dict = model_config
         model_config['FULL_MODEL_NAME'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}'
+
+        # merge with external model config file
         merge_config: dict = models_merge_config.get(model_config['FULL_MODEL_NAME'], {})
 
         for param, value in merge_config.items():
             model_config[param] = value
+
+        # populate with dummy missing fields from template
+        for key, dummy_value in template.items():
+            if key not in model_config.keys():
+                model_config[key] = dummy_value
 
         model_config['CLUSTER_IP'] = model_config.get('CLUSTER_IP', None) or config['cluster_ip']
         model_config['DNS_IP'] = model_config.get('DNS_IP', None) or config['dns_ip']

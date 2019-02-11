@@ -48,32 +48,29 @@
     "temp_dir": "{{deployer_dir}}/temp/",
     "log_dir": "{{deployer_dir}}/log/"
   },
-  "models": [
-    {
-      "MODEL_NAME": "default",
-      "PREFIX": "@",
-      "CONFIG_FILE": "",
-      "TEMPLATE": "",
-      "BRANCH": "",
-      "CUDA_VERSION": "",
-      "TF_VERSION": "",
-      "PORT": "",
-      "CLUSTER_PORT": "",
-      "MODEL_ARGS": [],
-      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "riseapi",
-      "run_params": {
-        "_flags": [
-          "--stateful"
-        ],
-        "--token": "<telegram_token>"
-      },
-      "test_image_url": "",
-      "test_deployment_url": "",
-      "image_polling_timeout_sec": 60,
-      "deployment_polling_timeout_sec": 60,
-      "pipeline": "all_up_kuber"
+  "model_template": {
+    "MODEL_NAME": "template",
+    "PREFIX": "template",
+    "CONFIG_FILE": "",
+    "TEMPLATE": "",
+    "BRANCH": "",
+    "CUDA_VERSION": "",
+    "TF_VERSION": "",
+    "PORT": "",
+    "CLUSTER_PORT": "",
+    "MODEL_ARGS": [],
+    "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+    "run_mode": "riseapi",
+    "run_params": {
+      "_flags": []
     },
+    "test_image_url": "",
+    "test_deployment_url": "",
+    "image_polling_timeout_sec": 60,
+    "deployment_polling_timeout_sec": 60,
+    "pipeline": "all_up_kuber"
+  },
+  "models": [
     {
       "MODEL_NAME": "ner_ru",
       "PREFIX": "stand",
@@ -379,10 +376,9 @@
       "MODEL_NAME": "config_chitchat_vs_odqa",
       "PREFIX": "demo",
       "CONFIG_FILE": "classifiers/config_chitchat_vs_odqa.json",
-      "TEMPLATE": "no_gpu",
-      "BRANCH": "",
+      "TEMPLATE": "no_gpu_custom",
+      "BRANCH": "feat/chitchat_vs_odqa",
       "CUDA_VERSION": "9.0",
-      "TF_VERSION": "",
       "PORT": 6066,
       "CLUSTER_PORT": 7066,
       "MODEL_ARGS": [
@@ -390,12 +386,28 @@
       ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "run_mode": "riseapi",
-      "run_params": {
-        "_flags": []
-      },
       "image_polling_timeout_sec": 120,
       "deployment_polling_timeout_sec": 600,
       "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "ner_ru",
+      "PREFIX": "demo",
+      "CONFIG_FILE": "ner/ner_rus.json",
+      "TEMPLATE": "rb_no_gpu_custom",
+      "BRANCH": "master",
+      "CUDA_VERSION": "9.0",
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "dev_bot"
+      },
+      "pipeline": "build_docker_no_tests"
     }
   ]
 }
