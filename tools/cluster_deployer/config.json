@@ -40,7 +40,8 @@
     "all": [],
     "custom": [
       "sber_ranking_chitchat_2staged_tfidf_smn_v2",
-      "sber_ranking_chitchat_2staged_tfidf_smn_v3"
+      "sber_ranking_chitchat_2staged_tfidf_smn_v3",
+      "sber_ranking_chitchat_2staged_tfidf_smn_v8"
     ]
   },
   "paths": {
