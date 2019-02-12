@@ -38,7 +38,10 @@
       "demo_config_chitchat_vs_odqa"
     ],
     "all": [],
-    "custom": []
+    "custom": [
+      "sber_ranking_chitchat_2staged_tfidf_smn_v2",
+      "sber_ranking_chitchat_2staged_tfidf_smn_v3"
+    ]
   },
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
@@ -232,20 +235,20 @@
       "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v1",
       "PREFIX": "dpas",
       "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v1.json",
-      "TEMPLATE": "gpu_custom",
-      "BRANCH": "skill_wrapping",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "hybrid_ranker",
       "CUDA_VERSION": "9.0",
       "PORT": 6061,
       "CLUSTER_PORT": 7061,
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "interactmsbot",
+      "run_mode": "",
       "run_params": {
         "_flags": [
-          "--stateful",
           "--default-skill"
         ],
-        "--ms-id": "",
-        "--ms-secret": "''"
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "5db43246-3a4f-4d14-9301-3fc02542fc78"
       },
       "pipeline": "all_up_kuber_no_tests"
     },
@@ -253,20 +256,20 @@
       "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v2",
       "PREFIX": "dpas",
       "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v2.json",
-      "TEMPLATE": "gpu_custom",
-      "BRANCH": "skill_wrapping",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "hybrid_ranker",
       "CUDA_VERSION": "9.0",
       "PORT": 6062,
       "CLUSTER_PORT": 7062,
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "interactmsbot",
+      "run_mode": "",
       "run_params": {
         "_flags": [
-          "--stateful",
           "--default-skill"
         ],
-        "--ms-id": "",
-        "--ms-secret": "''"
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "9a446c33-335b-4755-90d6-806ff5dc2bbc"
       },
       "pipeline": "all_up_kuber_no_tests"
     },
@@ -274,22 +277,18 @@
       "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v3",
       "PREFIX": "dpas",
       "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v3.json",
-      "TEMPLATE": "gpu_custom",
-      "BRANCH": "skill_wrapping",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "hybrid_ranker",
       "CUDA_VERSION": "9.0",
       "PORT": 6063,
       "CLUSTER_PORT": 7063,
-      "MODEL_ARGS": [
-        "text1"
-      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "interactmsbot",
+      "run_mode": "",
       "run_params": {
-        "_flags": [
-          "--stateful"
-        ],
-        "--ms-id": "",
-        "--ms-secret": "''"
+        "_flags": [],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "1466d7b7-384d-42ec-8c61-e7a9d604357c"
       },
       "pipeline": "all_up_kuber_no_tests"
     },
@@ -297,20 +296,20 @@
       "MODEL_NAME": "ru_odqa_infer_wiki",
       "PREFIX": "dpas",
       "CONFIG_FILE": "odqa/ru_odqa_infer_wiki.json",
-      "TEMPLATE": "no_gpu_custom",
+      "TEMPLATE": "rb_no_gpu_custom",
       "BRANCH": "dev",
       "CUDA_VERSION": "9.0",
       "PORT": 6064,
       "CLUSTER_PORT": 7064,
-      "MODEL_ARGS": [
-        "text1"
-      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "interactmsbot",
+      "run_mode": "",
       "run_params": {
-        "_flags": [],
-        "--ms-id": "",
-        "--ms-secret": "''"
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "cd496eee-61a5-4d0a-a0a0-d5090d750d57"
       },
       "pipeline": "all_up_kuber_no_tests"
     },
@@ -318,20 +317,20 @@
       "MODEL_NAME": "ru_odqa_infer_wiki_retr_noans",
       "PREFIX": "dpas",
       "CONFIG_FILE": "odqa/ru_odqa_infer_wiki_retr_noans.json",
-      "TEMPLATE": "no_gpu_custom",
+      "TEMPLATE": "rb_no_gpu_custom",
       "BRANCH": "squad_with_retr_data",
       "CUDA_VERSION": "9.0",
       "PORT": 6065,
       "CLUSTER_PORT": 7065,
-      "MODEL_ARGS": [
-        "text1"
-      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "riseapi",
+      "run_mode": "",
       "run_params": {
-        "_flags": [],
-        "--ms-id": "",
-        "--ms-secret": "''"
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "72446a99-40a1-4dd8-9cd2-2937ece5dc9c"
       },
       "pipeline": "all_up_kuber_no_tests"
     },
@@ -354,23 +353,40 @@
       "pipeline": "all_up_kuber"
     },
     {
-      "MODEL_NAME": "ner_ru",
-      "PREFIX": "demo",
-      "CONFIG_FILE": "ner/ner_rus.json",
-      "TEMPLATE": "rb_no_gpu_custom",
-      "BRANCH": "master",
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v2",
+      "PREFIX": "sber",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v2.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "hybrid_ranker",
       "CUDA_VERSION": "9.0",
+      "PORT": 6067,
+      "CLUSTER_PORT": 7067,
+      "MODEL_ARGS": [
+        "utterance"
+      ],
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "",
-      "run_params": {
-        "_flags": [
-          "--default-skill"
-        ],
-        "--host": "10.11.1.58",
-        "--port": 8433,
-        "--token": "dev_bot"
-      },
-      "pipeline": "build_docker_no_tests"
+      "run_mode": "riseapi",
+      "image_polling_timeout_sec": 600,
+      "deployment_polling_timeout_sec": 1200,
+      "pipeline": "all_up_kuber"
+    },
+    {
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v3",
+      "PREFIX": "sber",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v3.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "hybrid_ranker",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6068,
+      "CLUSTER_PORT": 7068,
+      "MODEL_ARGS": [
+        "utterance",
+        "history",
+        "dummy_state"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
+      "pipeline": "all_up_kuber_no_tests"
     }
   ]
 }
