@@ -387,6 +387,24 @@
       "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
       "run_mode": "riseapi",
       "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v8",
+      "PREFIX": "sber",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v8.json",
+      "TEMPLATE": "gpu_custom",
+      "BRANCH": "hybrid_ranker",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6069,
+      "CLUSTER_PORT": 7069,
+      "MODEL_ARGS": [
+        "utterance",
+        "history",
+        "dummy_state"
+      ],
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "riseapi",
+      "pipeline": "all_up_kuber_no_tests"
     }
   ]
 }
