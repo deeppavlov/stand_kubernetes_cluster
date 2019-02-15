@@ -37,8 +37,27 @@
     "demo": [
       "demo_config_chitchat_vs_odqa"
     ],
-    "all": [],
     "custom": [
+      "sber_ranking_chitchat_2staged_tfidf_smn_v2",
+      "sber_ranking_chitchat_2staged_tfidf_smn_v3",
+      "sber_ranking_chitchat_2staged_tfidf_smn_v8"
+    ],
+    "all": [
+      "stand_ner_ru",
+      "stand_ner_en",
+      "stand_intents_en",
+      "stand_insults_en",
+      "stand_ranking_en",
+      "stand_squad_ru",
+      "stand_squad_en",
+      "stand_odqa_ru",
+      "stand_odqa_en",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v1",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v2",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v3",
+      "dpas_ru_odqa_infer_wiki",
+      "dpas_ru_odqa_infer_wiki_retr_noans",
+      "demo_config_chitchat_vs_odqa",
       "sber_ranking_chitchat_2staged_tfidf_smn_v2",
       "sber_ranking_chitchat_2staged_tfidf_smn_v3",
       "sber_ranking_chitchat_2staged_tfidf_smn_v8"
