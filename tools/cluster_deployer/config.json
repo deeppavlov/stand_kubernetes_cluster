@@ -30,14 +30,19 @@
     "dpas": [
       "dpas_ru_odqa_infer_wiki",
       "dpas_ru_odqa_infer_wiki_retr_noans",
-      "dpas_ranking_mailru_bert"
+      "dpas_ranking_mailru_bert",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v4",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v11",
+      "dpas_mailru",
+      "dpas_thequestion"
     ],
     "demo": [
       "demo_config_chitchat_vs_odqa"
     ],
-    "custom": [
+    "sber": [
       "sber_ranking_chitchat_2staged_tfidf_smn_v8"
     ],
+    "custom": [],
     "all": [
       "stand_ner_ru",
       "stand_ner_en",
@@ -51,6 +56,10 @@
       "dpas_ru_odqa_infer_wiki",
       "dpas_ru_odqa_infer_wiki_retr_noans",
       "dpas_ranking_mailru_bert",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v4",
+      "dpas_ranking_chitchat_2staged_tfidf_smn_v11",
+      "dpas_mailru",
+      "dpas_thequestion",
       "demo_config_chitchat_vs_odqa",
       "sber_ranking_chitchat_2staged_tfidf_smn_v8"
     ]
@@ -301,27 +310,6 @@
       "pipeline": "all_up_kuber_no_tests"
     },
     {
-      "MODEL_NAME": "ru_odqa_infer_wiki_retr_noans",
-      "PREFIX": "dpas",
-      "CONFIG_FILE": "odqa/ru_odqa_infer_wiki_retr_noans.json",
-      "TEMPLATE": "rb_no_gpu_custom",
-      "BRANCH": "squad_with_retr_data",
-      "CUDA_VERSION": "9.0",
-      "PORT": 6065,
-      "CLUSTER_PORT": 7065,
-      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
-      "run_mode": "",
-      "run_params": {
-        "_flags": [
-          "--default-skill"
-        ],
-        "--host": "10.11.1.58",
-        "--port": 8433,
-        "--token": "72446a99-40a1-4dd8-9cd2-2937ece5dc9c"
-      },
-      "pipeline": "all_up_kuber_no_tests"
-    },
-    {
       "MODEL_NAME": "ranking_mailru_bert",
       "PREFIX": "dpas",
       "CONFIG_FILE": "ranking/ranking_mailru_bert.json",
@@ -339,6 +327,86 @@
         "--host": "10.11.1.58",
         "--port": 8433,
         "--token": "343f5688-4df9-4ef1-a05e-cfd9af9114aa"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v4",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v4.json",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "hybrid_ranker",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6062,
+      "CLUSTER_PORT": 7062,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "7efabf80-8298-4cd4-99c2-aa93c3c2a8f9"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_chitchat_2staged_tfidf_smn_v11",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_chitchat_2staged_tfidf_smn_v11.json",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "hybrid_ranker",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6063,
+      "CLUSTER_PORT": 7063,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "b5e47087-cdc6-42cb-a04f-179f3afa4b0e"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "mailru",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "odqa/mailru.json",
+      "TEMPLATE": "rb_no_gpu_custom",
+      "BRANCH": "question_bots",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6067,
+      "CLUSTER_PORT": 7067,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "6872a219-e75c-4a19-9ad1-178948ce4d00"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "thequestion",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "odqa/thequestion.json",
+      "TEMPLATE": "rb_no_gpu_custom",
+      "BRANCH": "question_bots",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6068,
+      "CLUSTER_PORT": 7068,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "e3bd62fa-ee63-4001-b409-f9fe535df690"
       },
       "pipeline": "all_up_kuber_no_tests"
     }
