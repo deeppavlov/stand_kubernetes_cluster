@@ -42,7 +42,12 @@
     "sber": [
       "sber_ranking_chitchat_2staged_tfidf_smn_v8"
     ],
-    "custom": [],
+    "custom": [
+      "dpas_ranking_mailru_bert_1",
+      "dpas_ranking_mailru_bert_2",
+      "dpas_ranking_mailru_bert_3",
+      "dpas_ranking_mailru_bert_4"
+    ],
     "all": [
       "stand_ner_ru",
       "stand_ner_en",
@@ -407,6 +412,90 @@
         "--host": "10.11.1.58",
         "--port": 8433,
         "--token": "e3bd62fa-ee63-4001-b409-f9fe535df690"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_mailru_bert_1",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_mailru_bert_1.json",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "feat/bert_ranker_bot_3",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6070,
+      "CLUSTER_PORT": 7070,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "e3778877-5f22-4ff8-9011-62065d4491e6"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_mailru_bert_2",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_mailru_bert_2.json",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "feat/bert_ranker_bot_3",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6071,
+      "CLUSTER_PORT": 7071,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "6efbb8eb-339b-4870-8d3e-01bee901b2af"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_mailru_bert_3",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_mailru_bert_3.json",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "feat/bert_ranker_bot_3",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6072,
+      "CLUSTER_PORT": 7072,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "bc3684dd-0d3c-4c83-b4c9-7c0d9464c48d"
+      },
+      "pipeline": "all_up_kuber_no_tests"
+    },
+    {
+      "MODEL_NAME": "ranking_mailru_bert_4",
+      "PREFIX": "dpas",
+      "CONFIG_FILE": "ranking/ranking_mailru_bert_4.json",
+      "TEMPLATE": "rb_gpu_custom",
+      "BRANCH": "feat/bert_ranker_bot_3",
+      "CUDA_VERSION": "9.0",
+      "PORT": 6073,
+      "CLUSTER_PORT": 7073,
+      "DOCKER_REGISTRY": "kubeadm.ipavlov.mipt.ru:5000",
+      "run_mode": "",
+      "run_params": {
+        "_flags": [
+          "--default-skill"
+        ],
+        "--host": "10.11.1.58",
+        "--port": 8433,
+        "--token": "dca8f018-00d1-4a90-ab5a-b69318db622c"
       },
       "pipeline": "all_up_kuber_no_tests"
     }
