@@ -48,3 +48,7 @@ spec:
           - path: "annotations"
             fieldRef:
               fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - {{DNS_IP}}

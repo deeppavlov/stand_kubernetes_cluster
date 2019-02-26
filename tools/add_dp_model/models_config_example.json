@@ -1,0 +1,22 @@
+{
+  "<model_full_name_01>": {
+    "run_mode": "interactmsbot",
+    "run_params": {
+      "_flags": [
+        "--stateful"
+      ],
+      "--ms-id": "<ms_bot_framework_app_id_01>",
+      "--ms-secret": "'<ms_bot_framework_app_secret_01>'"
+    }
+  },
+  "model_full_name_02": {
+    "run_mode": "interactmsbot",
+    "run_params": {
+      "_flags": [
+        "--stateful"
+      ],
+      "--ms-id": "<ms_bot_framework_app_id_02>",
+      "--ms-secret": "'<ms_bot_framework_app_secret_02>'"
+    }
+  }
+}

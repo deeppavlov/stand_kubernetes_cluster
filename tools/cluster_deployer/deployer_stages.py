@@ -255,6 +255,21 @@ class PushImageDeploymentStage(AbstractDeploymentStage):
         return deployment_status
 
 
+class PullImageDeploymentStage(AbstractDeploymentStage):
+    def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
+        stage_name = 'pull from cluster repo'
+        super(PullImageDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
+        self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
+
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
+        server_response_generator = self.docker_client.images.pull(image_tag)
+        server_response = '\t{}'.format('\n\t'.join([str(resp_str) for resp_str in server_response_generator]))
+        deployment_status.extended_stage_info = f'server response:\n{server_response}'
+
+        return deployment_status
+
+
 # TODO: remove code same with delete kuber deployment stage
 class DeployKuberDeploymentStage(AbstractDeploymentStage):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):

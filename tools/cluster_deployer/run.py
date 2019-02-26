@@ -12,6 +12,8 @@ from deployer import Deployer
 parser = argparse.ArgumentParser()
 parser.add_argument('action', help='select action', type=str, choices={'build', 'models', 'groups', 'pipelines'})
 
+parser.add_argument('-c', '--models-config', default=None, help='path to models overriding config', type=str)
+
 parser.add_argument('-m', '--model', default=None, help='full model name with prefix', type=str)
 parser.add_argument('-g', '--group', default=None, help='model group name', type=str)
 parser.add_argument('-p', '--pipeline', default=None, help='pipeline name', type=str)
@@ -109,7 +111,11 @@ def main() -> None:
     args = parser.parse_args()
 
     config_file_path = Path(__file__, '..').resolve() / 'config.json'
-    config = make_config_from_file(config_file_path, Path(__file__, '..', '..', '..').resolve())
+    models_config_file_path = Path(args.models_config).resolve() if args.models_config else None
+
+    config = make_config_from_file(config_file_path,
+                                   Path(__file__, '..', '..', '..').resolve(),
+                                   models_config_file_path)
 
     if args.action == 'build':
         build(config, args)

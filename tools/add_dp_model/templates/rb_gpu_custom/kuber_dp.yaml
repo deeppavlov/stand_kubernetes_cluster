@@ -13,10 +13,9 @@ spec:
       containers:
       - name: {{FULL_MODEL_NAME_DASHED}}
         image: {{KUBER_IMAGE_TAG}}
-        ports:
-        - name: {{KUBER_CONTAINER_PORT_NAME}}
-          protocol: TCP
-          containerPort: {{PORT}}
+        resources:
+          limits:
+            nvidia.com/gpu: 1
         volumeMounts:
         - name: volume-logs
           mountPath: /logs

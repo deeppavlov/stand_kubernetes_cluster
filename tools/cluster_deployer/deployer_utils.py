@@ -46,9 +46,15 @@ def fill_dict_placeholders_recursive(dict_in: dict) -> dict:
     return dict_out
 
 
-def make_config_from_file(config_path: Path, root_dir: Path) -> dict:
-    with open(str(config_path), 'r') as f:
+def make_config_from_file(config_path: Path, root_dir: Path, models_config_path: Optional[Path] = None) -> dict:
+    with config_path.open('r') as f:
         config = json.load(f)
+
+    if models_config_path:
+        with models_config_path.open('r') as f:
+            models_merge_config: dict = json.load(f)
+    else:
+        models_merge_config = {}
 
     # make paths
     config['paths']['root_dir'] = str(root_dir)
@@ -59,16 +65,38 @@ def make_config_from_file(config_path: Path, root_dir: Path) -> dict:
     config['models_list'] = config['models']
     config['models'] = {}
 
+    template: dict = config['model_template']
+
     for model_config in config['models_list']:
         model_config: dict = model_config
+        model_config['FULL_MODEL_NAME'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}'
+
+        # merge with external model config file
+        merge_config: dict = models_merge_config.get(model_config['FULL_MODEL_NAME'], {})
+
+        for param, value in merge_config.items():
+            model_config[param] = value
+
+        # populate with dummy missing fields from template
+        for key, dummy_value in template.items():
+            if key not in model_config.keys():
+                model_config[key] = dummy_value
+
+        model_config['CLUSTER_IP'] = model_config.get('CLUSTER_IP', None) or config['cluster_ip']
+        model_config['DNS_IP'] = model_config.get('DNS_IP', None) or config['dns_ip']
 
         model_config['test_image_url'] = model_config.get('test_image_url', None) or config['test_image_url']
         model_config['test_deployment_url'] = model_config.get('test_deployment_url', None) or config['test_deployment_url']
 
         model_config: dict = fill_dict_placeholders_recursive(model_config)
 
+        run_mode: str = model_config['run_mode']
+        run_params: dict = model_config.get('run_params', {})
+        flags: list = run_params.pop('_flags', [])
+        params: list = [f"{param} {value}" for param, value in run_params.items()]
+        model_config['RUN_CMD'] = f' {run_mode} {" ".join(flags)} {" ".join(params)} '
+
         # TODO: remove naming capitalising from config (was made for run_model.sh compatibility)
-        model_config['FULL_MODEL_NAME'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}'
         model_config['FULL_MODEL_NAME_DASHED'] = model_config['FULL_MODEL_NAME'].replace('_', '-')
 
         model_config['LOG_FILE'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}.log'

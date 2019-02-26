@@ -42,4 +42,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m deeppavlov.deep riseapi /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep {{RUN_CMD}} /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} > $LOG_PATH 2>&1

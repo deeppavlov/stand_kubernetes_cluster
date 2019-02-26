@@ -85,8 +85,13 @@ class Deployer:
                         next_stage.in_queue.put(deployment_status)
                     elif not deployment_status.pipeline:
                         self.current_task = self.current_task - {deployment_status.full_model_name}
+                        log_message = f'[{deployment_status.full_model_name}] DEPLOYMENT FINISHED'
+
                         logger: Logger = logging.getLogger(deployment_status.full_model_name)
-                        logger.info(f'[{deployment_status.full_model_name}] DEPLOYMENT FINISHED')
+                        logger.info(log_message)
+
+                        task_logger: Logger = logging.getLogger('_task_info')
+                        task_logger.info(log_message)
 
                 elif isinstance(q_get, LogMessage):
                     log_message: LogMessage = q_get

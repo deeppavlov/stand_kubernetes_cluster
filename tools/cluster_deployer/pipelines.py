@@ -1,5 +1,5 @@
 from deployer_stages import MakeFilesDeploymentStage, BuildImageDeploymentStage, DeleteKuberDeploymentStage
-from deployer_stages import TestImageDeploymentStage, PushImageDeploymentStage
+from deployer_stages import TestImageDeploymentStage, PushImageDeploymentStage, PullImageDeploymentStage
 from deployer_stages import DeployKuberDeploymentStage, TestKuberDeploymentStage
 from deployer_stages import PushToDockerHubDeploymentStage, DeleteImageDeploymentStage
 
@@ -8,8 +8,10 @@ all_stages = [MakeFilesDeploymentStage,
               BuildImageDeploymentStage,
               TestImageDeploymentStage,
               PushImageDeploymentStage,
+              PullImageDeploymentStage,
               DeployKuberDeploymentStage,
               TestKuberDeploymentStage,
+              DeleteKuberDeploymentStage,
               PushToDockerHubDeploymentStage]
 
 preset_pipelines = {
@@ -34,6 +36,14 @@ preset_pipelines = {
                      DeployKuberDeploymentStage,
                      TestKuberDeploymentStage]
     },
+    'all_up_kuber_no_tests': {
+        'description': 'full cycle deployment without pushing to Docker Hub without tests',
+        'pipeline': [MakeFilesDeploymentStage,
+                     DeleteImageDeploymentStage,
+                     BuildImageDeploymentStage,
+                     PushImageDeploymentStage,
+                     DeployKuberDeploymentStage]
+    },
     'all_from_docker': {
         'description': 'full cycle deployment without making deployment files',
         'pipeline': [DeleteImageDeploymentStage,
@@ -57,10 +67,17 @@ preset_pipelines = {
         'description': 'make deployment files',
         'pipeline': [MakeFilesDeploymentStage]
     },
-    'build_docker': {'description': 'build and test images',
-                     'pipeline': [DeleteImageDeploymentStage,
-                                  BuildImageDeploymentStage,
-                                  TestImageDeploymentStage]},
+    'build_docker': {
+        'description': 'build and test images',
+        'pipeline': [DeleteImageDeploymentStage,
+                     BuildImageDeploymentStage,
+                     TestImageDeploymentStage]
+    },
+    'build_docker_no_tests': {
+        'description': 'build images without tests',
+        'pipeline': [DeleteImageDeploymentStage,
+                     BuildImageDeploymentStage]
+    },
     'delete_docker': {
         'description': 'delete docker images',
         'pipeline': [DeleteImageDeploymentStage]
@@ -70,6 +87,10 @@ preset_pipelines = {
         'pipeline': [DeployKuberDeploymentStage,
                      TestKuberDeploymentStage]
     },
+    'create_kuber_no_tests': {
+        'description': 'deploy in Kubernetes without test',
+        'pipeline': [DeployKuberDeploymentStage]
+    },
     'delete_kuber': {
         'description': 'delete Kubernetes deployment',
         'pipeline': [DeleteKuberDeploymentStage]
@@ -77,6 +98,10 @@ preset_pipelines = {
     'push_to_registry': {
         'description': 'push images to local registry',
         'pipeline': [PushImageDeploymentStage]
+    },
+    'pull_from_registry': {
+        'description': 'push images from local registry',
+        'pipeline': [PullImageDeploymentStage]
     },
     'push_to_docker_hub': {
         'description': 'push images to Docker Hub',
