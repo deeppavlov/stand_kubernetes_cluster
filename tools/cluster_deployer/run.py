@@ -106,7 +106,6 @@ def list_names(config: dict, args: argparse.Namespace) -> None:
 
 
 # TODO: make docker running containers check and cleanup
-# TODO: get rid of add_dp_model util
 def main() -> None:
     args = parser.parse_args()
 

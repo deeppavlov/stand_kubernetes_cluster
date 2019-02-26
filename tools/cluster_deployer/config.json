@@ -71,7 +71,7 @@
   },
   "paths": {
     "deployer_dir": "{{root_dir}}/tools/cluster_deployer/",
-    "templates_dir": "{{root_dir}}/tools/add_dp_model/templates/",
+    "templates_dir": "{{root_dir}}/tools/cluster_deployer/templates/",
     "models_subdir": "models/",
     "models_dir": "{{root_dir}}/{{models_subdir}}/",
     "kuber_configs_dir": "{{root_dir}}/kuber_configs/models/",
