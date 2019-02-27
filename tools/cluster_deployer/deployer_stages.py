@@ -19,6 +19,7 @@ from kubernetes import client as kube_client, config as kube_config
 from deployer_utils import safe_delete_path, fill_placeholders_from_dict, poll
 
 LogMessage = namedtuple('LogMessage', ['full_model_name', 'log_level', 'log_message', 'extended_log_message'])
+KuberEntityData = namedtuple('KuberEntityData', ['name', 'namespace', 'config'])
 
 
 class LogLevel(Enum):
@@ -126,20 +127,31 @@ class MakeFilesDeploymentStage(AbstractDeploymentStage):
             with open(deploy_file, 'w') as f:
                 f.write(file)
 
-        Path(deploy_files_dir, 'kuber_dp.yaml').rename(deploy_files_dir / model_config['KUBER_DP_FILE'])
-        Path(deploy_files_dir, 'kuber_lb.yaml').rename(deploy_files_dir / model_config['KUBER_LB_FILE'])
-        Path(deploy_files_dir, 'run_model.sh').rename(deploy_files_dir / model_config['RUN_FILE'])
-        Path(deploy_files_dir, 'dockerignore').rename(deploy_files_dir / '.dockerignore')
+        run_model_file = Path(deploy_files_dir, 'run_model.sh')
+        if run_model_file.is_file():
+            run_model_file.rename(deploy_files_dir / model_config['RUN_FILE'])
+
+        dockerignore_file = Path(deploy_files_dir, 'dockerignore')
+        if dockerignore_file.is_file():
+            dockerignore_file.rename(deploy_files_dir / '.dockerignore')
 
         # move Kubernetes configs
         kuber_config_path = kuber_configs_dir / model_config['FULL_MODEL_NAME']
         if kuber_config_path.is_dir() and not kuber_config_path.samefile('/'):
             shutil.rmtree(kuber_config_path, ignore_errors=True)
         kuber_config_path.mkdir(parents=True, exist_ok=True)
-        Path(deploy_files_dir / model_config['KUBER_DP_FILE']).rename(
-            kuber_config_path / model_config['KUBER_DP_FILE'])
-        Path(deploy_files_dir / model_config['KUBER_LB_FILE']).rename(
-            kuber_config_path / model_config['KUBER_LB_FILE'])
+
+        kuber_dp_file = Path(deploy_files_dir, 'kuber_dp.yaml')
+        if kuber_dp_file.is_file():
+            kuber_dp_file.rename(deploy_files_dir / model_config['KUBER_DP_FILE'])
+            Path(deploy_files_dir / model_config['KUBER_DP_FILE']).rename(
+                kuber_config_path / model_config['KUBER_DP_FILE'])
+
+        kuber_lb_file = Path(deploy_files_dir, 'kuber_lb.yaml')
+        if kuber_lb_file.is_file():
+            kuber_lb_file.rename(deploy_files_dir / model_config['KUBER_LB_FILE'])
+            Path(deploy_files_dir / model_config['KUBER_LB_FILE']).rename(
+                kuber_config_path / model_config['KUBER_LB_FILE'])
 
         # move model building files
         model_path = models_dir / model_config['FULL_MODEL_NAME']
@@ -270,131 +282,135 @@ class PullImageDeploymentStage(AbstractDeploymentStage):
         return deployment_status
 
 
-# TODO: remove code same with delete kuber deployment stage
-class DeployKuberDeploymentStage(AbstractDeploymentStage):
+class AbstractKuberEntitiesHandler(AbstractDeploymentStage):
+    def __init__(self, config: dict, stage_name: str, in_queue: Queue, out_queue: Queue):
+        super(AbstractKuberEntitiesHandler, self).__init__(config, stage_name, in_queue, out_queue)
+
+        kube_config.load_kube_config()
+        self.kube_apps_v1_beta1_api = kube_client.AppsV1beta1Api()
+        self.kube_core_v1_api = kube_client.CoreV1Api()
+
+        self.dp_data: Optional[KuberEntityData] = None
+        self.lb_data: Optional[KuberEntityData] = None
+
+    def update_kuber_configs(self, deployment_status: DeploymentStatus) -> None:
+        kuber_configs_dir: Path = self.config['paths']['kuber_configs_dir'] / deployment_status.full_model_name
+
+        # Update Kubernetes Deployment data
+        self.dp_data = None
+        dp_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_FILE']
+        dp_file = kuber_configs_dir / dp_file_name
+
+        if dp_file.is_file():
+            dp_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_NAME']
+            
+            with dp_file.open('r') as f:
+                dp_config: dict = yaml.load(f)
+
+            try:
+                dp_namespace = dp_config['metadata']['namespace']
+            except KeyError:
+                dp_namespace = 'default'
+
+            self.dp_data = KuberEntityData(dp_name, dp_namespace, dp_config)
+
+        # Update Kubernetes Load Balancer data
+        self.lb_data = None
+        lb_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_FILE']
+        lb_file = kuber_configs_dir / lb_file_name
+
+        if lb_file.is_file():
+            lb_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_NAME']
+            
+            with lb_file.open('r') as f:
+                lb_config: dict = yaml.load(f)
+                
+            try:
+                lb_namespace = lb_config['metadata']['namespace']
+            except KeyError:
+                lb_namespace = 'default'
+                
+            self.lb_data = KuberEntityData(lb_name, lb_namespace, lb_config)
+
+    @abstractmethod
+    def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
+        pass
+
+
+class DeployKuberDeploymentStage(AbstractKuberEntitiesHandler):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
         stage_name = 'deploy in kubernetes'
         super(DeployKuberDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
-        kube_config.load_kube_config()
-        self.kube_apps_v1_beta1_api = kube_client.AppsV1beta1Api()
-        self.kube_core_v1_api = kube_client.CoreV1Api()
-
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
-        kuber_configs_dir = self.config['paths']['kuber_configs_dir'] / deployment_status.full_model_name
-        dp_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_NAME']
-        dp_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_FILE']
-        lb_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_NAME']
-        lb_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_FILE']
+        self.update_kuber_configs(deployment_status)
 
-        with open(kuber_configs_dir / dp_file_name) as f:
-            dp_config = yaml.load(f)
-
-        with open(kuber_configs_dir / lb_file_name) as f:
-            lb_config = yaml.load(f)
-
-        dp_namespace = dp_config['metadata']['namespace']
-        lb_namespace = lb_config['metadata']['namespace']
-
-        # remove existing deployment
-        deployments_raw = kube_client.models.apps_v1beta1_deployment_list.AppsV1beta1DeploymentList = \
-            self.kube_apps_v1_beta1_api.list_namespaced_deployment(namespace=dp_namespace)
-        deployments = [item.metadata.name for item in deployments_raw.items]
-
-        if dp_name in deployments:
-            delete_dp_kwargs = {
-                'name': dp_name,
-                'namespace': dp_namespace,
-                'body': kube_client.V1DeleteOptions(propagation_policy='Background')
+        # create Kubernetes Deployment
+        if self.dp_data:
+            create_dp_kwargs = {
+                'namespace': self.dp_data.config['metadata']['namespace'],
+                'body': self.dp_data.config,
+                'include_uninitialized': True
             }
-            self.kube_apps_v1_beta1_api.delete_namespaced_deployment(**delete_dp_kwargs)
+            self.kube_apps_v1_beta1_api.create_namespaced_deployment(**create_dp_kwargs)
+            deployment_status.extended_stage_info += f'; created Deployment: {self.dp_data.name}'
 
-        # remove existing load balancer
-        load_balancers_raw: kube_client.models.v1_api_service_list.V1APIServiceList = \
-            self.kube_core_v1_api.list_namespaced_service(namespace=lb_namespace)
-        load_balancers = [item.metadata.name for item in load_balancers_raw.items]
-
-        if lb_name in load_balancers:
-            delete_lb_kwargs = {
-                'name': lb_name,
-                'namespace': lb_namespace,
-                'body': kube_client.V1DeleteOptions(propagation_policy='Background')
+        # create Kubernetes Load Balancer
+        if self.lb_data:
+            create_lb_kwargs = {
+                'namespace': self.lb_data.config['metadata']['namespace'],
+                'body': self.lb_data.config,
+                'include_uninitialized': True
             }
-            self.kube_core_v1_api.delete_namespaced_service(**delete_lb_kwargs)
+            self.kube_core_v1_api.create_namespaced_service(**create_lb_kwargs)
+            deployment_status.extended_stage_info += f'; created Load Balancer: {self.lb_data.name}'
 
-        # create deployment
-        create_dp_kwargs = {
-            'namespace': dp_namespace,
-            'body': dp_config,
-            'include_uninitialized': True
-        }
-        self.kube_apps_v1_beta1_api.create_namespaced_deployment(**create_dp_kwargs)
-
-        # create load balancer
-        create_lb_kwargs = {
-            'namespace': dp_namespace,
-            'body': lb_config,
-            'include_uninitialized': True
-        }
-        self.kube_core_v1_api.create_namespaced_service(**create_lb_kwargs)
+        deployment_status.extended_stage_info.strip('; ')
 
         return deployment_status
 
 
-class DeleteKuberDeploymentStage(AbstractDeploymentStage):
+class DeleteKuberDeploymentStage(AbstractKuberEntitiesHandler):
     def __init__(self, config: dict, in_queue: Queue, out_queue: Queue):
         stage_name = 'delete kubernetes deployment'
         super(DeleteKuberDeploymentStage, self).__init__(config, stage_name, in_queue, out_queue)
 
-        kube_config.load_kube_config()
-        self.kube_apps_v1_beta1_api = kube_client.AppsV1beta1Api()
-        self.kube_core_v1_api = kube_client.CoreV1Api()
-
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
-        kuber_configs_dir = self.config['paths']['kuber_configs_dir'] / deployment_status.full_model_name
-        dp_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_NAME']
-        dp_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_FILE']
-        lb_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_NAME']
-        lb_file_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_FILE']
+        self.update_kuber_configs(deployment_status)
 
-        with open(kuber_configs_dir / dp_file_name) as f:
-            dp_config = yaml.load(f)
+        # remove Kubernetes Deployment
+        if self.dp_data:
+            deployments_raw = self.kube_apps_v1_beta1_api.list_namespaced_deployment(namespace=self.dp_data.namespace)
+            deployments = [item.metadata.name for item in deployments_raw.items]
 
-        with open(kuber_configs_dir / lb_file_name) as f:
-            lb_config = yaml.load(f)
+            if self.dp_data.name in deployments:
+                delete_dp_kwargs = {
+                    'name': self.dp_data.name,
+                    'namespace': self.dp_data.namespace,
+                    'body': kube_client.V1DeleteOptions(propagation_policy='Background')
+                }
+                self.kube_apps_v1_beta1_api.delete_namespaced_deployment(**delete_dp_kwargs)
+                deployment_status.extended_stage_info += f'; deleted Deployment: {self.dp_data.name}'
+            else:
+                deployment_status.extended_stage_info += f'; Deployment not exists: {self.dp_data.name}'
 
-        dp_namespace = dp_config['metadata']['namespace']
-        lb_namespace = lb_config['metadata']['namespace']
+        # remove Kubernetes Load Balancer
+        if self.lb_data:
+            load_balancers_raw = self.kube_core_v1_api.list_namespaced_service(namespace=self.lb_data.namespace)
+            load_balancers = [item.metadata.name for item in load_balancers_raw.items]
 
-        # remove deployment
-        deployments_raw = kube_client.models.apps_v1beta1_deployment_list.AppsV1beta1DeploymentList = \
-            self.kube_apps_v1_beta1_api.list_namespaced_deployment(namespace=dp_namespace)
-        deployments = [item.metadata.name for item in deployments_raw.items]
+            if self.lb_data.name in load_balancers:
+                delete_lb_kwargs = {
+                    'name': self.lb_data.name,
+                    'namespace': self.lb_data.namespace,
+                    'body': kube_client.V1DeleteOptions(propagation_policy='Background')
+                }
+                self.kube_core_v1_api.delete_namespaced_service(**delete_lb_kwargs)
+                deployment_status.extended_stage_info += f'; deleted Load Balancer: {self.dp_data.name}'
+            else:
+                deployment_status.extended_stage_info += f'; Load Balancer not exists: {self.dp_data.name}'
 
-        if dp_name in deployments:
-            delete_dp_kwargs = {
-                'name': dp_name,
-                'namespace': dp_namespace,
-                'body': kube_client.V1DeleteOptions(propagation_policy='Background')
-            }
-            self.kube_apps_v1_beta1_api.delete_namespaced_deployment(**delete_dp_kwargs)
-        else:
-            deployment_status.extended_stage_info += f'; deployment not exists {dp_name}'
-
-        # remove load balancer
-        load_balancers_raw: kube_client.models.v1_api_service_list.V1APIServiceList = \
-            self.kube_core_v1_api.list_namespaced_service(namespace=lb_namespace)
-        load_balancers = [item.metadata.name for item in load_balancers_raw.items]
-
-        if lb_name in load_balancers:
-            delete_lb_kwargs = {
-                'name': lb_name,
-                'namespace': lb_namespace,
-                'body': kube_client.V1DeleteOptions(propagation_policy='Background')
-            }
-            self.kube_core_v1_api.delete_namespaced_service(**delete_lb_kwargs)
-        else:
-            deployment_status.extended_stage_info += f'; load balancer not exists {lb_name}'
+        deployment_status.extended_stage_info.strip('; ')
 
         return deployment_status
 
