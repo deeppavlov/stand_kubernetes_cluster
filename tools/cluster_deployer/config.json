@@ -29,12 +29,15 @@
     ],
     "dpas": [
       "dpas_ru_odqa_infer_wiki",
-      "dpas_ru_odqa_infer_wiki_retr_noans",
       "dpas_ranking_mailru_bert",
       "dpas_ranking_chitchat_2staged_tfidf_smn_v4",
       "dpas_ranking_chitchat_2staged_tfidf_smn_v11",
       "dpas_mailru",
-      "dpas_thequestion"
+      "dpas_thequestion",
+      "dpas_ranking_mailru_bert_1",
+      "dpas_ranking_mailru_bert_2",
+      "dpas_ranking_mailru_bert_3",
+      "dpas_ranking_mailru_bert_4"
     ],
     "demo": [
       "demo_config_chitchat_vs_odqa"
@@ -42,12 +45,7 @@
     "sber": [
       "sber_ranking_chitchat_2staged_tfidf_smn_v8"
     ],
-    "custom": [
-      "dpas_ranking_mailru_bert_1",
-      "dpas_ranking_mailru_bert_2",
-      "dpas_ranking_mailru_bert_3",
-      "dpas_ranking_mailru_bert_4"
-    ],
+    "custom": [],
     "all": [
       "stand_ner_ru",
       "stand_ner_en",
@@ -59,12 +57,15 @@
       "stand_odqa_ru",
       "stand_odqa_en",
       "dpas_ru_odqa_infer_wiki",
-      "dpas_ru_odqa_infer_wiki_retr_noans",
       "dpas_ranking_mailru_bert",
       "dpas_ranking_chitchat_2staged_tfidf_smn_v4",
       "dpas_ranking_chitchat_2staged_tfidf_smn_v11",
       "dpas_mailru",
       "dpas_thequestion",
+      "dpas_ranking_mailru_bert_1",
+      "dpas_ranking_mailru_bert_2",
+      "dpas_ranking_mailru_bert_3",
+      "dpas_ranking_mailru_bert_4",
       "demo_config_chitchat_vs_odqa",
       "sber_ranking_chitchat_2staged_tfidf_smn_v8"
     ]
