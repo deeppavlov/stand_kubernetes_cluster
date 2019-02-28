@@ -1,0 +1,25 @@
+extended_deployer_logging: true,
+cluster_ip: 10.11.1.251
+dns_ip: 10.11.1.254
+dockerhub_registry: deeppavlov
+docker_base_url: unix://var/run/docker.sock
+test_image_url: http://0.0.0.0:{{PORT}}/answer
+test_deployment_url: https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer
+local_log_dir: ~/dev/logs/
+container_log_dir: /logs/
+local_gpu_device_index: 0
+
+gpu_templates:
+  - gpu
+  - gpu_custom
+  - gpu_obsolete
+  - rb_gpu_custom
+
+paths:
+  deployer_dir: {{root_dir}}/tools/cluster_deployer/
+  templates_dir: {{root_dir}}/tools/cluster_deployer/templates/
+  models_subdir: models/
+  models_dir: {{root_dir}}/{{models_subdir}}/
+  kuber_configs_dir: {{root_dir}}/kuber_configs/models/
+  temp_dir: {{deployer_dir}}/temp/
+  log_dir: {{deployer_dir}}/log/
