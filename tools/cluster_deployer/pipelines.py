@@ -9,9 +9,9 @@ all_stages = [MakeFilesDeploymentStage,
               TestImageDeploymentStage,
               PushImageDeploymentStage,
               PullImageDeploymentStage,
+              DeleteKuberDeploymentStage,
               DeployKuberDeploymentStage,
               TestKuberDeploymentStage,
-              DeleteKuberDeploymentStage,
               PushToDockerHubDeploymentStage]
 
 preset_pipelines = {
@@ -22,6 +22,7 @@ preset_pipelines = {
                      BuildImageDeploymentStage,
                      TestImageDeploymentStage,
                      PushImageDeploymentStage,
+                     DeleteKuberDeploymentStage,
                      DeployKuberDeploymentStage,
                      TestKuberDeploymentStage,
                      PushToDockerHubDeploymentStage]
@@ -33,6 +34,7 @@ preset_pipelines = {
                      BuildImageDeploymentStage,
                      TestImageDeploymentStage,
                      PushImageDeploymentStage,
+                     DeleteKuberDeploymentStage,
                      DeployKuberDeploymentStage,
                      TestKuberDeploymentStage]
     },
@@ -42,6 +44,7 @@ preset_pipelines = {
                      DeleteImageDeploymentStage,
                      BuildImageDeploymentStage,
                      PushImageDeploymentStage,
+                     DeleteKuberDeploymentStage,
                      DeployKuberDeploymentStage]
     },
     'all_from_docker': {
@@ -50,6 +53,7 @@ preset_pipelines = {
                      BuildImageDeploymentStage,
                      TestImageDeploymentStage,
                      PushImageDeploymentStage,
+                     DeleteKuberDeploymentStage,
                      DeployKuberDeploymentStage,
                      TestKuberDeploymentStage,
                      PushToDockerHubDeploymentStage]
@@ -60,6 +64,7 @@ preset_pipelines = {
                      BuildImageDeploymentStage,
                      TestImageDeploymentStage,
                      PushImageDeploymentStage,
+                     DeleteKuberDeploymentStage,
                      DeployKuberDeploymentStage,
                      TestKuberDeploymentStage]
     },
@@ -84,12 +89,14 @@ preset_pipelines = {
     },
     'create_kuber': {
         'description': 'deploy in Kubernetes and test',
-        'pipeline': [DeployKuberDeploymentStage,
+        'pipeline': [DeleteKuberDeploymentStage,
+                     DeployKuberDeploymentStage,
                      TestKuberDeploymentStage]
     },
     'create_kuber_no_tests': {
         'description': 'deploy in Kubernetes without test',
-        'pipeline': [DeployKuberDeploymentStage]
+        'pipeline': [DeleteKuberDeploymentStage,
+                     DeployKuberDeploymentStage]
     },
     'delete_kuber': {
         'description': 'delete Kubernetes deployment',
