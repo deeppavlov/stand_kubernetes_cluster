@@ -1,4 +1,4 @@
-# TODO: remove json config and move (and make yaml) external model config example
+# TODO: remove json config and external model config example
 extended_deployer_logging: true
 dockerhub_registry: "deeppavlov"
 docker_base_url: "unix://var/run/docker.sock"

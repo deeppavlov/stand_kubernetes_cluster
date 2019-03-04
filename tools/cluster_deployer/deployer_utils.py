@@ -54,15 +54,15 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
     model_configs_path = config_dir_path / 'models'
 
     with config_file_path.open('r') as f:
-        config = yaml.load(f)
+        config: dict = yaml.load(f)
 
     with model_groups_path.open('r') as f:
-        model_groups = yaml.load(f)
+        model_groups: dict = yaml.load(f)
 
     with templates_path.open('r') as f:
-        templates = yaml.load(f)
+        templates: dict = yaml.load(f)
 
-    models = dict()
+    models = {}
     for models_config_file in model_configs_path.iterdir():
         if models_config_file.is_file():
             with models_config_file.open('r') as f:
@@ -71,7 +71,7 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
 
     if models_config_path:
         with models_config_path.open('r') as f:
-            models_merge_config: dict = json.load(f)
+            models_merge_config: dict = yaml.load(f)
     else:
         models_merge_config = {}
 
