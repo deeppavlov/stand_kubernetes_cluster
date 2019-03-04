@@ -1,0 +1,67 @@
+# TODO: move placeholder templates from script
+_root:
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+  CLUSTER_IP: "10.11.1.251"
+  DNS_IP: "10.11.1.254"
+  DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
+
+  # generated fields
+  PREFIX: ""
+  MODEL_NAME: ""
+  FULL_MODEL_NAME: ""
+  FULL_MODEL_NAME_DASHED: ""
+  LOG_FILE: ""
+  RUN_FILE: ""
+  KUBER_DP_FILE: ""
+  KUBER_LB_FILE: ""
+  MODELS_FOLDER: ""
+  KUBER_DP_NAME: ""
+  KUBER_LB_NAME: ""
+  KUBER_IMAGE_TAG: ""
+  KUBER_CONTAINER_PORT_NAME: ""
+  RUN_CMD: ""
+
+  # TODO: remove excessive values to generated fields or somwhere else
+  # dummy values
+  BRANCH: ""
+  CUDA_VERSION: ""
+  TF_VERSION: ""
+  PORT: ""
+  CLUSTER_PORT: ""
+  MODEL_ARGS: []
+  run_mode: "riseapi"
+  run_params: {_flags: []}
+  image_polling_timeout_sec: 0
+  deployment_polling_timeout_sec: 0
+  pipeline: ""
+
+# TODO: doc values
+_docs:
+  dummy: ""
+
+# TODO: move values from model configs
+gpu:
+  CUDA_VERSION: "9.0"
+
+gpu_custom:
+  CUDA_VERSION: "9.0"
+
+gpu_obsolete:
+  CUDA_VERSION: "9.0"
+
+no_gpu:
+  CUDA_VERSION: "9.0"
+
+no_gpu_custom:
+  CUDA_VERSION: "9.0"
+
+no_gpu_obsolete:
+  CUDA_VERSION: "9.0"
+
+rb_gpu_custom:
+  CUDA_VERSION: "9.0"
+
+rb_no_gpu_custom:
+  CUDA_VERSION: "9.0"
+
