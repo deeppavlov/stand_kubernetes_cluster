@@ -30,7 +30,7 @@ sber:
 toloka:
   - toloka_ranking_chitchat_2staged_tfidf_smn_v15_g
 
-custom:
+custom: []
 
 all:
   - stand_ner_ru

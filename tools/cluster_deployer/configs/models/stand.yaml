@@ -18,7 +18,7 @@ stand_ner_en:
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
-stand_sqad_ru:
+stand_squad_ru:
   CONFIG_FILE: squad/squad_ru.json
   TEMPLATE: no_gpu
   PORT: 6005
@@ -54,8 +54,8 @@ stand_ranking_en:
   PORT: 6009
   CLUSTER_PORT: 7009
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 600
-  deployment_polling_timeout_sec: 1200
+  image_polling_timeout_sec: 1200
+  deployment_polling_timeout_sec: 2400
   pipeline: all_up_kuber
 
 stand_insults_en:
