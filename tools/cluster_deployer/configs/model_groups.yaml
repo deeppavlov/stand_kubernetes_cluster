@@ -27,6 +27,9 @@ demo:
 sber:
   - sber_ranking_chitchat_2staged_tfidf_smn_v8
 
+toloka:
+  - toloka_ranking_chitchat_2staged_tfidf_smn_v15_g
+
 custom:
 
 all:
@@ -51,3 +54,4 @@ all:
   - dpas_ranking_mailru_bert_4
   - demo_config_chitchat_vs_odqa
   - sber_ranking_chitchat_2staged_tfidf_smn_v8
+  - toloka_ranking_chitchat_2staged_tfidf_smn_v15_g
