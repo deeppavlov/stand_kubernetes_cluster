@@ -1,4 +1,3 @@
-# TODO: remove json config and external model config example
 extended_deployer_logging: true
 dockerhub_registry: "deeppavlov"
 docker_base_url: "unix://var/run/docker.sock"
@@ -15,8 +14,7 @@ gpu_templates:
 paths:
   deployer_dir: "{{root_dir}}/tools/cluster_deployer/"
   templates_dir: "{{root_dir}}/tools/cluster_deployer/templates/"
-  models_subdir: "models/"
-  models_dir: "{{root_dir}}/{{models_subdir}}/"
+  models_dir: "{{root_dir}}/models/"
   kuber_configs_dir: "{{root_dir}}/kuber_configs/models/"
   temp_dir: "{{deployer_dir}}/temp/"
   log_dir: "{{deployer_dir}}/log/"

@@ -113,9 +113,6 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
 
         model_config['FULL_MODEL_NAME_DASHED'] = model_config['FULL_MODEL_NAME'].replace('_', '-')
 
-        # TODO: remove models_subdir from config (was made for run_model.sh compatibility)
-        model_config['MODELS_FOLDER'] = str(config['paths']['models_subdir']) + '/'
-
         # fill model config placeholders
         model_config: dict = fill_dict_placeholders_recursive(model_config)
 

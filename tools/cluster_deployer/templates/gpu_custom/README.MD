@@ -1,7 +1,7 @@
 # Demo stand. Model: {{MODEL_NAME}}
 
 ## Installation and start
-1. Go to the `stand_kubernetes_cluster/{{MODELS_FOLDER}}{{FULL_MODEL_NAME}}` directory
+1. Go to the `stand_kubernetes_cluster/models/{{FULL_MODEL_NAME}}` directory
 2. Create a virtual environment with `Python 3.6`:
     ```
     virtualenv env -p python3.6

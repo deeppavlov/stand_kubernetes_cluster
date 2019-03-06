@@ -21,7 +21,6 @@ _root:
   MODEL_NAME: ""
   RUN_CMD: ""
   FULL_MODEL_NAME_DASHED: ""
-  MODELS_FOLDER: ""
 
   # human set params
   BRANCH: ""
