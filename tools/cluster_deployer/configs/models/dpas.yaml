@@ -2,8 +2,6 @@ dpas_ru_odqa_infer_wiki:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: dev
-  PORT: 6064
-  CLUSTER_PORT: 7064
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -15,8 +13,6 @@ dpas_ranking_mailru_bert:
   CONFIG_FILE: ranking/ranking_mailru_bert.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot
-  PORT: 6061
-  CLUSTER_PORT: 7061
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -28,8 +24,6 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v4:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v4.json
   TEMPLATE: rb_gpu_custom
   BRANCH: hybrid_ranker
-  PORT: 6062
-  CLUSTER_PORT: 7062
   run_params:
     _flags: []
     --host: 10.11.1.58
@@ -42,8 +36,6 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v11:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v11.json
   TEMPLATE: rb_gpu_custom
   BRANCH: hybrid_ranker
-  PORT: 6063
-  CLUSTER_PORT: 7063
   run_params:
     _flags: []
     --host: 10.11.1.58
@@ -55,8 +47,6 @@ dpas_mailru:
   CONFIG_FILE: odqa/mailru.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: question_bots
-  PORT: 6067
-  CLUSTER_PORT: 7067
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -68,8 +58,6 @@ dpas_thequestion:
   CONFIG_FILE: odqa/thequestion.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: question_bots
-  PORT: 6068
-  CLUSTER_PORT: 7068
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -81,8 +69,6 @@ dpas_ranking_mailru_bert_1:
   CONFIG_FILE: ranking/ranking_mailru_bert_1.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  PORT: 6070
-  CLUSTER_PORT: 7070
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -94,8 +80,6 @@ dpas_ranking_mailru_bert_2:
   CONFIG_FILE: ranking/ranking_mailru_bert_2.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  PORT: 6071
-  CLUSTER_PORT: 7071
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -107,8 +91,6 @@ dpas_ranking_mailru_bert_3:
   CONFIG_FILE: ranking/ranking_mailru_bert_3.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  PORT: 6072
-  CLUSTER_PORT: 7072
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -120,8 +102,6 @@ dpas_ranking_mailru_bert_4:
   CONFIG_FILE: ranking/ranking_mailru_bert_4.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  PORT: 6073
-  CLUSTER_PORT: 7073
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
