@@ -19,6 +19,8 @@ spec:
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
         - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
@@ -35,6 +37,9 @@ spec:
       - name: volume-logs
         persistentVolumeClaim:
           claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
       - name: volume-podinfo
         downwardAPI:
           items:
