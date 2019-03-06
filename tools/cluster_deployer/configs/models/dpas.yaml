@@ -31,7 +31,6 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v4:
     --token: 7efabf80-8298-4cd4-99c2-aa93c3c2a8f9
   pipeline: all_up_kuber_no_tests
 
-
 dpas_ranking_chitchat_2staged_tfidf_smn_v11:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v11.json
   TEMPLATE: rb_gpu_custom
