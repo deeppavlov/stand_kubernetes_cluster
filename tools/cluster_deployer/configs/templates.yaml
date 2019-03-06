@@ -4,9 +4,6 @@ _root:
   DNS_IP: "10.11.1.254"
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
-  run_mode: "riseapi"
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NME}}.log"
@@ -32,7 +29,10 @@ _root:
   PORT: ""
   CLUSTER_PORT: ""
   MODEL_ARGS: []
+  run_mode: ""
   run_params: {_flags: []}
+  test_image_url: ""
+  test_deployment_url: ""
   image_polling_timeout_sec: 0
   deployment_polling_timeout_sec: 0
   pipeline: ""
@@ -45,28 +45,39 @@ _docs:
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
-# TODO: move values from model configs
 gpu:
-  CUDA_VERSION: "9.0"
+  run_mode: "riseapi"
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 gpu_custom:
-  CUDA_VERSION: "9.0"
+  run_mode: "riseapi"
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 gpu_obsolete:
-  CUDA_VERSION: "9.0"
+  run_mode: "riseapi"
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 no_gpu:
-  CUDA_VERSION: "9.0"
+  run_mode: "riseapi"
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 no_gpu_custom:
-  CUDA_VERSION: "9.0"
+  run_mode: "riseapi"
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 no_gpu_obsolete:
-  CUDA_VERSION: "9.0"
+  run_mode: "riseapi"
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 rb_gpu_custom:
-  CUDA_VERSION: "9.0"
+  run_mode: ""
 
 rb_no_gpu_custom:
-  CUDA_VERSION: "9.0"
+  run_mode: ""
 

@@ -1,29 +1,19 @@
 demo_config_chitchat_vs_odqa:
-  MODEL_NAME: config_chitchat_vs_odqa
-  PREFIX: demo
   CONFIG_FILE: classifiers/config_chitchat_vs_odqa.json
   TEMPLATE: no_gpu_custom
   BRANCH: feat/chitchat_vs_odqa
-  CUDA_VERSION: 9.0
   PORT: 6066
   CLUSTER_PORT: 7066
   MODEL_ARGS: ["text1"]
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: riseapi
   image_polling_timeout_sec: 120
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
 sber_ranking_chitchat_2staged_tfidf_smn_v8:
-  MODEL_NAME: ranking_chitchat_2staged_tfidf_smn_v8
-  PREFIX: sber
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v8.json
   TEMPLATE: gpu_custom
   BRANCH: hybrid_ranker
-  CUDA_VERSION: 9.0
   PORT: 6069
   CLUSTER_PORT: 7069
   MODEL_ARGS: ["utterance", "history", "dummy_state"]
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: riseapi
   pipeline: all_up_kuber_no_tests

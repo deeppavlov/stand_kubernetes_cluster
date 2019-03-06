@@ -1,14 +1,9 @@
 dpas_ru_odqa_infer_wiki:
-  MODEL_NAME: ru_odqa_infer_wiki
-  PREFIX: dpas
   CONFIG_FILE: odqa/ru_odqa_infer_wiki.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: dev
-  CUDA_VERSION: 9.0
   PORT: 6064
   CLUSTER_PORT: 7064
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -17,16 +12,11 @@ dpas_ru_odqa_infer_wiki:
   pipeline: all_up_kuber_no_tests
 
 dpas_ranking_mailru_bert:
-  MODEL_NAME: ranking_mailru_bert
-  PREFIX: dpas
   CONFIG_FILE: ranking/ranking_mailru_bert.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot
-  CUDA_VERSION: 9.0
   PORT: 6061
   CLUSTER_PORT: 7061
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -35,16 +25,11 @@ dpas_ranking_mailru_bert:
   pipeline: all_up_kuber_no_tests
 
 dpas_ranking_chitchat_2staged_tfidf_smn_v4:
-  MODEL_NAME: ranking_chitchat_2staged_tfidf_smn_v4
-  PREFIX: dpas
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v4.json
   TEMPLATE: rb_gpu_custom
   BRANCH: hybrid_ranker
-  CUDA_VERSION: 9.0
   PORT: 6062
   CLUSTER_PORT: 7062
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: []
     --host: 10.11.1.58
@@ -54,16 +39,11 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v4:
 
 
 dpas_ranking_chitchat_2staged_tfidf_smn_v11:
-  MODEL_NAME: ranking_chitchat_2staged_tfidf_smn_v11
-  PREFIX: dpas
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v11.json
   TEMPLATE: rb_gpu_custom
   BRANCH: hybrid_ranker
-  CUDA_VERSION: 9.0
   PORT: 6063
   CLUSTER_PORT: 7063
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: []
     --host: 10.11.1.58
@@ -72,16 +52,11 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v11:
   pipeline: all_up_kuber_no_tests
 
 dpas_mailru:
-  MODEL_NAME: mailru
-  PREFIX: dpas
   CONFIG_FILE: odqa/mailru.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: question_bots
-  CUDA_VERSION: 9.0
   PORT: 6067
   CLUSTER_PORT: 7067
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -90,16 +65,11 @@ dpas_mailru:
   pipeline: all_up_kuber_no_tests
 
 dpas_thequestion:
-  MODEL_NAME: thequestion
-  PREFIX: dpas
   CONFIG_FILE: odqa/thequestion.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: question_bots
-  CUDA_VERSION: 9.0
   PORT: 6068
   CLUSTER_PORT: 7068
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -108,16 +78,11 @@ dpas_thequestion:
   pipeline: all_up_kuber_no_tests
 
 dpas_ranking_mailru_bert_1:
-  MODEL_NAME: ranking_mailru_bert_1
-  PREFIX: dpas
   CONFIG_FILE: ranking/ranking_mailru_bert_1.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  CUDA_VERSION: 9.0
   PORT: 6070
   CLUSTER_PORT: 7070
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -126,16 +91,11 @@ dpas_ranking_mailru_bert_1:
   pipeline: all_up_kuber_no_tests
 
 dpas_ranking_mailru_bert_2:
-  MODEL_NAME: ranking_mailru_bert_2
-  PREFIX: dpas
   CONFIG_FILE: ranking/ranking_mailru_bert_2.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  CUDA_VERSION: 9.0
   PORT: 6071
   CLUSTER_PORT: 7071
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -144,16 +104,11 @@ dpas_ranking_mailru_bert_2:
   pipeline: all_up_kuber_no_tests
 
 dpas_ranking_mailru_bert_3:
-  MODEL_NAME: ranking_mailru_bert_3
-  PREFIX: dpas
   CONFIG_FILE: ranking/ranking_mailru_bert_3.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  CUDA_VERSION: 9.0
   PORT: 6072
   CLUSTER_PORT: 7072
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
@@ -162,16 +117,11 @@ dpas_ranking_mailru_bert_3:
   pipeline: all_up_kuber_no_tests
 
 dpas_ranking_mailru_bert_4:
-  MODEL_NAME: ranking_mailru_bert_4
-  PREFIX: dpas
   CONFIG_FILE: ranking/ranking_mailru_bert_4.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
-  CUDA_VERSION: 9.0
   PORT: 6073
   CLUSTER_PORT: 7073
-  DOCKER_REGISTRY: kubeadm.ipavlov.mipt.ru:5000
-  run_mode: ""
   run_params:
     _flags: ["--default-skill"]
     --host: 10.11.1.58
