@@ -1,44 +1,49 @@
-# TODO: move placeholder templates from script
 _root:
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+  # default params
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
+  CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
+  run_mode: "riseapi"
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
-  # generated fields
+  # composed params
+  LOG_FILE: "{{FULL_MODEL_NME}}.log"
+  RUN_FILE: "run_{{MODEL_NAME}}.sh"
+  KUBER_DP_FILE: "{{FULL_MODEL_NAME}}_dp.yaml"
+  KUBER_LB_FILE: "{{FULL_MODEL_NAME}}_lb.yaml"
+  KUBER_DP_NAME: "{{FULL_MODEL_NAME_DASHED}}-dp"
+  KUBER_LB_NAME: "{{FULL_MODEL_NAME_DASHED}}-lb"
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/{{PREFIX}}/{{MODEL_NAME}}"
+  KUBER_CONTAINER_PORT_NAME: "cp{{PORT}}"
+
+  # script generated params
+  FULL_MODEL_NAME: ""
   PREFIX: ""
   MODEL_NAME: ""
-  FULL_MODEL_NAME: ""
-  FULL_MODEL_NAME_DASHED: ""
-  LOG_FILE: ""
-  RUN_FILE: ""
-  KUBER_DP_FILE: ""
-  KUBER_LB_FILE: ""
-  MODELS_FOLDER: ""
-  KUBER_DP_NAME: ""
-  KUBER_LB_NAME: ""
-  KUBER_IMAGE_TAG: ""
-  KUBER_CONTAINER_PORT_NAME: ""
   RUN_CMD: ""
+  FULL_MODEL_NAME_DASHED: ""
+  MODELS_FOLDER: ""
 
-  # TODO: remove excessive values to generated fields or somwhere else
-  # dummy values
+  # human set params
   BRANCH: ""
-  CUDA_VERSION: ""
   TF_VERSION: ""
   PORT: ""
   CLUSTER_PORT: ""
   MODEL_ARGS: []
-  run_mode: "riseapi"
   run_params: {_flags: []}
   image_polling_timeout_sec: 0
   deployment_polling_timeout_sec: 0
   pipeline: ""
 
-# TODO: doc values
+# examples for some params
 _docs:
-  dummy: ""
+  run_params:
+    _flags: ["--default-skill"]
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 # TODO: move values from model configs
 gpu:

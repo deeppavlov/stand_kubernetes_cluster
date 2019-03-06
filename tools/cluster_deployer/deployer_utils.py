@@ -104,7 +104,6 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
         model_config.update(**templates[model_config_params['TEMPLATE']])  # get config params from model template
         model_config.update(**model_config_params)  # get config params from model config
         model_config.update(**models_merge_config.get(model_full_name, {}))  # merge with external model config file
-        model_config: dict = fill_dict_placeholders_recursive(model_config)  # fill model config placeholders
 
         run_mode: str = model_config['run_mode']
         run_params: dict = model_config.get('run_params', {})
@@ -114,20 +113,11 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
 
         model_config['FULL_MODEL_NAME_DASHED'] = model_config['FULL_MODEL_NAME'].replace('_', '-')
 
-        model_config['LOG_FILE'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}.log'
-        model_config['RUN_FILE'] = f'run_{model_config["MODEL_NAME"]}.sh'
-        model_config['KUBER_DP_FILE'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}_dp.yaml'
-        model_config['KUBER_LB_FILE'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}_lb.yaml'
-
         # TODO: remove models_subdir from config (was made for run_model.sh compatibility)
         model_config['MODELS_FOLDER'] = str(config['paths']['models_subdir']) + '/'
 
-        model_config['KUBER_DP_NAME'] = f'{model_config["FULL_MODEL_NAME_DASHED"]}-dp'
-        model_config['KUBER_LB_NAME'] = f'{model_config["FULL_MODEL_NAME_DASHED"]}-lb'
-        model_config['KUBER_IMAGE_TAG'] = f'{model_config["DOCKER_REGISTRY"]}/' \
-                                          f'{model_config["PREFIX"]}/' \
-                                          f'{model_config["MODEL_NAME"]}'
-        model_config['KUBER_CONTAINER_PORT_NAME'] = f'cp{model_config["PORT"]}'
+        # fill model config placeholders
+        model_config: dict = fill_dict_placeholders_recursive(model_config)
 
         if model_config['FULL_MODEL_NAME'] not in config['models'].keys():
             config['models'][model_config['FULL_MODEL_NAME']] = model_config
