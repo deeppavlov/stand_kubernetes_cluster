@@ -45,13 +45,4 @@ sber_ranking_chitchat_2staged_tfidf_smn_v8:
   MODEL_ARGS: ["utterance", "history", "dummy_state"]
   pipeline: all_up_kuber_no_tests
 
-toloka_ranking_chitchat_2staged_tfidf_smn_v15_g:
-  CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v15_g.json
-  TEMPLATE: rb_gpu
-  BRANCH: hybrid_ranker
-  run_params:
-    --host: 10.11.1.58
-    --port: 8433
-    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
-  pipeline: all_up_kuber_no_tests
 
