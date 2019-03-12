@@ -107,9 +107,9 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
 
         run_mode: str = model_config['run_mode']
         run_params: dict = model_config.get('run_params', {})
-        flags: list = run_params.pop('_flags', [])
+        run_flags: list = model_config.get('run_flags', [])
         params: list = [f"{param} {value}" for param, value in run_params.items()]
-        model_config['RUN_CMD'] = f' {run_mode} {" ".join(flags)} {" ".join(params)} '
+        model_config['RUN_CMD'] = f' {run_mode} {" ".join(run_flags)} {" ".join(params)} '
 
         model_config['FULL_MODEL_NAME_DASHED'] = model_config['FULL_MODEL_NAME'].replace('_', '-')
 

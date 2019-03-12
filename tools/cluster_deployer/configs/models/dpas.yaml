@@ -2,8 +2,8 @@ dpas_ru_odqa_infer_wiki:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: dev
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: cd496eee-61a5-4d0a-a0a0-d5090d750d57
@@ -13,8 +13,8 @@ dpas_ranking_mailru_bert:
   CONFIG_FILE: ranking/ranking_mailru_bert.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
@@ -25,7 +25,6 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v4:
   TEMPLATE: rb_gpu_custom
   BRANCH: hybrid_ranker
   run_params:
-    _flags: []
     --host: 10.11.1.58
     --port: 8433
     --token: 7efabf80-8298-4cd4-99c2-aa93c3c2a8f9
@@ -36,7 +35,6 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v11:
   TEMPLATE: rb_gpu_custom
   BRANCH: hybrid_ranker
   run_params:
-    _flags: []
     --host: 10.11.1.58
     --port: 8433
     --token: b5e47087-cdc6-42cb-a04f-179f3afa4b0e
@@ -46,8 +44,8 @@ dpas_mailru:
   CONFIG_FILE: odqa/mailru.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: question_bots
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: 6872a219-e75c-4a19-9ad1-178948ce4d00
@@ -57,8 +55,8 @@ dpas_thequestion:
   CONFIG_FILE: odqa/thequestion.json
   TEMPLATE: rb_no_gpu_custom
   BRANCH: question_bots
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: e3bd62fa-ee63-4001-b409-f9fe535df690
@@ -68,8 +66,8 @@ dpas_ranking_mailru_bert_1:
   CONFIG_FILE: ranking/ranking_mailru_bert_1.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: e3778877-5f22-4ff8-9011-62065d4491e6
@@ -79,8 +77,8 @@ dpas_ranking_mailru_bert_2:
   CONFIG_FILE: ranking/ranking_mailru_bert_2.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: 6efbb8eb-339b-4870-8d3e-01bee901b2af
@@ -90,8 +88,8 @@ dpas_ranking_mailru_bert_3:
   CONFIG_FILE: ranking/ranking_mailru_bert_3.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: bc3684dd-0d3c-4c83-b4c9-7c0d9464c48d
@@ -101,8 +99,8 @@ dpas_ranking_mailru_bert_4:
   CONFIG_FILE: ranking/ranking_mailru_bert_4.json
   TEMPLATE: rb_gpu_custom
   BRANCH: feat/bert_ranker_bot_3
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: dca8f018-00d1-4a90-ab5a-b69318db622c

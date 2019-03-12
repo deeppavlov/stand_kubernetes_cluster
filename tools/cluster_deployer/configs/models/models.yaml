@@ -50,7 +50,6 @@ toloka_ranking_chitchat_2staged_tfidf_smn_v15_g:
   TEMPLATE: rb_gpu_custom
   BRANCH: hybrid_ranker
   run_params:
-    _flags: []
     --host: 10.11.1.58
     --port: 8433
     --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188

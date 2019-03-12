@@ -29,7 +29,8 @@ _root:
   CLUSTER_PORT: ""
   MODEL_ARGS: []
   run_mode: ""
-  run_params: {_flags: []}
+  run_params: {}
+  run_flags: []
   test_image_url: ""
   test_deployment_url: ""
   image_polling_timeout_sec: 0
@@ -38,8 +39,8 @@ _root:
 
 # examples for some params
 _docs:
+  run_flags: ["--default-skill"]
   run_params:
-    _flags: ["--default-skill"]
     --host: 10.11.1.58
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
