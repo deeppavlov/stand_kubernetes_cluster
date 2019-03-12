@@ -2,6 +2,7 @@ import json
 import yaml
 import shutil
 import re
+from copy import deepcopy
 from pathlib import Path
 from datetime import datetime, timedelta
 from threading import Timer
@@ -88,7 +89,7 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
 
     for model_full_name, model_config_params in models.items():
         # all capitalised keys are used in deploy files placeholders filling
-        model_config = templates['_root']  # get config params from root template
+        model_config = deepcopy(templates['_root'])  # get config params from root template
 
         pattern = r'(.+?)_(.+)'
         match = re.search(pattern, model_full_name)
