@@ -62,3 +62,6 @@ rb_gpu:
 rb_no_gpu:
   run_mode: ""
 
+mongo_db:
+  MONGO_DOCKER_TAG: "4.0.6-xenial"
+  PORT: 27017

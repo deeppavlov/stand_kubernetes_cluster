@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM mongo:{{MONGO_VERSION}}-xenial
+FROM mongo:{{MONGO_DOCKER_TAG}}
 
 VOLUME /db_data
 
@@ -22,7 +22,7 @@ EXPOSE 27017
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD DB_DATA_DIR="/db_data/"$MODEL_NAME"/mongo_db_data/" && \
+CMD DB_DATA_DIR="/db_data/"$MODEL_NAME"/mongo_db_data" && \
     mkdir -p $DB_DATA_DIR && \
     chown -R mongodb:mongodb $DB_DATA_DIR && \
-    mongod --dbpath $DB_DATA_DIR
+    docker-entrypoint.sh --dbpath $DB_DATA_DIR
