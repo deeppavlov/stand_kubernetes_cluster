@@ -1,3 +1,30 @@
+demo_ranking_chitchat_2staged_tfidf_smn_v18_g_prep:
+  CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v18_g_prep.json
+  TEMPLATE: gpu_custom
+  BRANCH: feat/dp_ass_preprocessor
+  PORT: 7063
+  CLUSTER_PORT: 7063
+  run_mode: "interactmsbot"
+  pipeline: all_up_kuber_no_tests
+
+demo_tfidf_autofaq:
+  CONFIG_FILE: faq/tfidf_autofaq.json
+  TEMPLATE: no_gpu_custom
+  BRANCH: faq_quotes_ru
+  PORT: 7064
+  CLUSTER_PORT: 7064
+  run_mode: "interactmsbot"
+  pipeline: all_up_kuber_no_tests
+
+demo_transformer_chit_chat_40k_v01_1_20:
+  CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v01_1_20.json
+  TEMPLATE: gpu_custom
+  BRANCH: 8d779c9
+  PORT: 7065
+  CLUSTER_PORT: 7065
+  run_mode: "interactmsbot"
+  pipeline: all_up_kuber_no_tests
+
 demo_config_chitchat_vs_odqa:
   CONFIG_FILE: classifiers/config_chitchat_vs_odqa.json
   TEMPLATE: no_gpu_custom
@@ -28,3 +55,4 @@ toloka_ranking_chitchat_2staged_tfidf_smn_v15_g:
     --port: 8433
     --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
   pipeline: all_up_kuber_no_tests
+
