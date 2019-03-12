@@ -6,10 +6,8 @@ container_log_dir: "/logs/"
 local_gpu_device_index: 0
 
 gpu_templates:
-  - "gpu"
-  - "gpu_custom"
-  - "gpu_obsolete"
-  - "rb_gpu_custom"
+  - "dp_gpu"
+  - "rb_gpu"
 
 paths:
   deployer_dir: "{{root_dir}}/tools/cluster_deployer/"

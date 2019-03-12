@@ -1,6 +1,6 @@
 demo_ranking_chitchat_2staged_tfidf_smn_v18_g_prep:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v18_g_prep.json
-  TEMPLATE: gpu_custom
+  TEMPLATE: dp_gpu
   BRANCH: feat/dp_ass_preprocessor
   PORT: 7063
   CLUSTER_PORT: 7063
@@ -9,7 +9,7 @@ demo_ranking_chitchat_2staged_tfidf_smn_v18_g_prep:
 
 demo_tfidf_autofaq:
   CONFIG_FILE: faq/tfidf_autofaq.json
-  TEMPLATE: no_gpu_custom
+  TEMPLATE: dp_no_gpu
   BRANCH: faq_quotes_ru
   PORT: 7064
   CLUSTER_PORT: 7064
@@ -18,7 +18,7 @@ demo_tfidf_autofaq:
 
 demo_transformer_chit_chat_40k_v01_1_20:
   CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v01_1_20.json
-  TEMPLATE: gpu_custom
+  TEMPLATE: dp_gpu
   BRANCH: 8d779c9
   PORT: 7065
   CLUSTER_PORT: 7065
@@ -27,7 +27,7 @@ demo_transformer_chit_chat_40k_v01_1_20:
 
 demo_config_chitchat_vs_odqa:
   CONFIG_FILE: classifiers/config_chitchat_vs_odqa.json
-  TEMPLATE: no_gpu_custom
+  TEMPLATE: dp_no_gpu
   BRANCH: feat/chitchat_vs_odqa
   PORT: 6066
   CLUSTER_PORT: 7066
@@ -38,7 +38,7 @@ demo_config_chitchat_vs_odqa:
 
 sber_ranking_chitchat_2staged_tfidf_smn_v8:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v8.json
-  TEMPLATE: gpu_custom
+  TEMPLATE: dp_gpu
   BRANCH: hybrid_ranker
   PORT: 6069
   CLUSTER_PORT: 7069
@@ -47,7 +47,7 @@ sber_ranking_chitchat_2staged_tfidf_smn_v8:
 
 toloka_ranking_chitchat_2staged_tfidf_smn_v15_g:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v15_g.json
-  TEMPLATE: rb_gpu_custom
+  TEMPLATE: rb_gpu
   BRANCH: hybrid_ranker
   run_params:
     --host: 10.11.1.58

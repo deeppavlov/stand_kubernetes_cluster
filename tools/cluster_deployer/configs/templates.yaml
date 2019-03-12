@@ -4,6 +4,7 @@ _root:
   DNS_IP: "10.11.1.254"
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
+  BRANCH: "master"
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NAME}}.log"
@@ -23,7 +24,6 @@ _root:
   FULL_MODEL_NAME_DASHED: ""
 
   # human set params
-  BRANCH: ""
   TF_VERSION: ""
   PORT: ""
   CLUSTER_PORT: ""
@@ -45,39 +45,19 @@ _docs:
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
-gpu:
+dp_gpu:
   run_mode: "riseapi"
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
-gpu_custom:
+dp_no_gpu:
   run_mode: "riseapi"
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
-gpu_obsolete:
-  run_mode: "riseapi"
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-no_gpu:
-  run_mode: "riseapi"
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-no_gpu_custom:
-  run_mode: "riseapi"
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-no_gpu_obsolete:
-  run_mode: "riseapi"
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-rb_gpu_custom:
+rb_gpu:
   run_mode: ""
 
-rb_no_gpu_custom:
+rb_no_gpu:
   run_mode: ""
 
