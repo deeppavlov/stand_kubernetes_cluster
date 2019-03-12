@@ -191,6 +191,7 @@ To create these objects:
     ```
     kubectl create -f volumes/logs_hostpath
     kubectl create -f volumes/components_hostpath
+    kubectl create -f volumes/db_hostpath
     ``` 
     
 For Kubernetes storaging and **Volumes** you can reference:
