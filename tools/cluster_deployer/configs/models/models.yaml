@@ -45,4 +45,11 @@ sber_ranking_chitchat_2staged_tfidf_smn_v8:
   MODEL_ARGS: ["utterance", "history", "dummy_state"]
   pipeline: all_up_kuber_no_tests
 
-
+sber_ranking_thequest_sub_all_bert:
+  CONFIG_FILE: ranking/ranking_thequest_sub_all_bert.json
+  TEMPLATE: dp_gpu
+  BRANCH: feat/bert_ranker_bot_2_thequest_sub_all
+  PORT: 6062
+  CLUSTER_PORT: 7062
+  MODEL_ARGS: ["text1"]
+  pipeline: all_up_kuber

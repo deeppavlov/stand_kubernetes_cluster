@@ -17,6 +17,10 @@ demo:
 
 sber:
   - sber_ranking_chitchat_2staged_tfidf_smn_v8
+  - sber_ranking_thequest_sub_all_bert
+
+#dpas_test:
+#  - dpas_test_mongo
 
 custom: []
 
