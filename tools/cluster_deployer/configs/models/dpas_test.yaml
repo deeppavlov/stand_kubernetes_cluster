@@ -1,0 +1,4 @@
+dpas_test_mongo:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 8100
+  pipeline: all_up_kuber_no_tests
