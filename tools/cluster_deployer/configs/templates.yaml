@@ -5,6 +5,7 @@ _root:
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   BRANCH: "master"
+  serialize_config: false
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NAME}}.log"
