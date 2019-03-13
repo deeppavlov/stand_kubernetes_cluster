@@ -3,7 +3,6 @@ demo_ranking_chitchat_2staged_tfidf_smn_v18_g_prep:
   TEMPLATE: dp_gpu
   BRANCH: str_rich_content_deploy
   # merge with feat/dp_ass_preprocessor
-  PORT: 7063
   CLUSTER_PORT: 7063
   run_mode: "interactmsbot"
   pipeline: all_up_kuber_no_tests
@@ -12,7 +11,6 @@ demo_tfidf_autofaq:
   CONFIG_FILE: faq/tfidf_autofaq.json
   TEMPLATE: dp_no_gpu
   BRANCH: faq_quotes_ru
-  PORT: 7064
   CLUSTER_PORT: 7064
   run_mode: "interactmsbot"
   pipeline: all_up_kuber_no_tests
@@ -21,7 +19,6 @@ demo_transformer_chit_chat_40k_v01_1_20:
   CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v01_1_20.json
   TEMPLATE: dp_gpu
   BRANCH: 8d779c9
-  PORT: 7065
   CLUSTER_PORT: 7065
   run_mode: "interactmsbot"
   pipeline: all_up_kuber_no_tests
@@ -30,7 +27,6 @@ demo_config_chitchat_vs_odqa:
   CONFIG_FILE: classifiers/config_chitchat_vs_odqa.json
   TEMPLATE: dp_no_gpu
   BRANCH: feat/chitchat_vs_odqa
-  PORT: 6066
   CLUSTER_PORT: 7066
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 120
@@ -41,7 +37,6 @@ sber_ranking_chitchat_2staged_tfidf_smn_v8:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v8.json
   TEMPLATE: dp_gpu
   BRANCH: hybrid_ranker
-  PORT: 6069
   CLUSTER_PORT: 7069
   MODEL_ARGS: ["utterance", "history", "dummy_state"]
   pipeline: all_up_kuber_no_tests
@@ -50,7 +45,6 @@ sber_ranking_thequest_sub_all_bert:
   CONFIG_FILE: ranking/ranking_thequest_sub_all_bert.json
   TEMPLATE: dp_gpu
   BRANCH: feat/bert_ranker_bot_2_thequest_sub_all
-  PORT: 6062
   CLUSTER_PORT: 7062
   MODEL_ARGS: ["text1"]
   pipeline: all_up_kuber

@@ -6,6 +6,7 @@ _root:
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   BRANCH: "master"
   serialize_config: false
+  PORT: 5000
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NAME}}.log"
@@ -26,7 +27,6 @@ _root:
 
   # human set params
   TF_VERSION: ""
-  PORT: ""
   CLUSTER_PORT: ""
   MODEL_ARGS: []
   run_mode: ""
