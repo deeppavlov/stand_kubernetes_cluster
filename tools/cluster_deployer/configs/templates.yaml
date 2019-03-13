@@ -74,3 +74,7 @@ mongo_db:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
+
+dpas_custom_hellobot:
+  # default params
+  PORT: 5000
