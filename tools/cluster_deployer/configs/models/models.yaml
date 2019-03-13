@@ -1,7 +1,8 @@
 demo_ranking_chitchat_2staged_tfidf_smn_v18_g_prep:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v18_g_prep.json
   TEMPLATE: dp_gpu
-  BRANCH: feat/dp_ass_preprocessor
+  BRANCH: str_rich_content_deploy
+  # merge with feat/dp_ass_preprocessor
   PORT: 7063
   CLUSTER_PORT: 7063
   run_mode: "interactmsbot"
