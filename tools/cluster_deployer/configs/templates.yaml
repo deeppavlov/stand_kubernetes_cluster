@@ -47,21 +47,30 @@ _docs:
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 dp_gpu:
+  # default params
   run_mode: "riseapi"
+
+  # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 dp_no_gpu:
+  # default params
   run_mode: "riseapi"
+
+  # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
 rb_gpu:
+  # default params
   run_mode: ""
 
 rb_no_gpu:
+  # default params
   run_mode: ""
 
 mongo_db:
+  # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
