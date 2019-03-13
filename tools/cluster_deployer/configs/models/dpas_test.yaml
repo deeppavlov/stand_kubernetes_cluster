@@ -2,3 +2,58 @@ dpas_test_mongo:
   TEMPLATE: mongo_db
   CLUSTER_PORT: 8100
   pipeline: all_up_kuber_no_tests
+
+dpas_test_skill_odqa:
+  CONFIG_FILE: dp_assistant/agent_ru_odqa_retr_noans_rubert_infer.json
+  BRANCH: agent_file_config
+  TEMPLATE: dp_gpu
+  PORT: 80
+  CLUSTER_PORT: 8101
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_skill_chitchat:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4.json
+  BRANCH: agent_file_config
+  TEMPLATE: dp_gpu
+  PORT: 80
+  CLUSTER_PORT: 8102
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_annotator_ner:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent_file_config
+  TEMPLATE: dp_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8103
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_annotator_sentiment:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent_file_config
+  TEMPLATE: dp_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8104
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_selector_chitchat_odqa:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent_file_config
+  TEMPLATE: dp_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8105
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_skill_hellobot:
+  TEMPLATE: dpas_custom_hellobot
+  CLUSTER_PORT: 8106
+  pipeline: all_up_kuber_no_tests

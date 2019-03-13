@@ -21,6 +21,12 @@ sber:
 
 dpas_test:
   - dpas_test_mongo
+  - dpas_test_skill_odqa
+  - dpas_test_skill_chitchat
+  - dpas_test_annotator_ner
+  - dpas_test_annotator_sentiment
+  - dpas_test_selector_chitchat_odqa
+  - dpas_test_skill_hellobot
 
 custom: []
 
@@ -40,4 +46,10 @@ all:
   - demo_config_chitchat_vs_odqa
   - sber_ranking_chitchat_2staged_tfidf_smn_v8
   - sber_ranking_thequest_sub_all_bert
-
+  - dpas_test_mongo
+  - dpas_test_skill_odqa
+  - dpas_test_skill_chitchat
+  - dpas_test_annotator_ner
+  - dpas_test_annotator_sentiment
+  - dpas_test_selector_chitchat_odqa
+  - dpas_test_skill_hellobot
