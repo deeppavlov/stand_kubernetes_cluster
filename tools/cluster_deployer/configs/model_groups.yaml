@@ -21,6 +21,7 @@ sber:
 
 dpas_test:
   - dpas_test_mongo
+  - dpas_test_agent
   - dpas_test_skill_odqa
   - dpas_test_skill_chitchat
   - dpas_test_annotator_ner
@@ -47,6 +48,7 @@ all:
   - sber_ranking_chitchat_2staged_tfidf_smn_v8
   - sber_ranking_thequest_sub_all_bert
   - dpas_test_mongo
+  - dpas_test_agent
   - dpas_test_skill_odqa
   - dpas_test_skill_chitchat
   - dpas_test_annotator_ner

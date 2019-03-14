@@ -75,6 +75,15 @@ mongo_db:
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
 
+dpas_agent:
+  # default params
+  serialize_config: true
+
+  # human set params
+  agent_config: {}
+  TELEGRAM_TOKEN: ""
+  TELEGRAM_PROXY: ""
+
 dpas_custom_hellobot:
   # default params
   PORT: 5000
