@@ -26,6 +26,7 @@ dpas_test:
   - dpas_test_skill_chitchat
   - dpas_test_annotator_ner
   - dpas_test_annotator_sentiment
+  - dpas_test_annotator_obscenity
   - dpas_test_selector_chitchat_odqa
   - dpas_test_skill_hellobot
 
