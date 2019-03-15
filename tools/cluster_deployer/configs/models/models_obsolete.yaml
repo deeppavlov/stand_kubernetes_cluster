@@ -2,7 +2,6 @@ dpas_ru_odqa_infer_wiki:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki.json
   TEMPLATE: rb_no_gpu
   BRANCH: dev
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -13,7 +12,6 @@ dpas_ranking_mailru_bert:
   CONFIG_FILE: ranking/ranking_mailru_bert.json
   TEMPLATE: rb_gpu
   BRANCH: feat/bert_ranker_bot
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -24,6 +22,7 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v4:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v4.json
   TEMPLATE: rb_gpu
   BRANCH: hybrid_ranker
+  run_flags: ["--no-default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -34,6 +33,7 @@ dpas_ranking_chitchat_2staged_tfidf_smn_v11:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v11.json
   TEMPLATE: rb_gpu
   BRANCH: hybrid_ranker
+  run_flags: ["--no-default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -44,7 +44,6 @@ dpas_mailru:
   CONFIG_FILE: odqa/mailru.json
   TEMPLATE: rb_no_gpu
   BRANCH: question_bots
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -55,7 +54,6 @@ dpas_thequestion:
   CONFIG_FILE: odqa/thequestion.json
   TEMPLATE: rb_no_gpu
   BRANCH: question_bots
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -66,7 +64,6 @@ dpas_ranking_mailru_bert_1:
   CONFIG_FILE: ranking/ranking_mailru_bert_1.json
   TEMPLATE: rb_gpu
   BRANCH: feat/bert_ranker_bot_3
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -77,7 +74,6 @@ dpas_ranking_mailru_bert_2:
   CONFIG_FILE: ranking/ranking_mailru_bert_2.json
   TEMPLATE: rb_gpu
   BRANCH: feat/bert_ranker_bot_3
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -88,7 +84,6 @@ dpas_ranking_mailru_bert_3:
   CONFIG_FILE: ranking/ranking_mailru_bert_3.json
   TEMPLATE: rb_gpu
   BRANCH: feat/bert_ranker_bot_3
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -99,7 +94,6 @@ dpas_ranking_mailru_bert_4:
   CONFIG_FILE: ranking/ranking_mailru_bert_4.json
   TEMPLATE: rb_gpu
   BRANCH: feat/bert_ranker_bot_3
-  run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
@@ -110,6 +104,7 @@ toloka_ranking_chitchat_2staged_tfidf_smn_v15_g:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v15_g.json
   TEMPLATE: rb_gpu
   BRANCH: hybrid_ranker
+  run_flags: ["--no-default-skill"]
   run_params:
     --host: 10.11.1.58
     --port: 8433
