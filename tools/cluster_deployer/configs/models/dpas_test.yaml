@@ -30,9 +30,9 @@ dpas_test_agent:
           url: http://10.11.1.251:8106/ruler_call/
           path: null
 
-        - name: sberchat
-          url: http://23.102.48.212:8443/api/
-          path: null
+        #- name: sberchat
+        #  url: http://23.102.48.212:8443/api/
+        #  path: null
 
       ANNOTATORS:
         - name: ner
