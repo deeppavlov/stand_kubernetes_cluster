@@ -1,6 +1,6 @@
 # AGENT
-dpas_test_agent:
-  BRANCH: agent-stable
+dpas_demo_agent:
+  BRANCH: agent
   TEMPLATE: dpas_agent
   pipeline: all_up_kuber_no_tests
 
@@ -8,49 +8,47 @@ dpas_test_agent:
     db_config:
       DB_NAME: test
       HOST: 10.11.1.251
-      PORT: 8100
+      PORT: 8200
 
     agent_config:
       MAX_WORKERS: 4
 
       SKILLS:
-        - name: odqa
-          url: http://10.11.1.251:8101/skill
-          path: null
-          #configs/dp_assistant/agent_ru_odqa_retr_noans_rubert_infer.json
-
         - name: chitchat
-          url: http://10.11.1.251:8102/skill
+          url: http://10.11.1.251:8201/skill
           path: null
-          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4.json
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
           env:
             CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
 
-        - name: hellobot
-          url: http://10.11.1.251:8106/ruler_call/
+        - name: mailruqa
+          url: http://10.11.1.251:8202/skill
           path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
 
-        - name: sberchat
-          url: http://23.102.48.212:8443/api/
+        - name: generalqa
+          url: http://10.11.1.251:8203/skill
           path: null
+          #configs.dp_assistant.agent_general_qa.json
 
       ANNOTATORS:
         - name: ner
-          url: http://10.11.1.251:8103/skill
+          url: http://10.11.1.251:8204/skill
           path: null
           #configs/dp_assistant/preproc_ner_rus.json
           env:
             CUDA_VISIBLE_DEVICES: ""
 
         - name: sentiment
-          url: http://10.11.1.251:8104/skill
+          url: http://10.11.1.251:8205/skill
           path: null
           #configs/dp_assistant/preproc_rusentiment.json
           env:
             CUDA_VISIBLE_DEVICES: ""
 
         - name: obscenity
-          url: http://10.11.1.251:8107/skill
+          url: http://10.11.1.251:8206/skill
           path: null
           #configs/dp_assistant/obscenity_classifier.json
           env:
@@ -58,7 +56,7 @@ dpas_test_agent:
 
       SKILL_SELECTORS:
         - name: chitchat_odqa
-          url: http://10.11.1.251:8105/skill
+          url: http://10.11.1.251:8207/skill
           path: null
           #configs/dp_assistant/sselector_chitchat_odqa.json
           env:
@@ -67,75 +65,80 @@ dpas_test_agent:
       RESPONSE_SELECTORS: []
 
 # DATABASE
-dpas_test_mongo:
+dpas_demo_mongo:
   TEMPLATE: mongo_db
-  CLUSTER_PORT: 8100
+  CLUSTER_PORT: 8200
   pipeline: all_up_kuber_no_tests
 
 # SKILLS
-dpas_test_skill_odqa:
-  CONFIG_FILE: dp_assistant/agent_ru_odqa_retr_noans_rubert_infer.json
-  BRANCH: agent-stable
+dpas_demo_skill_chitchat:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
   TEMPLATE: dp_gpu
   PORT: 80
-  CLUSTER_PORT: 8101
+  CLUSTER_PORT: 8201
   run_params:
     --api-mode: "skill"
   pipeline: all_up_kuber_no_tests
 
-dpas_test_skill_chitchat:
-  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4.json
-  BRANCH: agent-stable
+dpas_demo_skill_mailruqa:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
   TEMPLATE: dp_gpu
   PORT: 80
-  CLUSTER_PORT: 8102
+  CLUSTER_PORT: 8202
   run_params:
     --api-mode: "skill"
   pipeline: all_up_kuber_no_tests
 
-dpas_test_skill_hellobot:
-  TEMPLATE: dpas_custom_hellobot
-  CLUSTER_PORT: 8106
+dpas_demo_skill_generalqa:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_gpu
+  PORT: 80
+  CLUSTER_PORT: 8203
+  run_params:
+    --api-mode: "skill"
   pipeline: all_up_kuber_no_tests
 
 # ANNOTATORS
-dpas_test_annotator_ner:
+dpas_demo_annotator_ner:
   CONFIG_FILE: dp_assistant/preproc_ner_rus.json
-  BRANCH: agent-stable
+  BRANCH: agent
   TEMPLATE: dp_no_gpu
   PORT: 80
-  CLUSTER_PORT: 8103
+  CLUSTER_PORT: 8204
   run_params:
     --api-mode: "skill"
   pipeline: all_up_kuber_no_tests
 
-dpas_test_annotator_sentiment:
+dpas_demo_annotator_sentiment:
   CONFIG_FILE: dp_assistant/preproc_rusentiment.json
-  BRANCH: agent-stable
+  BRANCH: agent
   TEMPLATE: dp_no_gpu
   PORT: 80
-  CLUSTER_PORT: 8104
+  CLUSTER_PORT: 8205
   run_params:
     --api-mode: "skill"
   pipeline: all_up_kuber_no_tests
 
-dpas_test_annotator_obscenity:
+dpas_demo_annotator_obscenity:
   CONFIG_FILE: dp_assistant/obscenity_classifier.json
-  BRANCH: agent-stable
+  BRANCH: agent
   TEMPLATE: dp_no_gpu
   PORT: 80
-  CLUSTER_PORT: 8107
+  CLUSTER_PORT: 8206
   run_params:
     --api-mode: "skill"
   pipeline: all_up_kuber_no_tests
 
 # SKILL_SELECTORS
-dpas_test_selector_chitchat_odqa:
+dpas_demo_selector_chitchat_odqa:
   CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
-  BRANCH: agent-stable
+  BRANCH: agent
   TEMPLATE: dp_no_gpu
   PORT: 80
-  CLUSTER_PORT: 8105
+  CLUSTER_PORT: 8207
   run_params:
     --api-mode: "skill"
   pipeline: all_up_kuber_no_tests

@@ -30,6 +30,17 @@ dpas_test:
   - dpas_test_selector_chitchat_odqa
   - dpas_test_skill_hellobot
 
+dpas_demo:
+  - dpas_demo_mongo
+  - dpas_demo_agent
+  - dpas_demo_skill_chitchat
+  - dpas_demo_skill_mailruqa
+  - dpas_demo_skill_generalqa
+  - dpas_demo_annotator_ner
+  - dpas_demo_annotator_sentiment
+  - dpas_demo_annotator_obscenity
+  - dpas_demo_selector_chitchat_odqa
+
 custom: []
 
 all:
