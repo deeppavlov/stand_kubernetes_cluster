@@ -1,0 +1,70 @@
+dpas_test_agent_rb:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 8100
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: odqa
+          url: http://10.11.1.251:8101/skill
+          path: null
+          #configs/dp_assistant/agent_ru_odqa_retr_noans_rubert_infer.json
+
+        - name: chitchat
+          url: http://10.11.1.251:8102/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: hellobot
+          url: http://10.11.1.251:8106/ruler_call/
+          path: null
+
+        #- name: sberchat
+        #  url: http://23.102.48.212:8443/api/
+        #  path: null
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:8103/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:8104/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:8107/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:8105/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
