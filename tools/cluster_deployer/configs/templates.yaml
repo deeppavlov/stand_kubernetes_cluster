@@ -5,8 +5,10 @@ _root:
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   BRANCH: "master"
-  serialize_config: false
   PORT: 5000
+  serialize_config: false
+  image_polling_timeout_sec: 300
+  deployment_polling_timeout_sec: 600
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NAME}}.log"
@@ -34,8 +36,6 @@ _root:
   run_flags: []
   test_image_url: ""
   test_deployment_url: ""
-  image_polling_timeout_sec: 0
-  deployment_polling_timeout_sec: 0
   pipeline: ""
 
 # examples for some params
