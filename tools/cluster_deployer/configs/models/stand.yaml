@@ -3,7 +3,7 @@ stand_ner_ru:
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7004
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 120
+  image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
@@ -12,7 +12,7 @@ stand_ner_en:
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7010
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 120
+  image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
@@ -21,7 +21,7 @@ stand_squad_ru:
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7005
   MODEL_ARGS: ["text1", "text2"]
-  image_polling_timeout_sec: 120
+  image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
@@ -30,7 +30,7 @@ stand_squad_en:
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7008
   MODEL_ARGS: ["text1", "text2"]
-  image_polling_timeout_sec: 120
+  image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
@@ -39,7 +39,7 @@ stand_intents_en:
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7007
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 120
+  image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
@@ -48,7 +48,7 @@ stand_ranking_en:
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7009
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 1200
+  image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 2400
   pipeline: all_up_kuber
 
@@ -57,8 +57,8 @@ stand_insults_en:
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7006
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 120
-  deployment_polling_timeout_sec: 1200
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 2400
   pipeline: all_up_kuber
 
 stand_odqa_en:
