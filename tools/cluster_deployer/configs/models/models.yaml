@@ -29,8 +29,6 @@ demo_config_chitchat_vs_odqa:
   BRANCH: feat/chitchat_vs_odqa
   CLUSTER_PORT: 7066
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 120
-  deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
 
 sber_ranking_chitchat_2staged_tfidf_smn_v8:
