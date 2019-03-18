@@ -1,0 +1,18 @@
+extended_deployer_logging: true
+dockerhub_registry: "deeppavlov"
+docker_base_url: "unix://var/run/docker.sock"
+local_log_dir: "~/dev/logs/"
+container_log_dir: "/logs/"
+local_gpu_device_index: 0
+
+gpu_templates:
+  - "dp_gpu"
+  - "rb_gpu"
+
+paths:
+  deployer_dir: "{{root_dir}}/tools/cluster_deployer/"
+  templates_dir: "{{root_dir}}/tools/cluster_deployer/templates/"
+  models_dir: "{{root_dir}}/models/"
+  kuber_configs_dir: "{{root_dir}}/kuber_configs/models/"
+  temp_dir: "{{deployer_dir}}/temp/"
+  log_dir: "{{deployer_dir}}/log/"

@@ -1,0 +1,89 @@
+_root:
+  # default params
+  CLUSTER_IP: "10.11.1.251"
+  DNS_IP: "10.11.1.254"
+  CUDA_VERSION: "9.0"
+  DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
+  BRANCH: "master"
+  serialize_config: false
+  PORT: 5000
+
+  # composed params
+  LOG_FILE: "{{FULL_MODEL_NAME}}.log"
+  RUN_FILE: "run_{{MODEL_NAME}}.sh"
+  KUBER_DP_FILE: "{{FULL_MODEL_NAME}}_dp.yaml"
+  KUBER_LB_FILE: "{{FULL_MODEL_NAME}}_lb.yaml"
+  KUBER_DP_NAME: "{{FULL_MODEL_NAME_DASHED}}-dp"
+  KUBER_LB_NAME: "{{FULL_MODEL_NAME_DASHED}}-lb"
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/{{PREFIX}}/{{MODEL_NAME}}"
+  KUBER_CONTAINER_PORT_NAME: "cp{{PORT}}"
+
+  # script generated params
+  FULL_MODEL_NAME: ""
+  PREFIX: ""
+  MODEL_NAME: ""
+  RUN_CMD: ""
+  FULL_MODEL_NAME_DASHED: ""
+
+  # human set params
+  TF_VERSION: ""
+  CLUSTER_PORT: ""
+  MODEL_ARGS: []
+  run_mode: ""
+  run_params: {}
+  run_flags: []
+  test_image_url: ""
+  test_deployment_url: ""
+  image_polling_timeout_sec: 0
+  deployment_polling_timeout_sec: 0
+  pipeline: ""
+
+# examples for some params
+_docs:
+  run_flags: ["--default-skill"]
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
+
+dp_gpu:
+  # default params
+  run_mode: "riseapi"
+
+  # composed params
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+dp_no_gpu:
+  # default params
+  run_mode: "riseapi"
+
+  # composed params
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+rb_gpu:
+  # default params
+  run_mode: ""
+
+rb_no_gpu:
+  # default params
+  run_mode: ""
+
+mongo_db:
+  # default params
+  MONGO_DOCKER_TAG: "4.0.6-xenial"
+  PORT: 27017
+
+dpas_agent:
+  # default params
+  serialize_config: true
+
+  # human set params
+  agent_config: {}
+  TELEGRAM_TOKEN: ""
+  TELEGRAM_PROXY: ""
+
+dpas_custom_hellobot:
+  # default params
+  PORT: 5000

@@ -5,9 +5,8 @@ from docker import DockerClient
 from docker.errors import APIError
 
 from pipelines import preset_pipelines
-from deployer_utils import make_config_from_file, prompt_confirmation
+from deployer_utils import make_config_from_files, prompt_confirmation
 from deployer import Deployer
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('action', help='select action', type=str, choices={'build', 'models', 'groups', 'pipelines'})
@@ -84,7 +83,6 @@ def build(config: dict, args: argparse.Namespace) -> None:
 
 def list_names(config: dict, args: argparse.Namespace) -> None:
     if args.action == 'models':
-
         models_info = [f'{model.get("PREFIX", "-")}_'
                        f'{model.get("MODEL_NAME", "-")} | '
                        f'{model.get("TEMPLATE", "-")} | '
@@ -109,12 +107,12 @@ def list_names(config: dict, args: argparse.Namespace) -> None:
 def main() -> None:
     args = parser.parse_args()
 
-    config_file_path = Path(__file__, '..').resolve() / 'config.json'
+    config_dir_path = Path(__file__, '..').resolve() / 'configs/'
     models_config_file_path = Path(args.models_config).resolve() if args.models_config else None
 
-    config = make_config_from_file(config_file_path,
-                                   Path(__file__, '..', '..', '..').resolve(),
-                                   models_config_file_path)
+    config = make_config_from_files(config_dir_path,
+                                    Path(__file__, '..', '..', '..').resolve(),
+                                    models_config_file_path)
 
     if args.action == 'build':
         build(config, args)

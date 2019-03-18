@@ -1,0 +1,59 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: stand-odqa-en-dp
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stand-odqa-en-dp
+    spec:
+      containers:
+      - name: stand-odqa-en
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/odqa_en
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        ports:
+        - name: cp5000
+          protocol: TCP
+          containerPort: 5000
+        volumeMounts:
+        - name: volume-logs
+          mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      volumes:
+      - name: volume-logs
+        persistentVolumeClaim:
+          claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254

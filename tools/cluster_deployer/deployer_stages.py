@@ -2,6 +2,7 @@ import shutil
 import logging
 import sys
 import yaml
+import json
 from traceback import format_exception
 from typing import Optional
 from enum import Enum
@@ -157,6 +158,11 @@ class MakeFilesDeploymentStage(AbstractDeploymentStage):
         model_path = models_dir / model_config['FULL_MODEL_NAME']
         safe_delete_path(model_path)
         deploy_files_dir.rename(model_path)
+
+        if model_config['serialize_config']:
+            model_config_path: Path = model_path / 'deployment_config.json'
+            with model_config_path.open('w') as f:
+                json.dump(model_config, f, indent=2)
 
         return deployment_status
 

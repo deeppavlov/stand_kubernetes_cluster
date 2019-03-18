@@ -51,11 +51,9 @@ Reference resources:
 
     1. Add package repositories:
         ```
-        sudo apt-get update && apt-get install -y apt-transport-https
+        sudo apt-get update && sudo apt-get install -y apt-transport-https
         curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-        sudo cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-        deb http://apt.kubernetes.io/ kubernetes-xenial main
-        EOF
+        echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
         ```
     2. Install Kubernetes packages:
         ```
@@ -188,22 +186,12 @@ To create these objects:
 2. We run demo stand payload in `stand-demo` **Namespace**. To create in run:
     ```
     kubectl create -f namespaces/stand_demo_ns.yaml
-    ```
-3. Create **StorageClass** for payload log files:
-    ```
-    kubectl create -f volumes/logs_hostpath/logs_hostpath_sc.yaml
-    ```
-4. Create **PersistentVolume** for payload log files:
-    ```
-    kubectl create -f volumes/logs_hostpath/logs_hostpath_pv.yaml
-    ```
-5. Create **PersistentVolumeClaim** for payload log files:
-    ```
-    kubectl create -f volumes/logs_hostpath/logs_hostpath_pvc.yaml
-    ```      
-6. Or you can simply run following instead of steps 3-5:
+    ```   
+3. Create hostpath volumes for stand component and logs:
     ```
     kubectl create -f volumes/logs_hostpath
+    kubectl create -f volumes/components_hostpath
+    kubectl create -f volumes/db_hostpath
     ``` 
     
 For Kubernetes storaging and **Volumes** you can reference:

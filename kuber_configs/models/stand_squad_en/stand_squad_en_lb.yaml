@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-squad-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: stand-squad-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: stand-squad-en
+    protocol: TCP
+    port: 7008
+    targetPort: cp5000

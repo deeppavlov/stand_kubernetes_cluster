@@ -1,6 +1,8 @@
 import json
+import yaml
 import shutil
 import re
+from copy import deepcopy
 from pathlib import Path
 from datetime import datetime, timedelta
 from threading import Timer
@@ -46,13 +48,31 @@ def fill_dict_placeholders_recursive(dict_in: dict) -> dict:
     return dict_out
 
 
-def make_config_from_file(config_path: Path, root_dir: Path, models_config_path: Optional[Path] = None) -> dict:
-    with config_path.open('r') as f:
-        config = json.load(f)
+def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_path: Optional[Path] = None) -> dict:
+    config_file_path = config_dir_path / 'config.yaml'
+    model_groups_path = config_dir_path / 'model_groups.yaml'
+    templates_path = config_dir_path / 'templates.yaml'
+    model_configs_path = config_dir_path / 'models'
+
+    with config_file_path.open('r') as f:
+        config: dict = yaml.load(f)
+
+    with model_groups_path.open('r') as f:
+        model_groups: dict = yaml.load(f)
+
+    with templates_path.open('r') as f:
+        templates: dict = yaml.load(f)
+
+    models = {}
+    for models_config_file in model_configs_path.iterdir():
+        if models_config_file.is_file():
+            with models_config_file.open('r') as f:
+                model_configs = yaml.load(f)
+                models.update(**model_configs)
 
     if models_config_path:
         with models_config_path.open('r') as f:
-            models_merge_config: dict = json.load(f)
+            models_merge_config: dict = yaml.load(f)
     else:
         models_merge_config = {}
 
@@ -61,65 +81,46 @@ def make_config_from_file(config_path: Path, root_dir: Path, models_config_path:
     config['paths'] = fill_dict_placeholders_recursive(config['paths'])
     config['paths'] = {key: Path(value) for key, value in config['paths'].items()}
 
+    # add model groups
+    config['model_groups'] = model_groups
+
     # make model configs
-    config['models_list'] = config['models']
     config['models'] = {}
 
-    template: dict = config['model_template']
+    for model_full_name, model_config_params in models.items():
+        # all capitalised keys are used in deploy files placeholders filling
+        model_config = deepcopy(templates['_root'])  # get config params from root template
 
-    for model_config in config['models_list']:
-        model_config: dict = model_config
-        model_config['FULL_MODEL_NAME'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}'
+        pattern = r'(.+?)_(.+)'
+        match = re.search(pattern, model_full_name)
 
-        # merge with external model config file
-        merge_config: dict = models_merge_config.get(model_config['FULL_MODEL_NAME'], {})
+        if not match:
+            raise KeyError(f'Wrong model full name: {model_full_name}, should be in <prefix>_<model_name> fromat')
+        else:
+            model_config['FULL_MODEL_NAME'] = model_full_name
+            model_config['PREFIX'] = match.group(1)
+            model_config['MODEL_NAME'] = match.group(2)
 
-        for param, value in merge_config.items():
-            model_config[param] = value
-
-        # populate with dummy missing fields from template
-        for key, dummy_value in template.items():
-            if key not in model_config.keys():
-                model_config[key] = dummy_value
-
-        model_config['CLUSTER_IP'] = model_config.get('CLUSTER_IP', None) or config['cluster_ip']
-        model_config['DNS_IP'] = model_config.get('DNS_IP', None) or config['dns_ip']
-
-        model_config['test_image_url'] = model_config.get('test_image_url', None) or config['test_image_url']
-        model_config['test_deployment_url'] = model_config.get('test_deployment_url', None) or config['test_deployment_url']
-
-        model_config: dict = fill_dict_placeholders_recursive(model_config)
+        # TODO: uncapitalize template
+        model_config.update(**templates[model_config_params['TEMPLATE']])  # get config params from model template
+        model_config.update(**model_config_params)  # get config params from model config
+        model_config.update(**models_merge_config.get(model_full_name, {}))  # merge with external model config file
 
         run_mode: str = model_config['run_mode']
         run_params: dict = model_config.get('run_params', {})
-        flags: list = run_params.pop('_flags', [])
+        run_flags: list = model_config.get('run_flags', [])
         params: list = [f"{param} {value}" for param, value in run_params.items()]
-        model_config['RUN_CMD'] = f' {run_mode} {" ".join(flags)} {" ".join(params)} '
+        model_config['RUN_CMD'] = f' {run_mode} {" ".join(run_flags)} {" ".join(params)} '
 
-        # TODO: remove naming capitalising from config (was made for run_model.sh compatibility)
         model_config['FULL_MODEL_NAME_DASHED'] = model_config['FULL_MODEL_NAME'].replace('_', '-')
 
-        model_config['LOG_FILE'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}.log'
-        model_config['RUN_FILE'] = f'run_{model_config["MODEL_NAME"]}.sh'
-        model_config['KUBER_DP_FILE'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}_dp.yaml'
-        model_config['KUBER_LB_FILE'] = f'{model_config["PREFIX"]}_{model_config["MODEL_NAME"]}_lb.yaml'
-
-        # TODO: remove models_subdir from config (was made for run_model.sh compatibility)
-        model_config['MODELS_FOLDER'] = str(config['paths']['models_subdir']) + '/'
-
-        model_config['KUBER_DP_NAME'] = f'{model_config["FULL_MODEL_NAME_DASHED"]}-dp'
-        model_config['KUBER_LB_NAME'] = f'{model_config["FULL_MODEL_NAME_DASHED"]}-lb'
-        model_config['KUBER_IMAGE_TAG'] = f'{model_config["DOCKER_REGISTRY"]}/' \
-                                          f'{model_config["PREFIX"]}/' \
-                                          f'{model_config["MODEL_NAME"]}'
-        model_config['KUBER_CONTAINER_PORT_NAME'] = f'cp{model_config["PORT"]}'
+        # fill model config placeholders
+        model_config: dict = fill_dict_placeholders_recursive(model_config)
 
         if model_config['FULL_MODEL_NAME'] not in config['models'].keys():
             config['models'][model_config['FULL_MODEL_NAME']] = model_config
         else:
             raise KeyError(f'Double full model name: {model_config["FULL_MODEL_NAME"]}')
-
-    del config['models_list']
 
     return config
 

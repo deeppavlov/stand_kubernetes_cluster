@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-insults-en-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: stand-insults-en-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: stand-insults-en
+    protocol: TCP
+    port: 7006
+    targetPort: cp5000
