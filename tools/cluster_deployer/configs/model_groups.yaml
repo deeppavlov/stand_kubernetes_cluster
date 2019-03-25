@@ -41,6 +41,10 @@ dpas_demo:
   - dpas_demo_annotator_obscenity
   - dpas_demo_selector_chitchat_odqa
 
+http_proxy:
+  - http_proxy_litinsky
+  - http_proxy_basil
+
 custom: []
 
 all:
