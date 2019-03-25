@@ -354,7 +354,7 @@ class DeployKuberDeploymentStage(AbstractKuberEntitiesHandler):
         # create Kubernetes Deployment
         if self.dp_data:
             create_dp_kwargs = {
-                'namespace': self.dp_data.config['metadata']['namespace'],
+                'namespace':  self.dp_data.namespace,
                 'body': self.dp_data.config,
                 'include_uninitialized': True
             }
@@ -364,7 +364,7 @@ class DeployKuberDeploymentStage(AbstractKuberEntitiesHandler):
         # create Kubernetes Load Balancer
         if self.lb_data:
             create_lb_kwargs = {
-                'namespace': self.lb_data.config['metadata']['namespace'],
+                'namespace': self.lb_data.namespace,
                 'body': self.lb_data.config,
                 'include_uninitialized': True
             }
