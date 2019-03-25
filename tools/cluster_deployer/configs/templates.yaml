@@ -113,3 +113,13 @@ rb_dpas_agent:
 dpas_custom_hellobot:
   # default params
   PORT: 5000
+
+http_proxy:
+  # default params
+  KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy"
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CLUSTER_PORT: ""
+  PROXYED_HOST: ""
+  PROXYED_PORT: ""
