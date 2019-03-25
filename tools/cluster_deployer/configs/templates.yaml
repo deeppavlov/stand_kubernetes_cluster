@@ -62,6 +62,22 @@ dp_no_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
+dp_obsolete_gpu:
+  # default params
+  run_mode: "riseapi"
+
+  # composed params
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+dp_obsolete_no_gpu:
+  # default params
+  run_mode: "riseapi"
+
+  # composed params
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
 rb_gpu:
   # default params
   run_mode: ""
