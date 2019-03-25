@@ -9,6 +9,10 @@ stand:
   - stand_odqa_ru
   - stand_odqa_en
 
+http_proxy:
+  - http_proxy_litinsky
+  - http_proxy_basil
+
 sber:
   - sber_ranking_chitchat_2staged_tfidf_smn_v8
   - sber_ranking_thequest_sub_all_bert
@@ -35,10 +39,6 @@ dpas_demo:
   - dpas_demo_annotator_obscenity
   - dpas_demo_selector_chitchat_odqa
 
-http_proxy:
-  - http_proxy_litinsky
-  - http_proxy_basil
-
 custom: []
 demo: []
 
@@ -52,27 +52,5 @@ all:
   - stand_squad_en
   - stand_odqa_ru
   - stand_odqa_en
-  - demo_ranking_chitchat_2staged_tfidf_smn_v18_g_prep
-  - demo_tfidf_autofaq
-  - demo_transformer_chit_chat_40k_v01_1_20
-  - demo_config_chitchat_vs_odqa
   - sber_ranking_chitchat_2staged_tfidf_smn_v8
   - sber_ranking_thequest_sub_all_bert
-  - dpas_test_mongo
-  - dpas_test_agent
-  - dpas_test_skill_odqa
-  - dpas_test_skill_chitchat
-  - dpas_test_annotator_ner
-  - dpas_test_annotator_sentiment
-  - dpas_test_annotator_obscenity
-  - dpas_test_selector_chitchat_odqa
-  - dpas_test_skill_hellobot
-  - dpas_demo_mongo
-  - dpas_demo_agent
-  - dpas_demo_skill_chitchat
-  - dpas_demo_skill_mailruqa
-  - dpas_demo_skill_generalqa
-  - dpas_demo_annotator_ner
-  - dpas_demo_annotator_sentiment
-  - dpas_demo_annotator_obscenity
-  - dpas_demo_selector_chitchat_odqa
