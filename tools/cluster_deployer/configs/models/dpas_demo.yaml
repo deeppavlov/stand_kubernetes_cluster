@@ -74,7 +74,7 @@ dpas_demo_mongo:
 dpas_demo_skill_chitchat:
   CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
   BRANCH: agent
-  TEMPLATE: dp_gpu
+  TEMPLATE: dp_obsolete_gpu
   PORT: 80
   CLUSTER_PORT: 8201
   run_params:
@@ -84,7 +84,7 @@ dpas_demo_skill_chitchat:
 dpas_demo_skill_mailruqa:
   CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
   BRANCH: agent
-  TEMPLATE: dp_gpu
+  TEMPLATE: dp_obsolete_gpu
   PORT: 80
   CLUSTER_PORT: 8202
   run_params:
@@ -94,7 +94,7 @@ dpas_demo_skill_mailruqa:
 dpas_demo_skill_generalqa:
   CONFIG_FILE: dp_assistant/agent_general_qa.json
   BRANCH: agent
-  TEMPLATE: dp_gpu
+  TEMPLATE: dp_obsolete_gpu
   PORT: 80
   CLUSTER_PORT: 8203
   run_params:
@@ -105,7 +105,7 @@ dpas_demo_skill_generalqa:
 dpas_demo_annotator_ner:
   CONFIG_FILE: dp_assistant/preproc_ner_rus.json
   BRANCH: agent
-  TEMPLATE: dp_no_gpu
+  TEMPLATE: dp_obsolete_no_gpu
   PORT: 80
   CLUSTER_PORT: 8204
   run_params:
@@ -115,7 +115,7 @@ dpas_demo_annotator_ner:
 dpas_demo_annotator_sentiment:
   CONFIG_FILE: dp_assistant/preproc_rusentiment.json
   BRANCH: agent
-  TEMPLATE: dp_no_gpu
+  TEMPLATE: dp_obsolete_no_gpu
   PORT: 80
   CLUSTER_PORT: 8205
   run_params:
@@ -125,7 +125,7 @@ dpas_demo_annotator_sentiment:
 dpas_demo_annotator_obscenity:
   CONFIG_FILE: dp_assistant/obscenity_classifier.json
   BRANCH: agent
-  TEMPLATE: dp_no_gpu
+  TEMPLATE: dp_obsolete_no_gpu
   PORT: 80
   CLUSTER_PORT: 8206
   run_params:
@@ -136,7 +136,7 @@ dpas_demo_annotator_obscenity:
 dpas_demo_selector_chitchat_odqa:
   CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
   BRANCH: agent
-  TEMPLATE: dp_no_gpu
+  TEMPLATE: dp_obsolete_no_gpu
   PORT: 80
   CLUSTER_PORT: 8207
   run_params:
