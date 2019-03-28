@@ -412,9 +412,9 @@ class DeleteKuberDeploymentStage(AbstractKuberEntitiesHandler):
                     'body': kube_client.V1DeleteOptions(propagation_policy='Background')
                 }
                 self.kube_core_v1_api.delete_namespaced_service(**delete_lb_kwargs)
-                deployment_status.extended_stage_info += f'; deleted Load Balancer: {self.dp_data.name}'
+                deployment_status.extended_stage_info += f'; deleted Load Balancer: {self.lb_data.name}'
             else:
-                deployment_status.extended_stage_info += f'; Load Balancer not exists: {self.dp_data.name}'
+                deployment_status.extended_stage_info += f'; Load Balancer not exists: {self.lb_data.name}'
 
         deployment_status.extended_stage_info.strip('; ')
 
