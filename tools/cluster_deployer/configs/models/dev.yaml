@@ -1,0 +1,4 @@
+dev_mongo_rb:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 10001
+  pipeline: all_up_kuber_no_tests
