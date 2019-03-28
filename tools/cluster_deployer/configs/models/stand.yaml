@@ -73,7 +73,6 @@ stand_odqa_en:
 stand_odqa_ru:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki_retr_noans.json
   TEMPLATE: dp_gpu
-  BRANCH: squad_with_retr_data
   CLUSTER_PORT: 7012
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
