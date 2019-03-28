@@ -16,10 +16,10 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Switch to branch squad_with_retr_data and update it:
+    2. Switch to branch master and update it:
         ```
-        git checkout squad_with_retr_data
-        git pull origin squad_with_retr_data
+        git checkout master
+        git pull origin master
         ```
     3. Install DeepPavlov:
         ```
