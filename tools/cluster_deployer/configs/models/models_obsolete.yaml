@@ -143,3 +143,1293 @@ demo_config_chitchat_vs_odqa:
   CLUSTER_PORT: 7066
   MODEL_ARGS: ["text1"]
   pipeline: all_up_kuber
+
+#####################
+# DPAS test configs #
+#####################
+
+# AGENT
+dpas_test_agent:
+  BRANCH: agent-stable
+  TEMPLATE: dpas_agent
+  pipeline: all_up_kuber_no_tests
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 8100
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: odqa
+          url: http://10.11.1.251:8101/skill
+          path: null
+          #configs/dp_assistant/agent_ru_odqa_retr_noans_rubert_infer.json
+
+        - name: chitchat
+          url: http://10.11.1.251:8102/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: hellobot
+          url: http://10.11.1.251:8106/ruler_call/
+          path: null
+
+        #- name: sberchat
+        #  url: http://23.102.48.212:8443/api/
+        #  path: null
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:8103/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:8104/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:8107/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:8105/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_test_mongo:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 8100
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_test_skill_odqa:
+  CONFIG_FILE: dp_assistant/agent_ru_odqa_retr_noans_rubert_infer.json
+  BRANCH: agent-stable
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 8101
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_skill_chitchat:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4.json
+  BRANCH: agent-stable
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 8102
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_skill_hellobot:
+  TEMPLATE: dpas_custom_hellobot
+  CLUSTER_PORT: 8106
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_test_annotator_ner:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent-stable
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8103
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_annotator_sentiment:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent-stable
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8104
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_test_annotator_obscenity:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent-stable
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8107
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_test_selector_chitchat_odqa:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent-stable
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8105
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+########################
+# DPAS test RB configs #
+########################
+
+dpas_test_agent_rb:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 8100
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: odqa
+          url: http://10.11.1.251:8101/skill
+          path: null
+          #configs/dp_assistant/agent_ru_odqa_retr_noans_rubert_infer.json
+
+        - name: chitchat
+          url: http://10.11.1.251:8102/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: hellobot
+          url: http://10.11.1.251:8106/ruler_call/
+          path: null
+
+        #- name: sberchat
+        #  url: http://23.102.48.212:8443/api/
+        #  path: null
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:8103/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:8104/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:8107/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:8105/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+#####################
+# DPAS demo configs #
+#####################
+
+# AGENT
+dpas_demo_agent:
+  BRANCH: agent
+  TEMPLATE: dpas_agent
+  pipeline: all_up_kuber_no_tests
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 8200
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: chitchat
+          url: http://10.11.1.251:8201/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
+
+        - name: mailruqa
+          url: http://10.11.1.251:8202/skill
+          path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
+
+        - name: generalqa
+          url: http://10.11.1.251:8203/skill
+          path: null
+          #configs.dp_assistant.agent_general_qa.json
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:8204/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:8205/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:8206/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:8207/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_demo_mongo:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 8200
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_demo_skill_chitchat:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 8201
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_skill_mailruqa:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 8202
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_skill_generalqa:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 8203
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_demo_annotator_ner:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8204
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_annotator_sentiment:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8205
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_annotator_obscenity:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8206
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_demo_selector_chitchat_odqa:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 8207
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+############################
+# DPAS demo cowboy configs #
+############################
+
+# =============================================
+# cowboy_01 ===================================
+# =============================================
+dpas_demo_cowboy_01:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 9100
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: chitchat
+          url: http://10.11.1.251:9101/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
+
+        - name: mailruqa
+          url: http://10.11.1.251:9102/skill
+          path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
+
+        - name: generalqa
+          url: http://10.11.1.251:9103/skill
+          path: null
+          #configs.dp_assistant.agent_general_qa.json
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:9104/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:9105/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:9106/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:9107/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_demo_cowboy_mongo_01:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9100
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_demo_cowboy_skill_chitchat_01:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9101
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_mailruqa_01:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9102
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_generalqa_01:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9103
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_demo_cowboy_annotator_ner_01:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9104
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_sentiment_01:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9105
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_obscenity_01:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9106
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_demo_cowboy_selector_chitchat_odqa_01:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9107
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+
+
+# =============================================
+# cowboy_02 ===================================
+# =============================================
+dpas_demo_cowboy_02:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 9200
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: chitchat
+          url: http://10.11.1.251:9201/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
+
+        - name: mailruqa
+          url: http://10.11.1.251:9202/skill
+          path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
+
+        - name: generalqa
+          url: http://10.11.1.251:9203/skill
+          path: null
+          #configs.dp_assistant.agent_general_qa.json
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:9204/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:9205/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:9206/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:9207/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_demo_cowboy_mongo_02:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9200
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_demo_cowboy_skill_chitchat_02:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9201
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_mailruqa_02:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9202
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_generalqa_02:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9203
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_demo_cowboy_annotator_ner_02:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9204
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_sentiment_02:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9205
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_obscenity_02:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9206
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_demo_cowboy_selector_chitchat_odqa_02:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9207
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+
+
+# =============================================
+# cowboy_03 ===================================
+# =============================================
+dpas_demo_cowboy_03:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 9300
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: chitchat
+          url: http://10.11.1.251:9301/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
+
+        - name: mailruqa
+          url: http://10.11.1.251:9302/skill
+          path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
+
+        - name: generalqa
+          url: http://10.11.1.251:9303/skill
+          path: null
+          #configs.dp_assistant.agent_general_qa.json
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:9304/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:9305/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:9306/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:9307/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_demo_cowboy_mongo_03:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9300
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_demo_cowboy_skill_chitchat_03:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9301
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_mailruqa_03:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9302
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_generalqa_03:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9303
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_demo_cowboy_annotator_ner_03:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9304
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_sentiment_03:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9305
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_obscenity_03:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9306
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_demo_cowboy_selector_chitchat_odqa_03:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9307
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+
+
+# =============================================
+# cowboy_04 ===================================
+# =============================================
+dpas_demo_cowboy_04:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 9400
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: chitchat
+          url: http://10.11.1.251:9401/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
+
+        - name: mailruqa
+          url: http://10.11.1.251:9402/skill
+          path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
+
+        - name: generalqa
+          url: http://10.11.1.251:9403/skill
+          path: null
+          #configs.dp_assistant.agent_general_qa.json
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:9404/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:9405/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:9406/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:9407/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_demo_cowboy_mongo_04:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9400
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_demo_cowboy_skill_chitchat_04:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9401
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_mailruqa_04:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9402
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_generalqa_04:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9403
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_demo_cowboy_annotator_ner_04:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9404
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_sentiment_04:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9405
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_obscenity_04:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9406
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_demo_cowboy_selector_chitchat_odqa_04:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9407
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+
+
+# =============================================
+# cowboy_05 ===================================
+# =============================================
+dpas_demo_cowboy_05:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 9500
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: chitchat
+          url: http://10.11.1.251:9501/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
+
+        - name: mailruqa
+          url: http://10.11.1.251:9502/skill
+          path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
+
+        - name: generalqa
+          url: http://10.11.1.251:9503/skill
+          path: null
+          #configs.dp_assistant.agent_general_qa.json
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:9504/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:9505/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:9506/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:9507/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_demo_cowboy_mongo_05:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9500
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_demo_cowboy_skill_chitchat_05:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9501
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_mailruqa_05:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9502
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_generalqa_05:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9503
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_demo_cowboy_annotator_ner_05:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9504
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_sentiment_05:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9505
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_obscenity_05:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9506
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_demo_cowboy_selector_chitchat_odqa_05:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9507
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+
+
+# =============================================
+# cowboy_06 ===================================
+# =============================================
+dpas_demo_cowboy_06:
+  BRANCH: agent-stable
+  TEMPLATE: rb_dpas_agent
+  pipeline: all_up_kuber_no_tests
+  run_params:
+    --host: 10.11.1.58
+    --port: 8433
+    --token: 2eb6991b-5dbc-47e9-b5d2-5cb2fc2df188
+
+  agent_config:
+    db_config:
+      DB_NAME: test
+      HOST: 10.11.1.251
+      PORT: 9600
+
+    agent_config:
+      MAX_WORKERS: 4
+
+      SKILLS:
+        - name: chitchat
+          url: http://10.11.1.251:9601/skill
+          path: null
+          #configs/dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+          profile_handler: True
+
+        - name: mailruqa
+          url: http://10.11.1.251:9602/skill
+          path: null
+          #configs.dp_assistant.agent_ranking_mailru_bert_3.json
+
+        - name: generalqa
+          url: http://10.11.1.251:9603/skill
+          path: null
+          #configs.dp_assistant.agent_general_qa.json
+
+      ANNOTATORS:
+        - name: ner
+          url: http://10.11.1.251:9604/skill
+          path: null
+          #configs/dp_assistant/preproc_ner_rus.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: sentiment
+          url: http://10.11.1.251:9605/skill
+          path: null
+          #configs/dp_assistant/preproc_rusentiment.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+        - name: obscenity
+          url: http://10.11.1.251:9606/skill
+          path: null
+          #configs/dp_assistant/obscenity_classifier.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      SKILL_SELECTORS:
+        - name: chitchat_odqa
+          url: http://10.11.1.251:9607/skill
+          path: null
+          #configs/dp_assistant/sselector_chitchat_odqa.json
+          env:
+            CUDA_VISIBLE_DEVICES: ""
+
+      RESPONSE_SELECTORS: []
+
+# DATABASE
+dpas_demo_cowboy_mongo_06:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9600
+  pipeline: all_up_kuber_no_tests
+
+# SKILLS
+dpas_demo_cowboy_skill_chitchat_06:
+  CONFIG_FILE: dp_assistant/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9601
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_mailruqa_06:
+  CONFIG_FILE: dp_assistant/agent_ranking_mailru_bert_3.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9602
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_skill_generalqa_06:
+  CONFIG_FILE: dp_assistant/agent_general_qa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_gpu
+  PORT: 80
+  CLUSTER_PORT: 9603
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# ANNOTATORS
+dpas_demo_cowboy_annotator_ner_06:
+  CONFIG_FILE: dp_assistant/preproc_ner_rus.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9604
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_sentiment_06:
+  CONFIG_FILE: dp_assistant/preproc_rusentiment.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9605
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+dpas_demo_cowboy_annotator_obscenity_06:
+  CONFIG_FILE: dp_assistant/obscenity_classifier.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9606
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
+
+# SKILL_SELECTORS
+dpas_demo_cowboy_selector_chitchat_odqa_06:
+  CONFIG_FILE: dp_assistant/sselector_chitchat_odqa.json
+  BRANCH: agent
+  TEMPLATE: dp_obsolete_no_gpu
+  PORT: 80
+  CLUSTER_PORT: 9607
+  run_params:
+    --api-mode: "skill"
+  pipeline: all_up_kuber_no_tests
