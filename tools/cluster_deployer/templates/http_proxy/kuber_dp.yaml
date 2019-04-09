@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{KUBER_DP_NAME}}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{KUBER_DP_NAME}}
+    spec:
+      containers:
+      - name: {{FULL_MODEL_NAME_DASHED}}
+        image: {{KUBER_IMAGE_TAG}}
+        ports:
+        - name: {{KUBER_CONTAINER_PORT_NAME}}
+          protocol: TCP
+          containerPort: {{PORT}}
+        env:
+        - name: LISTENED_PORT
+          value: "{{PORT}}"
+        - name: PROXYED_HOST
+          value: "{{PROXYED_HOST}}"
+        - name: PROXYED_PORT
+          value: "{{PROXYED_PORT}}"
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - {{DNS_IP}}

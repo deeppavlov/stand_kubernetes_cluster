@@ -1,38 +1,3 @@
-demo_ranking_chitchat_2staged_tfidf_smn_v18_g_prep:
-  CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v18_g_prep.json
-  TEMPLATE: dp_gpu
-  BRANCH: str_rich_content_deploy
-  # merge with feat/dp_ass_preprocessor
-  CLUSTER_PORT: 7063
-  run_mode: "interactmsbot"
-  pipeline: all_up_kuber_no_tests
-
-demo_tfidf_autofaq:
-  CONFIG_FILE: faq/tfidf_autofaq.json
-  TEMPLATE: dp_no_gpu
-  BRANCH: faq_quotes_ru
-  CLUSTER_PORT: 7064
-  run_mode: "interactmsbot"
-  pipeline: all_up_kuber_no_tests
-
-demo_transformer_chit_chat_40k_v01_1_20:
-  CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v01_1_20.json
-  TEMPLATE: dp_gpu
-  BRANCH: 8d779c9
-  CLUSTER_PORT: 7065
-  run_mode: "interactmsbot"
-  pipeline: all_up_kuber_no_tests
-
-demo_config_chitchat_vs_odqa:
-  CONFIG_FILE: classifiers/config_chitchat_vs_odqa.json
-  TEMPLATE: dp_no_gpu
-  BRANCH: feat/chitchat_vs_odqa
-  CLUSTER_PORT: 7066
-  MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 120
-  deployment_polling_timeout_sec: 600
-  pipeline: all_up_kuber
-
 sber_ranking_chitchat_2staged_tfidf_smn_v8:
   CONFIG_FILE: ranking/ranking_chitchat_2staged_tfidf_smn_v8.json
   TEMPLATE: dp_gpu

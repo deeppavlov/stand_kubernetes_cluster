@@ -354,7 +354,7 @@ class DeployKuberDeploymentStage(AbstractKuberEntitiesHandler):
         # create Kubernetes Deployment
         if self.dp_data:
             create_dp_kwargs = {
-                'namespace': self.dp_data.config['metadata']['namespace'],
+                'namespace':  self.dp_data.namespace,
                 'body': self.dp_data.config,
                 'include_uninitialized': True
             }
@@ -364,7 +364,7 @@ class DeployKuberDeploymentStage(AbstractKuberEntitiesHandler):
         # create Kubernetes Load Balancer
         if self.lb_data:
             create_lb_kwargs = {
-                'namespace': self.lb_data.config['metadata']['namespace'],
+                'namespace': self.lb_data.namespace,
                 'body': self.lb_data.config,
                 'include_uninitialized': True
             }
@@ -412,9 +412,9 @@ class DeleteKuberDeploymentStage(AbstractKuberEntitiesHandler):
                     'body': kube_client.V1DeleteOptions(propagation_policy='Background')
                 }
                 self.kube_core_v1_api.delete_namespaced_service(**delete_lb_kwargs)
-                deployment_status.extended_stage_info += f'; deleted Load Balancer: {self.dp_data.name}'
+                deployment_status.extended_stage_info += f'; deleted Load Balancer: {self.lb_data.name}'
             else:
-                deployment_status.extended_stage_info += f'; Load Balancer not exists: {self.dp_data.name}'
+                deployment_status.extended_stage_info += f'; Load Balancer not exists: {self.lb_data.name}'
 
         deployment_status.extended_stage_info.strip('; ')
 

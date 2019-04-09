@@ -98,6 +98,12 @@ preset_pipelines = {
         'pipeline': [DeleteKuberDeploymentStage,
                      DeployKuberDeploymentStage]
     },
+    'make_files_and_kuber_no_tests': {
+        'description': 'deploy in Kubernetes without test',
+        'pipeline': [MakeFilesDeploymentStage,
+                     DeleteKuberDeploymentStage,
+                     DeployKuberDeploymentStage]
+    },
     'delete_kuber': {
         'description': 'delete Kubernetes deployment',
         'pipeline': [DeleteKuberDeploymentStage]

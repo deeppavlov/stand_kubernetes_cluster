@@ -5,8 +5,10 @@ _root:
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   BRANCH: "master"
-  serialize_config: false
   PORT: 5000
+  serialize_config: false
+  image_polling_timeout_sec: 300
+  deployment_polling_timeout_sec: 600
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NAME}}.log"
@@ -34,8 +36,6 @@ _root:
   run_flags: []
   test_image_url: ""
   test_deployment_url: ""
-  image_polling_timeout_sec: 0
-  deployment_polling_timeout_sec: 0
   pipeline: ""
 
 # examples for some params
@@ -62,13 +62,41 @@ dp_no_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
+dp_obsolete_gpu:
+  # default params
+  run_mode: "riseapi"
+
+  # composed params
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+dp_obsolete_no_gpu:
+  # default params
+  run_mode: "riseapi"
+
+  # composed params
+  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
+  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
 rb_gpu:
   # default params
   run_mode: ""
 
+  # human set params
+  run_params:
+    --host: ""
+    --port: ""
+    --token: ""
+
 rb_no_gpu:
   # default params
   run_mode: ""
+
+  # human set params
+  run_params:
+    --host: ""
+    --port: ""
+    --token: ""
 
 mongo_db:
   # default params
@@ -84,6 +112,30 @@ dpas_agent:
   TELEGRAM_TOKEN: ""
   TELEGRAM_PROXY: ""
 
+rb_dpas_agent:
+  # default params
+  BRANCH: "agent"
+  POLLER_BRANCH: "agent"
+  run_mode: ""
+  serialize_config: true
+
+  # human set params
+  agent_config: {}
+  run_params:
+    --host: ""
+    --port: ""
+    --token: ""
+
 dpas_custom_hellobot:
   # default params
   PORT: 5000
+
+http_proxy:
+  # default params
+  KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy"
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CLUSTER_PORT: ""
+  PROXYED_HOST: ""
+  PROXYED_PORT: ""
