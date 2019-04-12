@@ -13,3 +13,12 @@ sber_ranking_thequest_sub_all_bert:
   CLUSTER_PORT: 7062
   MODEL_ARGS: ["text1"]
   pipeline: all_up_kuber
+
+demo_transformer_chit_chat_40k_v05:
+  CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v05.json
+  TEMPLATE: dp_obsolete_gpu
+  BRANCH: f727668
+  CLUSTER_PORT: 7061
+  run_mode: "interactmsbot"
+  run_flags: ["--no-default-skill", "--stateful"]
+  pipeline: all_up_kuber_no_tests
