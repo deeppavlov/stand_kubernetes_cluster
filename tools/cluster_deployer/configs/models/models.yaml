@@ -22,3 +22,12 @@ demo_transformer_chit_chat_40k_v05:
   run_mode: "interactmsbot"
   run_flags: ["--no-default-skill", "--stateful"]
   pipeline: all_up_kuber_no_tests
+
+demo_bert_ranker_bot_3:
+  CONFIG_FILE: ranking/ranking_mailru_bert_1.json
+  TEMPLATE: dp_obsolete_gpu
+  BRANCH: bot/bert_ranker_bot_3
+  CLUSTER_PORT: 7062
+  run_mode: "interactmsbot"
+  run_flags: ["--stateful"]
+  pipeline: all_up_kuber_no_tests
