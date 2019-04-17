@@ -14,7 +14,10 @@ http_proxy:
   - http_proxy_basil
 
 custom: []
-demo: []
+
+demo:
+  - demo_transformer_chit_chat_40k_v05
+  - demo_bert_ranker_bot_3
 
 all:
   - stand_ner_ru
