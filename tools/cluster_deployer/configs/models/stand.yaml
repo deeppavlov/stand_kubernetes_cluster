@@ -71,8 +71,9 @@ stand_odqa_en:
   pipeline: all_up_kuber
 
 stand_odqa_ru:
-  CONFIG_FILE: odqa/ru_odqa_infer_wiki_retr_noans.json
+  CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
   TEMPLATE: dp_gpu
+  BRANCH: feat/bert
   CLUSTER_PORT: 7012
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
