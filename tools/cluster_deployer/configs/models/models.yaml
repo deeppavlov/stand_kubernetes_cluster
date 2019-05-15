@@ -15,3 +15,31 @@ demo_bert_ranker_bot_3:
   run_mode: "interactmsbot"
   run_flags: ["--stateful"]
   pipeline: all_up_kuber_no_tests
+
+demo_transformer_chit_chat_40k_v05_2:
+  CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v05.json
+  TEMPLATE: dp_obsolete_gpu
+  BRANCH: dbda0df
+  CLUSTER_PORT: 7063
+  run_mode: "interactmsbot"
+  run_flags: ["--no-default-skill", "--stateful"]
+  pipeline: all_up_kuber_no_tests
+
+demo_ru_odqa_infer_wiki_rubert_noans:
+  CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
+  TEMPLATE: dp_gpu
+  BRANCH: feat/bert
+  CLUSTER_PORT: 7064
+  run_mode: "interactmsbot"
+  run_flags: ["--stateful"]
+  pipeline: all_up_kuber_no_tests
+
+demo_ru_odqa_infer_wiki_rubert_noans_rest:
+  CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
+  TEMPLATE: dp_gpu
+  BRANCH: feat/bert
+  CLUSTER_PORT: 7065
+  MODEL_ARGS: ["text1"]
+  image_polling_timeout_sec: 1200
+  deployment_polling_timeout_sec: 2400
+  pipeline: all_up_kuber

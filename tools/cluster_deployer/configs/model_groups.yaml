@@ -17,7 +17,10 @@ custom: []
 
 demo:
   - demo_transformer_chit_chat_40k_v05
+  - demo_transformer_chit_chat_40k_v05_2
   - demo_bert_ranker_bot_3
+  - demo_ru_odqa_infer_wiki_rubert_noans
+  - demo_ru_odqa_infer_wiki_rubert_noans_rest
 
 all:
   - stand_ner_ru
