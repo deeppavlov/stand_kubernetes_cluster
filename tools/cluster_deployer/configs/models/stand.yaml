@@ -79,3 +79,12 @@ stand_odqa_ru:
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
+
+stand_ner_ml:
+  CONFIG_FILE: ner/ner_ontonotes_bert_mult.json
+  TEMPLATE: dp_no_gpu
+  CLUSTER_PORT: 7013
+  MODEL_ARGS: ["text1"]
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber
