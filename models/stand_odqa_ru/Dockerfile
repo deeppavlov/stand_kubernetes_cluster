@@ -21,7 +21,7 @@ ADD . /app
 
 RUN cd /base/DeepPavlov && \
     git fetch --all --tags --prune && \
-    git checkout feat/bert && \
+    git checkout dev && \
     python3.6 setup.py develop
 
 RUN pip install tensorflow-gpu && \
