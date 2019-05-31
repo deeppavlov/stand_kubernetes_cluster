@@ -87,6 +87,10 @@ preset_pipelines = {
         'description': 'delete docker images',
         'pipeline': [DeleteImageDeploymentStage]
     },
+    'test_docker': {
+        'description': 'test docker images',
+        'pipeline': [TestImageDeploymentStage]
+    },
     'create_kuber': {
         'description': 'deploy in Kubernetes and test',
         'pipeline': [DeleteKuberDeploymentStage,
@@ -107,6 +111,10 @@ preset_pipelines = {
     'delete_kuber': {
         'description': 'delete Kubernetes deployment',
         'pipeline': [DeleteKuberDeploymentStage]
+    },
+    'test_kuber': {
+        'description': 'test Kubernetes deployment',
+        'pipeline': [TestKuberDeploymentStage]
     },
     'push_to_registry': {
         'description': 'push images to local registry',

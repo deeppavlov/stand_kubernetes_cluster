@@ -16,10 +16,10 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Switch to branch feat/bert and update it:
+    2. Switch to branch dev and update it:
         ```
-        git checkout feat/bert
-        git pull origin feat/bert
+        git checkout dev
+        git pull origin dev
         ```
     3. Install DeepPavlov:
         ```
