@@ -24,7 +24,7 @@ RUN cd /base/DeepPavlov && \
     git checkout dev && \
     python3.6 setup.py develop
 
-RUN pip install tensorflow-gpu && \
+RUN pip install -r /base/DeepPavlov/deeppavlov/requirements/tf-gpu.txt && \
     python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/odqa/ru_odqa_infer_wiki_rubert_noans.json && \
     cp /app/configs/*.json /base/DeepPavlov/deeppavlov/utils/settings
 
