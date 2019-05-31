@@ -15,6 +15,15 @@ http_proxy:
 
 custom: []
 
+dpas_stable:
+  - dpas_stable_mongo
+  - dpas_stable_skill_odqa
+  - dpas_stable_skill_chitchat
+  - dpas_stable_annotator_ner
+  - dpas_stable_annotator_sentiment
+  - dpas_stable_annotator_obscenity
+  - dpas_stable_selector_chitchat_odqa
+
 all:
   - stand_ner_ru
   - stand_ner_en
