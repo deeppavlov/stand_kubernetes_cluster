@@ -1,7 +1,7 @@
-# Demo stand. Model: squad_ru
+# Demo stand. Model: ner_ml
 
 ## Installation and start
-1. Go to the `stand_kubernetes_cluster/models/stand_squad_ru` directory
+1. Go to the `stand_kubernetes_cluster/models/stand_ner_ml` directory
 2. Create a virtual environment with `Python 3.6`:
     ```
     virtualenv env -p python3.6
@@ -27,21 +27,21 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/squad/squad_ru_bert_infer.json
+        python3.6 -m deeppavlov download deeppavlov/configs/ner/ner_ontonotes_bert_mult.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/squad/squad_ru_bert_infer.json
+        python3.6 -m deeppavlov install deeppavlov/configs/ner/ner_ontonotes_bert_mult.json
         ```
-    6. Return to the `stand_squad_ru` dir:
+    6. Return to the `stand_ner_ml` dir:
         ```
         cd ..
         ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `DeepPavlov/utils/server_utils/server_config.json`
-6. Specify virtual environment path (if necessary) in `run_squad_ru.sh`
+6. Specify virtual environment path (if necessary) in `run_ner_ml.sh`
 7. Run model:
     ```
-    ./run_squad_ru.sh
+    ./run_ner_ml.sh
     ```
 
 ## Building and running with Docker:
@@ -49,15 +49,15 @@
 
    https://github.com/deepmipt/stand_docker_base
   
-2. Go to the `stand_kubernetes_cluster/models/stand_squad_ru` directory
+2. Go to the `stand_kubernetes_cluster/models/stand_ner_ml` directory
 
 3. Build Docker image:
    ```
-   sudo docker build -t stand/squad_ru .
+   sudo docker build -t stand/ner_ml .
    ```
 4. Run Docker image:
    ```
-   sudo docker run -p <host_port>:5000 -v /path/to/host/vol/map/dir:/logs stand/squad_ru
+   sudo docker run -p <host_port>:5000 -v /path/to/host/vol/map/dir:/logs stand/ner_ml
    ```
 
 # License

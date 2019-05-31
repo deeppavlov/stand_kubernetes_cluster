@@ -17,12 +17,12 @@ stand_ner_en:
   pipeline: all_up_kuber
 
 stand_squad_ru:
-  CONFIG_FILE: squad/squad_ru.json
+  CONFIG_FILE: squad/squad_ru_bert_infer.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7005
   MODEL_ARGS: ["text1", "text2"]
-  image_polling_timeout_sec: 300
-  deployment_polling_timeout_sec: 600
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
 
 stand_squad_en:
@@ -71,9 +71,19 @@ stand_odqa_en:
   pipeline: all_up_kuber
 
 stand_odqa_ru:
-  CONFIG_FILE: odqa/ru_odqa_infer_wiki_retr_noans.json
+  CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
   TEMPLATE: dp_gpu
+  BRANCH: feat/bert
   CLUSTER_PORT: 7012
+  MODEL_ARGS: ["text1"]
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber
+
+stand_ner_ml:
+  CONFIG_FILE: ner/ner_ontonotes_bert_mult.json
+  TEMPLATE: dp_no_gpu
+  CLUSTER_PORT: 7013
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200

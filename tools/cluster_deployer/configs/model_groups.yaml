@@ -13,12 +13,16 @@ http_proxy:
   - http_proxy_litinsky
   - http_proxy_basil
 
-sber:
-  - sber_ranking_chitchat_2staged_tfidf_smn_v8
-  - sber_ranking_thequest_sub_all_bert
-
 custom: []
-demo: []
+
+dpas_stable:
+  - dpas_stable_mongo
+  - dpas_stable_skill_odqa
+  - dpas_stable_skill_chitchat
+  - dpas_stable_annotator_ner
+  - dpas_stable_annotator_sentiment
+  - dpas_stable_annotator_obscenity
+  - dpas_stable_selector_chitchat_odqa
 
 all:
   - stand_ner_ru
@@ -30,5 +34,3 @@ all:
   - stand_squad_en
   - stand_odqa_ru
   - stand_odqa_en
-  - sber_ranking_chitchat_2staged_tfidf_smn_v8
-  - sber_ranking_thequest_sub_all_bert

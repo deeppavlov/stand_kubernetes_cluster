@@ -16,10 +16,10 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Switch to branch master and update it:
+    2. Switch to branch feat/bert and update it:
         ```
-        git checkout master
-        git pull origin master
+        git checkout feat/bert
+        git pull origin feat/bert
         ```
     3. Install DeepPavlov:
         ```
@@ -27,11 +27,11 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/odqa/ru_odqa_infer_wiki_retr_noans.json
+        python3.6 -m deeppavlov download deeppavlov/configs/odqa/ru_odqa_infer_wiki_rubert_noans.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/odqa/ru_odqa_infer_wiki_retr_noans.json
+        python3.6 -m deeppavlov install deeppavlov/configs/odqa/ru_odqa_infer_wiki_rubert_noans.json
         ```
     6. Return to the `stand_odqa_ru` dir:
         ```
