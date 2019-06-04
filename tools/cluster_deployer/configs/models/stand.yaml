@@ -1,5 +1,5 @@
 stand_ner_ru:
-  CONFIG_FILE: ner/ner_rus.json
+  CONFIG_FILE: ner/ner_rus_bert.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7004
   MODEL_ARGS: ["text1"]
@@ -8,7 +8,7 @@ stand_ner_ru:
   pipeline: all_up_kuber
 
 stand_ner_en:
-  CONFIG_FILE: ner/ner_ontonotes.json
+  CONFIG_FILE: ner/ner_ontonotes_bert_mult.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7010
   MODEL_ARGS: ["text1"]
@@ -26,7 +26,7 @@ stand_squad_ru:
   pipeline: all_up_kuber
 
 stand_squad_en:
-  CONFIG_FILE: squad/squad.json
+  CONFIG_FILE: squad/squad_bert_infer.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7008
   MODEL_ARGS: ["text1", "text2"]
@@ -35,12 +35,12 @@ stand_squad_en:
   pipeline: all_up_kuber
 
 stand_intents_en:
-  CONFIG_FILE: classifiers/intents_snips.json
+  CONFIG_FILE: classifiers/intents_snips_big.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7007
   MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 300
-  deployment_polling_timeout_sec: 600
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
 
 stand_ranking_en:
@@ -53,7 +53,7 @@ stand_ranking_en:
   pipeline: all_up_kuber
 
 stand_insults_en:
-  CONFIG_FILE: classifiers/insults_kaggle.json
+  CONFIG_FILE: classifiers/insults_kaggle_bert.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7006
   MODEL_ARGS: ["text1"]

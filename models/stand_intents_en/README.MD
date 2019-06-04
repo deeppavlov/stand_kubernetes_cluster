@@ -27,11 +27,11 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/intents_snips.json
+        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/intents_snips_big.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/intents_snips.json
+        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/intents_snips_big.json
         ```
     6. Return to the `stand_intents_en` dir:
         ```

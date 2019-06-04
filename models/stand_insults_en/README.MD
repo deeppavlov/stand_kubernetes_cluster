@@ -27,11 +27,11 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/insults_kaggle.json
+        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/insults_kaggle_bert.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/insults_kaggle.json
+        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/insults_kaggle_bert.json
         ```
     6. Return to the `stand_insults_en` dir:
         ```

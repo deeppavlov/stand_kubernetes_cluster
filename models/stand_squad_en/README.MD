@@ -27,11 +27,11 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/squad/squad.json
+        python3.6 -m deeppavlov download deeppavlov/configs/squad/squad_bert_infer.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/squad/squad.json
+        python3.6 -m deeppavlov install deeppavlov/configs/squad/squad_bert_infer.json
         ```
     6. Return to the `stand_squad_en` dir:
         ```

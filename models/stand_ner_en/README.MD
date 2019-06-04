@@ -27,11 +27,11 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/ner/ner_ontonotes.json
+        python3.6 -m deeppavlov download deeppavlov/configs/ner/ner_ontonotes_bert_mult.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/ner/ner_ontonotes.json
+        python3.6 -m deeppavlov install deeppavlov/configs/ner/ner_ontonotes_bert_mult.json
         ```
     6. Return to the `stand_ner_en` dir:
         ```
