@@ -1,3 +1,12 @@
+stand_paraphraser_ru:
+  CONFIG_FILE: classifiers/paraphraser_bert.json
+  TEMPLATE: dp_no_gpu
+  CLUSTER_PORT: 7003
+  MODEL_ARGS: ["text1", "text2"]
+  image_polling_timeout_sec: 300
+  deployment_polling_timeout_sec: 600
+  pipeline: all_up_kuber
+
 stand_ner_ru:
   CONFIG_FILE: ner/ner_rus_bert.json
   TEMPLATE: dp_no_gpu

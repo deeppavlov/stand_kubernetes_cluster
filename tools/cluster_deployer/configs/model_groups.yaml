@@ -1,4 +1,5 @@
 stand:
+  - stand_paraphraser_ru
   - stand_ner_ru
   - stand_ner_en
   - stand_intents_en
@@ -26,6 +27,7 @@ dpas_stable:
   - dpas_stable_selector_chitchat_odqa
 
 all:
+  - stand_paraphraser_ru
   - stand_ner_ru
   - stand_ner_en
   - stand_intents_en

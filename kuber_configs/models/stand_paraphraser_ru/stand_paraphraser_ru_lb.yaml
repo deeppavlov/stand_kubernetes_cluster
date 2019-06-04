@@ -13,4 +13,4 @@ spec:
   - name: stand-paraphraser-ru
     protocol: TCP
     port: 7003
-    targetPort: cp6003
+    targetPort: cp5000

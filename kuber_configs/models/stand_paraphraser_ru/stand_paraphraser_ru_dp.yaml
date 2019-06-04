@@ -14,12 +14,14 @@ spec:
       - name: stand-paraphraser-ru
         image: kubeadm.ipavlov.mipt.ru:5000/stand/paraphraser_ru
         ports:
-        - name: cp6003
+        - name: cp5000
           protocol: TCP
-          containerPort: 6003
+          containerPort: 5000
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
         - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
@@ -36,6 +38,9 @@ spec:
       - name: volume-logs
         persistentVolumeClaim:
           claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
       - name: volume-podinfo
         downwardAPI:
           items:
@@ -45,3 +50,7 @@ spec:
           - path: "annotations"
             fieldRef:
               fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254
