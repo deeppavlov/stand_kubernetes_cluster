@@ -35,3 +35,4 @@ all:
   - stand_squad_en
   - stand_odqa_ru
   - stand_odqa_en
+  - stand_ner_ml
