@@ -24,7 +24,7 @@ RUN cd /base/DeepPavlov && \
     git checkout master && \
     python3.6 setup.py develop
 
-RUN python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/ner/ner_rus.json && \
+RUN python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/ner/ner_rus_bert.json && \
     cp /app/configs/*.json /base/DeepPavlov/deeppavlov/utils/settings
 
 EXPOSE 5000
@@ -41,4 +41,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m deeppavlov.deep  riseapi    /base/DeepPavlov/deeppavlov/configs/ner/ner_rus.json -d > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep  riseapi    /base/DeepPavlov/deeppavlov/configs/ner/ner_rus_bert.json -d > $LOG_PATH 2>&1
