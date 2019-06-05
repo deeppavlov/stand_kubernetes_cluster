@@ -7,6 +7,7 @@ stand:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
   - stand_ner_ml
