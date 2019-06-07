@@ -1,5 +1,5 @@
 stand_paraphraser_ru:
-  CONFIG_FILE: classifiers/paraphraser_bert.json
+  CONFIG_FILE: classifiers/paraphraser_rubert.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7003
   MODEL_ARGS: ["text1", "text2"]
