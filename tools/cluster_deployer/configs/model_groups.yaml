@@ -11,6 +11,7 @@ stand:
   - stand_odqa_ru
   - stand_odqa_en
   - stand_ner_ml
+  - stand_sentiment_ru
 
 http_proxy:
   - http_proxy_litinsky
@@ -36,6 +37,8 @@ all:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
   - stand_ner_ml
+  - stand_sentiment_ru

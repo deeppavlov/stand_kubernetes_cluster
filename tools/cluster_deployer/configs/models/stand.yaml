@@ -107,4 +107,11 @@ stand_odqa_ru:
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
 
-
+stand_sentiment_ru:
+  CONFIG_FILE: classifiers/rusentiment_bert.json
+  TEMPLATE: dp_no_gpu
+  CLUSTER_PORT: 7015
+  MODEL_ARGS: ["text1"]
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber
