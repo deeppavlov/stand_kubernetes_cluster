@@ -27,11 +27,11 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/rusentiment_bert.json
+        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/rusentiment_elmo_twitter_cnn.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/rusentiment_bert.json
+        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/rusentiment_elmo_twitter_cnn.json
         ```
     6. Return to the `stand_sentiment_ru` dir:
         ```
