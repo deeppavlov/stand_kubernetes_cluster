@@ -26,14 +26,6 @@ dpas_stable_agent:
           env:
             CUDA_VISIBLE_DEVICES: ""
 
-        #- name: hellobot
-        #  url: http://10.11.1.251:8106/ruler_call/
-        #  path: null
-
-        #- name: sberchat
-        #  url: http://23.102.48.212:8443/api/
-        #  path: null
-
       ANNOTATORS:
         - name: ner
           url: http://10.11.1.251:8103/skill
@@ -91,11 +83,6 @@ dpas_stable_skill_chitchat:
   CLUSTER_PORT: 8102
   run_params:
     --api-mode: "skill"
-  pipeline: all_up_kuber_no_tests
-
-dpas_stable_skill_hellobot:
-  TEMPLATE: dpas_custom_hellobot
-  CLUSTER_PORT: 8106
   pipeline: all_up_kuber_no_tests
 
 # ANNOTATORS
