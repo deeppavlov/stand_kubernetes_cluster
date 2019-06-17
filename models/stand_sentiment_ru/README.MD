@@ -1,7 +1,7 @@
-# Demo stand. Model: paraphraser_ru
+# Demo stand. Model: sentiment_ru
 
 ## Installation and start
-1. Go to the `stand_kubernetes_cluster/models/stand_paraphraser_ru` directory
+1. Go to the `stand_kubernetes_cluster/models/stand_sentiment_ru` directory
 2. Create a virtual environment with `Python 3.6`:
     ```
     virtualenv env -p python3.6
@@ -27,21 +27,21 @@
         ```
     4. Download model components:
         ```
-        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/paraphraser_rubert.json
+        python3.6 -m deeppavlov download deeppavlov/configs/classifiers/rusentiment_elmo_twitter_cnn.json
         ```
     5. Install model dependencies:
         ```
-        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/paraphraser_rubert.json
+        python3.6 -m deeppavlov install deeppavlov/configs/classifiers/rusentiment_elmo_twitter_cnn.json
         ```
-    6. Return to the `stand_paraphraser_ru` dir:
+    6. Return to the `stand_sentiment_ru` dir:
         ```
         cd ..
         ```
 5. Specify model endpoint host (`host`) and port (`port`) in `common_defaults` or corresponding model section of `DeepPavlov/utils/server_utils/server_config.json`
-6. Specify virtual environment path (if necessary) in `run_paraphraser_ru.sh`
+6. Specify virtual environment path (if necessary) in `run_sentiment_ru.sh`
 7. Run model:
     ```
-    ./run_paraphraser_ru.sh
+    ./run_sentiment_ru.sh
     ```
 
 ## Building and running with Docker:
@@ -49,15 +49,15 @@
 
    https://github.com/deepmipt/stand_docker_base
   
-2. Go to the `stand_kubernetes_cluster/models/stand_paraphraser_ru` directory
+2. Go to the `stand_kubernetes_cluster/models/stand_sentiment_ru` directory
 
 3. Build Docker image:
    ```
-   sudo docker build -t stand/paraphraser_ru .
+   sudo docker build -t stand/sentiment_ru .
    ```
 4. Run Docker image:
    ```
-   sudo docker run -p <host_port>:5000 -v /path/to/host/vol/map/dir:/logs stand/paraphraser_ru
+   sudo docker run -p <host_port>:5000 -v /path/to/host/vol/map/dir:/logs stand/sentiment_ru
    ```
 
 # License

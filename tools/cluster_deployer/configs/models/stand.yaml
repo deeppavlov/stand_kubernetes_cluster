@@ -1,5 +1,5 @@
 stand_paraphraser_ru:
-  CONFIG_FILE: classifiers/paraphraser_bert.json
+  CONFIG_FILE: classifiers/paraphraser_rubert.json
   TEMPLATE: dp_no_gpu
   CLUSTER_PORT: 7003
   MODEL_ARGS: ["text1", "text2"]
@@ -107,4 +107,20 @@ stand_odqa_ru:
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
 
+stand_sentiment_ru:
+  CONFIG_FILE: classifiers/rusentiment_elmo_twitter_cnn.json
+  TEMPLATE: dp_no_gpu
+  CLUSTER_PORT: 7015
+  MODEL_ARGS: ["text1"]
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber
 
+stand_kbqa_ru:
+  CONFIG_FILE: kbqa/kbqa_rus.json
+  TEMPLATE: dp_no_gpu
+  CLUSTER_PORT: 7016
+  MODEL_ARGS: ["text1"]
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber

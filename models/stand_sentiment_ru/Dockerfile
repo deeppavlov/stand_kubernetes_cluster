@@ -24,12 +24,12 @@ RUN cd /base/DeepPavlov && \
     git checkout master && \
     python3.6 setup.py develop
 
-RUN python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/classifiers/paraphraser_rubert.json && \
+RUN python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/classifiers/rusentiment_elmo_twitter_cnn.json && \
     cp /app/configs/*.json /base/DeepPavlov/deeppavlov/utils/settings
 
 EXPOSE 5000
 
-ENV MODEL_NAME=stand_paraphraser_ru
+ENV MODEL_NAME=stand_sentiment_ru
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
@@ -41,4 +41,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m deeppavlov.deep  riseapi    /base/DeepPavlov/deeppavlov/configs/classifiers/paraphraser_rubert.json -d > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep  riseapi    /base/DeepPavlov/deeppavlov/configs/classifiers/rusentiment_elmo_twitter_cnn.json -d > $LOG_PATH 2>&1

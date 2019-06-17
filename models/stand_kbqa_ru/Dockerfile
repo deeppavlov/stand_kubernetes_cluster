@@ -12,28 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM stand/docker_deeppavlov:cuda-{{CUDA_VERSION}}
+FROM stand/docker_deeppavlov:cuda-9.0
 
 VOLUME /logs
+VOLUME /root/.deeppavlov
 WORKDIR /app
 ADD . /app
 
-EXPOSE {{PORT}}
+RUN cd /base/DeepPavlov && \
+    git fetch --all --tags --prune && \
+    git checkout master && \
+    python3.6 setup.py develop
 
-RUN git clone https://github.com/acriptis/dj_bot && \
-    pip install -r /app/dj_bot/hello_bot/requirements.txt && \
-    python3.6 /app/dj_bot/hello_bot/manage.py migrate && \
-    sed -i "s/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \[\'\*\'\]/g" "/app/dj_bot/hello_bot/bank_bot/settings.py"
+RUN python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/kbqa/kbqa_rus.json && \
+    pip install python-Levenshtein==0.12.0 sortedcontainers==2.0.2 && \
+    cp /app/configs/*.json /base/DeepPavlov/deeppavlov/utils/settings
 
-ENV MODEL_NAME={{FULL_MODEL_NAME}}
+EXPOSE 5000
+
+ENV MODEL_NAME=stand_kbqa_ru
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
+    sed -i "s/\/dialog_logs/\/"$POD_NODE"\/dialog_logs/g" "/base/DeepPavlov/deeppavlov/utils/settings/dialog_logger_config.json" && \
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N') && \
     LOG_DIR="/logs/"$MODEL_NAME"/"$POD_NODE"/logs/" && \
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 /app/dj_bot/hello_bot/manage.py runserver 0.0.0.0:{{PORT}} > $LOG_PATH 2>&1
+    python3.6 -m deeppavlov.deep  riseapi    /base/DeepPavlov/deeppavlov/configs/kbqa/kbqa_rus.json -d > $LOG_PATH 2>&1

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-kbqa-ru-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: stand-kbqa-ru-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: stand-kbqa-ru
+    protocol: TCP
+    port: 7016
+    targetPort: cp5000

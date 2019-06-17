@@ -1,25 +1,27 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: {{KUBER_DP_NAME}}
+  name: stand-sentiment-ru-dp
   namespace: stand-demo
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: {{KUBER_DP_NAME}}
+        app: stand-sentiment-ru-dp
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
-        image: {{KUBER_IMAGE_TAG}}
+      - name: stand-sentiment-ru
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/sentiment_ru
         ports:
-        - name: {{KUBER_CONTAINER_PORT_NAME}}
+        - name: cp5000
           protocol: TCP
-          containerPort: {{PORT}}
+          containerPort: 5000
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
         - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
@@ -36,6 +38,9 @@ spec:
       - name: volume-logs
         persistentVolumeClaim:
           claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
       - name: volume-podinfo
         downwardAPI:
           items:
@@ -48,4 +53,4 @@ spec:
       dnsPolicy: "None"
       dnsConfig:
         nameservers:
-          - {{DNS_IP}}
+          - 10.11.1.254
