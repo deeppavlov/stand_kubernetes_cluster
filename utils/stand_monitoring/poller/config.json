@@ -1,6 +1,7 @@
 {
   "general": {
     "polling_interval": 120,
+    "request_timeout": 10,
     "notification": "slack"
   },
   "notification": {
@@ -8,62 +9,60 @@
       "webhook": ""
     }
   },
-  "payload": {
-    "1arg_standard": {
-      "text1": "How can I check our beautiful services?"
-    },
-    "2arg_standard": {
-      "text1": "I want to check our beautiful services.",
-      "text2": "What I want to check?"
-    },
-    "1arg_batch": {
-      "text1": [
-        "How can I check our beautiful services?"
-      ]
-    },
-    "2arg_batch": {
-      "text1": [
-        "I want to check our beautiful services."
-      ],
-      "text2": [
-        "What I want to check?"
-      ]
-    }
-  },
   "urls": {
-    "post": {
-      "1arg_standard": [],
-      "2arg_standard": [
-        "https://7003.lnsigo.mipt.ru/answer",
-        "https://7019.lnsigo.mipt.ru/answer"
-      ],
-      "1arg_batch": [
-        "https://7004.lnsigo.mipt.ru/answer",
-        "https://7010.lnsigo.mipt.ru/answer",
-        "https://7007.lnsigo.mipt.ru/answer",
-        "https://7009.lnsigo.mipt.ru/answer",
-        "https://7006.lnsigo.mipt.ru/answer",
-        "https://7011.lnsigo.mipt.ru/answer",
-        "https://7012.lnsigo.mipt.ru/answer",
-        "https://7021.lnsigo.mipt.ru/answer",
-        "https://7022.lnsigo.mipt.ru/answer"
-      ],
-      "2arg_batch": [
-        "https://7005.lnsigo.mipt.ru/answer",
-        "https://7008.lnsigo.mipt.ru/answer"
-      ]
+    "https://7003.lnsigo.mipt.ru/answer": {
+      "text1": ["Мы живём хорошо и беззаботно!"],
+      "text2": ["Нам хорошо и у нас нет забот."]
     },
-    "get": [
-      "https://2242.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates",
-      "https://2258.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates"
-    ]
+    "https://7004.lnsigo.mipt.ru/answer": {
+      "text1": ["Элон Маск запустил в космос Tesla"]
+    },
+    "https://7010.lnsigo.mipt.ru/answer": {
+      "text1": ["Elon Musk launched his cherry Tesla roadster to the Mars orbit"]
+    },
+    "https://7008.lnsigo.mipt.ru/answer": {
+      "text1": ["В Долгопе у меня отжали мобильник и новые кеды. Мне было больно и обидно."],
+      "text2": ["Где у меня отжали мобильник и новые кеды?"]
+    },
+    "https://7005.lnsigo.mipt.ru/answer": {
+      "text1": ["The hair on my chest colored, because I accidentally poured a rocket oxidizer onto them. I serve in the army because my wife and mother-in-law wanted to give me for my convictions in a madhouse. And I'm twenty-nine years old, a month later will be an anniversary."],
+      "text2": ["Why the hair on my chest colored?"]
+    },
+    "https://7007.lnsigo.mipt.ru/answer": {
+      "text1": ["I want Doshirac with mayonnaise"]
+    },
+    "https://7009.lnsigo.mipt.ru/answer": {
+      "text1": ["Rank it!"]
+    },
+    "https://7006.lnsigo.mipt.ru/answer": {
+      "text1": ["Are you dumb?"]
+    },
+    "https://7011.lnsigo.mipt.ru/answer": {
+      "text1":["Who is big and powerful?"]
+    },
+    "https://7012.lnsigo.mipt.ru/answer": {
+      "text1": ["Кто хороший мальчик?"]
+    },
+    "https://7013.lnsigo.mipt.ru/answer": {
+      "text1": ["Elon Musk launched his cherry Tesla roadster to the Mars orbit"]
+    },
+    "https://7014.lnsigo.mipt.ru/answer": {
+      "text1": ["The hair on my chest colored, because I accidentally poured a rocket oxidizer onto them. I serve in the army because my wife and mother-in-law wanted to give me for my convictions in a madhouse. And I'm twenty-nine years old, a month later will be an anniversary."],
+      "text2": ["Why the hair on my chest colored?"]
+    },
+    "https://7015.lnsigo.mipt.ru/answer": {
+      "text1": ["Мы живём хорошо и беззаботно!"]
+    },
+    "https://7016.lnsigo.mipt.ru/answer": {
+      "text1": ["Кто такой Сократ?"]
+    }
   },
   "response_patterns": {
-    "default": {
-      "code": 200
-    },
-    "https://2242.lnsigo.mipt.ru/botConvAIrouterprobing/getUpdates": {
-      "code": 401
-    }
+    "default": [
+      200
+    ],
+    "https://7012.lnsigo.mipt.ru/answer": [
+      500
+    ]
   }
 }
