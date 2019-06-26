@@ -14,7 +14,7 @@ def probe(stands: dict, request_timeout: float, response_pattern: int):
     for url, model in stands.items():
         stand_name = ' '.join([model, url])
         try:
-            response = requests.get(url, timeout=request_timeout)
+            response = requests.post(url+'/poller', json={}, timeout=request_timeout)
             probe_result[stand_name] = response.status_code == response_pattern
         except Exception:
             probe_result[stand_name] = False
