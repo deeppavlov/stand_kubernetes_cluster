@@ -2,67 +2,28 @@
   "general": {
     "polling_interval": 120,
     "request_timeout": 10,
-    "notification": "slack"
+    "notification": "slack",
+    "response_pattern": 200
   },
   "notification": {
     "slack": {
       "webhook": ""
     }
   },
-  "urls": {
-    "https://7003.lnsigo.mipt.ru/answer": {
-      "text1": ["Мы живём хорошо и беззаботно!"],
-      "text2": ["Нам хорошо и у нас нет забот."]
-    },
-    "https://7004.lnsigo.mipt.ru/answer": {
-      "text1": ["Элон Маск запустил в космос Tesla"]
-    },
-    "https://7010.lnsigo.mipt.ru/answer": {
-      "text1": ["Elon Musk launched his cherry Tesla roadster to the Mars orbit"]
-    },
-    "https://7008.lnsigo.mipt.ru/answer": {
-      "text1": ["В Долгопе у меня отжали мобильник и новые кеды. Мне было больно и обидно."],
-      "text2": ["Где у меня отжали мобильник и новые кеды?"]
-    },
-    "https://7005.lnsigo.mipt.ru/answer": {
-      "text1": ["The hair on my chest colored, because I accidentally poured a rocket oxidizer onto them. I serve in the army because my wife and mother-in-law wanted to give me for my convictions in a madhouse. And I'm twenty-nine years old, a month later will be an anniversary."],
-      "text2": ["Why the hair on my chest colored?"]
-    },
-    "https://7007.lnsigo.mipt.ru/answer": {
-      "text1": ["I want Doshirac with mayonnaise"]
-    },
-    "https://7009.lnsigo.mipt.ru/answer": {
-      "text1": ["Rank it!"]
-    },
-    "https://7006.lnsigo.mipt.ru/answer": {
-      "text1": ["Are you dumb?"]
-    },
-    "https://7011.lnsigo.mipt.ru/answer": {
-      "text1":["Who is big and powerful?"]
-    },
-    "https://7012.lnsigo.mipt.ru/answer": {
-      "text1": ["Кто хороший мальчик?"]
-    },
-    "https://7013.lnsigo.mipt.ru/answer": {
-      "text1": ["Elon Musk launched his cherry Tesla roadster to the Mars orbit"]
-    },
-    "https://7014.lnsigo.mipt.ru/answer": {
-      "text1": ["The hair on my chest colored, because I accidentally poured a rocket oxidizer onto them. I serve in the army because my wife and mother-in-law wanted to give me for my convictions in a madhouse. And I'm twenty-nine years old, a month later will be an anniversary."],
-      "text2": ["Why the hair on my chest colored?"]
-    },
-    "https://7015.lnsigo.mipt.ru/answer": {
-      "text1": ["Мы живём хорошо и беззаботно!"]
-    },
-    "https://7016.lnsigo.mipt.ru/answer": {
-      "text1": ["Кто такой Сократ?"]
-    }
-  },
-  "response_patterns": {
-    "default": [
-      200
-    ],
-    "https://7012.lnsigo.mipt.ru/answer": [
-      500
-    ]
+  "stands": {
+    "https://7003.lnsigo.mipt.ru/answer": "stand_paraphraser_ru",
+    "https://7004.lnsigo.mipt.ru/answer": "stand_ner_ru",
+    "https://7005.lnsigo.mipt.ru/answer": "stand_squad_ru",
+    "https://7006.lnsigo.mipt.ru/answer": "stand_insults_en",
+    "https://7007.lnsigo.mipt.ru/answer": "stand_intents_en",
+    "https://7008.lnsigo.mipt.ru/answer": "stand_squad_en",
+    "https://7009.lnsigo.mipt.ru/answer": "stand_ranking_en",
+    "https://7010.lnsigo.mipt.ru/answer": "stand_ner_en",
+    "https://7011.lnsigo.mipt.ru/answer": "stand_odqa_en",
+    "https://7012.lnsigo.mipt.ru/answer": "stand_odqa_ru",
+    "https://7013.lnsigo.mipt.ru/answer": "stand_ner_ml",
+    "https://7014.lnsigo.mipt.ru/answer": "stand_squad_ml",
+    "https://7015.lnsigo.mipt.ru/answer": "stand_sentiment_ru",
+    "https://7016.lnsigo.mipt.ru/answer": "stand_kbqa_ru"
   }
 }

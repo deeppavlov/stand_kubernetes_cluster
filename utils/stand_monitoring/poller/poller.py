@@ -1,5 +1,4 @@
 import json
-
 import polling
 import requests
 
@@ -9,60 +8,69 @@ with open(config_path, 'r') as f_config:
     config = json.load(f_config)
 
 
-def probe(urls: dict, response_patterns: dict, request_timeout: float):
+def probe(stands: dict, request_timeout: float, response_pattern: int):
     probe_result = {}
 
-    for url, payload in urls.items():
-        pattern = response_patterns[url] if url in response_patterns.keys() else response_patterns['default']
+    for url, model in stands.items():
+        stand_name = ' '.join([model, url])
         try:
-            response = requests.post(url, json=payload, timeout=request_timeout)
-            probe_result[url] = response.status_code in pattern
+            response = requests.get(url, timeout=request_timeout)
+            probe_result[stand_name] = response.status_code == response_pattern
         except Exception:
-            probe_result[url] = False
+            probe_result[stand_name] = False
 
     return probe_result
 
 
-def act(urls_status: dict, probe_result: dict):
-    bad_urls = [url for url, status in urls_status.items() if url in probe_result and status and not probe_result[url]]
-    if bad_urls:
-        notify(bad_urls)
+def act(stands_status: dict, probe_result: dict):
+    urls = {url: probe_result[url] for url, status in stands_status.items() if (url in probe_result and
+                                                                                status is not probe_result[url])}
+    if urls:
+        notify(urls)
 
 
-def notify(bad_urls: list):
+def notify(stands: dict, first_notification=False):
     channel = config['general']['notification']
     channel_config = config['notification'][channel]
 
-    bad_urls_str = '\n'.join(bad_urls)
-    notification = f'Following stand endpoints are unreachable:\n\n{bad_urls_str}'
+    good_stands = '\n'.join([stand for stand, status in stands.items() if status])
+    bad_stands = '\n'.join([stand for stand, status in stands.items() if not status])
+    notification = []
+    if first_notification:
+        notification.append('THIS IS FIRST NOTIFICATION AFTER LAUNCH.')
+    if good_stands:
+        notification.append(f'Following stand endpoints are reachable:\n\n{good_stands}')
+    if bad_stands:
+        notification.append(f'Following stand endpoints are unreachable:\n\n{bad_stands}')
+    notification = '\n\n'.join(notification)
 
     if channel == 'slack':
         webhook = channel_config['webhook']
-        channel_notification = f'@channel {notification}'
-        payload = {'text': channel_notification}
+        payload = {'text': notification}
         _ = requests.post(webhook, json=payload)
 
 
 def start_pooling():
     polling_interval = config['general']['polling_interval']
     request_timeout = config['general']['request_timeout']
-    urls = config['urls']
-    response_patterns = config['response_patterns']
+    response_pattern = config['general']['response_pattern']
+    stands = config['stands']
 
-    urls_status = {url: True for url in urls.keys()}
+    stands_status = probe(stands, request_timeout, response_pattern)
+    notify(stands_status, True)
 
     def estimate(prob: dict):
-        return urls_status != prob
+        return stands_status != prob
 
     while True:
         probe_result = polling.poll(
-            lambda: probe(urls, response_patterns, request_timeout),
+            lambda: probe(stands, request_timeout, response_pattern),
             check_success=estimate,
             step=polling_interval,
             poll_forever=True)
 
-        act(urls_status, probe_result)
-        urls_status = probe_result
+        act(stands_status, probe_result)
+        stands_status = probe_result
 
 
 if __name__ == '__main__':
