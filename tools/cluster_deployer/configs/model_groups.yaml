@@ -18,7 +18,8 @@ http_proxy:
   - http_proxy_litinsky
   - http_proxy_basil
 
-custom: []
+demo:
+  - demo_transformer_chit_chat_40k_v05_2
 
 dpas_stable:
   - dpas_stable_mongo
@@ -44,3 +45,4 @@ all:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
+  - demo_transformer_chit_chat_40k_v05_2
