@@ -4,8 +4,8 @@ http_proxy_litinsky:
   PROXYED_HOST: 192.168.10.221
   PROXYED_PORT: 7050
 
-http_proxy_basil:
+http_proxy_vladimir01:
   TEMPLATE: http_proxy
-  CLUSTER_PORT: 7056
-  PROXYED_HOST: 10.11.1.46
+  CLUSTER_PORT: 7051
+  PROXYED_HOST: 10.11.1.21
   PROXYED_PORT: 5000
