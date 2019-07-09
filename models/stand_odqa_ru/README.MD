@@ -16,10 +16,10 @@
         git clone https://github.com/deepmipt/DeepPavlov.git
         cd DeepPavlov
         ```
-    2. Switch to branch dev and update it:
+    2. Switch to branch master and update it:
         ```
-        git checkout dev
-        git pull origin dev
+        git checkout master
+        git pull origin master
         ```
     3. Install DeepPavlov:
         ```

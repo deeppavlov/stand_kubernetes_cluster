@@ -25,7 +25,6 @@ RUN cd /base/DeepPavlov && \
     python3.6 setup.py develop
 
 RUN python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/kbqa/kbqa_rus.json && \
-    pip install python-Levenshtein==0.12.0 sortedcontainers==2.0.2 && \
     cp /app/configs/*.json /base/DeepPavlov/deeppavlov/utils/settings
 
 EXPOSE 5000
