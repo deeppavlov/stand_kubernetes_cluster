@@ -13,12 +13,12 @@ def probe(services: dict, request_timeout: float):
     probe_result = {}
 
     for model, url in services.items():
-        stand_name = ' '.join([model, url])
+        service_name = ' '.join([model, url])
         try:
             response = requests.post(f'{url}/poller', json={}, timeout=request_timeout)
-            probe_result[stand_name] = response.status_code is OK_RESPONSE
+            probe_result[service_name] = response.status_code is OK_RESPONSE
         except Exception:
-            probe_result[stand_name] = False
+            probe_result[service_name] = False
 
     return probe_result
 
@@ -33,13 +33,13 @@ def act(services_status: dict, probe_result: dict):
 def notify(services: dict, first_notification=False):
     channel = config['general']['notification']
     channel_config = config['notification'][channel]
-    msgs = config['notification']['params']
+    msgs = config['notification']
     launch_msg = msgs['launch_msg']
     up_msg = msgs['up_msg']
     down_msg = msgs['down_msg']
 
-    up_services = '\n'.join([stand for stand, status in services.items() if status])
-    down_services = '\n'.join([stand for stand, status in services.items() if not status])
+    up_services = '\n'.join([service for service, status in services.items() if status])
+    down_services = '\n'.join([service for service, status in services.items() if not status])
     notification = []
     if first_notification:
         notification.append(f'{launch_msg}')
