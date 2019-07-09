@@ -26,7 +26,6 @@
     "stand_ner_ml":               "https://7013.lnsigo.mipt.ru/answer",
     "stand_squad_ml":             "https://7014.lnsigo.mipt.ru/answer",
     "stand_sentiment_ru":         "https://7015.lnsigo.mipt.ru/answer",
-    "stand_kbqa_ru":              "https://7016.lnsigo.mipt.ru/answer",
-    "demo-transformer-chit-chat": "https://7061.lnsigo.mipt.ru/answer"
+    "stand_kbqa_ru":              "https://7016.lnsigo.mipt.ru/answer"
   }
 }
