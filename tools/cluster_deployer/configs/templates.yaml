@@ -131,6 +131,9 @@ http_proxy:
   KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy"
   pipeline: "make_files_and_kuber_no_tests"
 
+  # composed params
+  PORT: "{{CLUSTER_PORT}}"
+
   # human set params
   CLUSTER_PORT: ""
   PROXYED_HOST: ""
