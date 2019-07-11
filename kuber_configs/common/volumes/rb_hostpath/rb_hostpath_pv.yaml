@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: stand-demo-rb-hostpath-pv
+  namespace: stand-demo
+spec:
+  storageClassName: stand-demo-rb-hostpath-sc
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/stand_demo/rb/"
