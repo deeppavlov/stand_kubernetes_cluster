@@ -1,0 +1,2 @@
+alias routerrun='/app/run_routerbot.sh'
+alias routerstop='/app/stop_routerbot.sh'

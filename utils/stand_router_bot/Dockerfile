@@ -61,9 +61,13 @@ ADD ./config.yml /app/convai_router_bot/settings/config.yml
 ADD ./proxychains.conf /app
 ADD ./run_routerbot.sh /app
 ADD ./stop_routerbot.sh /app
+ADD ./bash_aliases /app
 
-RUN chmod +x /app/run_routerbot.sh
-RUN chmod +x /app/stop_routerbot.sh
+RUN chmod +x /app/run_routerbot.sh && \
+    chmod +x /app/stop_routerbot.sh
+
+RUN cp /app/bash_aliases /root/.bash_aliases && \
+    cp /app/bash_aliases /etc/skel/.bash_aliases
 
 CMD sed -i 's|{{MONGO_PROTOCOL}}|'${MONGO_PROTOCOL}'|g' '/app/convai_router_bot/settings/config.yml' && \
     sed -i 's|{{MONGO_HOST}}|'${MONGO_HOST}'|g' '/app/convai_router_bot/settings/config.yml' && \
