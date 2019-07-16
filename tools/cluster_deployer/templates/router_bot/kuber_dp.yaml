@@ -1,0 +1,79 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{KUBER_DP_NAME}}
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{KUBER_DP_NAME}}
+    spec:
+      containers:
+      - name: {{FULL_MODEL_NAME_DASHED}}
+        image: {{KUBER_IMAGE_TAG}}
+        ports:
+        - name: router-bot-port
+          protocol: TCP
+          containerPort: 80
+        - name: ssh-server-port
+          protocol: TCP
+          containerPort: 22
+        volumeMounts:
+        - name: volume-logs
+          mountPath: /logs
+        - name: volume-rb
+          mountPath: /app/router_bot_volume
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MODEL_NAME
+          value: '{{FULL_MODEL_NAME}}'
+        - name: PROXYCHAINS_CONFIG_STRING
+          value: '{{PROXY_PROTOCOL}} {{PROXY_HOST}} {{PROXY_PORT}} {{PROXY_USER}} {{PROXY_PASS}}'
+        - name: MONGO_PROTOCOL
+          value: '{{MONGO_PROTOCOL}}'
+        - name: MONGO_HOST
+          value: '{{MONGO_HOST}}'
+        - name: MONGO_PORT
+          value: '{{MONGO_PORT}}'
+        - name: FB_PAGE_ACCESS_TOKEN
+          value: '{{FB_PAGE_ACCESS_TOKEN}}'
+        - name: FB_WEBHOOK
+          value: '{{FB_WEBHOOK}}'
+        - name: FB_WEBHOOK_SECRET
+          value: '{{FB_WEBHOOK_SECRET}}'
+        - name: TG_WEBHOOK
+          value: '{{TG_WEBHOOK}}'
+        - name: TG_TOKEN
+          value: '{{TG_TOKEN}}'
+      volumes:
+      - name: volume-logs
+        persistentVolumeClaim:
+          claimName: logs-hostpath-pvc
+      - name: volume-rb
+        persistentVolumeClaim:
+          claimName: rb-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - {{DNS_IP}}

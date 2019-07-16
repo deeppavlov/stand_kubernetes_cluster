@@ -78,6 +78,29 @@ dp_obsolete_no_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
+router_bot:
+  KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/router_bot"
+  # default params
+  MONGO_PROTOCOL: "mongodb"
+  pipeline: "create_kuber_no_tests"
+
+  # composed params
+  MONGO_HOST: "{{CLUSTER_IP}}"
+  FB_WEBHOOK: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/fb"
+  TG_WEBHOOK: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/tg"
+
+  # human set params
+  CLUSTER_SSH_PORT: ""
+  MONGO_PORT: ""
+  FB_PAGE_ACCESS_TOKEN: ""
+  FB_WEBHOOK_SECRET: ""
+  TG_TOKEN: ""
+  PROXY_PROTOCOL: ""
+  PROXY_HOST: ""
+  PROXY_PORT: ""
+  PROXY_USER: ""
+  PROXY_PASS: ""
+
 rb_gpu:
   # default params
   run_mode: ""
