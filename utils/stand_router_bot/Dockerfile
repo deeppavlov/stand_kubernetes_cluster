@@ -57,11 +57,13 @@ RUN cd /app && \
     cd /app/convai_router_bot && \
     pip install -r requirements.txt
 
+ADD ./config.yml /app/convai_router_bot/settings/config.yml
 ADD ./proxychains.conf /app
 ADD ./run_routerbot.sh /app
-ADD ./config.yml /app/convai_router_bot/settings/config.yml
+ADD ./stop_routerbot.sh /app
 
 RUN chmod +x /app/run_routerbot.sh
+RUN chmod +x /app/stop_routerbot.sh
 
 CMD sed -i 's|{{MONGO_PROTOCOL}}|'${MONGO_PROTOCOL}'|g' '/app/convai_router_bot/settings/config.yml' && \
     sed -i 's|{{MONGO_HOST}}|'${MONGO_HOST}'|g' '/app/convai_router_bot/settings/config.yml' && \
