@@ -1,0 +1,12 @@
+routerbot_denis_01_mongo_db:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 10062
+  pipeline: all_up_kuber_no_tests
+
+routerbot_denis_01:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7062
+  CLUSTER_SSH_PORT: 8062
+  MONGO_PORT: 10062
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
