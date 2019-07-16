@@ -101,53 +101,10 @@ router_bot:
   PROXY_USER: ""
   PROXY_PASS: ""
 
-rb_gpu:
-  # default params
-  run_mode: ""
-
-  # human set params
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
-
-rb_no_gpu:
-  # default params
-  run_mode: ""
-
-  # human set params
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
-
 mongo_db:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
-
-dpas_agent:
-  # default params
-  serialize_config: true
-
-  # human set params
-  agent_config: {}
-  TELEGRAM_TOKEN: ""
-  TELEGRAM_PROXY: ""
-
-rb_dpas_agent:
-  # default params
-  BRANCH: "agent"
-  POLLER_BRANCH: "agent"
-  run_mode: ""
-  serialize_config: true
-
-  # human set params
-  agent_config: {}
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
 
 http_proxy:
   # default params
