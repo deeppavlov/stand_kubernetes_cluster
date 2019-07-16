@@ -38,10 +38,12 @@ RUN apt-get update && \
     cd Python-3.6.5 && \
     ./configure && \
     make altinstall && \
-    #Install pip
+    # Install pip
     cd /app && \
     wget https://bootstrap.pypa.io/get-pip.py && \
-    python3.6 get-pip.py
+    python3.6 get-pip.py && \
+    # Perform cleanup
+    rm -r /app/Python-3.6.5.tar.xz /app/Python-3.6.5 /app/get-pip.py /var/lib/apt/lists/*
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
@@ -59,11 +61,11 @@ RUN cd /app && \
 
 ADD ./config.yml /app/convai_router_bot/settings/config.yml
 ADD ./proxychains.conf /app
-ADD ./run_routerbot.sh /app
+ADD ./start_routerbot.sh /app
 ADD ./stop_routerbot.sh /app
 ADD ./bash_aliases /app
 
-RUN chmod +x /app/run_routerbot.sh && \
+RUN chmod +x /app/start_routerbot.sh && \
     chmod +x /app/stop_routerbot.sh
 
 RUN cp /app/bash_aliases /root/.bash_aliases && \
@@ -81,8 +83,8 @@ CMD sed -i 's|{{MONGO_PROTOCOL}}|'${MONGO_PROTOCOL}'|g' '/app/convai_router_bot/
     MONGO_URI=${MONGO_PROTOCOL}'://'${MONGO_HOST}':'${MONGO_PORT}'/convai' && \
     if [ -z ${POD_NODE} ] || [ ${POD_NODE} = "" ]; then POD_NODE=${DEFAULT_POD_NODE}; fi && \
     if [ -z ${POD_NAME} ] || [ ${POD_NAME} = "" ]; then POD_NAME=${DEFAULT_POD_NAME}; fi && \
-    sed -i 's|{{MODEL_NAME}}|'${MODEL_NAME}'|g' '/app/run_routerbot.sh' && \
-    sed -i 's|{{POD_NODE}}|'${POD_NODE}'|g' '/app/run_routerbot.sh' && \
-    sed -i 's|{{POD_NAME}}|'${POD_NAME}'|g' '/app/run_routerbot.sh' && \
-    /app/run_routerbot.sh && \
+    sed -i 's|{{MODEL_NAME}}|'${MODEL_NAME}'|g' '/app/start_routerbot.sh' && \
+    sed -i 's|{{POD_NODE}}|'${POD_NODE}'|g' '/app/start_routerbot.sh' && \
+    sed -i 's|{{POD_NAME}}|'${POD_NAME}'|g' '/app/start_routerbot.sh' && \
+    /app/start_routerbot.sh && \
     /usr/sbin/sshd -D

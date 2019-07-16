@@ -15,7 +15,7 @@ if [ -z $(ps aux | grep application.py | grep -v grep | awk '{print $2}') ]; the
     LOG_PATH=${LOG_DIR}${LOG_FILE}
 
     mkdir -p ${LOG_DIR}
-    nohup /app/proxychains-ng/proxychains4 python3.6 ${ROUTER_BOT_DIR}"/application.py" --port=80 > ${LOG_PATH} 2>&1 &
+    nohup /app/proxychains-ng/proxychains4 -f /app/proxychains.conf python3.6 ${ROUTER_BOT_DIR}"/application.py" --port=80 > ${LOG_PATH} 2>&1 &
     echo 'Router bot started'
 else
     echo 'Router bot is already running'
