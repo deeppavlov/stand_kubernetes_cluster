@@ -57,6 +57,29 @@ spec:
           value: '{{TG_WEBHOOK}}'
         - name: TG_TOKEN
           value: '{{TG_TOKEN}}'
+      - name: {{FULL_MODEL_NAME_DASHED}}-db-mongo
+        image: {{MONGO_KUBER_IMAGE_TAG}}
+        ports:
+        - name: mongo-db-port
+          protocol: TCP
+          containerPort: 27017
+        volumeMounts:
+        - name: volume-db-data
+          mountPath: /db_data
+        - name: volume-podinfo-db-mongo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: FULL_MODEL_NAME
+          value: {{FULL_MODEL_NAME}}_db_mongo
       volumes:
       - name: volume-logs
         persistentVolumeClaim:
@@ -73,6 +96,18 @@ spec:
           - path: "annotations"
             fieldRef:
               fieldPath: metadata.annotations
+      - name: volume-db-data
+        persistentVolumeClaim:
+          claimName: db-hostpath-pvc
+      - name: volume-podinfo-db-mongo
+        downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+            - path: "annotations"
+              fieldRef:
+                fieldPath: metadata.annotations
       dnsPolicy: "None"
       dnsConfig:
         nameservers:

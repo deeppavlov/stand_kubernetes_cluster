@@ -14,6 +14,10 @@ spec:
     protocol: TCP
     port: {{CLUSTER_PORT}}
     targetPort: router-bot-port
+  - name: mongo-db
+    protocol: TCP
+    port: {{CLUSTER_MONGO_PORT}}
+    targetPort: mongo-db-port
   - name: ssh-server
     protocol: TCP
     port: {{CLUSTER_SSH_PORT}}
