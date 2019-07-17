@@ -17,12 +17,13 @@ FROM stand/docker_deeppavlov:cuda-{{CUDA_VERSION}}
 VOLUME /logs
 VOLUME /root/.deeppavlov
 WORKDIR /app
-ADD . /app
 
 RUN cd /base/DeepPavlov && \
     git fetch --all --tags --prune && \
     git checkout {{BRANCH}} && \
     python3.6 setup.py develop
+
+ADD ./configs /app/configs
 
 RUN python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
     cp /app/configs/*.json /base/DeepPavlov/deeppavlov/utils/settings

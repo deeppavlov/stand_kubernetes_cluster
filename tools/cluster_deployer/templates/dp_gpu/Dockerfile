@@ -17,12 +17,13 @@ FROM stand/docker_deeppavlov:cuda-{{CUDA_VERSION}}
 VOLUME /logs
 VOLUME /root/.deeppavlov
 WORKDIR /app
-ADD . /app
 
 RUN cd /base/DeepPavlov && \
     git fetch --all --tags --prune && \
     git checkout {{BRANCH}} && \
     python3.6 setup.py develop
+
+ADD ./configs /app/configs
 
 RUN pip install -r /base/DeepPavlov/deeppavlov/requirements/tf-gpu.txt && \
     python3.6 -m deeppavlov install /base/DeepPavlov/deeppavlov/configs/{{CONFIG_FILE}} && \
