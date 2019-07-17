@@ -10,8 +10,8 @@ if [ -z $(ps aux | grep application.py | grep -v grep | awk '{print $2}') ]; the
     if [ ! -d ${ROUTER_BOT_DIR} ]; then mkdir -p ${ROUTER_BOT_UPPER_DIR} && cp -r /app/convai_router_bot ${ROUTER_BOT_DIR}; fi && \
 
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N')
-    LOG_DIR="/logs/"${MODEL_NAME}"/"${POD_NODE}"/logs/"
-    LOG_FILE=${MODEL_NAME}"_"${DATE_TIME}"_"${POD_NAME}".log"
+    LOG_DIR="/logs/"${MODEL_NAME}"/" && \
+    LOG_FILE=${MODEL_NAME}"_"${DATE_TIME}"_"${POD_NODE}"_"{$POD_NAME}".log" && \
     LOG_PATH=${LOG_DIR}${LOG_FILE}
 
     mkdir -p ${LOG_DIR}
