@@ -50,6 +50,7 @@ _docs:
 dp_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
@@ -59,6 +60,7 @@ dp_gpu:
 dp_no_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
@@ -68,6 +70,7 @@ dp_no_gpu:
 dp_obsolete_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
@@ -77,6 +80,7 @@ dp_obsolete_gpu:
 dp_obsolete_no_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
@@ -113,6 +117,7 @@ mongo_db:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
+  pipeline: "make_files_and_kuber_no_tests"
 
   # composed params
   KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/db/mongo:{{MONGO_DOCKER_TAG}}"
