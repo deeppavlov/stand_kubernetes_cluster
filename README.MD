@@ -11,6 +11,11 @@ Demo stand Kubernetes cluster is based on following components:
 Docker and all Kubernetes packages should be deployed both on master and each worker node.
 NVIDIA Container Runtime for Docker should be deployed on each worker node with GPUs.
 
+This docs are tested for following versions of demo stand components:
+* Docker `18.06.1-ce`
+* Kubelet `v1.10.2`
+* Kubeadm: `v1.10.2`
+
 ### Docker installation
 1. Install Docker:
     ```
