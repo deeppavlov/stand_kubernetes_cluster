@@ -38,6 +38,7 @@ _root:
   test_deployment_url: ""
   pipeline: ""
 
+
 # examples for some params
 _docs:
   run_flags: ["--default-skill"]
@@ -46,7 +47,7 @@ _docs:
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
-# TODO: add human set params
+
 dp_gpu:
   # default params
   run_mode: "riseapi"
@@ -56,7 +57,11 @@ dp_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
-# TODO: add human set params
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
+
 dp_no_gpu:
   # default params
   run_mode: "riseapi"
@@ -66,7 +71,11 @@ dp_no_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
-# TODO: add human set params
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
+
 dp_obsolete_gpu:
   # default params
   run_mode: "riseapi"
@@ -76,7 +85,11 @@ dp_obsolete_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
-# TODO: add human set params
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
+
 dp_obsolete_no_gpu:
   # default params
   run_mode: "riseapi"
@@ -85,6 +98,11 @@ dp_obsolete_no_gpu:
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
 
 router_bot:
   # default params
@@ -113,6 +131,7 @@ router_bot:
   PROXY_USER: ""
   PROXY_PASS: ""
 
+
 mongo_db:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
@@ -124,6 +143,7 @@ mongo_db:
 
   # human set params
   CLUSTER_PORT: ""
+
 
 http_proxy:
   # default params
