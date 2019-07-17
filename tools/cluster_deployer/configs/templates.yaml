@@ -125,14 +125,12 @@ mongo_db:
   # human set params
   CLUSTER_PORT: ""
 
-# TODO: add composed docker registry
-# TODO: add human set params
 http_proxy:
   # default params
-  KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy"
   pipeline: "make_files_and_kuber_no_tests"
 
   # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/http_proxy"
   PORT: "{{CLUSTER_PORT}}"
 
   # human set params
