@@ -46,6 +46,7 @@ _docs:
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
+# TODO: add human set params
 dp_gpu:
   # default params
   run_mode: "riseapi"
@@ -54,6 +55,7 @@ dp_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
+# TODO: add human set params
 dp_no_gpu:
   # default params
   run_mode: "riseapi"
@@ -62,6 +64,7 @@ dp_no_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
+# TODO: add human set params
 dp_obsolete_gpu:
   # default params
   run_mode: "riseapi"
@@ -70,6 +73,7 @@ dp_obsolete_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
+# TODO: add human set params
 dp_obsolete_no_gpu:
   # default params
   run_mode: "riseapi"
@@ -78,6 +82,7 @@ dp_obsolete_no_gpu:
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
+# TODO: add human set params
 router_bot:
   KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/router_bot"
   # default params
@@ -106,6 +111,14 @@ mongo_db:
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
 
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/db/mongo:{{MONGO_DOCKER_TAG}}"
+
+  # human set params
+  CLUSTER_PORT: ""
+
+# TODO: add composed docker registry
+# TODO: add human set params
 http_proxy:
   # default params
   KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy"
