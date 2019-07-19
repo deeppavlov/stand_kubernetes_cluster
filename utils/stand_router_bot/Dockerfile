@@ -21,6 +21,7 @@ RUN apt-get update && \
     apt-get -y install git && \
     git config --global user.email "litinsky@ipavlov.ai" && \
     git config --global user.name "litinsky" && \
+    apt-get -y install tmux zsh vim tree htop curl wget tar gcc-6 g++-6 && \
     # Enable ssh
     apt-get -y install openssh-server && \
     mkdir /var/run/sshd && \
@@ -29,9 +30,6 @@ RUN apt-get update && \
     sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
     mkdir /root/.ssh && \
     # Install Python
-    apt-get -y install wget && \
-    apt-get -y install tar && \
-    apt-get -y install gcc-6 g++-6 && \
     apt-get -y install build-essential libssl-dev zlib1g-dev libncurses5-dev libreadline-dev libgdbm-dev libdb5.3-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev tcl-dev tk tk-dev && \
     wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tar.xz && \
     tar xf Python-3.6.5.tar.xz && \
