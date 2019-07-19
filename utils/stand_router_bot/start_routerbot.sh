@@ -11,7 +11,7 @@ if [ -z $(ps aux | grep application.py | grep -v grep | awk '{print $2}') ]; the
 
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N')
     LOG_DIR="/logs/"${MODEL_NAME}"/" && \
-    LOG_FILE=${MODEL_NAME}"_"${DATE_TIME}"_"${POD_NODE}"_"{$POD_NAME}".log" && \
+    LOG_FILE=${MODEL_NAME}"_"${DATE_TIME}"_"${POD_NODE}"_"${POD_NAME}".log" && \
     LOG_PATH=${LOG_DIR}${LOG_FILE}
 
     mkdir -p ${LOG_DIR}
