@@ -1,4 +1,4 @@
-routerbot_dev:
+routerbot_toloka_dialog_rus_bot:
   TEMPLATE: router_bot
   CLUSTER_PORT: 7062
   CLUSTER_MONGO_PORT: 10062
