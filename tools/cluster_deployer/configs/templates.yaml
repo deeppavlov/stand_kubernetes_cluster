@@ -2,6 +2,7 @@ _root:
   # default params
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
+  REPLICAS_NUM: 1
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   BRANCH: "master"
