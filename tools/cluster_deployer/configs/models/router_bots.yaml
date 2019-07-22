@@ -1,0 +1,7 @@
+routerbot_toloka_dialog_rus_bot:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7062
+  CLUSTER_MONGO_PORT: 10062
+  CLUSTER_SSH_PORT: 8062
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"

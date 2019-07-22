@@ -32,6 +32,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: FULL_MODEL_NAME
+          value: '{{FULL_MODEL_NAME}}'
       volumes:
       - name: volume-db-data
         persistentVolumeClaim:

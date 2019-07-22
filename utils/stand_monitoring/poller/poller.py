@@ -1,88 +1,80 @@
 import json
-
 import polling
 import requests
-from requests import Response
 
+OK_RESPONSE = 200
 
 config_path = './config.json'
 with open(config_path, 'r') as f_config:
     config = json.load(f_config)
 
 
-def probe(urls: dict, payload: dict, response_patterns: dict):
+def probe(services: dict, request_timeout: float):
     probe_result = {}
-    urls_post = urls['post']
-    urls_get = urls['get']
 
-    for payload_type, urls_list in urls_post.items():
-        for url in urls_list:
-            pattern = response_patterns[url] if url in response_patterns.keys() else response_patterns['default']
-            try:
-                response = requests.post(url, json=payload[payload_type])
-                probe_result[url] = assert_response(response, pattern)
-            except Exception:
-                probe_result[url] = False
-
-    for url in urls_get:
-        pattern = response_patterns[url] if url in response_patterns.keys() else response_patterns['default']
+    for model, url in services.items():
+        service_name = ' '.join([model, url])
         try:
-            response = requests.get(url)
-            probe_result[url] = assert_response(response, pattern)
+            response = requests.post(f'{url}/poller', json={}, timeout=request_timeout)
+            probe_result[service_name] = response.status_code is OK_RESPONSE
         except Exception:
-            probe_result[url] = False
+            probe_result[service_name] = False
 
     return probe_result
 
 
-def assert_response(response: Response, pattern: dict):
-    if 'code' in pattern.keys():
-        if pattern['code'] != response.status_code:
-            return False
-
-    return True
-
-
-def act(urls_status: dict, probe_result: dict):
-    bad_urls = [url for url, status in urls_status.items() if url in probe_result and status and not probe_result[url]]
-    if bad_urls:
-        notify(bad_urls)
+def act(services_status: dict, probe_result: dict):
+    urls = {url: probe_result[url] for url, status in services_status.items() if (url in probe_result and
+                                                                                  status is not probe_result[url])}
+    if urls:
+        notify(urls)
 
 
-def notify(bad_urls: list):
+def notify(services: dict, first_notification=False):
     channel = config['general']['notification']
     channel_config = config['notification'][channel]
+    msgs = config['notification']
+    launch_msg = msgs['launch_msg']
+    up_msg = msgs['up_msg']
+    down_msg = msgs['down_msg']
 
-    bad_urls_str = '\n'.join(bad_urls)
-    notification = f'Following stand endpoints are unreachable:\n\n{bad_urls_str}'
+    up_services = '\n'.join([service for service, status in services.items() if status])
+    down_services = '\n'.join([service for service, status in services.items() if not status])
+    notification = []
+    if first_notification:
+        notification.append(f'{launch_msg}')
+    if up_services:
+        notification.append(f'{up_msg}\n\n{up_services}')
+    if down_services:
+        notification.append(f'{down_msg}\n\n{down_services}')
+    notification = '\n\n'.join(notification)
 
     if channel == 'slack':
         webhook = channel_config['webhook']
-        channel_notification = f'@channel {notification}'
-        payload = {'text': channel_notification}
+        payload = {'text': notification}
         _ = requests.post(webhook, json=payload)
 
 
 def start_pooling():
     polling_interval = config['general']['polling_interval']
-    urls = config['urls']
-    payload = config['payload']
-    response_patterns = config['response_patterns']
+    request_timeout = config['general']['request_timeout']
+    services = config['services']
 
-    urls_status = probe(urls, payload, response_patterns)
+    services_status = probe(services, request_timeout)
+    notify(services_status, True)
 
     def estimate(prob: dict):
-        return urls_status != prob
+        return services_status != prob
 
     while True:
         probe_result = polling.poll(
-            lambda: probe(urls, payload, response_patterns),
+            lambda: probe(services, request_timeout),
             check_success=estimate,
             step=polling_interval,
             poll_forever=True)
 
-        act(urls_status, probe_result)
-        urls_status = probe_result
+        act(services_status, probe_result)
+        services_status = probe_result
 
 
 if __name__ == '__main__':

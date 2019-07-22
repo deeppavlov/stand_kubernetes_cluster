@@ -2,6 +2,7 @@ _root:
   # default params
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
+  REPLICAS_NUM: 1
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   BRANCH: "master"
@@ -38,6 +39,7 @@ _root:
   test_deployment_url: ""
   pipeline: ""
 
+
 # examples for some params
 _docs:
   run_flags: ["--default-skill"]
@@ -46,90 +48,111 @@ _docs:
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
+
 dp_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
 
 dp_no_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
 
 dp_obsolete_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
 
 dp_obsolete_no_gpu:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
-rb_gpu:
+  # human set params
+  CONFIG_FILE: ""
+  CLUSTER_PORT: ""
+
+
+router_bot:
   # default params
-  run_mode: ""
+  MONGO_DOCKER_TAG: "4.0.6-xenial"
+  MONGO_PROTOCOL: "mongodb"
+  MONGO_HOST: "127.0.0.1"
+  MONGO_PORT: 27017
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/router_bot"
+  MONGO_KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/db/mongo:{{MONGO_DOCKER_TAG}}"
+  FB_WEBHOOK: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/fb"
+  TG_WEBHOOK: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/tg"
 
   # human set params
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
+  CLUSTER_PORT: ""
+  CLUSTER_MONGO_PORT: ""
+  CLUSTER_SSH_PORT: ""
+  FB_PAGE_ACCESS_TOKEN: ""
+  FB_WEBHOOK_SECRET: ""
+  TG_TOKEN: ""
+  PROXY_PROTOCOL: ""
+  PROXY_HOST: ""
+  PROXY_PORT: ""
+  PROXY_USER: ""
+  PROXY_PASS: ""
 
-rb_no_gpu:
-  # default params
-  run_mode: ""
-
-  # human set params
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
 
 mongo_db:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
+  pipeline: "make_files_and_kuber_no_tests"
 
-dpas_agent:
-  # default params
-  serialize_config: true
-
-  # human set params
-  agent_config: {}
-  TELEGRAM_TOKEN: ""
-  TELEGRAM_PROXY: ""
-
-rb_dpas_agent:
-  # default params
-  BRANCH: "agent"
-  POLLER_BRANCH: "agent"
-  run_mode: ""
-  serialize_config: true
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/db/mongo:{{MONGO_DOCKER_TAG}}"
 
   # human set params
-  agent_config: {}
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
+  CLUSTER_PORT: ""
+
 
 http_proxy:
   # default params
-  KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy"
   pipeline: "make_files_and_kuber_no_tests"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/http_proxy"
+  PORT: "{{CLUSTER_PORT}}"
 
   # human set params
   CLUSTER_PORT: ""
