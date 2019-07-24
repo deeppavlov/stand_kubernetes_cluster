@@ -1,0 +1,5 @@
+poller_stand_ner_en:
+  TEMPLATE: router_bot_poller
+  MODEL_PORT: 7004
+  ROUTER_BOT_PORT: 8062
+  BOT_TOKEN: "dp_stand_ner_en"

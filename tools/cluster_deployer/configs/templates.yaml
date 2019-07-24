@@ -133,6 +133,11 @@ router_bot:
   PROXY_PASS: ""
 
 
+router_bot_poller:
+  # composed params
+  MODEL_URL: "http://{{CLUSTER_IP}}:{{MODEL_PORT}}/answer"
+
+
 mongo_db:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
