@@ -5,9 +5,9 @@ DeepPavlov base GPU and no-GPU docker files.
 Build instructions:
 
 ```
-docker build -f deeppavlov_no_gpu -t deeppavlov/base:<dp_version> \
+docker build -t deeppavlov/base:<dp_version> \
     --build-arg PYTHON_BASE_IMAGE=<python_base_docker_image> \
-    --build-arg COMMIT=<dp_version>
+    --build-arg COMMIT=<dp_version> .
 ```
 
 For now we are using:
