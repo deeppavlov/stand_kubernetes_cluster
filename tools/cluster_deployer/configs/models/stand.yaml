@@ -55,7 +55,7 @@ stand_squad_en:
 stand_squad_ml:
   CONFIG_FILE: squad/squad_bert_multilingual_freezed_emb_eval_on_ru.json
   TEMPLATE: dp_no_gpu
-  BRANCH: squad_multilingual_configs
+  COMMIT: squad_multilingual_configs
   CLUSTER_PORT: 7014
   MODEL_ARGS: ["text1", "text2"]
   image_polling_timeout_sec: 600

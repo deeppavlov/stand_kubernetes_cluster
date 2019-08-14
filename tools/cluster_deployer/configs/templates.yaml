@@ -5,7 +5,7 @@ _root:
   REPLICAS_NUM: 1
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
-  BRANCH: "master"
+  COMMIT: "master"
   PORT: 5000
   serialize_config: false
   image_polling_timeout_sec: 300
