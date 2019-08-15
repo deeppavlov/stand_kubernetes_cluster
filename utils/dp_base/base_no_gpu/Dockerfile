@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 ARG PYTHON_BASE_IMAGE=${PYTHON_BASE_IMAGE}
 FROM ${PYTHON_BASE_IMAGE}
 
@@ -22,12 +23,14 @@ VOLUME /root/.deeppavlov
 WORKDIR /base
 
 RUN apt-get update && \
-    apt-get install -y git locales && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        git \
+        locales && \
     printf '%s\n%s\n' 'en_US.UTF-8 UTF-8' 'ru_RU.UTF-8 UTF-8' >> /etc/locale.gen && \
-    locale-gen
-    # && \
-    # apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-	# rm -rf /var/lib/apt/lists/*
+    locale-gen && \
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
+	rm -rf /var/lib/apt/lists/*
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
