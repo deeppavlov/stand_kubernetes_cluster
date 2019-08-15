@@ -14,6 +14,8 @@
 ARG PYTHON_BASE_IMAGE=${PYTHON_BASE_IMAGE}
 FROM ${PYTHON_BASE_IMAGE}
 
+ARG COMMIT=master
+
 VOLUME /logs
 VOLUME /root/.deeppavlov
 
@@ -22,27 +24,28 @@ WORKDIR /base
 RUN apt-get update && \
     apt-get install -y git locales && \
     printf '%s\n%s\n' 'en_US.UTF-8 UTF-8' 'ru_RU.UTF-8 UTF-8' >> /etc/locale.gen && \
-    locale-gen && \
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-	rm -rf /var/lib/apt/lists/*
+    locale-gen
+    # && \
+    # apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
+	# rm -rf /var/lib/apt/lists/*
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
 RUN git clone https://github.com/deepmipt/DeepPavlov.git && \
     cd DeepPavlov && \
-    git checkout ${COMMIT} && \
+    git checkout $COMMIT && \
     python setup.py develop && \
     python -c 'import deeppavlov.models' && \
     rm -rf /root/.cache
 
 EXPOSE 5000
 
-CMD if [ ! -z ${COMMIT} ]; then \
+CMD if [ ! -z $COMMIT ]; then \
         cd /base/DeepPavlov && \
         git fetch --all --tags --prune && \
-        git checkout ${COMMIT} && \
+        git checkout $COMMIT && \
         python setup.py develop && \
         python -c 'import deeppavlov.models'; \
     fi && \
-    python -m deeppavlov install ${CONFIG} && \
-    python -m deeppavlov riseapi ${CONFIG} -p 5000 -d > "/logs"/${CONFIG}".log" 2>&1
+    python -m deeppavlov install $CONFIG && \
+    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/${CONFIG}".log" 2>&1
