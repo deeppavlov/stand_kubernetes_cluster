@@ -22,8 +22,9 @@ Run instructions:
 This runs container with DeepPavlov served in `riseapi` mode.
 
 ```
-docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 deeppavlov/base:<dp_version> \
+docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
     -e COMMIT=<git_commit_id> \
     -v <dp_logs_volume>:/logs \
-    -v <dp_components_volume>:/root/.deeppavlov
+    -v <dp_components_volume>:/root/.deeppavlov \
+    deeppavlov/base:<dp_version>
 ```
