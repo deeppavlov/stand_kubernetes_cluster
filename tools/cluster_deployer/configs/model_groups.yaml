@@ -16,6 +16,9 @@ stand:
 
 http_proxy:
   - http_proxy_vladimir01
+  - http_proxy_jura01
+  - http_proxy_cloud_demo_01
+  - http_proxy_cloud_demo_02
 
 demo:
   - demo_transformer_chit_chat_40k_v05_2
@@ -63,3 +66,6 @@ all:
   - stand_kbqa_ru
   - demo_transformer_chit_chat_40k_v05_2
   - http_proxy_vladimir01
+  - http_proxy_jura01
+  - http_proxy_cloud_demo_01
+  - http_proxy_cloud_demo_02
