@@ -35,8 +35,8 @@ RUN apt-get update && \
         git	\
         libbz2-dev \
         libc6-dev \
-        libcudnn7=$CUDNN_VERSION-1+cuda{{CUDA_VERSION}} \
-        libcudnn7-dev=$CUDNN_VERSION-1+cuda{{CUDA_VERSION}} \
+        libcudnn7=$CUDNN_VERSION-1+cuda${CUDA_VERSION%.*} \
+        libcudnn7-dev=$CUDNN_VERSION-1+cuda${CUDA_VERSION%.*} \
         libexpat1-dev \
         libffi-dev \
         libgdbm-dev \
