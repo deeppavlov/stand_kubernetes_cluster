@@ -17,6 +17,8 @@ FROM ${PYTHON_BASE_IMAGE}
 
 ARG COMMIT=master
 
+EXPOSE 5000
+
 VOLUME /logs
 VOLUME /root/.deeppavlov
 
@@ -40,8 +42,6 @@ RUN git clone https://github.com/deepmipt/DeepPavlov.git && \
     python setup.py develop && \
     python -c 'import deeppavlov.models' && \
     rm -rf /root/.cache
-
-EXPOSE 5000
 
 CMD if [ ! -z $COMMIT ]; then \
         cd /base/DeepPavlov && \
