@@ -8,6 +8,9 @@ Base images allow to run any DeepPavlov config from specific DP version.
 
 #### Build instructions:
 
+`cd` `cpu` dir, then: 
+
+
 ```shell script
 docker build -t deeppavlov/base:<dp_version> \
     --build-arg PYTHON_BASE_IMAGE=<python_base_docker_image> \
@@ -27,6 +30,9 @@ docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
 ### GPU
 
 #### Build instructions:
+
+`cd` `gpu` dir, then:
+
 
 ```shell script
 docker build -t deeppavlov/base-gpu:<dp_version> \
@@ -52,6 +58,9 @@ docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
 Model images allow to run specific DeepPavlov config from specific DP version.
 
 ### Build instructions:
+
+`cd` `model` dir, then:
+
 
 ```shell script
 docker build -t deeppavlov/<dp_config_name>[_gpu]:<dp_version> \
