@@ -12,7 +12,7 @@ Base images allow to run any DeepPavlov config from specific DP version.
 
 
 ```shell script
-docker build -t deeppavlov/base:<dp_version> \
+docker build -t deeppavlov/base-cpu:<dp_version> \
     --build-arg PYTHON_BASE_IMAGE=<python_base_docker_image> \
     --build-arg COMMIT=<dp_version> .
 ```
@@ -24,7 +24,7 @@ docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
     -e COMMIT=<git_commit_id> \
     -v <dp_logs_volume>:/logs \
     -v <dp_components_volume>:/root/.deeppavlov \
-    deeppavlov/base:<dp_version>
+    deeppavlov/base-cpu:<dp_version>
 ```
 
 ### GPU
@@ -63,7 +63,7 @@ Model images allow to run specific DeepPavlov config from specific DP version.
 
 
 ```shell script
-docker build -t deeppavlov/<dp_config_name>[_gpu]:<dp_version> \
+docker build -t deeppavlov/<dp_config_name>[_cpu | _gpu]:<dp_version> \
     --build-arg BASE_IMAGE=<dp_base_image> \
     --build-arg COMMIT=<dp_version> \
     --build-arg CONFIG=<dp_config_name>
@@ -75,7 +75,7 @@ docker build -t deeppavlov/<dp_config_name>[_gpu]:<dp_version> \
 docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
     -v <dp_logs_volume>:/logs \
     -v <dp_components_volume>:/root/.deeppavlov \
-    deeppavlov/ner_ru:cpu
+    deeppavlov/<dp_config_name>_cpu:<dp_version>
 ```
 
 #### GPU run instructions:
@@ -85,7 +85,7 @@ docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
     --runtime=nvidia \
     -v <dp_logs_volume>:/logs \
     -v <dp_components_volume>:/root/.deeppavlov \
-    deeppavlov/ner_ru:gpu
+    deeppavlov/<dp_config_name>_gpu:<dp_version>
 
 ```
 
