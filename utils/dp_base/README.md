@@ -66,7 +66,7 @@ Model images allow to run specific DeepPavlov config from specific DP version.
 docker build -t deeppavlov/<dp_config_name>[_cpu | _gpu]:<dp_version> \
     --build-arg BASE_IMAGE=<dp_base_image> \
     --build-arg COMMIT=<dp_version> \
-    --build-arg CONFIG=<dp_config_name>
+    --build-arg CONFIG=<dp_config_name> .
 ```
 
 #### CPU run instructions:
