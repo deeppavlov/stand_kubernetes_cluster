@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG NVIDIA_BASE_IMAGE=${NVIDIA_BASE_IMAGE}
-FROM ${NVIDIA_BASE_IMAGE}
+ARG NVIDIA_BASE_IMAGE
+FROM $NVIDIA_BASE_IMAGE
 
 ARG COMMIT=master
-ARG CUDNN_VERSION=${CUDNN_VERSION}
-ARG PYTHON_VERSION=${PYTHON_VERSION}
-
-LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
+ARG CUDNN_VERSION
+ARG PYTHON_VERSION
 
 EXPOSE 5000
 
@@ -85,4 +83,4 @@ CMD if [ ! -z $COMMIT ]; then \
         python -c 'import deeppavlov.models'; \
     fi && \
     python -m deeppavlov install $CONFIG && \
-    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/${CONFIG}".log" 2>&1
+    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1

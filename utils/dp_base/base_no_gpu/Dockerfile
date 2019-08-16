@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG PYTHON_BASE_IMAGE=${PYTHON_BASE_IMAGE}
-FROM ${PYTHON_BASE_IMAGE}
+ARG PYTHON_BASE_IMAGE
+FROM $PYTHON_BASE_IMAGE
 
 ARG COMMIT=master
 
@@ -51,4 +51,4 @@ CMD if [ ! -z $COMMIT ]; then \
         python -c 'import deeppavlov.models'; \
     fi && \
     python -m deeppavlov install $CONFIG && \
-    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/${CONFIG}".log" 2>&1
+    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1
