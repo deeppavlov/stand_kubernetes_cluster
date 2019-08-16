@@ -21,7 +21,7 @@ ADD . /app
 
 RUN cd /base/DeepPavlov && \
     git fetch --all --tags --prune && \
-    git checkout {{BRANCH}} && \
+    git checkout {{COMMIT}} && \
     python3.6 setup.py develop
 
 RUN pip install -r /base/DeepPavlov/deeppavlov/requirements/tf-gpu.txt && \

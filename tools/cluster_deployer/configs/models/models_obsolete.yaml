@@ -1,7 +1,7 @@
 demo_transformer_chit_chat_40k_v05:
   CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v05.json
   TEMPLATE: dp_obsolete_gpu
-  BRANCH: f727668
+  COMMIT: f727668
   CLUSTER_PORT: 7061
   run_mode: "interactmsbot"
   run_flags: ["--no-default-skill", "--stateful"]
@@ -10,7 +10,7 @@ demo_transformer_chit_chat_40k_v05:
 demo_bert_ranker_bot_3:
   CONFIG_FILE: ranking/ranking_mailru_bert_1.json
   TEMPLATE: dp_obsolete_gpu
-  BRANCH: bot/bert_ranker_bot_3
+  COMMIT: bot/bert_ranker_bot_3
   CLUSTER_PORT: 7062
   run_mode: "interactmsbot"
   run_flags: ["--stateful"]
@@ -19,7 +19,7 @@ demo_bert_ranker_bot_3:
 demo_ru_odqa_infer_wiki_rubert_noans:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
   TEMPLATE: dp_gpu
-  BRANCH: feat/bert
+  COMMIT: feat/bert
   CLUSTER_PORT: 7064
   run_mode: "interactmsbot"
   run_flags: ["--stateful"]
@@ -28,7 +28,7 @@ demo_ru_odqa_infer_wiki_rubert_noans:
 demo_ru_odqa_infer_wiki_rubert_noans_rest:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
   TEMPLATE: dp_gpu
-  BRANCH: feat/bert
+  COMMIT: feat/bert
   CLUSTER_PORT: 7065
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 1200

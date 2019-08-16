@@ -5,7 +5,7 @@ dev_mongo_db:
 demo_transformer_chit_chat_40k_v05_2:
   CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v05.json
   TEMPLATE: dp_obsolete_gpu
-  BRANCH: dbda0df
+  COMMIT: dbda0df
   CLUSTER_PORT: 7061
   run_mode: "interactmsbot"
   run_flags: ["--no-default-skill", "--stateful"]
