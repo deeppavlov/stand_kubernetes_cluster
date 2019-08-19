@@ -1,9 +1,9 @@
 {
   "common_defaults": {
     "host": "0.0.0.0",
-    "port": {{PORT}},
+    "port": 5000,
     "model_endpoint": "/answer",
-    "model_args_names": {{MODEL_ARGS}},
+    "model_args_names": ["text1"],
     "https": false,
     "https_cert_path": "",
     "https_key_path": "",
@@ -19,5 +19,19 @@
     "auth_app_id": "",
     "auth_app_secret": ""
   },
-  "model_defaults": {}
+  "alexa_defaults": {
+    "intent_name": "AskDeepPavlov",
+    "slot_name": "raw_input",
+    "start_message": "Welcome to DeepPavlov Alexa wrapper!",
+    "unsupported_message": "Sorry, DeepPavlov can't understand it.",
+    "conversation_lifetime": 3600
+  },
+  "model_defaults": {
+    "EcommerceSkill": {
+      "model_args_names": ["text1", "text2", "text3"]
+    },
+    "SquadModel": {
+      "model_args_names": ["text1", "text2"]
+    }
+  }
 }

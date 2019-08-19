@@ -53,6 +53,7 @@ dp_gpu:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
+  BASE_IMAGE: "deeppavlov/base-gpu:0.5.1"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
@@ -67,6 +68,7 @@ dp_no_gpu:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"

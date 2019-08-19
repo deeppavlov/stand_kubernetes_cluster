@@ -191,14 +191,16 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         self.docker_client: DockerClient = DockerClient(base_url=config['docker_base_url'])
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
-        models_dir_path = self.config['paths']['models_dir']
-        build_dir_path = str(models_dir_path / deployment_status.full_model_name)
-        image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
-
+        model_config = self.config['models'][deployment_status.full_model_name]
+        templates_dir_path = self.config['paths']['templates_dir']
+        build_dir_path = str(templates_dir_path / model_config['TEMPLATE'])
+        image_tag = model_config['KUBER_IMAGE_TAG']
+        buildarg_keys = ['BASE_IMAGE', 'COMMIT', 'CONFIG_FILE', 'RUN_CMD', 'FULL_MODEL_NAME']
         kwargs = {
             'path': build_dir_path,
             'tag': image_tag,
-            'rm': True
+            'rm': True,
+            'buildargs': {key: model_config[key] for key in buildarg_keys}
         }
 
         self.docker_client.images.build(**kwargs)
