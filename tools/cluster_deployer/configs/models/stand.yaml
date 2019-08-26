@@ -1,5 +1,5 @@
 stand_paraphraser_ru:
-  CONFIG: paraphraser_rubert.json
+  CONFIG: paraphraser_rubert
   TEMPLATE: dp
   CLUSTER_PORT: 7003
   MODEL_ARGS: ["text1", "text2"]
@@ -8,7 +8,7 @@ stand_paraphraser_ru:
   pipeline: all_up_kuber
 
 stand_ner_ru:
-  CONFIG: ner_rus_bert.json
+  CONFIG: ner_rus_bert
   TEMPLATE: dp
   CLUSTER_PORT: 7004
   MODEL_ARGS: ["text1"]
@@ -17,7 +17,7 @@ stand_ner_ru:
   pipeline: all_up_kuber
 
 stand_ner_en:
-  CONFIG: ner_ontonotes_bert_mult.json
+  CONFIG: ner_ontonotes_bert_mult
   TEMPLATE: dp
   CLUSTER_PORT: 7010
   MODEL_ARGS: ["text1"]
@@ -26,7 +26,7 @@ stand_ner_en:
   pipeline: all_up_kuber
 
 stand_ner_ml:
-  CONFIG: ner_ontonotes_bert_mult.json
+  CONFIG: ner_ontonotes_bert_mult
   TEMPLATE: dp
   CLUSTER_PORT: 7013
   MODEL_ARGS: ["text1"]
@@ -35,7 +35,7 @@ stand_ner_ml:
   pipeline: all_up_kuber
 
 stand_squad_ru:
-  CONFIG: squad_ru_bert_infer.json
+  CONFIG: squad_ru_bert_infer
   TEMPLATE: dp
   CLUSTER_PORT: 7005
   MODEL_ARGS: ["text1", "text2"]
@@ -44,7 +44,7 @@ stand_squad_ru:
   pipeline: all_up_kuber
 
 stand_squad_en:
-  CONFIG: squad_bert_infer.json
+  CONFIG: squad_bert_infer
   TEMPLATE: dp
   CLUSTER_PORT: 7008
   MODEL_ARGS: ["text1", "text2"]
@@ -53,7 +53,7 @@ stand_squad_en:
   pipeline: all_up_kuber
 
 stand_squad_ml:
-  CONFIG: squad_bert_multilingual_freezed_emb_eval_on_ru.json
+  CONFIG: squad_bert_multilingual_freezed_emb_eval_on_ru
   TEMPLATE: dp
   COMMIT: squad_multilingual_configs
   CLUSTER_PORT: 7014
@@ -63,7 +63,7 @@ stand_squad_ml:
   pipeline: all_up_kuber
 
 stand_intents_en:
-  CONFIG: intents_snips_big.json
+  CONFIG: intents_snips_big
   TEMPLATE: dp
   CLUSTER_PORT: 7007
   MODEL_ARGS: ["text1"]
@@ -72,7 +72,7 @@ stand_intents_en:
   pipeline: all_up_kuber
 
 stand_ranking_en:
-  CONFIG: ranking_insurance_interact.json
+  CONFIG: ranking_insurance_interact
   TEMPLATE: dp
   CLUSTER_PORT: 7009
   MODEL_ARGS: ["text1"]
@@ -81,7 +81,7 @@ stand_ranking_en:
   pipeline: all_up_kuber
 
 stand_insults_en:
-  CONFIG: insults_kaggle_bert.json
+  CONFIG: insults_kaggle_bert
   TEMPLATE: dp
   CLUSTER_PORT: 7006
   MODEL_ARGS: ["text1"]
@@ -90,7 +90,7 @@ stand_insults_en:
   pipeline: all_up_kuber
 
 stand_odqa_en:
-  CONFIG: en_odqa_pop_infer_enwiki20180211.json
+  CONFIG: en_odqa_pop_infer_enwiki20180211
   TEMPLATE: dp
   BASE_IMAGE: "deeppavlov/base-gpu:0.5.1"
   GPU_USAGE_LIMIT: 1
@@ -101,7 +101,7 @@ stand_odqa_en:
   pipeline: all_up_kuber
 
 stand_odqa_ru:
-  CONFIG: ru_odqa_infer_wiki_rubert_noans.json
+  CONFIG: ru_odqa_infer_wiki_rubert_noans
   TEMPLATE: dp
   BASE_IMAGE: "deeppavlov/base-gpu:0.5.1"
   GPU_USAGE_LIMIT: 1
@@ -112,7 +112,7 @@ stand_odqa_ru:
   pipeline: all_up_kuber
 
 stand_sentiment_ru:
-  CONFIG: rusentiment_elmo_twitter_cnn.json
+  CONFIG: rusentiment_elmo_twitter_cnn
   TEMPLATE: dp
   CLUSTER_PORT: 7015
   MODEL_ARGS: ["text1"]
@@ -121,7 +121,7 @@ stand_sentiment_ru:
   pipeline: all_up_kuber
 
 stand_kbqa_ru:
-  CONFIG: kbqa_rus.json
+  CONFIG: kbqa_rus
   TEMPLATE: dp
   CLUSTER_PORT: 7016
   MODEL_ARGS: ["text1"]
