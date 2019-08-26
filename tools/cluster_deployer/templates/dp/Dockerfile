@@ -29,7 +29,7 @@ ENV RUN_CMD=$RUN_CMD
 
 WORKDIR /app
 
-RUN if [[ $COMMIT != "" ]]; then \
+RUN if [ $COMMIT != "" ]; then \
         cd /base/DeepPavlov && \
         git fetch --all --tags --prune && \
         git checkout $COMMIT && \
@@ -39,9 +39,9 @@ RUN if [[ $COMMIT != "" ]]; then \
     fi && \
     sed -i "/enabled/s/false/true/g" "/base/DeepPavlov/deeppavlov/utils/settings/dialog_logger_config.json" && \
     sed -i "/agent_name/s/dp_agent/dp_api/g" "/base/DeepPavlov/deeppavlov/utils/settings/dialog_logger_config.json" && \
-    sed -i "s|~/.deeppavlov|/logs/"$FULL_MODEL_NAME"|g" "/base/DeepPavlov/deeppavlov/utils/settings/dialog_logger_config.json" && \
+    sed -i "s/~\/.deeppavlov/\/logs\/$FULL_MODEL_NAME/g" "/base/DeepPavlov/deeppavlov/utils/settings/dialog_logger_config.json" && \
     sed -i -E "/model_endpoint/s/\"\/.+\"/\"\/answer\"/g" "/base/DeepPavlov/deeppavlov/utils/settings/server_config.json" && \
-    sed -i -E "/model_args_names/s/\[.+\]/"$MODEL_ARGS"/g" "/base/DeepPavlov/deeppavlov/utils/settings/server_config.json" && \
+    sed -i -E "/model_args_names/s/\[.+\]/$MODEL_ARGS/g" "/base/DeepPavlov/deeppavlov/utils/settings/server_config.json" && \
     python -m deeppavlov install $CONFIG
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \

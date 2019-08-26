@@ -195,9 +195,13 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         templates_dir_path = self.config['paths']['templates_dir']
         build_dir_path = str(templates_dir_path / model_config['TEMPLATE'])
         image_tag = model_config['KUBER_IMAGE_TAG']
+
         buildarg_keys = ['BASE_IMAGE', 'COMMIT', 'CONFIG', 'RUN_CMD', 'FULL_MODEL_NAME']
         buildargs = {key: model_config[key] for key in buildarg_keys}
-        buildargs['MODEL_ARGS'] = json.dumps(model_config['MODEL_ARGS'])
+        dumped_args = json.dumps(model_config['MODEL_ARGS'])
+        dumped_args = dumped_args.replace('"', '\\"').replace('[', '\\[').replace(']', '\]')
+        buildargs['MODEL_ARGS'] = dumped_args
+
         kwargs = {
             'path': build_dir_path,
             'tag': image_tag,
