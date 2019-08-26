@@ -61,7 +61,7 @@ dp:
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # human set params
-  CONFIG_FILE: ""
+  CONFIG: ""
   CLUSTER_PORT: ""
 
 
@@ -75,7 +75,7 @@ dp_obsolete_gpu:
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # human set params
-  CONFIG_FILE: ""
+  CONFIG: ""
   CLUSTER_PORT: ""
 
 
@@ -89,7 +89,7 @@ dp_obsolete_no_gpu:
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # human set params
-  CONFIG_FILE: ""
+  CONFIG: ""
   CLUSTER_PORT: ""
 
 
