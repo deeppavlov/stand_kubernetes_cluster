@@ -29,7 +29,7 @@ ENV RUN_CMD=$RUN_CMD
 
 WORKDIR /app
 
-RUN if [ $COMMIT != 'master' ]; then \
+RUN if [[ $COMMIT != "" ]]; then \
         cd /base/DeepPavlov && \
         git fetch --all --tags --prune && \
         git checkout $COMMIT && \
