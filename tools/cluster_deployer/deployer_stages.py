@@ -224,8 +224,6 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
         container_port = self.config['models'][deployment_status.full_model_name]['PORT']
         local_log_dir = str(Path(self.config['local_log_dir']).expanduser().resolve())
         container_log_dir = str(Path(self.config['container_log_dir']).expanduser().resolve())
-        dockerfile_template = self.config['models'][deployment_status.full_model_name]['TEMPLATE']
-        gpu_templates = self.config['gpu_templates']
         local_gpu_device_index = self.config['local_gpu_device_index']
 
         kwargs = {
@@ -233,12 +231,10 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
             'auto_remove': True,
             'detach': True,
             'ports': {container_port: container_port},
-            'volumes': {local_log_dir: {'bind': container_log_dir, 'mode': 'rw'}}
+            'volumes': {local_log_dir: {'bind': container_log_dir, 'mode': 'rw'}},
+            'runtime': 'nvidia',
+            'devices': [f'/dev/nvidia{str(local_gpu_device_index)}']
         }
-
-        if dockerfile_template in gpu_templates:
-            kwargs['runtime'] = 'nvidia'
-            kwargs['devices'] = [f'/dev/nvidia{str(local_gpu_device_index)}']
 
         self.container: Container = self.docker_client.containers.run(**kwargs)
 

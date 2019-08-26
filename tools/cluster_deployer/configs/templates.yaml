@@ -49,26 +49,12 @@ _docs:
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 
-dp_gpu:
-  # default params
-  run_mode: "riseapi"
-  pipeline: "all_up_kuber_no_tests"
-  BASE_IMAGE: "deeppavlov/base-gpu:0.5.1"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-  # human set params
-  CONFIG_FILE: ""
-  CLUSTER_PORT: ""
-
-
-dp_no_gpu:
+dp:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
   BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
+  GPU_USAGE_LIMIT: 0
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
