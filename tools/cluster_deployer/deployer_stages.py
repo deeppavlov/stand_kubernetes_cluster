@@ -196,11 +196,13 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         build_dir_path = str(templates_dir_path / model_config['TEMPLATE'])
         image_tag = model_config['KUBER_IMAGE_TAG']
         buildarg_keys = ['BASE_IMAGE', 'COMMIT', 'CONFIG_FILE', 'RUN_CMD', 'FULL_MODEL_NAME']
+        buildargs = {key: model_config[key] for key in buildarg_keys}
+        buildargs['MODEL_ARGS'] = json.dumps(model_config['MODEL_ARGS'])
         kwargs = {
             'path': build_dir_path,
             'tag': image_tag,
             'rm': True,
-            'buildargs': {key: model_config[key] for key in buildarg_keys}
+            'buildargs': buildargs
         }
 
         self.docker_client.images.build(**kwargs)
