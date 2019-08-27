@@ -5,7 +5,7 @@ _root:
   REPLICAS_NUM: 1
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
-  COMMIT: "master"
+  COMMIT: ""
   PORT: 5000
   serialize_config: false
   image_polling_timeout_sec: 300
@@ -49,31 +49,19 @@ _docs:
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 
-dp_gpu:
+dp:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
+  GPU_UNITS_NUM: 0
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # human set params
-  CONFIG_FILE: ""
-  CLUSTER_PORT: ""
-
-
-dp_no_gpu:
-  # default params
-  run_mode: "riseapi"
-  pipeline: "all_up_kuber_no_tests"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-  # human set params
-  CONFIG_FILE: ""
+  CONFIG: ""
   CLUSTER_PORT: ""
 
 
@@ -87,7 +75,7 @@ dp_obsolete_gpu:
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # human set params
-  CONFIG_FILE: ""
+  CONFIG: ""
   CLUSTER_PORT: ""
 
 
@@ -101,7 +89,7 @@ dp_obsolete_no_gpu:
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # human set params
-  CONFIG_FILE: ""
+  CONFIG: ""
   CLUSTER_PORT: ""
 
 
