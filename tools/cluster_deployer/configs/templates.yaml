@@ -54,7 +54,7 @@ dp:
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
   BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
-  GPU_USAGE_LIMIT: 0
+  GPU_UNITS_NUM: 0
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"

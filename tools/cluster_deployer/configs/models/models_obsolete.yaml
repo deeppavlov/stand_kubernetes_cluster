@@ -20,7 +20,7 @@ demo_ru_odqa_infer_wiki_rubert_noans:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
   TEMPLATE: dp
   BASE_IMAGE: "deeppavlov/base-gpu:0.5.1"
-  GPU_USAGE_LIMIT: 1
+  GPU_UNITS_NUM: 1
   COMMIT: feat/bert
   CLUSTER_PORT: 7064
   run_mode: "interactmsbot"
@@ -31,7 +31,7 @@ demo_ru_odqa_infer_wiki_rubert_noans_rest:
   CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
   TEMPLATE: dp
   BASE_IMAGE: "deeppavlov/base-gpu:0.5.1"
-  GPU_USAGE_LIMIT: 1
+  GPU_UNITS_NUM: 1
   COMMIT: feat/bert
   CLUSTER_PORT: 7065
   MODEL_ARGS: ["text1"]

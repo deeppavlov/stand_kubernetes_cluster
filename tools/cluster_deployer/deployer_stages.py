@@ -199,7 +199,8 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         buildarg_keys = ['BASE_IMAGE', 'COMMIT', 'CONFIG', 'RUN_CMD', 'FULL_MODEL_NAME']
         buildargs = {key: model_config[key] for key in buildarg_keys}
         dumped_args = json.dumps(model_config['MODEL_ARGS'])
-        dumped_args = dumped_args.replace('"', '\\"').replace('[', '\\[').replace(']', '\]')
+        # TODO: find out how to get rid of the replacement
+        dumped_args = dumped_args.replace('"', '\\"').replace('[', '\\[').replace(']', '\\]')
         buildargs['MODEL_ARGS'] = dumped_args
 
         kwargs = {
