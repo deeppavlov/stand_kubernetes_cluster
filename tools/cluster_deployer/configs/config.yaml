@@ -3,6 +3,8 @@ dockerhub_registry: "deeppavlov"
 docker_base_url: "unix://var/run/docker.sock"
 local_log_dir: "~/dev/logs/"
 container_log_dir: "/logs/"
+local_components_dir: "~/.deeppavlov/"
+container_components_dir: "/root/.deeppavlov/"
 local_gpu_device_index: 0
 
 paths:
