@@ -15,22 +15,12 @@ stand:
   - stand_kbqa_ru
 
 http_proxy:
-  - http_proxy_vladimir01
   - http_proxy_jura01
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
 
 demo:
   - demo_transformer_chit_chat_40k_v05_2
-
-dpas_stable:
-  - dpas_stable_mongo
-  - dpas_stable_skill_odqa
-  - dpas_stable_skill_chitchat
-  - dpas_stable_annotator_ner
-  - dpas_stable_annotator_sentiment
-  - dpas_stable_annotator_obscenity
-  - dpas_stable_selector_chitchat_odqa
 
 push_pull:
   - stand_paraphraser_ru
@@ -65,7 +55,6 @@ all:
   - stand_sentiment_ru
   - stand_kbqa_ru
   - demo_transformer_chit_chat_40k_v05_2
-  - http_proxy_vladimir01
   - http_proxy_jura01
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
