@@ -91,6 +91,7 @@ For now plain insecure HTTP registry is used.
         ```
     2. Restart Docker for the changes to take effect:
         ```
+        sudo systemctl daemon-reload
         sudo systemctl restart docker
         ```
     
