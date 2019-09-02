@@ -1,0 +1,10 @@
+# Simple demo Agent
+agent_chitchat:
+  TEMPLATE: agent_obsolete
+  CONFIG: "legacy_components/skills/ranking_chitchat/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json"
+  CLUSTER_PORT: 7030
+
+agent_chitchat_odqa:
+  TEMPLATE: agent_obsolete
+  CONFIG: "legacy_components/skill_selectors/chitchat_odqa_selector/sselector_chitchat_odqa.json"
+  CLUSTER_PORT: 7040
