@@ -7,7 +7,6 @@ _root:
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   COMMIT: ""
-  # TODO: investigate and remove
   PORT: 5000
   serialize_config: false
   image_polling_timeout_sec: 300
