@@ -66,6 +66,15 @@ dp:
   CLUSTER_PORT: ""
 
 
+agent_obsolete:
+  # default params
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CONFIG: ""
+  CLUSTER_PORT: ""
+
+
 router_bot:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
