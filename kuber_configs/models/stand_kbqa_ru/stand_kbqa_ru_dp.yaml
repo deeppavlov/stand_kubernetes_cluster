@@ -13,6 +13,9 @@ spec:
       containers:
       - name: stand-kbqa-ru
         image: kubeadm.ipavlov.mipt.ru:5000/stand/kbqa_ru
+        resources:
+          limits:
+            nvidia.com/gpu: 0
         ports:
         - name: cp5000
           protocol: TCP
