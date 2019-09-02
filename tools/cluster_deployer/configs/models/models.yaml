@@ -2,14 +2,6 @@ dev_mongo_db:
   TEMPLATE: mongo_db
   CLUSTER_PORT: 10001
 
-demo_transformer_chit_chat_40k_v05_2:
-  CONFIG: transformer_chit_chat_40k_v05
-  TEMPLATE: dp_obsolete_gpu
-  COMMIT: dbda0df
-  CLUSTER_PORT: 7061
-  run_mode: "interactmsbot"
-  run_flags: ["--no-default-skill", "--stateful"]
-
 dev_odqa_en:
   CONFIG: en_odqa_pop_infer_enwiki20180211
   TEMPLATE: dp

@@ -67,36 +67,6 @@ dp:
   CLUSTER_PORT: ""
 
 
-# TODO: investigate and remove
-dp_obsolete_gpu:
-  # default params
-  run_mode: "riseapi"
-  pipeline: "all_up_kuber_no_tests"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-  # human set params
-  CONFIG: ""
-  CLUSTER_PORT: ""
-
-
-# TODO: investigate and remove
-dp_obsolete_no_gpu:
-  # default params
-  run_mode: "riseapi"
-  pipeline: "all_up_kuber_no_tests"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-  # human set params
-  CONFIG: ""
-  CLUSTER_PORT: ""
-
-
 router_bot:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"

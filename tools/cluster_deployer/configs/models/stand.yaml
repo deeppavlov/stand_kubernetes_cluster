@@ -53,9 +53,8 @@ stand_squad_en:
   pipeline: all_up_kuber
 
 stand_squad_ml:
-  CONFIG: squad_bert_multilingual_freezed_emb_eval_on_ru
+  CONFIG: squad_bert_multilingual_freezed_emb
   TEMPLATE: dp
-  COMMIT: squad_multilingual_configs
   CLUSTER_PORT: 7014
   MODEL_ARGS: ["text1", "text2"]
   image_polling_timeout_sec: 600
@@ -81,7 +80,7 @@ stand_ranking_en:
   pipeline: all_up_kuber
 
 stand_insults_en:
-  CONFIG: insults_kaggle_bert
+  CONFIG: insults_kaggle_conv_bert
   TEMPLATE: dp
   CLUSTER_PORT: 7006
   MODEL_ARGS: ["text1"]
