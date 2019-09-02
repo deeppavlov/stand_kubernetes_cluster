@@ -19,9 +19,6 @@ http_proxy:
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
 
-demo:
-  - demo_transformer_chit_chat_40k_v05_2
-
 push_pull:
   - stand_paraphraser_ru
   - stand_ner_ru
@@ -37,7 +34,6 @@ push_pull:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
-  - demo_transformer_chit_chat_40k_v05_2
 
 all:
   - stand_paraphraser_ru
@@ -54,7 +50,6 @@ all:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
-  - demo_transformer_chit_chat_40k_v05_2
   - http_proxy_jura01
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
