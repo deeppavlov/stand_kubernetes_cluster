@@ -66,6 +66,39 @@ dp:
   CLUSTER_PORT: ""
 
 
+agent_transport:
+  # default params
+  pipeline: "all_up_kuber_no_tests"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_REPSONSE_TIMEOUT: 20
+
+  SERVICE_NAME: "service"
+  BATCH_SIZE: 5
+  SERVICE_INFER_TIMEOUT: 30
+  SERVICE_FORMATTER: "formatter"
+  SERVICE_CALLER: "default"
+  SERVICE_URL: "http://localhost:5000/service"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+
+  # composed params
+  MONGO_HOST: "{{CLUSTER_IP}}"
+  RABBIT_HOST: "{{CLUSTER_IP}}"
+
+  # human set params
+  MODE: ""
+  CONFIG: ""
+  CLUSTER_PORT: ""
+  MONGO_PORT: ""
+  RABBIT_PORT: ""
+
+
 agent_obsolete:
   # default params
   pipeline: "make_files_and_kuber_no_tests"
@@ -101,6 +134,16 @@ router_bot:
   PROXY_PORT: ""
   PROXY_USER: ""
   PROXY_PASS: ""
+
+
+rabbitmq:
+  # default params
+  RABBIT_DOCKER_TAG: "3-management"
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CLUSTER_PORT: ""
+  CLUSTER_MANAGEMENT_PORT: ""
 
 
 mongo_db:
