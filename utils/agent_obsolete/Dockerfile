@@ -1,6 +1,5 @@
 FROM deeppavlov/agent:skill-legacy
 
-ENV MODEL_NAME=$FULL_MODEL_NAME
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
