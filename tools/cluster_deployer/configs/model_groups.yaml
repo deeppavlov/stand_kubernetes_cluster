@@ -19,6 +19,10 @@ http_proxy:
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
 
+agent_obsolete_services:
+  - agent_chitchat
+  - agent_chitchat_odqa
+
 push_pull:
   - stand_paraphraser_ru
   - stand_ner_ru
