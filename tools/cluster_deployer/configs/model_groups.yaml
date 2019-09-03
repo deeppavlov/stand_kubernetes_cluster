@@ -19,7 +19,9 @@ http_proxy:
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
 
-agent_obsolete_services:
+agent_general:
+  - agent_mongo_db
+  - agent_rabbitmq
   - agent_chitchat
   - agent_chitchat_odqa
 
