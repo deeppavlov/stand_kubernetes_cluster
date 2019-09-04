@@ -9,8 +9,6 @@ mkdir -p ~kube/.kube && \
 cp /etc/kubernetes/admin.conf ~kube/.kube/config && \
 chown kube ~kube/.kube/config && \
 
-kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default && \
-#kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml && \
-kubectl apply -f flannel.yaml && \
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml && \
 
 kubectl -n kube-system get nodes

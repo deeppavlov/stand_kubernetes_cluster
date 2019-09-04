@@ -3,6 +3,7 @@ _root:
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
+  # TODO: investigate and remove
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   COMMIT: ""
@@ -65,28 +66,42 @@ dp:
   CLUSTER_PORT: ""
 
 
-dp_obsolete_gpu:
+agent_transport:
   # default params
-  run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_REPSONSE_TIMEOUT: 20
+
+  SERVICE_NAME: "service"
+  BATCH_SIZE: 5
+  SERVICE_INFER_TIMEOUT: 30
+  SERVICE_FORMATTER: "formatter"
+  SERVICE_CALLER: "default"
+  SERVICE_URL: "http://localhost:5000/service"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
 
   # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer/poller"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer/poller"
+  MONGO_HOST: "{{CLUSTER_IP}}"
+  RABBIT_HOST: "{{CLUSTER_IP}}"
 
   # human set params
+  MODE: ""
   CONFIG: ""
   CLUSTER_PORT: ""
+  MONGO_PORT: ""
+  RABBIT_PORT: ""
 
 
-dp_obsolete_no_gpu:
+agent_obsolete:
   # default params
-  run_mode: "riseapi"
-  pipeline: "all_up_kuber_no_tests"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer/poller"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer/poller"
+  pipeline: "make_files_and_kuber_no_tests"
 
   # human set params
   CONFIG: ""
@@ -119,6 +134,16 @@ router_bot:
   PROXY_PORT: ""
   PROXY_USER: ""
   PROXY_PASS: ""
+
+
+rabbitmq:
+  # default params
+  RABBIT_DOCKER_TAG: "3-management"
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CLUSTER_PORT: ""
+  CLUSTER_MANAGEMENT_PORT: ""
 
 
 mongo_db:

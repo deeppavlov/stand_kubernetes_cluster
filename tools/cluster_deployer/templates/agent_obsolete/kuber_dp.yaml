@@ -12,10 +12,7 @@ spec:
     spec:
       containers:
       - name: {{FULL_MODEL_NAME_DASHED}}
-        image: {{KUBER_IMAGE_TAG}}
-        resources:
-          limits:
-            nvidia.com/gpu: 1
+        image: kubeadm.ipavlov.mipt.ru:5000/agent_obsolete
         ports:
         - name: {{KUBER_CONTAINER_PORT_NAME}}
           protocol: TCP
@@ -29,6 +26,10 @@ spec:
           mountPath: /etc/podinfo
           readOnly: false
         env:
+        - name: MODEL_NAME
+          value: "{{FULL_MODEL_NAME}}"
+        - name: CONFIG
+          value: "{{CONFIG}}"
         - name: POD_NODE
           valueFrom:
             fieldRef:
