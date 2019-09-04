@@ -13,6 +13,7 @@ spec:
       containers:
       - name: {{FULL_MODEL_NAME_DASHED}}
         image: {{KUBER_IMAGE_TAG}}
+        # TODO: freese mongo port
         ports:
         - name: {{KUBER_CONTAINER_PORT_NAME}}
           protocol: TCP
@@ -32,6 +33,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: FULL_MODEL_NAME
+          value: '{{FULL_MODEL_NAME}}'
       volumes:
       - name: volume-db-data
         persistentVolumeClaim:

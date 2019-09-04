@@ -86,7 +86,7 @@ def list_names(config: dict, args: argparse.Namespace) -> None:
         models_info = [f'{model.get("PREFIX", "-")}_'
                        f'{model.get("MODEL_NAME", "-")} | '
                        f'{model.get("TEMPLATE", "-")} | '
-                       f'{model.get("CONFIG_FILE", "-")}' for model in config['models'].values()]
+                       f'{model.get("CONFIG", "-")}' for model in config['models'].values()]
 
         models_str = '\n'.join(models_info)
         print(models_str)

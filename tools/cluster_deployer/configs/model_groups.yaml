@@ -15,19 +15,31 @@ stand:
   - stand_kbqa_ru
 
 http_proxy:
-  - http_proxy_litinsky
-  - http_proxy_basil
+  - http_proxy_jura01
+  - http_proxy_cloud_demo_01
+  - http_proxy_cloud_demo_02
 
-custom: []
+agent_general:
+  - agent_mongo_db
+  - agent_rabbitmq
+  - agent_chitchat
+  - agent_chitchat_odqa
 
-dpas_stable:
-  - dpas_stable_mongo
-  - dpas_stable_skill_odqa
-  - dpas_stable_skill_chitchat
-  - dpas_stable_annotator_ner
-  - dpas_stable_annotator_sentiment
-  - dpas_stable_annotator_obscenity
-  - dpas_stable_selector_chitchat_odqa
+push_pull:
+  - stand_paraphraser_ru
+  - stand_ner_ru
+  - stand_ner_en
+  - stand_intents_en
+  - stand_insults_en
+  - stand_ranking_en
+  - stand_squad_ru
+  - stand_squad_en
+  - stand_squad_ml
+  - stand_odqa_ru
+  - stand_odqa_en
+  - stand_ner_ml
+  - stand_sentiment_ru
+  - stand_kbqa_ru
 
 all:
   - stand_paraphraser_ru
@@ -44,3 +56,6 @@ all:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
+  - http_proxy_jura01
+  - http_proxy_cloud_demo_01
+  - http_proxy_cloud_demo_02

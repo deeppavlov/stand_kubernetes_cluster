@@ -5,10 +5,6 @@ local_log_dir: "~/dev/logs/"
 container_log_dir: "/logs/"
 local_gpu_device_index: 0
 
-gpu_templates:
-  - "dp_gpu"
-  - "rb_gpu"
-
 paths:
   deployer_dir: "{{root_dir}}/tools/cluster_deployer/"
   templates_dir: "{{root_dir}}/tools/cluster_deployer/templates/"

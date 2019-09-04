@@ -2,9 +2,11 @@ _root:
   # default params
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
+  REPLICAS_NUM: 1
+  # TODO: investigate and remove
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
-  BRANCH: "master"
+  COMMIT: ""
   PORT: 5000
   serialize_config: false
   image_polling_timeout_sec: 300
@@ -38,6 +40,7 @@ _root:
   test_deployment_url: ""
   pipeline: ""
 
+
 # examples for some params
 _docs:
   run_flags: ["--default-skill"]
@@ -46,90 +49,123 @@ _docs:
     --port: 8433
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
-dp_gpu:
+
+dp:
   # default params
   run_mode: "riseapi"
+  pipeline: "all_up_kuber_no_tests"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
+  GPU_UNITS_NUM: 0
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-dp_no_gpu:
-  # default params
-  run_mode: "riseapi"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-dp_obsolete_gpu:
-  # default params
-  run_mode: "riseapi"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-dp_obsolete_no_gpu:
-  # default params
-  run_mode: "riseapi"
-
-  # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
-
-rb_gpu:
-  # default params
-  run_mode: ""
 
   # human set params
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
+  CONFIG: ""
+  CLUSTER_PORT: ""
 
-rb_no_gpu:
+
+agent_transport:
   # default params
-  run_mode: ""
+  pipeline: "all_up_kuber_no_tests"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_REPSONSE_TIMEOUT: 20
+
+  SERVICE_NAME: "service"
+  BATCH_SIZE: 5
+  SERVICE_INFER_TIMEOUT: 30
+  SERVICE_FORMATTER: "formatter"
+  SERVICE_CALLER: "default"
+  SERVICE_URL: "http://localhost:5000/service"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+
+  # composed params
+  MONGO_HOST: "{{CLUSTER_IP}}"
+  RABBIT_HOST: "{{CLUSTER_IP}}"
 
   # human set params
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
+  MODE: ""
+  CONFIG: ""
+  CLUSTER_PORT: ""
+  MONGO_PORT: ""
+  RABBIT_PORT: ""
+
+
+agent_obsolete:
+  # default params
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CONFIG: ""
+  CLUSTER_PORT: ""
+
+
+router_bot:
+  # default params
+  MONGO_DOCKER_TAG: "4.0.6-xenial"
+  MONGO_PROTOCOL: "mongodb"
+  MONGO_HOST: "127.0.0.1"
+  MONGO_PORT: 27017
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/router_bot"
+  MONGO_KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/db/mongo:{{MONGO_DOCKER_TAG}}"
+  FB_WEBHOOK: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/fb"
+  TG_WEBHOOK: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/tg"
+
+  # human set params
+  CLUSTER_PORT: ""
+  CLUSTER_MONGO_PORT: ""
+  CLUSTER_SSH_PORT: ""
+  FB_PAGE_ACCESS_TOKEN: ""
+  FB_WEBHOOK_SECRET: ""
+  TG_TOKEN: ""
+  PROXY_PROTOCOL: ""
+  PROXY_HOST: ""
+  PROXY_PORT: ""
+  PROXY_USER: ""
+  PROXY_PASS: ""
+
+
+rabbitmq:
+  # default params
+  RABBIT_DOCKER_TAG: "3-management"
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CLUSTER_PORT: ""
+  CLUSTER_MANAGEMENT_PORT: ""
+
 
 mongo_db:
   # default params
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   PORT: 27017
+  pipeline: "make_files_and_kuber_no_tests"
 
-dpas_agent:
-  # default params
-  serialize_config: true
-
-  # human set params
-  agent_config: {}
-  TELEGRAM_TOKEN: ""
-  TELEGRAM_PROXY: ""
-
-rb_dpas_agent:
-  # default params
-  BRANCH: "agent"
-  POLLER_BRANCH: "agent"
-  run_mode: ""
-  serialize_config: true
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/db/mongo:{{MONGO_DOCKER_TAG}}"
 
   # human set params
-  agent_config: {}
-  run_params:
-    --host: ""
-    --port: ""
-    --token: ""
+  CLUSTER_PORT: ""
+
 
 http_proxy:
   # default params
-  KUBER_IMAGE_TAG: "kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy"
   pipeline: "make_files_and_kuber_no_tests"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/http_proxy"
+  PORT: "{{CLUSTER_PORT}}"
 
   # human set params
   CLUSTER_PORT: ""
