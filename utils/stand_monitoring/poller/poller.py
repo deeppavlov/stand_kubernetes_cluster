@@ -1,16 +1,19 @@
 import json
-import polling
 import requests
+from pathlib import Path
+from typing import Dict
+
+import polling
 
 OK_RESPONSE = 200
 
-config_path = './config.json'
+config_path = Path(__file__).resolve().parent / 'config.json'
 with open(config_path, 'r') as f_config:
     config = json.load(f_config)
 
 
-def probe(services: dict, request_timeout: float):
-    probe_result = {}
+def probe(services: Dict[str, str], request_timeout: float) -> Dict[str, bool]:
+    probe_result = dict()
 
     for model, url in services.items():
         service_name = ' '.join([model, url])
@@ -23,14 +26,14 @@ def probe(services: dict, request_timeout: float):
     return probe_result
 
 
-def act(services_status: dict, probe_result: dict):
+def act(services_status: Dict[str, bool], probe_result: Dict[str, bool]) -> None:
     urls = {url: probe_result[url] for url, status in services_status.items() if (url in probe_result and
                                                                                   status is not probe_result[url])}
     if urls:
         notify(urls)
 
 
-def notify(services: dict, first_notification=False):
+def notify(services: Dict[str, bool], first_notification: bool = False) -> None:
     channel = config['general']['notification']
     channel_config = config['notification'][channel]
     msgs = config['notification']
@@ -55,7 +58,7 @@ def notify(services: dict, first_notification=False):
         _ = requests.post(webhook, json=payload)
 
 
-def start_pooling():
+def start_pooling() -> None:
     polling_interval = config['general']['polling_interval']
     request_timeout = config['general']['request_timeout']
     services = config['services']
@@ -63,7 +66,7 @@ def start_pooling():
     services_status = probe(services, request_timeout)
     notify(services_status, True)
 
-    def estimate(prob: dict):
+    def estimate(prob: Dict[str, bool]) -> bool:
         return services_status != prob
 
     while True:
