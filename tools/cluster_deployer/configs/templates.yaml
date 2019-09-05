@@ -3,6 +3,7 @@ _root:
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
+  GPU_UNITS_NUM: 0
   # TODO: investigate and remove
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
@@ -55,7 +56,6 @@ dp:
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
   BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
-  GPU_UNITS_NUM: 0
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
@@ -66,21 +66,24 @@ dp:
   CLUSTER_PORT: ""
 
 
-agent_transport:
+agent_service_http:
   # default params
   pipeline: "all_up_kuber_no_tests"
+
+  # TODO: remove
+  BASE_IMAGE: ""
+
+  MODE: "service"
   INSTANCE_ID: ""
 
   AGENT_NAMESPACE: "deeppavlov_agent"
   AGENT_NAME: "dp_agent"
   AGENT_REPSONSE_TIMEOUT: 20
 
-  SERVICE_NAME: "service"
   BATCH_SIZE: 5
   SERVICE_INFER_TIMEOUT: 30
-  SERVICE_FORMATTER: "formatter"
   SERVICE_CALLER: "default"
-  SERVICE_URL: "http://localhost:5000/service"
+  SERVICE_URL: "http://127.0.0.1:5000/answer"
 
   TRANSPORT_TYPE: "rabbitmq"
   RABBIT_LOGIN: "guest"
@@ -91,10 +94,54 @@ agent_transport:
   MONGO_HOST: "{{CLUSTER_IP}}"
   RABBIT_HOST: "{{CLUSTER_IP}}"
 
+  SERVICE_FULL_NAME: "{{FULL_MODEL_NAME}}_service"
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
+
   # human set params
-  MODE: ""
+  SERVICE_IMAGE_TAG: ""
   CONFIG: ""
-  CLUSTER_PORT: ""
+
+  SERVICE_NAME: ""
+  SERVICE_FORMATTER: ""
+
+  MONGO_PORT: ""
+  RABBIT_PORT: ""
+
+
+agent_service_python:
+  # default params
+  pipeline: "all_up_kuber_no_tests"
+
+  # TODO: remove
+  BASE_IMAGE: ""
+  CONFIG: ""
+
+  MODE: "service"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_REPSONSE_TIMEOUT: 20
+
+  BATCH_SIZE: 5
+  SERVICE_INFER_TIMEOUT: 30
+  SERVICE_CALLER: "default"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+
+  # composed params
+  MONGO_HOST: "{{CLUSTER_IP}}"
+  RABBIT_HOST: "{{CLUSTER_IP}}"
+
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
+
+  # human set params
+  SERVICE_NAME: ""
+  SERVICE_FORMATTER: ""
+
   MONGO_PORT: ""
   RABBIT_PORT: ""
 
