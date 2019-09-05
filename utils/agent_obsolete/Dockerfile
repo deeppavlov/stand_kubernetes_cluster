@@ -10,4 +10,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NODE"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python3.6 -m legacy_components.core.run_dp_servers $CONFIG -p 5000 -host 0.0.0.0 -ep skill > $LOG_PATH 2>&1
+    python3.6 -m legacy_components.core.run_dp_servers $CONFIG -p 5000 -host 0.0.0.0 -ep answer > $LOG_PATH 2>&1

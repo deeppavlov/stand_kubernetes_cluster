@@ -20,8 +20,8 @@ http_proxy:
   - http_proxy_cloud_demo_02
 
 agent_general:
-  - agent_mongo_db
-  - agent_rabbitmq
+  #- agent_mongo_db
+  #- agent_rabbitmq
   - agent_chitchat
   - agent_chitchat_odqa
 
