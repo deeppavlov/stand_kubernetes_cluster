@@ -137,10 +137,7 @@ All commands are assumed to be executed on the master node. We use **Flannel** a
 6. Deploy NVIDIA device plugin for Kubernetes with running from 
 
 Reference resources:
-1. NVIDIA device plugin for Kubernetes: https://github.com/NVIDIA/k8s-device-plugin `` script from `stand_kubernetes_cluster/tools/kube_scripts`:
-    ```
-    sudo sh
-    ```
+1. NVIDIA device plugin for Kubernetes: https://github.com/NVIDIA/k8s-device-plugin `deploy_nvidia_plugin.sh` script from `stand_kubernetes_cluster/tools/kube_scripts`:
 
 ### Worker nodes deployment:
 1. To add worker nodes to the cluster run with `--ignore-preflight-errors=all` option saved `kubeadm join` as sudo on each worker node and restart kubelet:
