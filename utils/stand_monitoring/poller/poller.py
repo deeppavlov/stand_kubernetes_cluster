@@ -1,6 +1,7 @@
 import json
 import requests
 import time
+from os import system
 from pathlib import Path
 from requests.exceptions import ConnectionError, ReadTimeout
 from typing import Dict, Optional
@@ -34,7 +35,11 @@ def custom_post(url: str, payload: Optional[Dict] = None, timeout: float = None)
         except ReadTimeout:
             return False
         except ConnectionError:
-            time.sleep(1.0)
+            connection_lost = system('ping -c 1 google.com >/dev/null 2>&1')
+            if connection_lost:
+                time.sleep(1.0)
+            else:
+                return False
 
 
 def act(services_status: Dict[str, bool], probe_result: Dict[str, bool]) -> None:
