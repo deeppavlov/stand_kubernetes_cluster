@@ -1,7 +1,9 @@
 import json
 import requests
+import time
 from pathlib import Path
-from typing import Dict
+from requests.exceptions import ConnectionError, ReadTimeout
+from typing import Dict, Optional
 
 import polling
 
@@ -17,13 +19,22 @@ def probe(services: Dict[str, str], request_timeout: float) -> Dict[str, bool]:
 
     for model, url in services.items():
         service_name = ' '.join([model, url])
-        try:
-            response = requests.post(f'{url}/poller', json={}, timeout=request_timeout)
-            probe_result[service_name] = response.status_code is OK_RESPONSE
-        except Exception:
-            probe_result[service_name] = False
+        probe_result[service_name] = custom_post(f'{url}/poller', timeout=request_timeout)
 
     return probe_result
+
+
+def custom_post(url: str, payload: Optional[Dict] = None, timeout: float = None) -> bool:
+    if payload is None:
+        payload = dict()
+    while True:
+        try:
+            response = requests.post(url, json=payload, timeout=timeout)
+            return response.status_code is OK_RESPONSE
+        except ReadTimeout:
+            return False
+        except ConnectionError:
+            time.sleep(1.0)
 
 
 def act(services_status: Dict[str, bool], probe_result: Dict[str, bool]) -> None:
@@ -55,7 +66,7 @@ def notify(services: Dict[str, bool], first_notification: bool = False) -> None:
     if channel == 'slack':
         webhook = channel_config['webhook']
         payload = {'text': notification}
-        _ = requests.post(webhook, json=payload)
+        _ = custom_post(webhook, payload=payload)
 
 
 def start_pooling() -> None:
