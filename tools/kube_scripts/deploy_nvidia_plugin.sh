@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl create -f nvidia_pligin.yaml
+kubectl create -f nvidia_plugin.yaml
