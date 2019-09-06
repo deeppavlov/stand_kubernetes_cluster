@@ -20,10 +20,18 @@ http_proxy:
   - http_proxy_cloud_demo_02
 
 agent_general:
-  - agent_mongo_db
-  - agent_rabbitmq
   - agent_chitchat
   - agent_chitchat_odqa
+
+agent_simple:
+  - agent_simple_mongo_db
+  - agent_simple_rabbitmq
+  - agent_simple_service_ner
+  - agent_simple_service_chitchat
+  - agent_simple_service_odqa
+  - agent_simple_service_chitchat_odqa
+  - agent_simple_service_max_confidence
+  - agent_simple_service_test_formatter
 
 push_pull:
   - stand_paraphraser_ru
@@ -59,3 +67,5 @@ all:
   - http_proxy_jura01
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
+  - agent_chitchat
+  - agent_chitchat_odqa
