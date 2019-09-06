@@ -70,9 +70,6 @@ agent_service_http:
   # default params
   pipeline: "all_up_kuber_no_tests"
 
-  # TODO: remove
-  BASE_IMAGE: ""
-
   MODE: "service"
   INSTANCE_ID: ""
 
@@ -111,10 +108,6 @@ agent_service_http:
 agent_service_python:
   # default params
   pipeline: "all_up_kuber_no_tests"
-
-  # TODO: remove
-  BASE_IMAGE: ""
-  CONFIG: ""
 
   MODE: "service"
   INSTANCE_ID: ""
