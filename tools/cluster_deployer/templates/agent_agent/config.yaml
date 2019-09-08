@@ -14,20 +14,20 @@ agent:
   }
 
 services:
-  {{SERVICE_NAME}}:
-    batch_size: {{BATCH_SIZE}}
-    infer_timeout_sec: {{SERVICE_INFER_TIMEOUT}}
+  service:
+    batch_size: 5
+    infer_timeout_sec: 30
 
     connector_params:
-      formatter: '{{SERVICE_FORMATTER}}'
-      caller: '{{SERVICE_CALLER}}'
-      url: '{{SERVICE_URL}}'
+      formatter: 'formatter'
+      caller: 'caller'
+      url: 'http://127.0.0.1:5000/answer'
 
 channels: {}
 
 database:
-  host: localhost
-  port: 27017
+  host: '{{MONGO_HOST}}'
+  port: {{MONGO_PORT}}
 
 transport:
   type: '{{TRANSPORT_TYPE}}'
