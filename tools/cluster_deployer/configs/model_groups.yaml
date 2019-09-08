@@ -43,6 +43,16 @@ agent_scaled_batch:
   - agent_scaled_batch_service_max_confidence
   - agent_scaled_batch_service_test_formatter
 
+agent_scaled_nobatch:
+  - agent_scaled_nobatch_mongo_db
+  - agent_scaled_nobatch_agent
+  - agent_scaled_nobatch_service_ner
+  - agent_scaled_nobatch_service_chitchat
+  - agent_scaled_nobatch_service_odqa
+  - agent_scaled_nobatch_service_chitchat_odqa
+  - agent_scaled_nobatch_service_max_confidence
+  - agent_scaled_nobatch_service_test_formatter
+
 push_pull:
   - stand_paraphraser_ru
   - stand_ner_ru
