@@ -15,7 +15,7 @@ agent_scaled_nobatch_service_ner:
   TEMPLATE: agent_service_http
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_nobatch"
   AGENT_NAME: "dp_agent_scaled_nobatch"
-  REPLICAS_NUM: 2
+  REPLICAS_NUM: 3
   BATCH_SIZE: 1
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/stand/ner_ru
   CONFIG: ner_rus_bert
@@ -26,7 +26,7 @@ agent_scaled_nobatch_service_chitchat:
   TEMPLATE: agent_service_http
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_nobatch"
   AGENT_NAME: "dp_agent_scaled_nobatch"
-  REPLICAS_NUM: 3
+  REPLICAS_NUM: 9
   BATCH_SIZE: 1
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/agent_obsolete
   CONFIG: legacy_components/skills/ranking_chitchat/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
@@ -49,7 +49,7 @@ agent_scaled_nobatch_service_chitchat_odqa:
   TEMPLATE: agent_service_http
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_nobatch"
   AGENT_NAME: "dp_agent_scaled_nobatch"
-  REPLICAS_NUM: 2
+  REPLICAS_NUM: 9
   BATCH_SIZE: 1
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/agent_obsolete
   CONFIG: legacy_components/skill_selectors/chitchat_odqa_selector/sselector_chitchat_odqa.json
@@ -60,7 +60,7 @@ agent_scaled_nobatch_service_max_confidence:
   TEMPLATE: agent_service_python
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_nobatch"
   AGENT_NAME: "dp_agent_scaled_nobatch"
-  REPLICAS_NUM: 1
+  REPLICAS_NUM: 3
   BATCH_SIZE: 1
   SERVICE_NAME: max_confidence
   SERVICE_FORMATTER: "agent_max_conf_response_selector"
@@ -69,7 +69,7 @@ agent_scaled_nobatch_service_test_formatter:
   TEMPLATE: agent_service_python
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_nobatch"
   AGENT_NAME: "dp_agent_scaled_nobatch"
-  REPLICAS_NUM: 1
+  REPLICAS_NUM: 3
   BATCH_SIZE: 1
   SERVICE_NAME: test_formatter
   SERVICE_FORMATTER: "agent_test_response_formatter"
