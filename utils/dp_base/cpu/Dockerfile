@@ -46,7 +46,6 @@ RUN git clone https://github.com/deepmipt/DeepPavlov.git && \
     git checkout $COMMIT && \
     python setup.py develop && \
     python -c 'import deeppavlov.models' && \
-    pip install -r deeppavlov/requirements/tf.txt && \
     rm -rf /root/.cache
 
 CMD if [ ! -z $COMMIT ]; then \
