@@ -26,7 +26,7 @@ agent_scaled_batch_service_chitchat:
   TEMPLATE: agent_service_http
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_batch"
   AGENT_NAME: "dp_agent_scaled_batch"
-  REPLICAS_NUM: 9
+  REPLICAS_NUM: 10
   BATCH_SIZE: 20
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/agent_obsolete
   CONFIG: legacy_components/skills/ranking_chitchat/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
@@ -37,7 +37,7 @@ agent_scaled_batch_service_odqa:
   TEMPLATE: agent_service_http
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_batch"
   AGENT_NAME: "dp_agent_scaled_batch"
-  REPLICAS_NUM: 9
+  REPLICAS_NUM: 10
   GPU_UNITS_NUM: 1
   BATCH_SIZE: 20
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/stand/odqa_ru
@@ -49,7 +49,7 @@ agent_scaled_batch_service_chitchat_odqa:
   TEMPLATE: agent_service_http
   AGENT_NAMESPACE: "deeppavlov_agent_scaled_batch"
   AGENT_NAME: "dp_agent_scaled_batch"
-  REPLICAS_NUM: 9
+  REPLICAS_NUM: 10
   BATCH_SIZE: 20
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/agent_obsolete
   CONFIG: legacy_components/skill_selectors/chitchat_odqa_selector/sselector_chitchat_odqa.json
