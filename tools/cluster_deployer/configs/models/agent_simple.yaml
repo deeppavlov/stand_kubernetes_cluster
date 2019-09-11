@@ -16,6 +16,7 @@ agent_simple_service_ner:
   AGENT_NAMESPACE: "deeppavlov_agent_simple"
   AGENT_NAME: "dp_agent_simple"
   REPLICAS_NUM: 1
+  BATCH_SIZE: 20
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/stand/ner_ru
   CONFIG: ner_rus_bert
   SERVICE_NAME: ner
@@ -26,6 +27,7 @@ agent_simple_service_chitchat:
   AGENT_NAMESPACE: "deeppavlov_agent_simple"
   AGENT_NAME: "dp_agent_simple"
   REPLICAS_NUM: 1
+  BATCH_SIZE: 20
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/agent_obsolete
   CONFIG: legacy_components/skills/ranking_chitchat/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
   SERVICE_NAME: chitchat
@@ -37,6 +39,7 @@ agent_simple_service_odqa:
   AGENT_NAME: "dp_agent_simple"
   REPLICAS_NUM: 1
   GPU_UNITS_NUM: 1
+  BATCH_SIZE: 20
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/stand/odqa_ru
   CONFIG: ru_odqa_infer_wiki_rubert_noans
   SERVICE_NAME: odqa
@@ -47,6 +50,7 @@ agent_simple_service_chitchat_odqa:
   AGENT_NAMESPACE: "deeppavlov_agent_simple"
   AGENT_NAME: "dp_agent_simple"
   REPLICAS_NUM: 1
+  BATCH_SIZE: 20
   SERVICE_IMAGE_TAG: kubeadm.ipavlov.mipt.ru:5000/agent_obsolete
   CONFIG: legacy_components/skill_selectors/chitchat_odqa_selector/sselector_chitchat_odqa.json
   SERVICE_NAME: chitchat_odqa
@@ -57,6 +61,7 @@ agent_simple_service_max_confidence:
   AGENT_NAMESPACE: "deeppavlov_agent_simple"
   AGENT_NAME: "dp_agent_simple"
   REPLICAS_NUM: 1
+  BATCH_SIZE: 20
   SERVICE_NAME: max_confidence
   SERVICE_FORMATTER: "agent_max_conf_response_selector"
 
@@ -65,5 +70,6 @@ agent_simple_service_test_formatter:
   AGENT_NAMESPACE: "deeppavlov_agent_simple"
   AGENT_NAME: "dp_agent_simple"
   REPLICAS_NUM: 1
+  BATCH_SIZE: 20
   SERVICE_NAME: test_formatter
   SERVICE_FORMATTER: "agent_test_response_formatter"
