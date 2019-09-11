@@ -29,7 +29,7 @@ or browse DP gitHub [here](https://github.com/deepmipt/DeepPavlov/tree/master/de
 2. `<your_port>` (mandatory) - port on which you want to serve DP model.
 
 3. `<dp_logs_volume>` - directory on your host, where you can mount DeepPavlov models log dirs. If you provide this mount,
-DeepPavlov create `<dp_config_name>` dir in `<dp_logs_volume>` dir on your host, where logs for `<dp_config_name>` will be stored.
+DeepPavlov create `<dp_config_name>.log` file in `<dp_logs_volume>` dir on your host, with `<dp_config_name>` logs.
 
 4. `<dp_components_volume>` - directory on your host where you can mount DeepPavlov downloaded components dir.
 Most of DeepPavlov models use downloadable components (pretrained model pickles, embeddings...) which are downloaded from our
@@ -61,5 +61,5 @@ docker run -e CONFIG=ner_ontonotes -p 5555:5000 \
 
 2. Follow `http://127.0.0.1:5555/` URL in your browser to get Swagger with model API info;
 
-3. You can get model logs in `~/my_dp_logs/ner_ontonotes` dir, model env located in `~/my_dp_envs/ner_ontonotes`,
+3. You can get model logs in `~/my_dp_logs/ner_ontonotes.log` file, model env located in `~/my_dp_envs/ner_ontonotes`,
 downloadable components in `~/my_dp_components` (contents of this dir is managed by DeepPavlov).
