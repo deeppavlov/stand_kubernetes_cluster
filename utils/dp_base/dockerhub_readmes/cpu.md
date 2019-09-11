@@ -40,8 +40,9 @@ automatically manage downloaded components for all configs in this folder.
 
 5. `<host_venv_dir>` - directory on your host where you can mount DeepPavlov Python virtual environments dir. Each DP
 config uses its own set of Python dependencies, which are installed each time you run Docker image for specific DP
-config. To prevent it you can make this mount. In this case DeepPavlov create `<dp_config_name>` dir in `<dp_logs_volume>` dir on 
-your host with virtual environment for subsequent reuse with this config.
+config. To prevent it you can make this mount. In this case DeepPavlov create `<dp_config_name>` dir in `<host_venv_dir>` dir on 
+your host with virtual environment for subsequent reuse with this config. Be sure to use different `<host_venv_dir>`
+for different DP version images.
 
 6. `<dp_version>` - DeepPavlov release ID. Omit to use run latest DP release.
 
@@ -59,7 +60,7 @@ docker run -e CONFIG=ner_ontonotes -p 5555:5000 \
     deeppavlov/base-cpu
 ```
 
-2. Follow `http://127.0.0.1:5555/` URL in your browser to get Swagger with model API info;
+2. Follow `http://127.0.0.1:5555` URL in your browser to get Swagger with model API info;
 
 3. You can get model logs in `~/my_dp_logs/ner_ontonotes.log` file, model env located in `~/my_dp_envs/ner_ontonotes`,
 downloadable components in `~/my_dp_components` (contents of this dir is managed by DeepPavlov).
