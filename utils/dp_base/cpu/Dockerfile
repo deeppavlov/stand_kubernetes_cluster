@@ -35,7 +35,7 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/* && \
 	pip install virtualenv==16.7.5 && \
 	virtualenv venv && \
-	mkdir -p /venv/test && \
+	mkdir -p /venv/dp_internal_token_dir && \
     rm -rf /root/.cache
 
 ENV PATH=/base/venv/bin:$PATH
@@ -55,13 +55,14 @@ CMD if [ ! -z $COMMIT ]; then \
         python setup.py develop && \
         python -c 'import deeppavlov.models'; \
     fi && \
-    if [ -d /venv/bin ]; then \
-        PATH=/venv/bin:$PATH; \
+    if [ -d /venv/$CONFIG ]; then \
+        PATH=/venv/$CONFIG/bin:$PATH; \
     else \
         python -m deeppavlov install $CONFIG && \
-        if [ ! -d /venv/test ]; then \
-            cp -R /base/venv/* /venv && \
-            sed -i "\|VIRTUAL_ENV=|s|/base||g" "/venv/bin/activate"; \
+        if [ ! -d /venv/dp_internal_token_dir ]; then \
+            mkdir /venv/$CONFIG && \
+            cp -R /base/venv/* /venv/$CONFIG && \
+            sed -i "\|VIRTUAL_ENV=|s|/base||g" "/venv/"$CONFIG"/bin/activate"; \
         fi; \
     fi && \
     python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1
