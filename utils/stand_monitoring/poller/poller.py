@@ -4,7 +4,7 @@ import time
 from os import system
 from pathlib import Path
 from requests.exceptions import ConnectionError, ReadTimeout
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 import polling
 
@@ -43,19 +43,22 @@ def custom_post(url: str, payload: Optional[Dict] = None, timeout: float = None)
 
 
 def act(services_status: Dict[str, bool], probe_result: Dict[str, bool]) -> None:
-    urls = {url: probe_result[url] for url, status in services_status.items() if (url in probe_result and
-                                                                                  status is not probe_result[url])}
-    if urls:
-        notify(urls)
+    changed_status = {url: probe_result[url] for url, status in services_status.items() if (url in probe_result and
+                                                                                            status is not probe_result[url])}
+    still_unreachable = [url for url, status in probe_result.items() if (status is False and url not in changed_status)]
+    if changed_status:
+        notify(changed_status, still_unreachable=still_unreachable)
 
 
-def notify(services: Dict[str, bool], first_notification: bool = False) -> None:
+def notify(services: Dict[str, bool], still_unreachable: List[str] = None, first_notification: bool = False) -> None:
     channel = config['general']['notification']
     channel_config = config['notification'][channel]
     msgs = config['notification']
     launch_msg = msgs['launch_msg']
     up_msg = msgs['up_msg']
     down_msg = msgs['down_msg']
+    unreachable_msg = msgs['unreachable_msg']
+    all_up = msgs['all_up_msg']
 
     up_services = '\n'.join([service for service, status in services.items() if status])
     down_services = '\n'.join([service for service, status in services.items() if not status])
@@ -63,9 +66,14 @@ def notify(services: Dict[str, bool], first_notification: bool = False) -> None:
     if first_notification:
         notification.append(f'{launch_msg}')
     if up_services:
-        notification.append(f'{up_msg}\n\n{up_services}')
+        notification.append(f'{up_msg}\n{up_services}')
     if down_services:
-        notification.append(f'{down_msg}\n\n{down_services}')
+        notification.append(f'{down_msg}\n{down_services}')
+    if still_unreachable:
+        unreachable_services = '\n'.join(still_unreachable)
+        notification.append(f'{unreachable_msg}\n{unreachable_services}')
+    if not down_services and not still_unreachable:
+        notification.append(all_up)
     notification = '\n\n'.join(notification)
 
     if channel == 'slack':
@@ -80,7 +88,7 @@ def start_pooling() -> None:
     services = config['services']
 
     services_status = probe(services, request_timeout)
-    notify(services_status, True)
+    notify(services_status, first_notification=True)
 
     def estimate(prob: Dict[str, bool]) -> bool:
         return services_status != prob
