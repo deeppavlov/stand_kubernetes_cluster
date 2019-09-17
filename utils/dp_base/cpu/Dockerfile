@@ -28,7 +28,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         git \
-        locales && \
+        locales \
+        iputils-ping && \
     printf '%s\n%s\n' 'en_US.UTF-8 UTF-8' 'ru_RU.UTF-8 UTF-8' >> /etc/locale.gen && \
     locale-gen && \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
@@ -48,12 +49,13 @@ RUN git clone https://github.com/deepmipt/DeepPavlov.git && \
     python -c 'import deeppavlov.models' && \
     rm -rf /root/.cache
 
+ENV DP_SKIP_NLTK_DOWNLOAD='True'
+
 CMD if [ ! -z $COMMIT ]; then \
         cd /base/DeepPavlov && \
         git fetch --all --tags --prune && \
         git checkout $COMMIT && \
-        python setup.py develop && \
-        python -c 'import deeppavlov.models'; \
+        python setup.py develop; \
     fi && \
     if [ -d /venv/$CONFIG ]; then \
         PATH=/venv/$CONFIG/bin:$PATH; \
@@ -62,7 +64,11 @@ CMD if [ ! -z $COMMIT ]; then \
         if [ ! -d /venv/dp_internal_token_dir ]; then \
             mkdir /venv/$CONFIG && \
             cp -R /base/venv/* /venv/$CONFIG && \
-            sed -i "\|VIRTUAL_ENV=|s|/base||g" "/venv/"$CONFIG"/bin/activate"; \
+            sed -i "\|VIRTUAL_ENV=|s|/base/venv|/venv/"$CONFIG"|g" "/venv/"$CONFIG"/bin/activate"; \
         fi; \
     fi && \
-    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1
+    ping -c 1 8.8.8.8 > /dev/null && \
+    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1 || \
+	(echo "Failed to download model specific data before starting the service\n" \
+	      "Trying to launch DeepPavlov without -d argument..." >> "/logs"/$CONFIG".log" && \
+	 python -m deeppavlov riseapi $CONFIG -p 5000 >> "/logs"/$CONFIG".log" 2>&1)
