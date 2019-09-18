@@ -1,7 +1,7 @@
 # MongoDB Docker
 Build with:
 ```
-docker build --build-arg MONGO_DOCKER_TAG=<mongo_docker_tag> -t <cluster_registry_url>/stand/db/mongo .
+docker build --build-arg MONGO_DOCKER_TAG=<mongo_docker_tag> -t <cluster_registry_url>/stand/db/mongo:<mongo_docker_tag> .
 ```
 
 Where:

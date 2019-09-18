@@ -5,9 +5,11 @@
     "notification": "slack"
   },
   "notification": {
-    "launch_msg": "DEMO STAND SERVICES HEALTH CHECK SCRIPT WAS LAUNCHED.",
-    "up_msg":     "Following services are reachable:",
-    "down_msg":   "Following services are unreachable:",
+    "launch_msg":       "DEMO STAND SERVICES HEALTH CHECK SCRIPT WAS LAUNCHED.",
+    "up_msg":           "Following services are up:",
+    "down_msg":         "Following services are down:",
+    "unreachable_msg":  "Following services are still unreachable:",
+    "all_up_msg":       "All services are reachable.",
     "slack": {
       "webhook": ""
     }

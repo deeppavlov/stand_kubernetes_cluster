@@ -3,9 +3,11 @@ _root:
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
+  GPU_UNITS_NUM: 0
+  # TODO: investigate and remove
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
-  BRANCH: "master"
+  COMMIT: ""
   PORT: 5000
   serialize_config: false
   image_polling_timeout_sec: 300
@@ -49,59 +51,117 @@ _docs:
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 
-dp_gpu:
+dp:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer"
   test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
 
   # human set params
-  CONFIG_FILE: ""
+  CONFIG: ""
   CLUSTER_PORT: ""
 
-
-dp_no_gpu:
-  # default params
-  run_mode: "riseapi"
+agent_agent:
   pipeline: "all_up_kuber_no_tests"
 
+  MODE: "agent"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_RESPONSE_TIMEOUT: 1800
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+  RABBIT_PORT: 5672
+
+  SERVICE_NAME: "service"
+
   # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+  MONGO_HOST: "{{CLUSTER_IP}}"
+  RABBIT_HOST: "{{CLUSTER_IP}}"
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
 
   # human set params
-  CONFIG_FILE: ""
-  CLUSTER_PORT: ""
+  MONGO_PORT: ""
 
-
-dp_obsolete_gpu:
+agent_service_http:
   # default params
-  run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
 
+  MODE: "service"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_RESPONSE_TIMEOUT: 1800
+
+  BATCH_SIZE: 200
+  SERVICE_INFER_TIMEOUT: 1800
+  SERVICE_CALLER: "default"
+  SERVICE_URL: "http://127.0.0.1:5000/answer"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+  RABBIT_PORT: 5672
+
   # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+  RABBIT_HOST: "{{CLUSTER_IP}}"
+  SERVICE_FULL_NAME: "{{FULL_MODEL_NAME}}_service"
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
 
   # human set params
-  CONFIG_FILE: ""
-  CLUSTER_PORT: ""
+  SERVICE_IMAGE_TAG: ""
+  CONFIG: ""
+
+  SERVICE_NAME: ""
+  SERVICE_FORMATTER: ""
 
 
-dp_obsolete_no_gpu:
+agent_service_python:
   # default params
-  run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
 
+  MODE: "service"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_RESPONSE_TIMEOUT: 1800
+
+  BATCH_SIZE: 200
+  SERVICE_INFER_TIMEOUT: 1800
+  SERVICE_CALLER: "default"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+  RABBIT_PORT: 5672
+
   # composed params
-  test_image_url: "http://0.0.0.0:{{PORT}}/answer"
-  test_deployment_url: "https://{{CLUSTER_PORT}}.lnsigo.mipt.ru/answer"
+  RABBIT_HOST: "{{CLUSTER_IP}}"
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
 
   # human set params
-  CONFIG_FILE: ""
+  SERVICE_NAME: ""
+  SERVICE_FORMATTER: ""
+
+
+agent_obsolete:
+  # default params
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CONFIG: ""
   CLUSTER_PORT: ""
 
 
@@ -131,6 +191,16 @@ router_bot:
   PROXY_PORT: ""
   PROXY_USER: ""
   PROXY_PASS: ""
+
+
+rabbitmq:
+  # default params
+  RABBIT_DOCKER_TAG: "3-management"
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # human set params
+  CLUSTER_PORT: ""
+  CLUSTER_MANAGEMENT_PORT: ""
 
 
 mongo_db:

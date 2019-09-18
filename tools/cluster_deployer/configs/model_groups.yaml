@@ -15,19 +15,43 @@ stand:
   - stand_kbqa_ru
 
 http_proxy:
-  - http_proxy_vladimir01
+  - http_proxy_jura01
+  - http_proxy_cloud_demo_01
+  - http_proxy_cloud_demo_02
 
-demo:
-  - demo_transformer_chit_chat_40k_v05_2
+agent_general:
+  - agent_chitchat
+  - agent_chitchat_odqa
 
-dpas_stable:
-  - dpas_stable_mongo
-  - dpas_stable_skill_odqa
-  - dpas_stable_skill_chitchat
-  - dpas_stable_annotator_ner
-  - dpas_stable_annotator_sentiment
-  - dpas_stable_annotator_obscenity
-  - dpas_stable_selector_chitchat_odqa
+agent_simple:
+  - agent_simple_mongo_db
+  - agent_simple_agent
+  - agent_simple_service_ner
+  - agent_simple_service_chitchat
+  - agent_simple_service_odqa
+  - agent_simple_service_chitchat_odqa
+  - agent_simple_service_max_confidence
+  - agent_simple_service_test_formatter
+
+agent_scaled_batch:
+  - agent_scaled_batch_mongo_db
+  - agent_scaled_batch_agent
+  - agent_scaled_batch_service_ner
+  - agent_scaled_batch_service_chitchat
+  - agent_scaled_batch_service_odqa
+  - agent_scaled_batch_service_chitchat_odqa
+  - agent_scaled_batch_service_max_confidence
+  - agent_scaled_batch_service_test_formatter
+
+agent_scaled_nobatch:
+  - agent_scaled_nobatch_mongo_db
+  - agent_scaled_nobatch_agent
+  - agent_scaled_nobatch_service_ner
+  - agent_scaled_nobatch_service_chitchat
+  - agent_scaled_nobatch_service_odqa
+  - agent_scaled_nobatch_service_chitchat_odqa
+  - agent_scaled_nobatch_service_max_confidence
+  - agent_scaled_nobatch_service_test_formatter
 
 push_pull:
   - stand_paraphraser_ru
@@ -44,7 +68,6 @@ push_pull:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
-  - demo_transformer_chit_chat_40k_v05_2
 
 all:
   - stand_paraphraser_ru
@@ -61,5 +84,8 @@ all:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
-  - demo_transformer_chit_chat_40k_v05_2
-  - http_proxy_vladimir01
+  - http_proxy_jura01
+  - http_proxy_cloud_demo_01
+  - http_proxy_cloud_demo_02
+  - agent_chitchat
+  - agent_chitchat_odqa
