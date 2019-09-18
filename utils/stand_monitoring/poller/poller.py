@@ -1,7 +1,6 @@
 import json
 import requests
 import time
-from os import system
 from pathlib import Path
 from requests.exceptions import ConnectionError, ReadTimeout
 from typing import Dict, List, Optional
@@ -28,6 +27,7 @@ def probe(services: Dict[str, str], request_timeout: float) -> Dict[str, bool]:
 def custom_post(url: str, payload: Optional[Dict] = None, timeout: float = None) -> bool:
     if payload is None:
         payload = dict()
+    start_time = time.time()
     while True:
         try:
             response = requests.post(url, json=payload, timeout=timeout)
@@ -35,8 +35,7 @@ def custom_post(url: str, payload: Optional[Dict] = None, timeout: float = None)
         except ReadTimeout:
             return False
         except ConnectionError:
-            connection_lost = system('ping -c 1 google.com >/dev/null 2>&1')
-            if connection_lost:
+            if time.time() - start_time < timeout:
                 time.sleep(1.0)
             else:
                 return False
