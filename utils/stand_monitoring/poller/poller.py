@@ -40,7 +40,7 @@ def custom_post(url: str, payload: Optional[Dict] = None, timeout: float = None)
             else:
                 return False
 
-
+# In fact, services_statuses is previous probe_result
 def act(services_status: Dict[str, bool], probe_result: Dict[str, bool]) -> None:
     changed_status = {url: probe_result[url] for url, status in services_status.items() if (url in probe_result and
                                                                                             status is not probe_result[url])}
