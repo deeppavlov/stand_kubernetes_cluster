@@ -58,13 +58,17 @@ RUN apt-get update && \
     cd /usr/src/python && \
 	./configure && \
 	make -j "$(nproc)" altinstall && \
+	ln -s /usr/local/bin/python${PYTHON_VERSION%.*} /usr/local/bin/python && \
+    ln -s /usr/local/bin/pip${PYTHON_VERSION%.*} /usr/local/bin/pip && \
+    pip install virtualenv==16.7.5 && \
+    virtualenv /base/venv && \
+	mkdir -p /venv/dp_internal_token_dir && \
     cd /base && \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
 	rm -rf /usr/src/python \
-	    /var/lib/apt/lists/* && \
-    ln -s /usr/local/bin/python${PYTHON_VERSION%.*} /usr/local/bin/python && \
-    ln -s /usr/local/bin/pip${PYTHON_VERSION%.*} /usr/local/bin/pip
+	    /var/lib/apt/lists/*
 
+ENV PATH=/base/venv/bin:$PATH
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
 RUN git clone https://github.com/deepmipt/DeepPavlov.git && \
@@ -82,5 +86,14 @@ CMD if [ ! -z $COMMIT ]; then \
         python setup.py develop && \
         python -c 'import deeppavlov.models'; \
     fi && \
-    python -m deeppavlov install $CONFIG && \
+    if [ -d /venv/$CONFIG ]; then \
+        PATH=/venv/$CONFIG/bin:$PATH; \
+    else \
+        python -m deeppavlov install $CONFIG && \
+        if [ ! -d /venv/dp_internal_token_dir ]; then \
+            mkdir /venv/$CONFIG && \
+            cp -R /base/venv/* /venv/$CONFIG && \
+            sed -i "\|VIRTUAL_ENV=|s|/base||g" "/venv/"$CONFIG"/bin/activate"; \
+        fi; \
+    fi && \
     python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1

@@ -3,6 +3,7 @@ _root:
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
+  GPU_UNITS_NUM: 0
   # TODO: investigate and remove
   CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
@@ -55,7 +56,6 @@ dp:
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
   BASE_IMAGE: "deeppavlov/base-cpu:0.5.1"
-  GPU_UNITS_NUM: 0
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/answer/poller"
@@ -65,38 +65,95 @@ dp:
   CONFIG: ""
   CLUSTER_PORT: ""
 
-
-agent_transport:
-  # default params
+agent_agent:
   pipeline: "all_up_kuber_no_tests"
+
+  MODE: "agent"
   INSTANCE_ID: ""
 
   AGENT_NAMESPACE: "deeppavlov_agent"
   AGENT_NAME: "dp_agent"
-  AGENT_REPSONSE_TIMEOUT: 20
-
-  SERVICE_NAME: "service"
-  BATCH_SIZE: 5
-  SERVICE_INFER_TIMEOUT: 30
-  SERVICE_FORMATTER: "formatter"
-  SERVICE_CALLER: "default"
-  SERVICE_URL: "http://localhost:5000/service"
+  AGENT_RESPONSE_TIMEOUT: 1800
 
   TRANSPORT_TYPE: "rabbitmq"
   RABBIT_LOGIN: "guest"
   RABBIT_PASSWORD: "guest"
   RABBIT_VIRTUALHOST: "/"
+  RABBIT_PORT: 5672
+
+  SERVICE_NAME: "service"
 
   # composed params
   MONGO_HOST: "{{CLUSTER_IP}}"
   RABBIT_HOST: "{{CLUSTER_IP}}"
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
 
   # human set params
-  MODE: ""
-  CONFIG: ""
-  CLUSTER_PORT: ""
   MONGO_PORT: ""
-  RABBIT_PORT: ""
+
+agent_service_http:
+  # default params
+  pipeline: "all_up_kuber_no_tests"
+
+  MODE: "service"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_RESPONSE_TIMEOUT: 1800
+
+  BATCH_SIZE: 200
+  SERVICE_INFER_TIMEOUT: 1800
+  SERVICE_CALLER: "default"
+  SERVICE_URL: "http://127.0.0.1:5000/answer"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+  RABBIT_PORT: 5672
+
+  # composed params
+  RABBIT_HOST: "{{CLUSTER_IP}}"
+  SERVICE_FULL_NAME: "{{FULL_MODEL_NAME}}_service"
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
+
+  # human set params
+  SERVICE_IMAGE_TAG: ""
+  CONFIG: ""
+
+  SERVICE_NAME: ""
+  SERVICE_FORMATTER: ""
+
+
+agent_service_python:
+  # default params
+  pipeline: "all_up_kuber_no_tests"
+
+  MODE: "service"
+  INSTANCE_ID: ""
+
+  AGENT_NAMESPACE: "deeppavlov_agent"
+  AGENT_NAME: "dp_agent"
+  AGENT_RESPONSE_TIMEOUT: 1800
+
+  BATCH_SIZE: 200
+  SERVICE_INFER_TIMEOUT: 1800
+  SERVICE_CALLER: "default"
+
+  TRANSPORT_TYPE: "rabbitmq"
+  RABBIT_LOGIN: "guest"
+  RABBIT_PASSWORD: "guest"
+  RABBIT_VIRTUALHOST: "/"
+  RABBIT_PORT: 5672
+
+  # composed params
+  RABBIT_HOST: "{{CLUSTER_IP}}"
+  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
+
+  # human set params
+  SERVICE_NAME: ""
+  SERVICE_FORMATTER: ""
 
 
 agent_obsolete:

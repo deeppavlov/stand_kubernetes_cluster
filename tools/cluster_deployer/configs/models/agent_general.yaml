@@ -8,13 +8,3 @@ agent_chitchat_odqa:
   TEMPLATE: agent_obsolete
   CONFIG: "legacy_components/skill_selectors/chitchat_odqa_selector/sselector_chitchat_odqa.json"
   CLUSTER_PORT: 7040
-
-# Agent infrastructure
-agent_mongo_db:
-  TEMPLATE: mongo_db
-  CLUSTER_PORT: 10001
-
-agent_rabbitmq:
-  TEMPLATE: rabbitmq
-  CLUSTER_PORT: 10000
-  CLUSTER_MANAGEMENT_PORT: 10002
