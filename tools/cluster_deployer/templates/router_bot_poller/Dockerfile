@@ -29,7 +29,6 @@ RUN apt-get update && \
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
 RUN git clone https://github.com/deepmipt/convai_router_bot_poller.git . && \
-    git checkout stand && \
     pip install -r requirements.txt && \
     rm -rf /root/.cache
 
@@ -44,4 +43,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NODE"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python poller.py {{MODEL_URL}} --host {{ROUTER_BOT_IP}} --port {{ROUTER_BOT_PORT}} --token {{BOT_TOKEN}} > $LOG_PATH 2>&1
+    python poller.py --model_url {{MODEL_URL}} --host {{ROUTER_BOT_IP}} --port {{ROUTER_BOT_PORT}} --token {{BOT_TOKEN}} {{LAUNCH_MODE}}> $LOG_PATH 2>&1

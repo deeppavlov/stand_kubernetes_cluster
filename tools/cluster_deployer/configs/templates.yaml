@@ -196,6 +196,8 @@ router_bot:
 router_bot_poller:
   # composed params
   MODEL_URL: "http://{{CLUSTER_IP}}:{{MODEL_PORT}}/answer"
+  LAUNCH_MODE: ""
+  pipeline: "make_files"
 
 
 rabbitmq:

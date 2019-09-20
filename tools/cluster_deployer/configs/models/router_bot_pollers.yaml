@@ -1,6 +1,7 @@
-poller_stand_ner_en:
+poller_agent:
   TEMPLATE: router_bot_poller
-  MODEL_PORT: 7004
   ROUTER_BOT_IP: 10.11.1.65
   ROUTER_BOT_PORT: 8433
-  BOT_TOKEN: "dp_stand_ner_en"
+  BOT_TOKEN: "agent"
+  LAUNCH_MODE: "--agent"
+  MODEL_URL: ""
