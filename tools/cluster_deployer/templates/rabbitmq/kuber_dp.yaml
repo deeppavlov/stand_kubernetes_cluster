@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{KUBER_DP_NAME}}
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{KUBER_DP_NAME}}
+    spec:
+      containers:
+      - name: "rabbit-container"
+        image: "rabbitmq:{{RABBIT_DOCKER_TAG}}"
+        ports:
+        - name: "rabbit-port"
+          protocol: TCP
+          containerPort: 5672
+        - name: "rabbit-m-port"
+          protocol: TCP
+          containerPort: 15672
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - {{DNS_IP}}

@@ -12,9 +12,9 @@ Docker and all Kubernetes packages should be deployed both on master and each wo
 NVIDIA Container Runtime for Docker should be deployed on each worker node with GPUs.
 
 This docs are tested for following versions of demo stand components:
-* Docker `18.06.1-ce`
-* Kubelet `v1.10.2`
-* Kubeadm: `v1.10.2`
+* Docker `19.03.1`
+* Kubelet `v1.15.3`
+* Kubeadm: `v1.15.3`
 
 ### Docker installation
 1. Install Docker:
@@ -91,6 +91,7 @@ For now plain insecure HTTP registry is used.
         ```
     2. Restart Docker for the changes to take effect:
         ```
+        sudo systemctl daemon-reload
         sudo systemctl restart docker
         ```
     
@@ -127,20 +128,24 @@ All commands are assumed to be executed on the master node. We use **Flannel** a
     ```
 4. Deploy Flannel network driver:
     ```
-    kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default && \
-    kubectl apply -f flannel.yaml
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml
     ```
 5. Or you can simply run `kubeadm_init_flannel.sh` script from `stand_kubernetes_cluster/tools/kube_scripts` instead of steps 2-4:
     ```
     sudo sh kubeadm_init_flannel.sh
     ```
-6. Deploy NVIDIA device plugin for Kubernetes. Follow this manual: https://github.com/NVIDIA/k8s-device-plugin
+6. Deploy NVIDIA device plugin for Kubernetes with running `deploy_nvidia_plugin.sh` script from `stand_kubernetes_cluster/tools/kube_scripts`:
+    ```
+    sudo sh deploy_nvidia_plugin.sh
+    ```
+
+Reference resources:
+1. NVIDIA device plugin for Kubernetes: https://github.com/NVIDIA/k8s-device-plugin
 
 ### Worker nodes deployment:
 1. To add worker nodes to the cluster run with `--ignore-preflight-errors=all` option saved `kubeadm join` as sudo on each worker node and restart kubelet:
     ```
-    sudo kubeadm join --ignore-preflight-errors=all --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
-    sudo systemctl restart kubelet
+    sudo kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
     ```
     
 ### Cluster operations:
@@ -197,6 +202,7 @@ To create these objects:
     kubectl create -f volumes/logs_hostpath
     kubectl create -f volumes/components_hostpath
     kubectl create -f volumes/db_hostpath
+    kubectl create -f volumes/rb_hostpath
     ``` 
     
 For Kubernetes storaging and **Volumes** you can reference:

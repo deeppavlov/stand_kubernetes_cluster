@@ -1,6 +1,6 @@
 stand_paraphraser_ru:
-  CONFIG_FILE: classifiers/paraphraser_rubert.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: paraphraser_rubert
+  TEMPLATE: dp
   CLUSTER_PORT: 7003
   MODEL_ARGS: ["text1", "text2"]
   image_polling_timeout_sec: 300
@@ -8,8 +8,8 @@ stand_paraphraser_ru:
   pipeline: all_up_kuber
 
 stand_ner_ru:
-  CONFIG_FILE: ner/ner_rus_bert.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: ner_rus_bert
+  TEMPLATE: dp
   CLUSTER_PORT: 7004
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 300
@@ -17,8 +17,8 @@ stand_ner_ru:
   pipeline: all_up_kuber
 
 stand_ner_en:
-  CONFIG_FILE: ner/ner_ontonotes_bert_mult.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: ner_ontonotes_bert_mult
+  TEMPLATE: dp
   CLUSTER_PORT: 7010
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 300
@@ -26,8 +26,8 @@ stand_ner_en:
   pipeline: all_up_kuber
 
 stand_ner_ml:
-  CONFIG_FILE: ner/ner_ontonotes_bert_mult.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: ner_ontonotes_bert_mult
+  TEMPLATE: dp
   CLUSTER_PORT: 7013
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 300
@@ -35,8 +35,8 @@ stand_ner_ml:
   pipeline: all_up_kuber
 
 stand_squad_ru:
-  CONFIG_FILE: squad/squad_ru_bert_infer.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: squad_ru_bert_infer
+  TEMPLATE: dp
   CLUSTER_PORT: 7005
   MODEL_ARGS: ["text1", "text2"]
   image_polling_timeout_sec: 600
@@ -44,8 +44,8 @@ stand_squad_ru:
   pipeline: all_up_kuber
 
 stand_squad_en:
-  CONFIG_FILE: squad/squad_bert_infer.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: squad_bert_infer
+  TEMPLATE: dp
   CLUSTER_PORT: 7008
   MODEL_ARGS: ["text1", "text2"]
   image_polling_timeout_sec: 600
@@ -53,9 +53,8 @@ stand_squad_en:
   pipeline: all_up_kuber
 
 stand_squad_ml:
-  CONFIG_FILE: squad/squad_bert_multilingual_freezed_emb_eval_on_ru.json
-  TEMPLATE: dp_no_gpu
-  BRANCH: squad_multilingual_configs
+  CONFIG: squad_bert_multilingual_freezed_emb
+  TEMPLATE: dp
   CLUSTER_PORT: 7014
   MODEL_ARGS: ["text1", "text2"]
   image_polling_timeout_sec: 600
@@ -63,8 +62,8 @@ stand_squad_ml:
   pipeline: all_up_kuber
 
 stand_intents_en:
-  CONFIG_FILE: classifiers/intents_snips_big.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: intents_snips_big
+  TEMPLATE: dp
   CLUSTER_PORT: 7007
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
@@ -72,8 +71,8 @@ stand_intents_en:
   pipeline: all_up_kuber
 
 stand_ranking_en:
-  CONFIG_FILE: ranking/ranking_insurance_interact.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: ranking_insurance_interact
+  TEMPLATE: dp
   CLUSTER_PORT: 7009
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
@@ -81,8 +80,8 @@ stand_ranking_en:
   pipeline: all_up_kuber
 
 stand_insults_en:
-  CONFIG_FILE: classifiers/insults_kaggle_bert.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: insults_kaggle_conv_bert
+  TEMPLATE: dp
   CLUSTER_PORT: 7006
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
@@ -90,8 +89,10 @@ stand_insults_en:
   pipeline: all_up_kuber
 
 stand_odqa_en:
-  CONFIG_FILE: odqa/en_odqa_pop_infer_enwiki20180211.json
-  TEMPLATE: dp_gpu
+  CONFIG: en_odqa_pop_infer_enwiki20180211
+  TEMPLATE: dp
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.0"
+  GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7011
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 1200
@@ -99,8 +100,10 @@ stand_odqa_en:
   pipeline: all_up_kuber
 
 stand_odqa_ru:
-  CONFIG_FILE: odqa/ru_odqa_infer_wiki_rubert_noans.json
-  TEMPLATE: dp_gpu
+  CONFIG: ru_odqa_infer_wiki_rubert_noans
+  TEMPLATE: dp
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.0"
+  GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7012
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
@@ -108,8 +111,8 @@ stand_odqa_ru:
   pipeline: all_up_kuber
 
 stand_sentiment_ru:
-  CONFIG_FILE: classifiers/rusentiment_elmo_twitter_cnn.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: rusentiment_elmo_twitter_cnn
+  TEMPLATE: dp
   CLUSTER_PORT: 7015
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600
@@ -117,8 +120,8 @@ stand_sentiment_ru:
   pipeline: all_up_kuber
 
 stand_kbqa_ru:
-  CONFIG_FILE: kbqa/kbqa_rus.json
-  TEMPLATE: dp_no_gpu
+  CONFIG: kbqa_rus
+  TEMPLATE: dp
   CLUSTER_PORT: 7016
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 600

@@ -3,11 +3,9 @@ dockerhub_registry: "deeppavlov"
 docker_base_url: "unix://var/run/docker.sock"
 local_log_dir: "~/dev/logs/"
 container_log_dir: "/logs/"
+local_components_dir: "~/.deeppavlov/"
+container_components_dir: "/root/.deeppavlov/"
 local_gpu_device_index: 0
-
-gpu_templates:
-  - "dp_gpu"
-  - "rb_gpu"
 
 paths:
   deployer_dir: "{{root_dir}}/tools/cluster_deployer/"

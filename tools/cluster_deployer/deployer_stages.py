@@ -193,12 +193,23 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         models_dir_path = self.config['paths']['models_dir']
         build_dir_path = str(models_dir_path / deployment_status.full_model_name)
-        image_tag = self.config['models'][deployment_status.full_model_name]['KUBER_IMAGE_TAG']
+
+        model_config: dict = self.config['models'][deployment_status.full_model_name]
+        image_tag = model_config['KUBER_IMAGE_TAG']
+
+        # TODO: think how to get rid of hardcode buildargs
+        buildarg_keys = ['BASE_IMAGE', 'COMMIT', 'CONFIG', 'RUN_CMD', 'FULL_MODEL_NAME']
+        buildargs = {key: model_config.get(key, '') for key in buildarg_keys}
+        dumped_args = json.dumps(model_config['MODEL_ARGS'])
+        # TODO: find out how to get rid of the replacement
+        dumped_args = dumped_args.replace('"', '\\"').replace('[', '\\[').replace(']', '\\]')
+        buildargs['MODEL_ARGS'] = dumped_args
 
         kwargs = {
             'path': build_dir_path,
             'tag': image_tag,
-            'rm': True
+            'rm': True,
+            'buildargs': buildargs
         }
 
         self.docker_client.images.build(**kwargs)
@@ -222,8 +233,8 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
         container_port = self.config['models'][deployment_status.full_model_name]['PORT']
         local_log_dir = str(Path(self.config['local_log_dir']).expanduser().resolve())
         container_log_dir = str(Path(self.config['container_log_dir']).expanduser().resolve())
-        dockerfile_template = self.config['models'][deployment_status.full_model_name]['TEMPLATE']
-        gpu_templates = self.config['gpu_templates']
+        local_components_dir = str(Path(self.config['local_components_dir']).expanduser().resolve())
+        container_components_dir = str(Path(self.config['container_components_dir']).expanduser().resolve())
         local_gpu_device_index = self.config['local_gpu_device_index']
 
         kwargs = {
@@ -231,22 +242,19 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
             'auto_remove': True,
             'detach': True,
             'ports': {container_port: container_port},
-            'volumes': {local_log_dir: {'bind': container_log_dir, 'mode': 'rw'}}
+            'volumes': {local_log_dir: {'bind': container_log_dir, 'mode': 'rw'},
+                        local_components_dir: {'bind': container_components_dir, 'mode': 'rw'}},
+            'runtime': 'nvidia',
+            'devices': [f'/dev/nvidia{str(local_gpu_device_index)}']
         }
-
-        if dockerfile_template in gpu_templates:
-            kwargs['runtime'] = 'nvidia'
-            kwargs['devices'] = [f'/dev/nvidia{str(local_gpu_device_index)}']
 
         self.container: Container = self.docker_client.containers.run(**kwargs)
 
         # test model API
         url = self.config['models'][deployment_status.full_model_name]['test_image_url']
-        model_args = self.config['models'][deployment_status.full_model_name]['MODEL_ARGS']
-        json_payload = {arg_name: ['This is probe text.'] for arg_name in model_args}
         polling_timeout = self.config['models'][deployment_status.full_model_name]['image_polling_timeout_sec']
 
-        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json=json_payload),
+        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json={}),
                                             estimator=lambda result: result.status_code == 200,
                                             interval_sec=1,
                                             timeout_sec=polling_timeout)

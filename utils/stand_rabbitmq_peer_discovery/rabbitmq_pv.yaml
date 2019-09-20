@@ -1,0 +1,17 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rabbitmq-data-sigma
+  labels:
+    type: local
+  annotations:
+    volume.alpha.kubernetes.io/storage-class: rabbitmq-data-sigma
+spec:
+  storageClassName: rabbitmq-data-sigma
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  hostPath:
+    path: "/home/share/stand_demo/rabbit/rabbitmq-data-sigma"

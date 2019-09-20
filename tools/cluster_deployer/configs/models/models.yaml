@@ -2,10 +2,14 @@ dev_mongo_db:
   TEMPLATE: mongo_db
   CLUSTER_PORT: 10001
 
-demo_transformer_chit_chat_40k_v05_2:
-  CONFIG_FILE: generative_chit_chat/transformer_chit_chat_40k_v05.json
-  TEMPLATE: dp_obsolete_gpu
-  BRANCH: dbda0df
-  CLUSTER_PORT: 7061
-  run_mode: "interactmsbot"
-  run_flags: ["--no-default-skill", "--stateful"]
+dev_odqa_en:
+  CONFIG: en_odqa_pop_infer_enwiki20180211
+  TEMPLATE: dp
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.0"
+  GPU_UNITS_NUM: 1
+  REPLICAS_NUM: 10
+  CLUSTER_PORT: 7030
+  MODEL_ARGS: ["text1"]
+  image_polling_timeout_sec: 1200
+  deployment_polling_timeout_sec: 2400
+  pipeline: all_up_kuber
