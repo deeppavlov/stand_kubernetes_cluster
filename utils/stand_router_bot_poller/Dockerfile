@@ -32,13 +32,11 @@ RUN git clone https://github.com/deepmipt/convai_router_bot_poller.git . && \
     pip install -r requirements.txt && \
     rm -rf /root/.cache
 
-ENV DEFAULT_MODEL_NAME="unknown_model"
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
-    if [ -z $MODEL_NAME ] || [ $MODEL_NAME = "" ]; then MODEL_NAME=$DEFAULT_MODEL_NAME; fi && \
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N') && \
     LOG_DIR="/logs/"$MODEL_NAME"/" && \
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NODE"_"$POD_NAME".log" && \
