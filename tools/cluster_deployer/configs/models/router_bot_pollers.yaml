@@ -1,7 +1,0 @@
-poller_agent:
-  TEMPLATE: router_bot_poller
-  ROUTER_BOT_IP: 10.11.1.65
-  ROUTER_BOT_PORT: 8433
-  BOT_TOKEN: "agent"
-  LAUNCH_MODE: "--agent"
-  MODEL_URL: ""

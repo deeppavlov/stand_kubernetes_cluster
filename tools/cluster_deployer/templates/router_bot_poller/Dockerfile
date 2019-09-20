@@ -43,4 +43,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NODE"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
-    python poller.py --model_url {{MODEL_URL}} --host {{ROUTER_BOT_IP}} --port {{ROUTER_BOT_PORT}} --token {{BOT_TOKEN}} {{LAUNCH_MODE}}> $LOG_PATH 2>&1
+    python poller.py $RUN_CMD > $LOG_PATH 2>&1

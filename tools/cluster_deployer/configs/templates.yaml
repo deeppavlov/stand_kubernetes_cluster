@@ -194,10 +194,16 @@ router_bot:
 
 
 router_bot_poller:
-  # composed params
-  MODEL_URL: "http://{{CLUSTER_IP}}:{{MODEL_PORT}}/answer"
-  LAUNCH_MODE: ""
+  # default params
   pipeline: "make_files"
+
+  # human set params
+  run_flags: ["--agent", "--state", "--convai"]
+  run_params:
+    --model_url: ""
+    --host: ""
+    --port: ""
+    --token: ""
 
 
 rabbitmq:

@@ -23,6 +23,8 @@ spec:
           mountPath: /etc/podinfo
           readOnly: false
         env:
+        - name: RUN_CMD
+          value: {{RUN_CMD}}
         - name: POD_NODE
           valueFrom:
             fieldRef:
