@@ -5,3 +5,11 @@ routerbot_toloka_dialog_rus_bot:
   CLUSTER_SSH_PORT: 8062
   FB_PAGE_ACCESS_TOKEN: "dummy"
   FB_WEBHOOK_SECRET: "dummy"
+
+alexaprize_idris_repo_rb:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7063
+  CLUSTER_MONGO_PORT: 10063
+  CLUSTER_SSH_PORT: 8063
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
