@@ -193,6 +193,19 @@ router_bot:
   PROXY_PASS: ""
 
 
+router_bot_poller:
+  # default params
+  pipeline: "make_files"
+
+  # human set params
+  run_flags: ["--agent", "--state", "--convai"]
+  run_params:
+    --model_url: ""
+    --host: ""
+    --port: ""
+    --token: ""
+
+
 rabbitmq:
   # default params
   RABBIT_DOCKER_TAG: "3-management"
