@@ -48,12 +48,13 @@ RUN git clone https://github.com/deepmipt/DeepPavlov.git && \
     python -c 'import deeppavlov.models' && \
     rm -rf /root/.cache
 
+ENV DP_SKIP_NLTK_DOWNLOAD='True'
+
 CMD if [ ! -z $COMMIT ]; then \
         cd /base/DeepPavlov && \
         git fetch --all --tags --prune && \
         git checkout $COMMIT && \
-        python setup.py develop && \
-        python -c 'import deeppavlov.models'; \
+        python setup.py develop; \
     fi && \
     if [ -d /venv/$CONFIG ]; then \
         PATH=/venv/$CONFIG/bin:$PATH; \

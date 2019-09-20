@@ -25,7 +25,6 @@ RUN if [ ! -z $COMMIT ]; then \
         git fetch --all --tags --prune && \
         git checkout $COMMIT && \
         python setup.py develop && \
-        python -c 'import deeppavlov.models' && \
         rm -rf /root/.cache; \
     fi && \
     python -m deeppavlov install $CONFIG

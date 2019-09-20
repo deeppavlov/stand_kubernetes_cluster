@@ -436,11 +436,9 @@ class TestKuberDeploymentStage(AbstractDeploymentStage):
 
     def _act(self, deployment_status: DeploymentStatus) -> DeploymentStatus:
         url = self.config['models'][deployment_status.full_model_name]['test_deployment_url']
-        model_args = self.config['models'][deployment_status.full_model_name]['MODEL_ARGS']
-        json_payload = {arg_name: ['This is probe text.'] for arg_name in model_args}
         polling_timeout = self.config['models'][deployment_status.full_model_name]['deployment_polling_timeout_sec']
 
-        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json=json_payload),
+        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json={}),
                                             estimator=lambda result: result.status_code == 200,
                                             interval_sec=1,
                                             timeout_sec=polling_timeout)

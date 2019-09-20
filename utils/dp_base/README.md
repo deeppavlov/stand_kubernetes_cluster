@@ -37,7 +37,7 @@ docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
 
 ```shell script
 docker build -t deeppavlov/base-gpu:<dp_version> \
-    --build-arg NVIDIA_BASE_IMAGE=<python_base_docker_image> \
+    --build-arg NVIDIA_BASE_IMAGE=<nvidia_base_docker_image> \
     --build-arg COMMIT=<dp_version> \
     --build-arg CUDNN_VERSION=<cudnn_version> \
     --build-arg PYTHON_VERSION=<python_version> .
