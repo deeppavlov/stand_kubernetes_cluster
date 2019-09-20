@@ -25,6 +25,8 @@ spec:
         env:
         - name: RUN_CMD
           value: {{RUN_CMD}}
+        - name: MODEL_NAME
+          value: {{FULL_MODEL_NAME}}
         - name: POD_NODE
           valueFrom:
             fieldRef:
