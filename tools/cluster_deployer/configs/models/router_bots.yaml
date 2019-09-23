@@ -13,3 +13,7 @@ alexaprize_idris_repo_rb:
   CLUSTER_SSH_PORT: 8063
   FB_PAGE_ACCESS_TOKEN: "dummy"
   FB_WEBHOOK_SECRET: "dummy"
+
+alexaprize_idris_repo_rbp:
+  TEMPLATE: router_bot_poller
+  run_flags: ["--agent"]
