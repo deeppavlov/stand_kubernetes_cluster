@@ -167,11 +167,11 @@ agent_obsolete:
 
 router_bot:
   # default params
+  pipeline: "make_files_and_kuber_no_tests"
   MONGO_DOCKER_TAG: "4.0.6-xenial"
   MONGO_PROTOCOL: "mongodb"
   MONGO_HOST: "127.0.0.1"
   MONGO_PORT: 27017
-  pipeline: "make_files_and_kuber_no_tests"
 
   # composed params
   KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/router_bot"
@@ -195,7 +195,10 @@ router_bot:
 
 router_bot_poller:
   # default params
-  pipeline: "make_files"
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/router_bot_poller"
 
   # human set params
   run_flags: ["--agent", "--state", "--convai"]
