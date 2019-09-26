@@ -5,7 +5,7 @@ dev_mongo_db:
 dev_odqa_en:
   CONFIG: en_odqa_pop_infer_enwiki20180211
   TEMPLATE: dp
-  BASE_IMAGE: "deeppavlov/base-gpu:0.6.0"
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
   GPU_UNITS_NUM: 1
   REPLICAS_NUM: 10
   CLUSTER_PORT: 7030

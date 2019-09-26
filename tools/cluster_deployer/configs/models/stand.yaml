@@ -91,7 +91,7 @@ stand_insults_en:
 stand_odqa_en:
   CONFIG: en_odqa_pop_infer_enwiki20180211
   TEMPLATE: dp
-  BASE_IMAGE: "deeppavlov/base-gpu:0.6.0"
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
   GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7011
   MODEL_ARGS: ["text1"]
@@ -102,7 +102,7 @@ stand_odqa_en:
 stand_odqa_ru:
   CONFIG: ru_odqa_infer_wiki_rubert_noans
   TEMPLATE: dp
-  BASE_IMAGE: "deeppavlov/base-gpu:0.6.0"
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
   GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7012
   MODEL_ARGS: ["text1"]
