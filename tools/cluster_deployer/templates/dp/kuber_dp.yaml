@@ -37,10 +37,12 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        - name: FULL_MODEL_NAME
-          value: {{FULL_MODEL_NAME}}
+        - name: COMMIT
+          value: {{COMMIT}}
         - name: CONFIG
           value: {{CONFIG}}
+        - name: FULL_MODEL_NAME
+          value: {{FULL_MODEL_NAME}}
         - name: RUN_CMD
           value: {{RUN_CMD}}
       volumes:

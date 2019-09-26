@@ -18,17 +18,22 @@ FROM $BASE_IMAGE
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
-WORKDIR /app
+VOLUME /app
 
 CMD if [ -d /app/$FULL_MODEL_NAME/venv ]; then \
         PATH=/app/$FULL_MODEL_NAME/venv/bin:$PATH; \
     else \
+        if [ ! -z $COMMIT ]; then \
+            cd /base/DeepPavlov && \
+            git fetch --all --tags --prune && \
+            git checkout $COMMIT;\
+        fi && \
+        cp /app/$FULL_MODEL_NAME/settings/* /base/DeepPavlov/deeppavlov/utils/settings/ && \
+        pip install /base/DeepPavlov && \
         python -m deeppavlov install $CONFIG && \
         mkdir /app/$FULL_MODEL_NAME/venv && \
-        cp -R /base/venv/* /app/$FULL_MODEL_NAME/venv && \
-        sed -i "\|VIRTUAL_ENV=|s|/base|/app/"$FULL_MODEL_NAME"|g" "/app/"$FULL_MODEL_NAME"/venv/bin/activate"; \
+        cp -r /base/venv/ /app/$FULL_MODEL_NAME/; \
     fi && \
-    cp /app/$FULL_MODEL_NAME/settings/* /base/DeepPavlov/deeppavlov/utils/settings/ && \
     if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N') && \
