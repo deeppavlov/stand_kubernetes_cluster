@@ -8,6 +8,7 @@ demo_transformer_chitchat_pasha:
   COMMIT: "72bf7715a7a8df80fed82203ad5d482809bdf0c8"
   BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
   CLUSTER_PORT: 6001
+  GPU_UNITS_NUM: 1
   MODEL_ARGS: ["text1"]
   image_polling_timeout_sec: 1200
   deployment_polling_timeout_sec: 2400
