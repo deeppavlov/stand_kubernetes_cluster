@@ -19,6 +19,9 @@ http_proxy:
   - http_proxy_cloud_demo_01
   - http_proxy_cloud_demo_02
 
+alexaprize_idris_repo:
+  - alexaprize_idris_repo_rb
+
 agent_general:
   - agent_chitchat
   - agent_chitchat_odqa

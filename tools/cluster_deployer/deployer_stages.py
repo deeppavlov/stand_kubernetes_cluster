@@ -233,6 +233,8 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
         container_port = self.config['models'][deployment_status.full_model_name]['PORT']
         local_log_dir = str(Path(self.config['local_log_dir']).expanduser().resolve())
         container_log_dir = str(Path(self.config['container_log_dir']).expanduser().resolve())
+        local_components_dir = str(Path(self.config['local_components_dir']).expanduser().resolve())
+        container_components_dir = str(Path(self.config['container_components_dir']).expanduser().resolve())
         local_gpu_device_index = self.config['local_gpu_device_index']
 
         kwargs = {
@@ -240,7 +242,8 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
             'auto_remove': True,
             'detach': True,
             'ports': {container_port: container_port},
-            'volumes': {local_log_dir: {'bind': container_log_dir, 'mode': 'rw'}},
+            'volumes': {local_log_dir: {'bind': container_log_dir, 'mode': 'rw'},
+                        local_components_dir: {'bind': container_components_dir, 'mode': 'rw'}},
             'runtime': 'nvidia',
             'devices': [f'/dev/nvidia{str(local_gpu_device_index)}']
         }
@@ -249,11 +252,9 @@ class TestImageDeploymentStage(AbstractDeploymentStage):
 
         # test model API
         url = self.config['models'][deployment_status.full_model_name]['test_image_url']
-        model_args = self.config['models'][deployment_status.full_model_name]['MODEL_ARGS']
-        json_payload = {arg_name: ['This is probe text.'] for arg_name in model_args}
         polling_timeout = self.config['models'][deployment_status.full_model_name]['image_polling_timeout_sec']
 
-        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json=json_payload),
+        polling_result, polling_time = poll(probe=lambda: requests.post(url=url, json={}),
                                             estimator=lambda result: result.status_code == 200,
                                             interval_sec=1,
                                             timeout_sec=polling_timeout)
