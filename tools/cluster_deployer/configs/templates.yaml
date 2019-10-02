@@ -44,6 +44,7 @@ _root:
 
 # examples for some params
 _docs:
+  MODEL_ARGS: ["arg_name"]
   run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
