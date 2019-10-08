@@ -20,7 +20,6 @@ ARG COMMIT=master
 EXPOSE 5000
 
 VOLUME /logs
-VOLUME /root/.deeppavlov
 
 WORKDIR /base
 
