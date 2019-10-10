@@ -22,9 +22,6 @@ alexaprize_idris_repo:
   - alexaprize_idris_repo_rb
   - alexaprize_idris_repo_rbp
 
-dev_agent:
-  - dev_agent_odqa_ru
-
 push_pull:
   - stand_paraphraser_ru
   - stand_ner_ru
