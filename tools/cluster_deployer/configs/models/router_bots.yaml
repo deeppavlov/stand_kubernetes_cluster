@@ -14,6 +14,18 @@ alexaprize_idris_repo_rb:
   FB_PAGE_ACCESS_TOKEN: "dummy"
   FB_WEBHOOK_SECRET: "dummy"
 
+alexaprize_idris_repo_rbp_dev:
+  TEMPLATE: router_bot_poller
+  run_flags: ["--agent"]
+
+alexaprize_idris_repo_rb_dev:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7064
+  CLUSTER_MONGO_PORT: 10064
+  CLUSTER_SSH_PORT: 8064
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
+
 alexaprize_idris_repo_rbp:
   TEMPLATE: router_bot_poller
   run_flags: ["--agent"]
