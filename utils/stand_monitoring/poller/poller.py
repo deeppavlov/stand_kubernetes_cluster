@@ -19,7 +19,7 @@ def probe(services: Dict[str, str], request_timeout: float) -> Dict[str, bool]:
 
     for model, url in services.items():
         service_name = ' '.join([model, url])
-        probe_result[service_name] = custom_post(f'{url}/poller', timeout=request_timeout)
+        probe_result[service_name] = custom_post(f'{url}/probe', timeout=request_timeout)
 
     return probe_result
 
