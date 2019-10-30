@@ -15,19 +15,19 @@
     }
   },
   "services": {
-    "stand_paraphraser_ru":       "https://7003.lnsigo.mipt.ru/answer",
-    "stand_ner_ru":               "https://7004.lnsigo.mipt.ru/answer",
-    "stand_squad_ru":             "https://7005.lnsigo.mipt.ru/answer",
-    "stand_insults_en":           "https://7006.lnsigo.mipt.ru/answer",
-    "stand_intents_en":           "https://7007.lnsigo.mipt.ru/answer",
-    "stand_squad_en":             "https://7008.lnsigo.mipt.ru/answer",
-    "stand_ranking_en":           "https://7009.lnsigo.mipt.ru/answer",
-    "stand_ner_en":               "https://7010.lnsigo.mipt.ru/answer",
-    "stand_odqa_en":              "https://7011.lnsigo.mipt.ru/answer",
-    "stand_odqa_ru":              "https://7012.lnsigo.mipt.ru/answer",
-    "stand_ner_ml":               "https://7013.lnsigo.mipt.ru/answer",
-    "stand_squad_ml":             "https://7014.lnsigo.mipt.ru/answer",
-    "stand_sentiment_ru":         "https://7015.lnsigo.mipt.ru/answer",
-    "stand_kbqa_ru":              "https://7016.lnsigo.mipt.ru/answer"
+    "stand_paraphraser_ru":       "https://7003.lnsigo.mipt.ru",
+    "stand_ner_ru":               "https://7004.lnsigo.mipt.ru",
+    "stand_squad_ru":             "https://7005.lnsigo.mipt.ru",
+    "stand_insults_en":           "https://7006.lnsigo.mipt.ru",
+    "stand_intents_en":           "https://7007.lnsigo.mipt.ru",
+    "stand_squad_en":             "https://7008.lnsigo.mipt.ru",
+    "stand_ranking_en":           "https://7009.lnsigo.mipt.ru",
+    "stand_ner_en":               "https://7010.lnsigo.mipt.ru",
+    "stand_odqa_en":              "https://7011.lnsigo.mipt.ru",
+    "stand_odqa_ru":              "https://7012.lnsigo.mipt.ru",
+    "stand_ner_ml":               "https://7013.lnsigo.mipt.ru",
+    "stand_squad_ml":             "https://7014.lnsigo.mipt.ru",
+    "stand_sentiment_ru":         "https://7015.lnsigo.mipt.ru",
+    "stand_kbqa_ru":              "https://7016.lnsigo.mipt.ru"
   }
 }

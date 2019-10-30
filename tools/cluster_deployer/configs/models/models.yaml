@@ -1,15 +1,3 @@
 dev_mongo_db:
   TEMPLATE: mongo_db
   CLUSTER_PORT: 10001
-
-dev_odqa_en:
-  CONFIG: en_odqa_pop_infer_enwiki20180211
-  TEMPLATE: dp
-  BASE_IMAGE: "deeppavlov/base-gpu:0.6.0"
-  GPU_UNITS_NUM: 1
-  REPLICAS_NUM: 10
-  CLUSTER_PORT: 7030
-  MODEL_ARGS: ["text1"]
-  image_polling_timeout_sec: 1200
-  deployment_polling_timeout_sec: 2400
-  pipeline: all_up_kuber

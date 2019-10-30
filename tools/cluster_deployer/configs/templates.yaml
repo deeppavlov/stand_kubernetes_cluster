@@ -44,6 +44,7 @@ _root:
 
 # examples for some params
 _docs:
+  MODEL_ARGS: ["arg_name"]
   run_flags: ["--default-skill"]
   run_params:
     --host: 10.11.1.58
@@ -55,7 +56,7 @@ dp:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
-  BASE_IMAGE: "deeppavlov/base-cpu:0.6.0"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.6.1"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/probe"

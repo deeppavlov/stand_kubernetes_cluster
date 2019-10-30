@@ -22,7 +22,6 @@ ARG PYTHON_VERSION
 EXPOSE 5000
 
 VOLUME /logs
-VOLUME /root/.deeppavlov
 
 WORKDIR /base
 
