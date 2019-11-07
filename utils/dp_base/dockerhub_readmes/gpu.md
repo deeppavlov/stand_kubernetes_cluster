@@ -36,14 +36,15 @@ DeepPavlov create `<dp_config_name>.log` file in `<dp_logs_volume>` dir on your 
 Most of DeepPavlov models use downloadable components (pretrained model pickles, embeddings...) which are downloaded from our
 servers. To prevent downloading components (some of them are quite heavy) each time you run Docker image for specific DP
 config, you can make this mount. If you do it, DeepPavlov will store in this dir components downloaded during the first 
-launch of any DP config, so during the further launches DP will use components from the mounted folder. DeepPavlov will
-automatically manage downloaded components for all configs in this folder.
+launch of any DP config, so during the further launches DP will use components from the mounted folder. We recommend to
+use one `<dp_components_volume>` for all models because some of them can use same components. DeepPavlov will automatically
+manage downloaded components for all configs in this folder.
 
 5. `<host_venv_dir>` - directory on your host where you can mount DeepPavlov Python virtual environments dir. Each DP
 config uses its own set of Python dependencies, which are installed each time you run Docker image for specific DP
-config. To prevent it you can make this mount. In this case DeepPavlov create `<dp_config_name>` dir in `<host_venv_dir>` dir on 
-your host with virtual environment for subsequent reuse with this config. Be sure to use different `<host_venv_dir>`
-for different DP version images.
+config. To prevent it you can make this mount. In this case virtual environment for each `<dp_config_name>` will be saved
+in the `<host_venv_dir>/<dp_config_name>` dir for subsequent reuse with this config. Same model config can use different
+dependencies in different DeepPavlov versions so be sure not to use same `<host_venv_dir>` for different DP version images.
 
 6. `<dp_version>` - DeepPavlov release ID. Omit to use run latest DP release.
 
