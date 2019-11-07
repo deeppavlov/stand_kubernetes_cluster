@@ -21,8 +21,8 @@ properties:
         name: logs-volume
       - mountPath: /root/.deeppavlov
         name: components-volume
-      - mountPath: /venv
-        name: envs-volume
+      #- mountPath: /venv
+      #  name: envs-volume
   restartPolicy: OnFailure
   osType: Linux
   ipAddress:
@@ -41,9 +41,9 @@ properties:
       sharename: dp-components
       storageAccountName: ipavlovsa
       storageAccountKey: '1o6NUpDRlD9XBaoc2vFfuL9tuRg6PgN+q+7zRyVyKa7tfsfJMPqH6v5YO+LvpoMVsge9Hmfm0ljmlIe8+eR6Xw=='
-  - name: envs-volume
-    azureFile:
-      sharename: dp-envs
-      storageAccountName: ipavlovsa
-      storageAccountKey: '1o6NUpDRlD9XBaoc2vFfuL9tuRg6PgN+q+7zRyVyKa7tfsfJMPqH6v5YO+LvpoMVsge9Hmfm0ljmlIe8+eR6Xw=='
+  #- name: envs-volume
+  #  azureFile:
+  #    sharename: dp-envs
+  #    storageAccountName: ipavlovsa
+  #    storageAccountKey: '1o6NUpDRlD9XBaoc2vFfuL9tuRg6PgN+q+7zRyVyKa7tfsfJMPqH6v5YO+LvpoMVsge9Hmfm0ljmlIe8+eR6Xw=='
 tags: {}
