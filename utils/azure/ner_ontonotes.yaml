@@ -1,0 +1,49 @@
+apiVersion: '2018-10-01'
+location: centralus
+name: demo-ner-ontonotes
+type: Microsoft.ContainerInstance/containerGroups
+properties:
+  containers:
+  - name: ner-ontonotes
+    properties:
+      environmentVariables:
+      - name: CONFIG
+        value: ner_ontonotes
+      image: deeppavlov/base-cpu:0.6.1
+      ports:
+      - port: 5000
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - mountPath: /logs
+        name: logs-volume
+      - mountPath: /root/.deeppavlov
+        name: components-volume
+      - mountPath: /venv
+        name: envs-volume
+  restartPolicy: OnFailure
+  osType: Linux
+  ipAddress:
+    type: Public
+    ports:
+      - port: 5000
+    dnsNameLabel: ner-demo
+  volumes:
+  - name: logs-volume
+    azureFile:
+      sharename: dp-logs
+      storageAccountName: ipavlovsa
+      storageAccountKey: '1o6NUpDRlD9XBaoc2vFfuL9tuRg6PgN+q+7zRyVyKa7tfsfJMPqH6v5YO+LvpoMVsge9Hmfm0ljmlIe8+eR6Xw=='
+  - name: components-volume
+    azureFile:
+      sharename: dp-components
+      storageAccountName: ipavlovsa
+      storageAccountKey: '1o6NUpDRlD9XBaoc2vFfuL9tuRg6PgN+q+7zRyVyKa7tfsfJMPqH6v5YO+LvpoMVsge9Hmfm0ljmlIe8+eR6Xw=='
+  - name: envs-volume
+    azureFile:
+      sharename: dp-envs
+      storageAccountName: ipavlovsa
+      storageAccountKey: '1o6NUpDRlD9XBaoc2vFfuL9tuRg6PgN+q+7zRyVyKa7tfsfJMPqH6v5YO+LvpoMVsge9Hmfm0ljmlIe8+eR6Xw=='
+tags: {}
