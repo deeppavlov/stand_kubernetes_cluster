@@ -67,6 +67,15 @@ dp:
   CLUSTER_PORT: ""
 
 
+agent_service:
+  # default_params:
+  pipeline: "all_up_kuber_no_tests"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.6.1"
+
+  # human set params
+  COMMIT: ""
+  CONFIG: ""
+
 router_bot:
   # default params
   pipeline: "make_files_and_kuber_no_tests"
