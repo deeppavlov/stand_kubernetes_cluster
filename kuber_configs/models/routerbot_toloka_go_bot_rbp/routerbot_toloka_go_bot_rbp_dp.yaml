@@ -1,21 +1,21 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: {{KUBER_DP_NAME}}
+  name: routerbot-toloka-go-bot-rbp-dp
   namespace: stand-demo
 spec:
-  replicas: {{REPLICAS_NUM}}
+  replicas: 1
   template:
     metadata:
       labels:
-        app: {{KUBER_DP_NAME}}
+        app: routerbot-toloka-go-bot-rbp-dp
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
-        image: {{KUBER_IMAGE_TAG}}
+      - name: routerbot-toloka-go-bot-rbp
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/router_bot_poller
         resources:
           limits:
-            nvidia.com/gpu: {{GPU_UNITS_NUM}}
+            nvidia.com/gpu: 0
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
@@ -23,12 +23,10 @@ spec:
           mountPath: /etc/podinfo
           readOnly: false
         env:
-        - name: COMMIT
-          value: {{COMMIT}}
         - name: RUN_CMD
-          value: {{RUN_CMD}}
+          value:    --model_url http://10.11.1.251:7566/model --host 10.11.1.251 --port 7066 --token dstc2_bot 
         - name: MODEL_NAME
-          value: {{FULL_MODEL_NAME}}
+          value: routerbot_toloka_go_bot_rbp
         - name: POD_NODE
           valueFrom:
             fieldRef:
@@ -53,4 +51,4 @@ spec:
       dnsPolicy: "None"
       dnsConfig:
         nameservers:
-          - {{DNS_IP}}
+          - 10.11.1.254

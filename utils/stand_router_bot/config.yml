@@ -25,6 +25,7 @@ evaluation_options:
   score_dialog: true
   evaluation_score_from: 1
   evaluation_score_to: 5
+  evaluate_message_required: false
   guess_profile: true
   guess_profile_sentence_by_sentence: false
 

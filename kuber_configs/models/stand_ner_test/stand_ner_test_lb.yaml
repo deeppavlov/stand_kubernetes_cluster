@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-ner-test-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: stand-ner-test-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: stand-ner-test
+    protocol: TCP
+    port: 7601
+    targetPort: cp5000

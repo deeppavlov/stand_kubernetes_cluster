@@ -1,34 +1,34 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: {{KUBER_DP_NAME}}
+  name: stand-go-bot-dstc2-dp
   namespace: stand-demo
 spec:
-  replicas: {{REPLICAS_NUM}}
+  replicas: 1
   template:
     metadata:
       labels:
-        app: {{KUBER_DP_NAME}}
+        app: stand-go-bot-dstc2-dp
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
-        image: {{KUBER_IMAGE_TAG}}
+      - name: stand-go-bot-dstc2
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/go_bot_dstc2
         resources:
           limits:
-            nvidia.com/gpu: {{GPU_UNITS_NUM}}
+            nvidia.com/gpu: 0
+        ports:
+        - name: cp5000
+          protocol: TCP
+          containerPort: 5000
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
         - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
         env:
-        - name: COMMIT
-          value: {{COMMIT}}
-        - name: RUN_CMD
-          value: {{RUN_CMD}}
-        - name: MODEL_NAME
-          value: {{FULL_MODEL_NAME}}
         - name: POD_NODE
           valueFrom:
             fieldRef:
@@ -41,6 +41,9 @@ spec:
       - name: volume-logs
         persistentVolumeClaim:
           claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
       - name: volume-podinfo
         downwardAPI:
           items:
@@ -53,4 +56,4 @@ spec:
       dnsPolicy: "None"
       dnsConfig:
         nameservers:
-          - {{DNS_IP}}
+          - 10.11.1.254
