@@ -31,6 +31,8 @@ agent_nti_gopnik:
   - agent_nti_gopnik_ranking_chitchat_2stage
   - agent_nti_gopnik_ner
   - agent_nti_gopnik_sentiment
+  - agent_nti_gopnik_rb
+  - agent_nti_gopnik_rbp
 
 push_pull:
   - stand_paraphraser_ru
