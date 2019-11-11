@@ -1,0 +1,36 @@
+agent_nti_gopnik:
+  TEMPLATE: agent_agent
+  CLUSTER_PORT: 9000
+  COMMIT: nti/v0.1_deploy
+
+agent_nti_gopnik_mongo_db:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9001
+
+agent_nti_gopnik_odqa:
+  CONFIG: odqa/ru_odqa_infer_wiki_rubert_noans
+  TEMPLATE: agent_service
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
+  GPU_UNITS_NUM: 1
+  CLUSTER_PORT: 9002
+  COMMIT: nti/v0.1_deploy
+
+agent_nti_gopnik_ranking_chitchat_2stage:
+  CONFIG: skills/ranking_chitchat_2stage/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
+  TEMPLATE: agent_service
+  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
+  GPU_UNITS_NUM: 1
+  CLUSTER_PORT: 9003
+  COMMIT: nti/v0.1_deploy
+
+agent_nti_gopnik_ner:
+  CONFIG: ner_rus
+  TEMPLATE: agent_service
+  CLUSTER_PORT: 9004
+  COMMIT: nti/v0.1_deploy
+
+agent_nti_gopnik_sentiment:
+  CONFIG: rusentiment_cnn
+  TEMPLATE: agent_service
+  CLUSTER_PORT: 9005
+  COMMIT: nti/v0.1_deploy

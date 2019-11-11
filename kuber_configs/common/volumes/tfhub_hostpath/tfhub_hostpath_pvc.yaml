@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tfhub-hostpath-pvc
+  namespace: stand-demo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: stand-demo-tfhub-hostpath-sc
+  resources:
+    requests:
+      storage: 200Gi

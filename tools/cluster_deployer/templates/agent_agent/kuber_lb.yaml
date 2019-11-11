@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{KUBER_LB_NAME}}
+  namespace: stand-demo
+spec:
+  selector:
+    app: {{KUBER_DP_NAME}}
+  type: LoadBalancer
+  externalIPs:
+  - {{CLUSTER_IP}}
+  ports:
+  - name: agent-api-port
+    protocol: TCP
+    port: {{CLUSTER_PORT}}
+    targetPort: api-port

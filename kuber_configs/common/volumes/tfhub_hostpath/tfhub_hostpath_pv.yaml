@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: stand-demo-tfhub-hostpath-pv
+  namespace: stand-demo
+spec:
+  storageClassName: stand-demo-tfhub-hostpath-sc
+  capacity:
+    storage: 200Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/stand_demo/dp_tfhub/"
