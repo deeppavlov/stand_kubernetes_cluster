@@ -66,6 +66,12 @@ dp:
   CONFIG: ""
   CLUSTER_PORT: ""
 
+agent_agent:
+  # default_params:
+  pipeline: "all_up_kuber_no_tests"
+
+  # human set params
+  COMMIT: ""
 
 agent_service:
   # default_params:
