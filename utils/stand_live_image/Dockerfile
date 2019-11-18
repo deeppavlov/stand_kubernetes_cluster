@@ -46,6 +46,7 @@ RUN apt-get update && \
         locales \
         openssh-server \
         make \
+        sudo \
         tk-dev \
         wget \
         xz-utils \
@@ -64,8 +65,6 @@ RUN apt-get update && \
     ln -s /usr/local/bin/pip${PYTHON_VERSION%.*} /usr/local/bin/pip && \
     # Enable ssh
     mkdir /var/run/sshd && \
-    echo 'root:root' | chpasswd && \
-    sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
     mkdir /root/.ssh && \
     # Cleanup
@@ -76,15 +75,22 @@ RUN apt-get update && \
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
 
 CMD if [ -d /.storage/internal_token_dir ]; then \
-        if [ -z $USER ]; then \
-            USER=$DEFAULT_USER; \
+        if [ -z $USER_NAME ]; then \
+            USER_NAME=$DEFAULT_USER; \
         fi && \
-        if [ ! -d /.storage/$USER ]; then \
-            mkdir /.storage/$USER && \
-            cp -r /root /usr /.storage/$USER; \
+        useradd -ms /bin/bash -p $(openssl passwd -1 $USER_NAME) $USER_NAME && \
+        usermod -aG sudo $USER_NAME && \
+        if [ ! -d "/.storage/${USER_NAME}" ]; then \
+            mkdir "/.storage/${USER_NAME}" && \
+            cp -r /usr /var/lib/apt/lists "/home/${USER_NAME}" "/.storage/${USER_NAME}"; \
         fi && \
-        rm -r /usr /root && \
-        ln -s /.storage/$USER/root /root && \
-        ln -s /.storage/$USER/usr /usr; \
+        rm -rf /usr \
+               /var/lib/apt/lists \
+               "/home/${USER_NAME}" \
+               "/.storage/${USER_NAME}/lists/lock" && \
+        ln -s "/.storage/${USER_NAME}/${USER_NAME}" "/home/${USER_NAME}" && \
+        ln -s "/.storage/${USER_NAME}/usr" /usr && \
+        ln -s "/.storage/${USER_NAME}/lists" /var/lib/apt/lists && \
+        chmod 4755 /usr/bin/sudo; \
     fi && \
     /usr/sbin/sshd -D
