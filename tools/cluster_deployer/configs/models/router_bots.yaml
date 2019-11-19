@@ -42,7 +42,7 @@ agent_nti_gopnik_rbp:
   TEMPLATE: router_bot_poller
   run_flags: ["--agent"]
   run_params:
-    --model_url: "http://10.11.1.251:9000/"
+    --model_url: "http://10.11.1.251:7059/"
     --host: "10.11.1.251"
     --port: "7067"
     --token: "agent_nti_gopnik"

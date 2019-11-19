@@ -1,6 +1,6 @@
 agent_nti_gopnik:
   TEMPLATE: agent_agent
-  CLUSTER_PORT: 9000
+  CLUSTER_PORT: 7059
   COMMIT: nti/v0.1_deploy
 
 agent_nti_gopnik_mongo_db:
