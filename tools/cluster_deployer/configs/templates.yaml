@@ -110,6 +110,18 @@ router_bot:
   PROXY_PASS: ""
 
 
+research_spot:
+  # default params
+  pipeline: "make_files_and_kuber_no_tests"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/stand/research_spot"
+
+  # human set params
+  CLUSTER_SSH_PORT: ""
+  USER_NAME: "guest"
+
+
 router_bot_poller:
   # default params
   pipeline: "make_files_and_kuber_no_tests"

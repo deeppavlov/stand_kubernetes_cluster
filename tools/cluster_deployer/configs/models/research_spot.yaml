@@ -1,0 +1,4 @@
+research_spot_test:
+  TEMPLATE: research_spot
+  USER_NAME: test
+  CLUSTER_SSH_PORT: 8096

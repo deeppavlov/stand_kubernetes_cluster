@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{KUBER_DP_NAME}}
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{KUBER_DP_NAME}}
+    spec:
+      containers:
+      - name: {{FULL_MODEL_NAME_DASHED}}
+        image: {{KUBER_IMAGE_TAG}}
+        ports:
+        - name: ssh-server-port
+          protocol: TCP
+          containerPort: 22
+        volumeMounts:
+        - name: volume-research-spot
+          mountPath: /.research_spot
+        env:
+        - name: USER_NAME
+          value: '{{USER_NAME}}'
+      volumes:
+      - name: volume-research-spot
+        persistentVolumeClaim:
+          claimName: research-spot-hostpath-pvc
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - {{DNS_IP}}
