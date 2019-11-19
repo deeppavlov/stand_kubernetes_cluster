@@ -63,6 +63,7 @@ RUN apt-get update && \
 	make -j "$(nproc)" altinstall && \
 	ln -s /usr/local/bin/python${PYTHON_VERSION%.*} /usr/local/bin/python && \
     ln -s /usr/local/bin/pip${PYTHON_VERSION%.*} /usr/local/bin/pip && \
+    pip install virtualenv && \
     # Enable ssh
     mkdir /var/run/sshd && \
     sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config && \
@@ -82,7 +83,7 @@ CMD if [ -d /.storage/internal_token_dir ]; then \
         usermod -aG sudo $USER_NAME && \
         if [ ! -d "/.storage/${USER_NAME}" ]; then \
             mkdir "/.storage/${USER_NAME}" && \
-            cp -r /usr /var/lib/apt/lists "/home/${USER_NAME}" "/.storage/${USER_NAME}"; \
+            cp -rp /usr /var/lib/apt/lists "/home/${USER_NAME}" "/.storage/${USER_NAME}"; \
         fi && \
         rm -rf /usr \
                /var/lib/apt/lists \
@@ -91,6 +92,7 @@ CMD if [ -d /.storage/internal_token_dir ]; then \
         ln -s "/.storage/${USER_NAME}/${USER_NAME}" "/home/${USER_NAME}" && \
         ln -s "/.storage/${USER_NAME}/usr" /usr && \
         ln -s "/.storage/${USER_NAME}/lists" /var/lib/apt/lists && \
+        # In case if mounted partition has `nosuid` option
         chmod 4755 /usr/bin/sudo; \
     fi && \
     /usr/sbin/sshd -D
