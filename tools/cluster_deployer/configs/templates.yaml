@@ -120,6 +120,7 @@ research_spot:
   # human set params
   CLUSTER_SSH_PORT: ""
   USER_NAME: "guest"
+  PASSWORD: "guest"
 
 
 router_bot_poller:

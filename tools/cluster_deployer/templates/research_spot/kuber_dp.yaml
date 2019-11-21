@@ -22,7 +22,9 @@ spec:
           mountPath: /.research_spot
         env:
         - name: USER_NAME
-          value: '{{USER_NAME}}'
+          value: {{USER_NAME}}
+        - name: PASSWORD
+          value: {{PASSWORD}}
       volumes:
       - name: volume-research-spot
         persistentVolumeClaim:

@@ -83,7 +83,7 @@ RUN chmod +x /bin/snapshot
 CMD if [ -z $USER_NAME ]; then \
         USER_NAME=$DEFAULT_USER; \
     fi && \
-    useradd -s /bin/bash -p $(openssl passwd -1 $USER_NAME) $USER_NAME && \
+    useradd -s /bin/bash -p $(openssl passwd -1 $PASSWORD) $USER_NAME && \
     usermod -aG sudo $USER_NAME && \
     mkdir -p "/.research_spot/${USER_NAME}/${USER_NAME}" && \
     chown -R "${USER_NAME}" "/.research_spot/${USER_NAME}" && \
