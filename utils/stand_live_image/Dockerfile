@@ -76,6 +76,7 @@ RUN apt-get update && \
 	    /var/lib/apt/lists/*
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
+
 COPY snapshot /bin/
 RUN chmod +x /bin/snapshot
 
@@ -87,10 +88,5 @@ CMD if [ -z $USER_NAME ]; then \
     mkdir -p "/.research_spot/${USER_NAME}/${USER_NAME}" && \
     chown -R "${USER_NAME}" "/.research_spot/${USER_NAME}" && \
     ln -s "/.research_spot/${USER_NAME}/${USER_NAME}" "/home/${USER_NAME}" && \
-    echo "Loading started" && \
-    if [ -f "/home/${USER_NAME}/.load_snapshot.sh" ]; then \
-        /home/${USER_NAME}/.load_snapshot.sh && \
-        rm /home/${USER_NAME}/.load_snapshot.sh; \
-    fi && \
-    echo "Loading finished" && \
+    snapshot restore "${USER_NAME}" && \
     /usr/sbin/sshd -D

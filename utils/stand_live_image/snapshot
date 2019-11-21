@@ -5,9 +5,11 @@ __info="
 Please enter one of the following commands:
 
     new <snapshot_name> - to create new snapshot
-    load <snapshot_name> - to restore snapshot
+    activate <snapshot_name> - to activate this snapshot with every container restart
     remove <snapshot_name> - to remove snapshot
     list - to get all available snapshots
+    info - go get active snapshot name
+    reboot - to restart container
 "
 
 __command="$1"
@@ -19,7 +21,7 @@ fi
 
 make_snapshot() {
 	if [ "$__snapshot" == "" ]; then
-		echo "Please provide snapshot name"
+		echo "Please enter snapshot name"
 		exit 1
 	fi
 	mkdir -p "$__root_dir/$USER/snapshots"
@@ -31,15 +33,40 @@ make_snapshot() {
 	echo "Successfully created snapshot '$__snapshot'"
 }
 
-load_snapshot() {
-	if [ ! -d "$__root_dir/$USER/snapshots/$__snapshot" ]; then
-		echo "There is no snapshot with '$__snapshot' name"
+activate_snapshot() {
+  if [ "$__snapshot" == "" ]; then
+    echo "Please enter snapshot name"
+    exit 1
+  fi
+  if [ ! -d "$__root_dir/$USER/snapshots/$__snapshot" ]; then
+		echo "Snapshot '$__snapshot' does not exist"
 		exit 1
 	fi
-	echo "cp -au $__root_dir/$USER/snapshots/$__snapshot/. /usr" > "$HOME/.load_snapshot.sh"
-	chmod +x "$HOME/.load_snapshot.sh"
-	echo "Container is shutting down. Please log in after loading new container with requested snapshot."
-	sudo pkill -f sshd
+	echo "$__snapshot" > "$HOME/.restore"
+	echo "Snapshot '$__snapshot' is succesfully activated"
+	echo "Run 'snapshot reboot' if you want to restart container with this snapshot"
+}
+
+load_snapshot() {
+  if [ ! -f "/home/$__snapshot/.restore" ]; then
+    echo "There is no snapshot to restore"
+    exit 0
+  fi
+  local __sn_name="$(cat /home/$__snapshot/.restore)"
+  if [ ! -d "$__root_dir/$__snapshot/snapshots/$__sn_name/." ]; then
+    echo "There is no snapshot directory"
+    exit 0
+  fi
+	cp -au "$__root_dir/$__snapshot/snapshots/$__sn_name/." /usr
+  echo "Snapshot '$__sn_name' restored"
+}
+
+info() {
+  if [ ! -f "$HOME/.restore" ]; then
+    echo "There is no active snapshot"
+    exit 0
+  fi
+  echo "Active snapshot: $(cat "$HOME/.restore")"
 }
 
 list() {
@@ -51,6 +78,11 @@ list() {
 		echo "There are following snapshots for $USER:"
 		echo "$files"
 	fi
+}
+
+reboot_container () {
+  echo "Rebooting container..."
+  sudo pkill -f sshd
 }
 
 remove() {
@@ -66,8 +98,8 @@ case "$__command" in
 	new)
 		make_snapshot
 		;;
-	load)
-		load_snapshot
+	activate)
+		activate_snapshot
 		;;
 	list)
 		list
@@ -75,6 +107,15 @@ case "$__command" in
 	remove)
 		remove
 		;;
+  reboot)
+    reboot_container
+    ;;
+  restore)
+		load_snapshot
+		;;
+  info)
+    info
+    ;;
 	*)
 		echo "$__info"
 		;;
