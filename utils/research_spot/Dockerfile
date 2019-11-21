@@ -89,4 +89,8 @@ CMD if [ -z $USER_NAME ]; then \
     chown -R "${USER_NAME}" "/.research_spot/${USER_NAME}" && \
     ln -s "/.research_spot/${USER_NAME}/${USER_NAME}" "/home/${USER_NAME}" && \
     snapshot restore "${USER_NAME}" && \
+    if [ -f "/home/${USER_NAME}/start.sh" ]; then \
+        chmod +x "/home/${USER_NAME}/start.sh" && \
+        runuser -l "${USER_NAME}" -c "/home/${USER_NAME}/start.sh &"; \
+    fi && \
     /usr/sbin/sshd -D
