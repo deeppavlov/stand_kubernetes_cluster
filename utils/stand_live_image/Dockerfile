@@ -30,6 +30,7 @@ RUN apt-get update && \
         dpkg-dev \
         gcc \
         git	\
+        htop \
         libbz2-dev \
         libc6-dev \
         libcudnn7=$CUDNN_VERSION-1+cuda${CUDA_VERSION%.*} \
@@ -47,6 +48,8 @@ RUN apt-get update && \
         make \
         sudo \
         tk-dev \
+        tmux \
+        vim \
         wget \
         xz-utils \
         zlib1g-dev && \
@@ -73,23 +76,21 @@ RUN apt-get update && \
 	    /var/lib/apt/lists/*
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US.UTF-8' LC_ALL='en_US.UTF-8'
+COPY snapshot /bin/
+RUN chmod +x /bin/snapshot
 
 CMD if [ -z $USER_NAME ]; then \
         USER_NAME=$DEFAULT_USER; \
     fi && \
-    useradd -ms /bin/bash -p $(openssl passwd -1 $USER_NAME) $USER_NAME && \
+    useradd -s /bin/bash -p $(openssl passwd -1 $USER_NAME) $USER_NAME && \
     usermod -aG sudo $USER_NAME && \
-    if [ ! -d "/.research_spot/${USER_NAME}" ]; then \
-        mkdir "/.research_spot/${USER_NAME}" && \
-        cp -rp /usr /var/lib/apt/lists "/home/${USER_NAME}" "/.research_spot/${USER_NAME}"; \
-    fi && \
-    rm -rf /usr \
-           /var/lib/apt/lists \
-           "/home/${USER_NAME}" \
-           "/.research_spot/${USER_NAME}/lists/lock" && \
+    mkdir -p "/.research_spot/${USER_NAME}/${USER_NAME}" && \
+    chown -R "${USER_NAME}" "/.research_spot/${USER_NAME}" && \
     ln -s "/.research_spot/${USER_NAME}/${USER_NAME}" "/home/${USER_NAME}" && \
-    ln -s "/.research_spot/${USER_NAME}/usr" /usr && \
-    ln -s "/.research_spot/${USER_NAME}/lists" /var/lib/apt/lists && \
-    # In case if mounted partition has `nosuid` option
-    chmod 4755 /usr/bin/sudo && \
+    echo "Loading started" && \
+    if [ -f "/home/${USER_NAME}/.load_snapshot.sh" ]; then \
+        /home/${USER_NAME}/.load_snapshot.sh && \
+        rm /home/${USER_NAME}/.load_snapshot.sh; \
+    fi && \
+    echo "Loading finished" && \
     /usr/sbin/sshd -D

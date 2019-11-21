@@ -1,0 +1,81 @@
+#!/bin/bash
+
+__root_dir=/.research_spot
+__info="
+Please enter one of the following commands:
+
+    new <snapshot_name> - to create new snapshot
+    load <snapshot_name> - to restore snapshot
+    remove <snapshot_name> - to remove snapshot
+    list - to get all available snapshots
+"
+
+__command="$1"
+__snapshot="$2"
+
+if [ ! -d "$__root_dir/$USER" ]; then
+	mkdir "$__root_dir/$USER"
+fi
+
+make_snapshot() {
+	if [ "$__snapshot" == "" ]; then
+		echo "Please provide snapshot name"
+		exit 1
+	fi
+	mkdir -p "$__root_dir/$USER/snapshots"
+	if [ -d "$__root_dir/$USER/snapshots/$__snapshot" ]; then
+		echo "Snapshot with '$__snapshot' name is already exists" 
+		exit 1
+	fi
+	cp -a /usr "$__root_dir/$USER/snapshots/$__snapshot"
+	echo "Successfully created snapshot '$__snapshot'"
+}
+
+load_snapshot() {
+	if [ ! -d "$__root_dir/$USER/snapshots/$__snapshot" ]; then
+		echo "There is no snapshot with '$__snapshot' name"
+		exit 1
+	fi
+	echo "cp -au $__root_dir/$USER/snapshots/$__snapshot/. /usr" > "$HOME/.load_snapshot.sh"
+	chmod +x "$HOME/.load_snapshot.sh"
+	echo "Container is shutting down. Please log in after loading new container with requested snapshot."
+	sudo pkill -f sshd
+}
+
+list() {
+	mkdir -p "$__root_dir/$USER/snapshots"
+	local files=$(ls $__root_dir/$USER/snapshots)
+	if [ -z "$files" ]; then
+		echo "There is no snapshots for $USER"
+	else
+		echo "There are following snapshots for $USER:"
+		echo "$files"
+	fi
+}
+
+remove() {
+	if [ ! -d "$__root_dir/$USER/snapshots/$__snapshot" ]; then
+		echo "Snapshot '$__snapshot' does not exist"
+		exit 1
+	fi
+	rm -rf "$__root_dir/$USER/snapshots/$__snapshot"
+	echo "Sucessfully removed snapshot '$__snapshot'"
+}
+
+case "$__command" in
+	new)
+		make_snapshot
+		;;
+	load)
+		load_snapshot
+		;;
+	list)
+		list
+		;;
+	remove)
+		remove
+		;;
+	*)
+		echo "$__info"
+		;;
+esac
