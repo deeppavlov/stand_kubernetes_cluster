@@ -66,5 +66,5 @@ research_spot_test:
 
 ```shell script
 cd stand_kubernetes_cluster/tools/cluster_deployer
-python run.py build -m research_spot_test -c ~/add.yaml
+python run.py build -m research_spot_test -c <path_to_file_with_password>
 ```
