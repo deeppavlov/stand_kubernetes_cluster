@@ -13,6 +13,9 @@ spec:
       containers:
       - name: {{FULL_MODEL_NAME_DASHED}}
         image: {{KUBER_IMAGE_TAG}}
+        resources:
+          limits:
+            nvidia.com/gpu: {{GPU_UNITS_NUM}}
         ports:
         - name: ssh-server-port
           protocol: TCP
