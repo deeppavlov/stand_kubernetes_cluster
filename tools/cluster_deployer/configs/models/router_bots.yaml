@@ -46,3 +46,21 @@ agent_nti_gopnik_rbp:
     --host: "10.11.1.251"
     --port: "7067"
     --token: "agent_nti_gopnik"
+
+routerbot_toloka_go_bot_rb:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7066
+  CLUSTER_MONGO_PORT: 10066
+  CLUSTER_SSH_PORT: 8066
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
+
+routerbot_toloka_go_bot_rbp:
+  TEMPLATE: router_bot_poller
+  COMMIT: "gobot"
+  run_flags: []
+  run_params:
+    --model_url: "http://10.11.1.251:7566/model"
+    --host: "10.11.1.251"
+    --port: "7066"
+    --token: "dstc2_bot"

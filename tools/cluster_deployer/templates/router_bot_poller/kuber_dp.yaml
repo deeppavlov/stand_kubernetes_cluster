@@ -23,6 +23,8 @@ spec:
           mountPath: /etc/podinfo
           readOnly: false
         env:
+        - name: COMMIT
+          value: {{COMMIT}}
         - name: RUN_CMD
           value: {{RUN_CMD}}
         - name: MODEL_NAME
