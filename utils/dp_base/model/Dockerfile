@@ -30,4 +30,4 @@ RUN if [ ! -z $COMMIT ]; then \
     fi && \
     python -m deeppavlov install $CONFIG
 
-CMD python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1
+CMD python -m deeppavlov riseapi $CONFIG -p 5000 -d
