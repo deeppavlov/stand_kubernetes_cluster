@@ -1,17 +1,19 @@
-FROM python:3.7-slim-stretch
+ARG BASE_IMAGE
+FROM $BASE_IMAGE
 
 ARG COMMIT
+ARG CONFIG
 ARG FULL_MODEL_NAME
 
 ENV COMMIT=$COMMIT
-ENV LANG="C.UTF-8"
-ENV LC_ALL="C.UTF-8"
-ENV DEBIAN_FRONTEND="noninteractive"
-ENV DPA_LAUNCHING_ENV="local"
+ENV CONFIG=$CONFIG
+ENV TFHUB_CACHE_DIR=/tmp/tfhub
 
-RUN apt-get update -y --fix-missing && \
-    apt-get install -y -q build-essential openssl git libssl-dev libffi-dev && \
-    echo "stty iutf8" >> ~/.bashrc
+ENV DEFAULT_POD_NODE="unknown_node"
+ENV DEFAULT_POD_NAME="unknown_pod"
+ENV MODEL_NAME=$FULL_MODEL_NAME
+
+VOLUME /tmp/tfhub
 
 WORKDIR /agent
 
@@ -20,14 +22,8 @@ RUN git clone https://github.com/deepmipt/dp-agent.git && \
     if [ "$COMMIT" != "" ]; then \
         git checkout $COMMIT; \
     fi && \
-    pip install -r requirements.txt && \
-    python setup.py develop
-
-ENV DEFAULT_POD_NODE="unknown_node"
-ENV DEFAULT_POD_NAME="unknown_pod"
-ENV MODEL_NAME=$FULL_MODEL_NAME
-
-EXPOSE 5000
+    python -m deeppavlov install $CONFIG && \
+    sed -i "/uvicorn.run/s/app,/app, timeout_keep_alive=20,/g" "/base/DeepPavlov/deeppavlov/utils/server/server.py"
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
@@ -37,4 +33,4 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
     cd /agent/dp-agent && \
-    python core/run.py -ch http_client -p 5000 -d > $LOG_PATH 2>&1
+    python -m deeppavlov riseapi $CONFIG -p 5000 -d > $LOG_PATH 2>&1

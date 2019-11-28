@@ -21,8 +21,6 @@ ARG PYTHON_VERSION
 
 EXPOSE 5000
 
-VOLUME /logs
-
 WORKDIR /base
 
 RUN apt-get update && \
@@ -95,4 +93,4 @@ CMD if [ ! -z $COMMIT ]; then \
             sed -i "\|VIRTUAL_ENV=|s|/base||g" "/venv/"$CONFIG"/bin/activate"; \
         fi; \
     fi && \
-    python -m deeppavlov riseapi $CONFIG -p 5000 -d > "/logs"/$CONFIG".log" 2>&1
+    python -m deeppavlov riseapi $CONFIG -p 5000 -d

@@ -11,49 +11,26 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: "service"
-        image: {{SERVICE_IMAGE_TAG}}
+      - name: {{FULL_MODEL_NAME_DASHED}}
+        image: {{KUBER_IMAGE_TAG}}
         resources:
           limits:
             nvidia.com/gpu: {{GPU_UNITS_NUM}}
+        ports:
+        - name: api-port
+          protocol: TCP
+          containerPort: 5000
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
         - name: volume-components
           mountPath: /root/.deeppavlov
+        - name: volume-tfhub
+          mountPath: /tmp/tfhub
         - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
         env:
-        - name: MODEL_NAME
-          value: "{{SERVICE_FULL_NAME}}"
-        - name: CONFIG
-          value: "{{CONFIG}}"
-        - name: POD_NODE
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-      - name: "connector"
-        image: {{KUBER_IMAGE_TAG}}
-        volumeMounts:
-        - name: volume-logs
-          mountPath: /logs
-        - name: volume-podinfo
-          mountPath: /etc/podinfo
-          readOnly: false
-        env:
-        - name: MODEL_NAME
-          value: "{{CONNECTOR_FULL_NAME}}"
-        - name: SERVICE_NAME
-          value: "{{SERVICE_NAME}}"
-        - name: INSTANCE_ID
-          value: "{{INSTANCE_ID}}"
-        - name: MODE
-          value: "{{MODE}}"
         - name: POD_NODE
           valueFrom:
             fieldRef:
@@ -69,6 +46,9 @@ spec:
       - name: volume-components
         persistentVolumeClaim:
           claimName: components-hostpath-pvc
+      - name: volume-tfhub
+        persistentVolumeClaim:
+          claimName: tfhub-hostpath-pvc
       - name: volume-podinfo
         downwardAPI:
           items:
@@ -81,4 +61,4 @@ spec:
       dnsPolicy: "None"
       dnsConfig:
         nameservers:
-        - {{DNS_IP}}
+          - {{DNS_IP}}

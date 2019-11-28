@@ -35,7 +35,11 @@ RUN git clone https://github.com/deepmipt/convai_router_bot_poller.git . && \
 ENV DEFAULT_POD_NODE="unknown_node"
 ENV DEFAULT_POD_NAME="unknown_pod"
 
-CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
+CMD if [ ! -z $COMMIT ]; then \
+        git fetch --all --tags --prune && \
+        git checkout $COMMIT; \
+    fi && \
+    if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
     DATE_TIME=$(date '+%Y-%m-%d_%H-%M-%S.%N') && \
     LOG_DIR="/logs/"$MODEL_NAME"/" && \

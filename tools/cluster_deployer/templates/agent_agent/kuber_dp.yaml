@@ -11,23 +11,24 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: "connector"
+      - name: {{FULL_MODEL_NAME_DASHED}}
         image: {{KUBER_IMAGE_TAG}}
+        resources:
+          limits:
+            nvidia.com/gpu: {{GPU_UNITS_NUM}}
+        ports:
+        - name: api-port
+          protocol: TCP
+          containerPort: 5000
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
         - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
         env:
-        - name: MODEL_NAME
-          value: "{{CONNECTOR_FULL_NAME}}"
-        - name: SERVICE_NAME
-          value: "{{SERVICE_NAME}}"
-        - name: INSTANCE_ID
-          value: "{{INSTANCE_ID}}"
-        - name: MODE
-          value: "{{MODE}}"
         - name: POD_NODE
           valueFrom:
             fieldRef:
@@ -40,6 +41,9 @@ spec:
       - name: volume-logs
         persistentVolumeClaim:
           claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
       - name: volume-podinfo
         downwardAPI:
           items:
@@ -52,4 +56,4 @@ spec:
       dnsPolicy: "None"
       dnsConfig:
         nameservers:
-        - {{DNS_IP}}
+          - {{DNS_IP}}

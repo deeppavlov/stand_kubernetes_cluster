@@ -127,3 +127,12 @@ stand_kbqa_ru:
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
+
+stand_go_bot_dstc2:
+  CONFIG: gobot_dstc2_best
+  TEMPLATE: dp
+  CLUSTER_PORT: 7566
+  COMMIT: routerbot/dstc2-testing
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber_no_tests

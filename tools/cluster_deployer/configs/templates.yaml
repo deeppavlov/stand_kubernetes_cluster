@@ -67,104 +67,20 @@ dp:
   CLUSTER_PORT: ""
 
 agent_agent:
+  # default_params:
   pipeline: "all_up_kuber_no_tests"
 
-  MODE: "agent"
-  INSTANCE_ID: ""
-
-  AGENT_NAMESPACE: "deeppavlov_agent"
-  AGENT_NAME: "dp_agent"
-  AGENT_RESPONSE_TIMEOUT: 1800
-
-  TRANSPORT_TYPE: "rabbitmq"
-  RABBIT_LOGIN: "guest"
-  RABBIT_PASSWORD: "guest"
-  RABBIT_VIRTUALHOST: "/"
-  RABBIT_PORT: 5672
-
-  SERVICE_NAME: "service"
-
-  # composed params
-  MONGO_HOST: "{{CLUSTER_IP}}"
-  RABBIT_HOST: "{{CLUSTER_IP}}"
-  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
-
   # human set params
-  MONGO_PORT: ""
+  COMMIT: ""
 
-agent_service_http:
-  # default params
+agent_service:
+  # default_params:
   pipeline: "all_up_kuber_no_tests"
-
-  MODE: "service"
-  INSTANCE_ID: ""
-
-  AGENT_NAMESPACE: "deeppavlov_agent"
-  AGENT_NAME: "dp_agent"
-  AGENT_RESPONSE_TIMEOUT: 1800
-
-  BATCH_SIZE: 200
-  SERVICE_INFER_TIMEOUT: 1800
-  SERVICE_CALLER: "default"
-  SERVICE_URL: "http://127.0.0.1:5000/answer"
-
-  TRANSPORT_TYPE: "rabbitmq"
-  RABBIT_LOGIN: "guest"
-  RABBIT_PASSWORD: "guest"
-  RABBIT_VIRTUALHOST: "/"
-  RABBIT_PORT: 5672
-
-  # composed params
-  RABBIT_HOST: "{{CLUSTER_IP}}"
-  SERVICE_FULL_NAME: "{{FULL_MODEL_NAME}}_service"
-  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.6.1"
 
   # human set params
-  SERVICE_IMAGE_TAG: ""
+  COMMIT: ""
   CONFIG: ""
-
-  SERVICE_NAME: ""
-  SERVICE_FORMATTER: ""
-
-
-agent_service_python:
-  # default params
-  pipeline: "all_up_kuber_no_tests"
-
-  MODE: "service"
-  INSTANCE_ID: ""
-
-  AGENT_NAMESPACE: "deeppavlov_agent"
-  AGENT_NAME: "dp_agent"
-  AGENT_RESPONSE_TIMEOUT: 1800
-
-  BATCH_SIZE: 200
-  SERVICE_INFER_TIMEOUT: 1800
-  SERVICE_CALLER: "default"
-
-  TRANSPORT_TYPE: "rabbitmq"
-  RABBIT_LOGIN: "guest"
-  RABBIT_PASSWORD: "guest"
-  RABBIT_VIRTUALHOST: "/"
-  RABBIT_PORT: 5672
-
-  # composed params
-  RABBIT_HOST: "{{CLUSTER_IP}}"
-  CONNECTOR_FULL_NAME: "{{FULL_MODEL_NAME}}_connector"
-
-  # human set params
-  SERVICE_NAME: ""
-  SERVICE_FORMATTER: ""
-
-
-agent_obsolete:
-  # default params
-  pipeline: "make_files_and_kuber_no_tests"
-
-  # human set params
-  CONFIG: ""
-  CLUSTER_PORT: ""
-
 
 router_bot:
   # default params

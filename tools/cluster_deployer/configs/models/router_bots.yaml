@@ -14,7 +14,7 @@ alexaprize_idris_repo_rb:
   FB_PAGE_ACCESS_TOKEN: "dummy"
   FB_WEBHOOK_SECRET: "dummy"
 
-alexaprize_idris_repo_rbp_dev:
+alexaprize_idris_repo_rbp:
   TEMPLATE: router_bot_poller
   run_flags: ["--agent"]
 
@@ -26,6 +26,41 @@ alexaprize_idris_repo_rb_dev:
   FB_PAGE_ACCESS_TOKEN: "dummy"
   FB_WEBHOOK_SECRET: "dummy"
 
-alexaprize_idris_repo_rbp:
+alexaprize_idris_repo_rbp_dev:
   TEMPLATE: router_bot_poller
   run_flags: ["--agent"]
+
+agent_nti_gopnik_rb:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7067
+  CLUSTER_MONGO_PORT: 10067
+  CLUSTER_SSH_PORT: 8067
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
+
+agent_nti_gopnik_rbp:
+  TEMPLATE: router_bot_poller
+  run_flags: ["--agent"]
+  run_params:
+    --model_url: "http://10.11.1.251:7059/"
+    --host: "10.11.1.251"
+    --port: "7067"
+    --token: "agent_nti_gopnik"
+
+routerbot_toloka_go_bot_rb:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7066
+  CLUSTER_MONGO_PORT: 10066
+  CLUSTER_SSH_PORT: 8066
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
+
+routerbot_toloka_go_bot_rbp:
+  TEMPLATE: router_bot_poller
+  COMMIT: "gobot"
+  run_flags: []
+  run_params:
+    --model_url: "http://10.11.1.251:7566/model"
+    --host: "10.11.1.251"
+    --port: "7066"
+    --token: "dstc2_bot"

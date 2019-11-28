@@ -22,7 +22,6 @@ docker build -t deeppavlov/base-cpu:<dp_version> \
 ```shell script
 docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
     -e COMMIT=<git_commit_id> \
-    -v <dp_logs_volume>:/logs \
     -v <dp_components_volume>:/root/.deeppavlov \
     -v <host_venv_dir>:/venv \
     deeppavlov/base-cpu:<dp_version>
@@ -49,7 +48,6 @@ docker build -t deeppavlov/base-gpu:<dp_version> \
 docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
     --runtime=nvidia \
     -e COMMIT=<git_commit_id> \
-    -v <dp_logs_volume>:/logs \
     -v <dp_components_volume>:/root/.deeppavlov \
     -v <host_venv_dir>:/venv \
     deeppavlov/base-gpu:<dp_version>
@@ -74,8 +72,7 @@ docker build -t deeppavlov/<dp_config_name>[_cpu | _gpu]:<dp_version> \
 #### CPU run instructions:
 
 ```shell script
-docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
-    -v <dp_logs_volume>:/logs \
+docker run -p <your_port>:5000 \
     -v <dp_components_volume>:/root/.deeppavlov \
     deeppavlov/<dp_config_name>_cpu:<dp_version>
 ```
@@ -83,9 +80,8 @@ docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
 #### GPU run instructions:
 
 ```shell script
-docker run -e CONFIG=<dp_config_name> -p <your_port>:5000 \
+docker run -p <your_port>:5000 \
     --runtime=nvidia \
-    -v <dp_logs_volume>:/logs \
     -v <dp_components_volume>:/root/.deeppavlov \
     deeppavlov/<dp_config_name>_gpu:<dp_version>
 
