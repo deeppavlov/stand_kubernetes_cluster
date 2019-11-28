@@ -9,6 +9,8 @@ release in this repo). These images allow you to run DeepPavlov models and commu
 Images from these repository are built to be run on CPU. To use GPU please explore
 [base-gpu](https://hub.docker.com/r/deeppavlov/base-gpu) repo.
 
+Dockerfile can be found [here](https://github.com/deepmipt/stand_kubernetes_cluster/blob/master/utils/dp_base/cpu/Dockerfile).
+
 ### Instructions
 
 Run following to rise server for particular DeepPavlov model in CPU mode:
