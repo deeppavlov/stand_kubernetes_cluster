@@ -84,7 +84,6 @@ docker run -p <your_port>:5000 \
     --runtime=nvidia \
     -v <dp_components_volume>:/root/.deeppavlov \
     deeppavlov/<dp_config_name>_gpu:<dp_version>
-
 ```
 
 ## For now we are using:
