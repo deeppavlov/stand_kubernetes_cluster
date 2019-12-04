@@ -93,7 +93,8 @@ docker run -p <your_port>:5000 \
 
 | COMMIT | PYTHON_BASE_IMAGE       | latest |
 | ------ | ----------------------- | ------ |
-| 0.6.1  | python:3.7-slim-stretch | V      |
+| 0.7.1  | python:3.7-slim-stretch | V      |
+| 0.6.1  | python:3.7-slim-stretch |        |
 | 0.5.1  | python:3.7-slim-stretch |        |
 | 0.3.0  | python:3.6-slim-stretch |        |
 
@@ -101,6 +102,7 @@ docker run -p <your_port>:5000 \
 
 | COMMIT | NVIDIA_BASE_IMAGE                  | CUDNN_VERSION | PYTHON_VERSION | latest |
 | ------ | ---------------------------------- | ------------- | -------------- | ------ |
-| 0.6.1  | nvidia/cuda:10.0-devel-ubuntu16.04 | 7.6.2.24      | 3.7.4          | V      |
+| 0.7.1  | nvidia/cuda:10.0-devel-ubuntu16.04 | 7.6.2.24      | 3.7.4          | V      |
+| 0.6.1  | nvidia/cuda:10.0-devel-ubuntu16.04 | 7.6.2.24      | 3.7.4          |        |
 | 0.5.1  | nvidia/cuda:10.0-devel-ubuntu16.04 | 7.6.2.24      | 3.7.4          |        |
 | 0.3.0  | nvidia/cuda:9.0-devel-ubuntu16.04  | 7.1.4.18      | 3.6.9          |        |
