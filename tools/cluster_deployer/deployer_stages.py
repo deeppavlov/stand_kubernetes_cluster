@@ -128,10 +128,6 @@ class MakeFilesDeploymentStage(AbstractDeploymentStage):
             with open(deploy_file, 'w') as f:
                 f.write(file)
 
-        run_model_file = Path(deploy_files_dir, 'run_model.sh')
-        if run_model_file.is_file():
-            run_model_file.rename(deploy_files_dir / model_config['RUN_FILE'])
-
         dockerignore_file = Path(deploy_files_dir, 'dockerignore')
         if dockerignore_file.is_file():
             dockerignore_file.rename(deploy_files_dir / '.dockerignore')

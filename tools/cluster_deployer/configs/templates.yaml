@@ -13,7 +13,6 @@ _root:
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NAME}}.log"
-  RUN_FILE: "run_{{MODEL_NAME}}.sh"
   KUBER_DP_FILE: "{{FULL_MODEL_NAME}}_dp.yaml"
   KUBER_LB_FILE: "{{FULL_MODEL_NAME}}_lb.yaml"
   KUBER_DP_NAME: "{{FULL_MODEL_NAME_DASHED}}-dp"
