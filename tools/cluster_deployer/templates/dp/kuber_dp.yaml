@@ -11,13 +11,13 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
+      - name: model
         image: {{KUBER_IMAGE_TAG}}
         resources:
           limits:
             nvidia.com/gpu: {{GPU_UNITS_NUM}}
         ports:
-        - name: {{KUBER_CONTAINER_PORT_NAME}}
+        - name: dp-model-api-port
           protocol: TCP
           containerPort: {{PORT}}
         volumeMounts:
