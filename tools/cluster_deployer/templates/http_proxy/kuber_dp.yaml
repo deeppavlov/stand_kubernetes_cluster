@@ -10,10 +10,10 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
+      - name: nginx
         image: {{KUBER_IMAGE_TAG}}
         ports:
-        - name: {{KUBER_CONTAINER_PORT_NAME}}
+        - name: dp-nginx-listened-port
           protocol: TCP
           containerPort: {{PORT}}
         env:

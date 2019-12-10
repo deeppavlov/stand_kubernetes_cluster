@@ -9,7 +9,7 @@ spec:
   externalIPs:
   - {{CLUSTER_IP}}
   ports:
-  - name: {{FULL_MODEL_NAME_DASHED}}
+  - name: lb-nginx-listened-port
     protocol: TCP
     port: {{CLUSTER_PORT}}
-    targetPort: {{KUBER_CONTAINER_PORT_NAME}}
+    targetPort: dp-nginx-listened-port
