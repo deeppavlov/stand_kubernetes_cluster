@@ -11,11 +11,8 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
+      - name: router-bot-poller
         image: {{KUBER_IMAGE_TAG}}
-        resources:
-          limits:
-            nvidia.com/gpu: {{GPU_UNITS_NUM}}
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
