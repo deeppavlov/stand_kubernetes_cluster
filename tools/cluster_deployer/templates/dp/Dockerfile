@@ -27,10 +27,9 @@ ENV DEFAULT_POD_NAME="unknown_pod"
 ENV MODEL_NAME=$FULL_MODEL_NAME
 ENV RUN_CMD=$RUN_CMD
 
-WORKDIR /app
+WORKDIR /base/DeepPavlov
 
 RUN if [ "$COMMIT" != "" ]; then \
-        cd /base/DeepPavlov && \
         git fetch --all --tags --prune && \
         git checkout $COMMIT && \
         python setup.py develop && \
