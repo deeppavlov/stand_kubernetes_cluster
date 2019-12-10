@@ -91,15 +91,7 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
         # all capitalised keys are used in deploy files placeholders filling
         model_config = deepcopy(templates['_root'])  # get config params from root template
 
-        pattern = r'(.+?)_(.+)'
-        match = re.search(pattern, model_full_name)
-
-        if not match:
-            raise KeyError(f'Wrong model full name: {model_full_name}, should be in <prefix>_<model_name> fromat')
-        else:
-            model_config['FULL_MODEL_NAME'] = model_full_name
-            model_config['PREFIX'] = match.group(1)
-            model_config['MODEL_NAME'] = match.group(2)
+        model_config['FULL_MODEL_NAME'] = model_full_name
 
         # TODO: uncapitalize template
         model_config.update(**templates[model_config_params['TEMPLATE']])  # get config params from model template

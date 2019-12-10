@@ -17,12 +17,10 @@ _root:
   KUBER_LB_FILE: "{{FULL_MODEL_NAME}}_lb.yaml"
   KUBER_DP_NAME: "{{FULL_MODEL_NAME_DASHED}}-dp"
   KUBER_LB_NAME: "{{FULL_MODEL_NAME_DASHED}}-lb"
-  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/{{PREFIX}}/{{MODEL_NAME}}"
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/{{FULL_MODEL_NAME}}"
 
   # script generated params
   FULL_MODEL_NAME: ""
-  PREFIX: ""
-  MODEL_NAME: ""
   RUN_CMD: ""
   FULL_MODEL_NAME_DASHED: ""
 
@@ -62,12 +60,14 @@ dp:
   CONFIG: ""
   CLUSTER_PORT: ""
 
+
 agent_agent:
   # default_params:
   pipeline: "all_up_kuber_no_tests"
 
   # human set params
   COMMIT: ""
+
 
 agent_service:
   # default_params:
@@ -77,6 +77,7 @@ agent_service:
   # human set params
   COMMIT: ""
   CONFIG: ""
+
 
 router_bot:
   # default params
