@@ -4,8 +4,6 @@ _root:
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
   GPU_UNITS_NUM: 0
-  # TODO: investigate and remove
-  CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   COMMIT: ""
   PORT: 5000
