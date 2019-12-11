@@ -17,7 +17,7 @@ spec:
           limits:
             nvidia.com/gpu: {{GPU_UNITS_NUM}}
         ports:
-        - name: dp-model-api-port
+        - name: dp-model
           protocol: TCP
           containerPort: {{PORT}}
         volumeMounts:

@@ -10,7 +10,7 @@ spec:
   externalIPs:
   - {{CLUSTER_IP}}
   ports:
-  - name: lb-model-api-port
+  - name: lb-model
     protocol: TCP
     port: {{CLUSTER_PORT}}
-    targetPort: dp-model-api-port
+    targetPort: dp-model
