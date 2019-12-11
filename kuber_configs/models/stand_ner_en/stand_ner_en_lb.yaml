@@ -10,7 +10,7 @@ spec:
   externalIPs:
   - 10.11.1.251
   ports:
-  - name: stand-ner-en
+  - name: lb-model
     protocol: TCP
     port: 7010
-    targetPort: cp5000
+    targetPort: dp-model

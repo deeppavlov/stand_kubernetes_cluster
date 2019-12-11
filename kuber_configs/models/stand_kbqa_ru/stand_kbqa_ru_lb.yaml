@@ -10,7 +10,7 @@ spec:
   externalIPs:
   - 10.11.1.251
   ports:
-  - name: stand-kbqa-ru
+  - name: lb-model
     protocol: TCP
     port: 7016
-    targetPort: cp5000
+    targetPort: dp-model

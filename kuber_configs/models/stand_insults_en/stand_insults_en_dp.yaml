@@ -11,13 +11,13 @@ spec:
         app: stand-insults-en-dp
     spec:
       containers:
-      - name: stand-insults-en
-        image: kubeadm.ipavlov.mipt.ru:5000/stand/insults_en
+      - name: model
+        image: kubeadm.ipavlov.mipt.ru:5000/stand_insults_en
         resources:
           limits:
             nvidia.com/gpu: 0
         ports:
-        - name: cp5000
+        - name: dp-model
           protocol: TCP
           containerPort: 5000
         volumeMounts:

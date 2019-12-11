@@ -10,7 +10,7 @@ spec:
   externalIPs:
   - 10.11.1.251
   ports:
-  - name: stand-odqa-ru
+  - name: lb-model
     protocol: TCP
     port: 7012
-    targetPort: cp5000
+    targetPort: dp-model
