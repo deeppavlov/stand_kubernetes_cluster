@@ -2,16 +2,14 @@ stand_paraphraser_ru:
   CONFIG: paraphraser_rubert
   TEMPLATE: dp
   CLUSTER_PORT: 7003
-  #COMMIT: fix/cors
-  image_polling_timeout_sec: 300
-  deployment_polling_timeout_sec: 600
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
 
 stand_ner_ru:
   CONFIG: ner_rus_bert
   TEMPLATE: dp
   CLUSTER_PORT: 7004
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
@@ -20,7 +18,6 @@ stand_ner_en:
   CONFIG: ner_ontonotes_bert_mult
   TEMPLATE: dp
   CLUSTER_PORT: 7010
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
@@ -29,7 +26,6 @@ stand_ner_ml:
   CONFIG: ner_ontonotes_bert_mult
   TEMPLATE: dp
   CLUSTER_PORT: 7013
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
   pipeline: all_up_kuber
@@ -38,7 +34,6 @@ stand_squad_ru:
   CONFIG: squad_ru_bert_infer
   TEMPLATE: dp
   CLUSTER_PORT: 7005
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -47,7 +42,6 @@ stand_squad_en:
   CONFIG: squad_bert_infer
   TEMPLATE: dp
   CLUSTER_PORT: 7008
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -56,7 +50,6 @@ stand_squad_ml:
   CONFIG: squad_bert_multilingual_freezed_emb
   TEMPLATE: dp
   CLUSTER_PORT: 7014
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -65,7 +58,6 @@ stand_intents_en:
   CONFIG: intents_snips_big
   TEMPLATE: dp
   CLUSTER_PORT: 7007
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -74,7 +66,6 @@ stand_ranking_en:
   CONFIG: ranking_insurance_interact
   TEMPLATE: dp
   CLUSTER_PORT: 7009
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -83,7 +74,6 @@ stand_insults_en:
   CONFIG: insults_kaggle_conv_bert
   TEMPLATE: dp
   CLUSTER_PORT: 7006
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -91,21 +81,19 @@ stand_insults_en:
 stand_odqa_en:
   CONFIG: en_odqa_pop_infer_enwiki20180211
   TEMPLATE: dp
-  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
+  BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
   GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7011
-  #COMMIT: fix/cors
-  image_polling_timeout_sec: 1800
-  deployment_polling_timeout_sec: 3200
+  image_polling_timeout_sec: 2400
+  deployment_polling_timeout_sec: 4800
   pipeline: all_up_kuber
 
 stand_odqa_ru:
   CONFIG: ru_odqa_infer_wiki_rubert_noans
   TEMPLATE: dp
-  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
+  BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
   GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7012
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -114,7 +102,6 @@ stand_sentiment_ru:
   CONFIG: rusentiment_elmo_twitter_cnn
   TEMPLATE: dp
   CLUSTER_PORT: 7015
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
@@ -123,7 +110,6 @@ stand_kbqa_ru:
   CONFIG: kbqa_rus
   TEMPLATE: dp
   CLUSTER_PORT: 7016
-  #COMMIT: fix/cors
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
