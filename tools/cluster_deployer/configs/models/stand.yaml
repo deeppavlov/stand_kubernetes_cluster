@@ -47,10 +47,11 @@ stand_squad_en:
   pipeline: all_up_kuber
 
 stand_squad_cn:
-  CONFIG: squad_zh_zh_bert
+  CONFIG: squad_zh_bert_zh
   TEMPLATE: dp
   CLUSTER_PORT: 7017
-  COMMIT: squad_chinese_bert
+  # TODO: switch to master after DP release next to 0.7.1
+  COMMIT: dev
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber

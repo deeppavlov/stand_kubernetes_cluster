@@ -7,6 +7,7 @@ stand:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_cn
   - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
@@ -43,6 +44,7 @@ push_pull:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_cn
   - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
@@ -59,6 +61,7 @@ all:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_cn
   - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
