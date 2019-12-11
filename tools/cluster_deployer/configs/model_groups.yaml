@@ -25,15 +25,15 @@ alexaprize_idris_repo:
   - alexaprize_idris_repo_rb_dev
   - alexaprize_idris_repo_rbp_dev
 
-agent_nti_gopnik:
-  - agent_nti_gopnik
-  - agent_nti_gopnik_mongo_db
-  - agent_nti_gopnik_odqa
-  - agent_nti_gopnik_ranking_chitchat_2stage
-  - agent_nti_gopnik_ner
-  - agent_nti_gopnik_sentiment
-  - agent_nti_gopnik_rb
-  - agent_nti_gopnik_rbp
+#agent_nti_gopnik:
+#  - agent_nti_gopnik
+#  - agent_nti_gopnik_mongo_db
+#  - agent_nti_gopnik_odqa
+#  - agent_nti_gopnik_ranking_chitchat_2stage
+#  - agent_nti_gopnik_ner
+#  - agent_nti_gopnik_sentiment
+#  - agent_nti_gopnik_rb
+#  - agent_nti_gopnik_rbp
 
 push_pull:
   - stand_paraphraser_ru
