@@ -14,7 +14,7 @@ spec:
       - name: mongo
         image: {{KUBER_IMAGE_TAG}}
         ports:
-        - name: dp-mongo-port
+        - name: dp-mongo
           protocol: TCP
           containerPort: {{PORT}}
         volumeMounts:

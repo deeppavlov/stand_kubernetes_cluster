@@ -10,15 +10,15 @@ spec:
   externalIPs:
   - {{CLUSTER_IP}}
   ports:
-  - name: lb-router-bot-port
+  - name: lb-routerbot
     protocol: TCP
     port: {{CLUSTER_PORT}}
-    targetPort: dp-router-bot-port
-  - name: lb-mongo-port
+    targetPort: dp-routerbot
+  - name: lb-mongo
     protocol: TCP
     port: {{CLUSTER_MONGO_PORT}}
-    targetPort: dp-mongo-port
-  - name: lb-ssh-server-port
+    targetPort: dp-mongo
+  - name: lb-ssh
     protocol: TCP
     port: {{CLUSTER_SSH_PORT}}
-    targetPort: dp-ssh-server-port
+    targetPort: dp-ssh

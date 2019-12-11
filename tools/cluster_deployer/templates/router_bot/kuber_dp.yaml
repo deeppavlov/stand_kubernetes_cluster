@@ -14,10 +14,10 @@ spec:
       - name: router-bot
         image: {{KUBER_IMAGE_TAG}}
         ports:
-        - name: dp-router-bot-port
+        - name: dp-routerbot
           protocol: TCP
           containerPort: 80
-        - name: dp-ssh-server-port
+        - name: dp-ssh
           protocol: TCP
           containerPort: 22
         volumeMounts:
@@ -60,7 +60,7 @@ spec:
       - name: mongo
         image: {{MONGO_KUBER_IMAGE_TAG}}
         ports:
-        - name: dp-mongo-port
+        - name: dp-mongo
           protocol: TCP
           containerPort: 27017
         volumeMounts:
