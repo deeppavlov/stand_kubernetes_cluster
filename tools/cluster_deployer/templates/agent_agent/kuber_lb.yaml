@@ -10,7 +10,7 @@ spec:
   externalIPs:
   - {{CLUSTER_IP}}
   ports:
-  - name: lb-agent-api-port
+  - name: lb-agent
     protocol: TCP
     port: {{CLUSTER_PORT}}
-    targetPort: dp-agent-api-port
+    targetPort: dp-agent

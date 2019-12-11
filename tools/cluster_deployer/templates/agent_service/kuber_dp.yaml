@@ -17,7 +17,7 @@ spec:
           limits:
             nvidia.com/gpu: {{GPU_UNITS_NUM}}
         ports:
-        - name: dp-service-api-port
+        - name: dp-service
           protocol: TCP
           containerPort: 5000
         volumeMounts:

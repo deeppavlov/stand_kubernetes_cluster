@@ -13,7 +13,7 @@ spec:
       - name: nginx
         image: {{KUBER_IMAGE_TAG}}
         ports:
-        - name: dp-nginx-listened-port
+        - name: dp-listened
           protocol: TCP
           containerPort: {{PORT}}
         env:

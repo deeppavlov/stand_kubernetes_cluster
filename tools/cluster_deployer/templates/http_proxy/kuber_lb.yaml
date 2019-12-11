@@ -9,7 +9,7 @@ spec:
   externalIPs:
   - {{CLUSTER_IP}}
   ports:
-  - name: lb-nginx-listened-port
+  - name: lb-listened
     protocol: TCP
     port: {{CLUSTER_PORT}}
-    targetPort: dp-nginx-listened-port
+    targetPort: dp-listened

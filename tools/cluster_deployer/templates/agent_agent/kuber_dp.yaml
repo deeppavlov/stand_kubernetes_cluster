@@ -14,7 +14,7 @@ spec:
       - name: agent
         image: {{KUBER_IMAGE_TAG}}
         ports:
-        - name: dp-agent-api-port
+        - name: dp-agent
           protocol: TCP
           containerPort: 5000
         volumeMounts:

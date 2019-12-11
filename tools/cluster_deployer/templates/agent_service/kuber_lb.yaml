@@ -10,7 +10,7 @@ spec:
   externalIPs:
   - {{CLUSTER_IP}}
   ports:
-  - name: lb-service-api-port
+  - name: lb-service
     protocol: TCP
     port: {{CLUSTER_PORT}}
-    targetPort: dp-service-api-port
+    targetPort: dp-service
