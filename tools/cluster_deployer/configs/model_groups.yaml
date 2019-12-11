@@ -15,9 +15,9 @@ stand:
   - stand_sentiment_ru
   - stand_kbqa_ru
 
-http_proxy:
-  - http_proxy_cloud_demo_01
-  - http_proxy_cloud_demo_02
+#http_proxy:
+#  - http_proxy_cloud_demo_01
+#  - http_proxy_cloud_demo_02
 
 alexaprize_idris_repo:
   - alexaprize_idris_repo_rb
@@ -68,7 +68,5 @@ all:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
-  - http_proxy_cloud_demo_01
-  - http_proxy_cloud_demo_02
   - alexaprize_idris_repo_rb
   - alexaprize_idris_repo_rbp
