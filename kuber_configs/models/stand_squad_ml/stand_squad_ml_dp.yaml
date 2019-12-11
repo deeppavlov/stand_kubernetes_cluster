@@ -11,13 +11,13 @@ spec:
         app: stand-squad-ml-dp
     spec:
       containers:
-      - name: stand-squad-ml
-        image: kubeadm.ipavlov.mipt.ru:5000/stand/squad_ml
+      - name: model
+        image: kubeadm.ipavlov.mipt.ru:5000/stand_squad_ml
         resources:
           limits:
             nvidia.com/gpu: 0
         ports:
-        - name: cp5000
+        - name: dp-model
           protocol: TCP
           containerPort: 5000
         volumeMounts:

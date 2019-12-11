@@ -13,7 +13,7 @@ parser.add_argument('action', help='select action', type=str, choices={'build', 
 
 parser.add_argument('-c', '--models-config', default=None, help='path to models overriding config', type=str)
 
-parser.add_argument('-m', '--model', default=None, help='full model name with prefix', type=str)
+parser.add_argument('-m', '--model', default=None, help='full model name', type=str)
 parser.add_argument('-g', '--group', default=None, help='model group name', type=str)
 parser.add_argument('-p', '--pipeline', default=None, help='pipeline name', type=str)
 
@@ -83,8 +83,7 @@ def build(config: dict, args: argparse.Namespace) -> None:
 
 def list_names(config: dict, args: argparse.Namespace) -> None:
     if args.action == 'models':
-        models_info = [f'{model.get("PREFIX", "-")}_'
-                       f'{model.get("MODEL_NAME", "-")} | '
+        models_info = [f'{model.get("FULL_MODEL_NAME", "-")} | '
                        f'{model.get("TEMPLATE", "-")} | '
                        f'{model.get("CONFIG", "-")}' for model in config['models'].values()]
 
