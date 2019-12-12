@@ -14,6 +14,7 @@ stand:
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
+  - stand_chatbot_en_proxy
 
 #http_proxy:
 #  - http_proxy_cloud_demo_01
