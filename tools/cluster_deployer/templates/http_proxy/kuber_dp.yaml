@@ -2,6 +2,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{KUBER_DP_NAME}}
+  namespace: stand-demo
 spec:
   replicas: 1
   template:
