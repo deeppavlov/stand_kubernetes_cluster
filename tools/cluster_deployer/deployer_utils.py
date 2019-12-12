@@ -68,7 +68,8 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
         if models_config_file.is_file():
             with models_config_file.open('r') as f:
                 model_configs = yaml.load(f)
-                models.update(**model_configs)
+                if model_configs:
+                    models.update(**model_configs)
 
     if models_config_path:
         with models_config_path.open('r') as f:
