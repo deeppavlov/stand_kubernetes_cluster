@@ -9,16 +9,3 @@ http_proxy_ignatov:
   CLUSTER_PORT: 7051
   PROXYED_HOST: 192.168.10.78
   PROXYED_PORT: 7051
-
-http_proxy_alexa_gopnik_bot:
-  TEMPLATE: http_proxy
-  CLUSTER_PORT: 7055
-  PROXYED_HOST: docker-externalloa-lofsuritnple-525614984.us-east-1.elb.amazonaws.com
-  PROXYED_PORT: 4242
-
-http_proxy_alexa_gopnik_bot_01:
-  TEMPLATE: http_proxy
-  CLUSTER_PORT: 7056
-  PROXYED_HOST: Docker-st-External-1918W05RU8XQW-178993125.us-east-1.elb.amazonaws.com
-  PROXYED_PORT: 4242
-
