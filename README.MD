@@ -203,6 +203,7 @@ To create these objects:
     kubectl create -f volumes/components_hostpath
     kubectl create -f volumes/db_hostpath
     kubectl create -f volumes/rb_hostpath
+    kubectl create -f volumes/tfhub_hostpath
     ``` 
     
 For Kubernetes storaging and **Volumes** you can reference:
