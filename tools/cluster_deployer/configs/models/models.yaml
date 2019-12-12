@@ -1,3 +1,27 @@
 dev_mongo_db:
   TEMPLATE: mongo_db
   CLUSTER_PORT: 10001
+
+toloka_go_bot_dstc2_model:
+  CONFIG: gobot_dstc2_best
+  TEMPLATE: dp
+  CLUSTER_PORT: 7566
+  COMMIT: routerbot/dstc2-testing
+
+toloka_go_bot_dstc2_rb:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7066
+  CLUSTER_MONGO_PORT: 10066
+  CLUSTER_SSH_PORT: 8066
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
+
+toloka_go_bot_dstc2_rbp:
+  TEMPLATE: router_bot_poller
+  COMMIT: "gobot"
+  run_flags: []
+  run_params:
+    --model_url: "http://10.11.1.251:7566/model"
+    --host: "10.11.1.251"
+    --port: "7066"
+    --token: "dstc2_bot"

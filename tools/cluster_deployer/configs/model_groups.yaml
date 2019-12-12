@@ -24,6 +24,11 @@ alexaprize_idris_repo:
   - alexaprize_idris_repo_rb_dev
   - alexaprize_idris_repo_rbp_dev
 
+toloka_go_bot_dstc2:
+  - toloka_go_bot_dstc2_model
+  - toloka_go_bot_dstc2_rb
+  - toloka_go_bot_dstc2_rbp
+
 #agent_nti_gopnik:
 #  - agent_nti_gopnik
 #  - agent_nti_gopnik_mongo_db
