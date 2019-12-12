@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: stand-chatbot-en-proxy-dp
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stand-chatbot-en-proxy-dp
+    spec:
+      containers:
+      - name: nginx
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy
+        ports:
+        - name: dp-listened
+          protocol: TCP
+          containerPort: 7018
+        env:
+        - name: LISTENED_PORT
+          value: "7018"
+        - name: PROXYED_HOST
+          value: "Docker-st-External-1918W05RU8XQW-178993125.us-east-1.elb.amazonaws.com"
+        - name: PROXYED_PORT
+          value: "4242"
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254
