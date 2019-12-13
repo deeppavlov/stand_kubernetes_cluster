@@ -47,6 +47,19 @@ preset_pipelines = {
                      DeleteKuberDeploymentStage,
                      DeployKuberDeploymentStage]
     },
+    'all_up_docker': {
+        'description': 'full cycle deployment without pushing to Docker Hub without tests',
+        'pipeline': [MakeFilesDeploymentStage,
+                     DeleteImageDeploymentStage,
+                     BuildImageDeploymentStage,
+                     TestImageDeploymentStage]
+    },
+    'all_up_docker_no_tests': {
+        'description': 'full cycle deployment without pushing to Docker Hub without tests',
+        'pipeline': [MakeFilesDeploymentStage,
+                     DeleteImageDeploymentStage,
+                     BuildImageDeploymentStage]
+    },
     'all_from_docker': {
         'description': 'full cycle deployment without making deployment files',
         'pipeline': [DeleteImageDeploymentStage,
