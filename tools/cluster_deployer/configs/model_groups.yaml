@@ -1,3 +1,6 @@
+dp_base_cpu:
+  - dp_base_cpu_test
+
 stand:
   - stand_paraphraser_ru
   - stand_ner_ru

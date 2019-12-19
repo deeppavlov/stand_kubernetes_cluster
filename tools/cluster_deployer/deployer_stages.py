@@ -193,9 +193,10 @@ class BuildImageDeploymentStage(AbstractDeploymentStage):
         model_config: dict = self.config['models'][deployment_status.full_model_name]
         image_tag = model_config['KUBER_IMAGE_TAG']
 
-        # TODO: think how to get rid of hardcode buildargs
-        buildarg_keys = ['BASE_IMAGE', 'COMMIT', 'CONFIG', 'RUN_CMD', 'FULL_MODEL_NAME']
-        buildargs = {key: model_config.get(key, '') for key in buildarg_keys}
+        # TODO: test new buildargs making [think how to get rid of hardcode buildargs]
+        # buildarg_keys = ['BASE_IMAGE', 'COMMIT', 'CONFIG', 'RUN_CMD', 'FULL_MODEL_NAME']
+        # buildargs = {key: model_config.get(key, '') for key in buildarg_keys}
+        buildargs = {key: str(value) for key, value in model_config.items()}
         dumped_args = json.dumps(model_config['MODEL_ARGS'])
         # TODO: find out how to get rid of the replacement
         dumped_args = dumped_args.replace('"', '\\"').replace('[', '\\[').replace(']', '\\]')

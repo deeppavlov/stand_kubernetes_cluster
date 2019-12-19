@@ -46,7 +46,22 @@ _docs:
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 
-dp:
+dp_base_cpu:
+  # default params
+  # TODO: think about testing this template
+  pipeline: "make_files_and_docker_no_tests"
+  DOCKER_REGISTRY: "deeppavlov"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/base-cpu:{{IMAGE_VERSION}}"
+
+  # human set params
+  IMAGE_VERSION: ""
+  PYTHON_BASE_IMAGE: ""
+  COMMIT: ""
+
+
+dp_stand:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"

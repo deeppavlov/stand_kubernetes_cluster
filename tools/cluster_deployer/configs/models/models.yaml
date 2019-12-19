@@ -4,7 +4,7 @@ dev_mongo_db:
 
 toloka_go_bot_dstc2_model:
   CONFIG: gobot_dstc2_best
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7566
   COMMIT: routerbot/dstc2-testing
 
