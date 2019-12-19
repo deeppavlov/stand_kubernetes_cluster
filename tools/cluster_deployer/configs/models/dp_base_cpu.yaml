@@ -1,0 +1,1 @@
+dp_base_cpu_test: {TEMPLATE: dp_base_cpu, IMAGE_VERSION: "test", PYTHON_BASE_IMAGE: "python:3.7-slim-stretch", COMMIT: "dev"}
