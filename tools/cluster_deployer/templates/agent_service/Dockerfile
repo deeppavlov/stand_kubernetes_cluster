@@ -22,8 +22,7 @@ RUN git clone https://github.com/deepmipt/dp-agent.git && \
     if [ "$COMMIT" != "" ]; then \
         git checkout $COMMIT; \
     fi && \
-    python -m deeppavlov install $CONFIG && \
-    sed -i "/uvicorn.run/s/app,/app, timeout_keep_alive=20,/g" "/base/DeepPavlov/deeppavlov/utils/server/server.py"
+    python -m deeppavlov install $CONFIG
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \
