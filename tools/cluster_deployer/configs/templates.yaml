@@ -46,7 +46,7 @@ _docs:
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 
-dp:
+dp_stand:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"

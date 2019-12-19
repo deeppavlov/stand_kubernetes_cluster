@@ -1,6 +1,6 @@
 stand_paraphraser_ru:
   CONFIG: paraphraser_rubert
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7003
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -8,7 +8,7 @@ stand_paraphraser_ru:
 
 stand_ner_ru:
   CONFIG: ner_rus_bert
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7004
   image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
@@ -16,7 +16,7 @@ stand_ner_ru:
 
 stand_ner_en:
   CONFIG: ner_ontonotes_bert_mult
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7010
   image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
@@ -24,7 +24,7 @@ stand_ner_en:
 
 stand_ner_ml:
   CONFIG: ner_ontonotes_bert_mult
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7013
   image_polling_timeout_sec: 300
   deployment_polling_timeout_sec: 600
@@ -32,7 +32,7 @@ stand_ner_ml:
 
 stand_squad_ru:
   CONFIG: squad_ru_bert_infer
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7005
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -40,7 +40,7 @@ stand_squad_ru:
 
 stand_squad_en:
   CONFIG: squad_bert_infer
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7008
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -48,7 +48,7 @@ stand_squad_en:
 
 stand_squad_cn:
   CONFIG: squad_zh_bert_zh
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7017
   # TODO: switch to master after DP release next to 0.7.1
   COMMIT: dev
@@ -58,7 +58,7 @@ stand_squad_cn:
 
 stand_squad_ml:
   CONFIG: squad_bert_multilingual_freezed_emb
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7014
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -66,7 +66,7 @@ stand_squad_ml:
 
 stand_intents_en:
   CONFIG: intents_snips_big
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7007
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -74,7 +74,7 @@ stand_intents_en:
 
 stand_ranking_en:
   CONFIG: ranking_insurance_interact
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7009
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -82,7 +82,7 @@ stand_ranking_en:
 
 stand_insults_en:
   CONFIG: insults_kaggle_conv_bert
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7006
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -90,7 +90,7 @@ stand_insults_en:
 
 stand_odqa_en:
   CONFIG: en_odqa_pop_infer_enwiki20180211
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
   GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7011
@@ -100,7 +100,7 @@ stand_odqa_en:
 
 stand_odqa_ru:
   CONFIG: ru_odqa_infer_wiki_rubert_noans
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
   GPU_UNITS_NUM: 1
   CLUSTER_PORT: 7012
@@ -110,7 +110,7 @@ stand_odqa_ru:
 
 stand_sentiment_ru:
   CONFIG: rusentiment_elmo_twitter_cnn
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7015
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -118,7 +118,7 @@ stand_sentiment_ru:
 
 stand_kbqa_ru:
   CONFIG: kbqa_rus
-  TEMPLATE: dp
+  TEMPLATE: dp_stand
   CLUSTER_PORT: 7016
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
