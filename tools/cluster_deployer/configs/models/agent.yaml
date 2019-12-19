@@ -1,53 +1,50 @@
-#agent_nti_gopnik:
-#  TEMPLATE: agent_agent
-#  CLUSTER_PORT: 7059
-#  COMMIT: nti/v0.1_deploy
-#
-#agent_nti_gopnik_mongo_db:
-#  TEMPLATE: mongo_db
-#  CLUSTER_PORT: 9001
-#
-#agent_nti_gopnik_odqa:
+agent_nti_v0_2:
+  TEMPLATE: agent_agent
+  CLUSTER_PORT: 7059
+  COMMIT: nti/agent_v0.2_deploy
+
+agent_nti_v0_2_mongo_db:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 9001
+
+#agent_nti_v0_2_odqa:
 #  CONFIG: odqa/ru_odqa_infer_wiki_rubert_noans
 #  TEMPLATE: agent_service
 #  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
 #  GPU_UNITS_NUM: 1
 #  CLUSTER_PORT: 9002
-#  COMMIT: nti/v0.1_deploy
-#
-#agent_nti_gopnik_ranking_chitchat_2stage:
-#  CONFIG: skills/ranking_chitchat_2stage/agent_ranking_chitchat_2staged_tfidf_smn_v4_prep.json
-#  TEMPLATE: agent_service
-#  BASE_IMAGE: "deeppavlov/base-gpu:0.6.1"
-#  GPU_UNITS_NUM: 1
-#  CLUSTER_PORT: 9003
-#  COMMIT: nti/v0.1_deploy
-#
-#agent_nti_gopnik_ner:
-#  CONFIG: ner_rus
-#  TEMPLATE: agent_service
-#  CLUSTER_PORT: 9004
-#  COMMIT: nti/v0.1_deploy
-#
-#agent_nti_gopnik_sentiment:
-#  CONFIG: rusentiment_cnn
-#  TEMPLATE: agent_service
-#  CLUSTER_PORT: 9005
-#  COMMIT: nti/v0.1_deploy
-#
-#agent_nti_gopnik_rb:
-#  TEMPLATE: router_bot
-#  CLUSTER_PORT: 7067
-#  CLUSTER_MONGO_PORT: 10067
-#  CLUSTER_SSH_PORT: 8067
-#  FB_PAGE_ACCESS_TOKEN: "dummy"
-#  FB_WEBHOOK_SECRET: "dummy"
-#
-#agent_nti_gopnik_rbp:
-#  TEMPLATE: router_bot_poller
-#  run_flags: ["--agent"]
-#  run_params:
-#    --model_url: "http://10.11.1.251:7059/"
-#    --host: "10.11.1.251"
-#    --port: "7067"
-#    --token: "agent_nti_gopnik"
+#  COMMIT: nti/agent_v0.2_deploy
+
+# TODO: refactor to proper base image
+agent_nti_v0_2_ranking_chitchat_2stage:
+  CONFIG: skills/ranking_chitchat_2stage/ranking_chitchat_2staged_tfidf_smn_v24_a.json
+  TEMPLATE: agent_service
+  BASE_IMAGE: "deeppavlov/base-gpu:feat_agnostic_retrieval_chitchat"
+  GPU_UNITS_NUM: 1
+  CLUSTER_PORT: 9003
+  COMMIT: nti/agent_v0.2_deploy
+
+# TODO: refactor to proper base image
+agent_nti_v0_2_chitchat_odqa:
+  CONFIG: ru_skills_selector_bert
+  TEMPLATE: agent_service
+  BASE_IMAGE: "deeppavlov/base-cpu:dp_agent_skill_selector_chitchat_vs_odqa"
+  CLUSTER_PORT: 9004
+  COMMIT: nti/agent_v0.2_deploy
+
+agent_nti_v0_2_rb:
+  TEMPLATE: router_bot
+  CLUSTER_PORT: 7067
+  CLUSTER_MONGO_PORT: 10067
+  CLUSTER_SSH_PORT: 8067
+  FB_PAGE_ACCESS_TOKEN: "dummy"
+  FB_WEBHOOK_SECRET: "dummy"
+
+agent_nti_v0_2_rbp:
+  TEMPLATE: router_bot_poller
+  run_flags: ["--agent"]
+  run_params:
+    --model_url: "http://10.11.1.251:7059/"
+    --host: "10.11.1.251"
+    --port: "7067"
+    --token: "agent_nti_gopnik"
