@@ -123,9 +123,3 @@ stand_kbqa_ru:
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
-
-stand_chatbot_en_proxy:
-  TEMPLATE: http_proxy
-  CLUSTER_PORT: 7018
-  PROXYED_HOST: Docker-st-External-1918W05RU8XQW-178993125.us-east-1.elb.amazonaws.com
-  PROXYED_PORT: 4242

@@ -20,6 +20,7 @@ agent_nti_v0_2_ranking_chitchat_2stage:
   CONFIG: skills/ranking_chitchat_2stage/ranking_chitchat_2staged_tfidf_smn_v24_a.json
   TEMPLATE: agent_service
   BASE_IMAGE: "deeppavlov/base-gpu:feat_agnostic_retrieval_chitchat"
+  REPLICAS_NUM: 10
   GPU_UNITS_NUM: 1
   CLUSTER_PORT: 9003
   COMMIT: nti/agent_v0.2_deploy
