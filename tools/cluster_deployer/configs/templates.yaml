@@ -87,10 +87,21 @@ agent_agent:
 agent_service:
   # default_params:
   pipeline: "all_up_kuber_no_tests"
-  BASE_IMAGE: "deeppavlov/base-cpu:0.6.1"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.7.1"
 
   # human set params
-  COMMIT: ""
+  DP_COMMIT: ""
+  DPA_COMMIT: ""
+  CONFIG: ""
+
+
+agent_custom_service:
+  # default_params:
+  pipeline: "all_up_kuber_no_tests"
+
+  # human set params
+  BASE_IMAGE: ""
+  DPA_COMMIT: ""
   CONFIG: ""
 
 
