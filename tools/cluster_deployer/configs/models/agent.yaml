@@ -1,7 +1,9 @@
 agent_nti_v0_3:
-  TEMPLATE: agent_agent
+  TEMPLATE: agent_custom_service
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_agent
   CLUSTER_PORT: 7059
-  COMMIT: agent_v0.3.a23_deploy
+  CMD_SCRIPT: shell/agent.sh
 
 agent_nti_v0_2_mongo_db:
   TEMPLATE: mongo_db
@@ -17,36 +19,60 @@ agent_nti_v0_3_odqa:
   DPA_COMMIT: agent_v0.3.a23_deploy
 
 agent_nti_v0_3_ranking_chitchat_2stage:
-  CONFIG: services/skills/ranking_chitchat_2stage/ranking_chitchat_2staged_tfidf_smn_v23_g.json
-  TEMPLATE: agent_service
-  BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
-  GPU_UNITS_NUM: 1
-  REPLICAS_NUM: 3
+  TEMPLATE: agent_custom_service
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_ranking_chitchat_2stage
   CLUSTER_PORT: 9003
-  DP_COMMIT: feat/agnostic_retrieval_chitchat
-  DPA_COMMIT: agent_v0.3.a23_deploy
+  CMD_SCRIPT: shell/ranking_chitchat_2stage.sh
 
 agent_nti_v0_3_neural_based_selector:
-  CONFIG: ru_skills_selector_bert
-  TEMPLATE: agent_service
-  BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
+  TEMPLATE: agent_custom_service
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_basic_intent_classifier
   CLUSTER_PORT: 9004
-  DP_COMMIT: dp_agent/skill_selector/chitchat_vs_odqa
-  DPA_COMMIT: agent_v0.3.a23_deploy
+  CMD_SCRIPT: shell/basic_intent_classifier.sh
 
 agent_nti_v0_3_rule_based_selector:
   TEMPLATE: agent_custom_service
-  BASE_IMAGE: dp-agent_rule_based_selector
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_rule_based_selector
   CLUSTER_PORT: 9005
-  DPA_COMMIT: agent_v0.3.a23_deploy
-  CMD_SCRIPT: services/selectors/rule_based_selector/run.sh
+  CMD_SCRIPT: shell/rule_based_selector.sh
 
 agent_nti_v0_3_greeting_skill:
   TEMPLATE: agent_custom_service
-  BASE_IMAGE: dp-agent_greeting_skill
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_greeting_skill
   CLUSTER_PORT: 9006
-  DPA_COMMIT: agent_v0.3.a23_deploy
-  CMD_SCRIPT: services/skills/greeting_skill/run.sh
+  CMD_SCRIPT: shell/greeting_skill.sh
+
+agent_nti_v0_3_rule_based_response_selector:
+  TEMPLATE: agent_custom_service
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_rule_based_response_selector
+  CLUSTER_PORT: 9007
+  CMD_SCRIPT: shell/rule_based_response_selector.sh
+
+agent_nti_v0_3_aiml_chitchat:
+  TEMPLATE: agent_custom_service
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_aiml_chitchat
+  CLUSTER_PORT: 9008
+  CMD_SCRIPT: shell/aiml_chitchat.sh
+
+agent_nti_v0_3_spell_checker:
+  TEMPLATE: agent_custom_service
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_spell_checker
+  CLUSTER_PORT: 9009
+  CMD_SCRIPT: shell/spell_checker.sh
+
+agent_nti_v0_3_insult_defense_skill:
+  TEMPLATE: agent_custom_service
+  DPA_COMMIT: deploy
+  BASE_IMAGE: sber_chitchat_bot_insult_defense_skill
+  CLUSTER_PORT: 9010
+  CMD_SCRIPT: shell/insult_defense_skill.sh
 
 agent_nti_v0_2_rb:
   TEMPLATE: router_bot
