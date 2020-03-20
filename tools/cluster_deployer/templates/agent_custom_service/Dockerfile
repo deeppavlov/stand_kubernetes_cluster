@@ -11,7 +11,7 @@ ENV MODEL_NAME=$FULL_MODEL_NAME
 ENV CMD_SCRIPT=$CMD_SCRIPT
 
 RUN cd / && \
-    git clone https://github.com/deepmipt/dp-agent.git && \
+    git clone https://github.com/IgnatovFedor/dp-agent.git && \
     cd dp-agent && \
     if [ "$DPA_COMMIT" != "" ]; then \
         git checkout $DPA_COMMIT; \
