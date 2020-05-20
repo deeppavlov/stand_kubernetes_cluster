@@ -11,8 +11,11 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: agent
+      - name: socialservice
         image: {{KUBER_IMAGE_TAG}}
+        resources:
+          limits:
+            nvidia.com/gpu: {{GPU_UNITS_NUM}}
         ports:
         - name: dp-service
           protocol: TCP
