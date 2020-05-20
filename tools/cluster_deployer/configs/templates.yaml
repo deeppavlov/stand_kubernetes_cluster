@@ -105,6 +105,14 @@ agent_custom_service:
   CONFIG: ""
 
 
+socialbot_service:
+  # default_params:
+  pipeline: "all_up_kuber_no_tests"
+
+  # human set params
+  BASE_IMAGE: ""
+
+
 router_bot:
   # default params
   pipeline: "make_files_and_kuber_no_tests"

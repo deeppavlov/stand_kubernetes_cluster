@@ -1,0 +1,311 @@
+agent_nti_v0_2_mongo_db:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 8100
+socialbot_alice:
+  BASE_IMAGE: dp-agent-alexa_alice
+  CLUSTER_PORT: 8000
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8000
+  PORT: 8000
+  TEMPLATE: socialbot_service
+socialbot_animals_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_animals_tfidf_retrieval
+  CLUSTER_PORT: 8050
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8050
+  PORT: 8050
+  TEMPLATE: socialbot_service
+socialbot_asr:
+  BASE_IMAGE: dp-agent-alexa_asr
+  CLUSTER_PORT: 8031
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8031
+  PORT: 8031
+  TEMPLATE: socialbot_service
+socialbot_blacklisted_words:
+  BASE_IMAGE: dp-agent-alexa_blacklisted_words
+  CLUSTER_PORT: 8018
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8018
+  PORT: 8018
+  TEMPLATE: socialbot_service
+socialbot_book_skill:
+  BASE_IMAGE: dp-agent-alexa_book_skill
+  CLUSTER_PORT: 8032
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8032
+  PORT: 8032
+  TEMPLATE: socialbot_service
+socialbot_book_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_book_tfidf_retrieval
+  CLUSTER_PORT: 8039
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8039
+  PORT: 8039
+  TEMPLATE: socialbot_service
+socialbot_christmas_new_year_skill:
+  BASE_IMAGE: dp-agent-alexa_christmas_new_year_skill
+  CLUSTER_PORT: 8036
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8036
+  PORT: 8036
+  TEMPLATE: socialbot_service
+socialbot_comet_atomic:
+  BASE_IMAGE: dp-agent-alexa_comet_atomic
+  CLUSTER_PORT: 8053
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8053
+  PORT: 8053
+  TEMPLATE: socialbot_service
+socialbot_comet_conceptnet:
+  BASE_IMAGE: dp-agent-alexa_comet_conceptnet
+  CLUSTER_PORT: 8065
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8065
+  PORT: 8065
+  TEMPLATE: socialbot_service
+socialbot_convers_evaluation_selector:
+  BASE_IMAGE: dp-agent-alexa_convers_evaluation_selector
+  CLUSTER_PORT: 8009
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8009 -t 15
+  PORT: 8009
+  TEMPLATE: socialbot_service
+socialbot_convert_reddit:
+  BASE_IMAGE: dp-agent-alexa_convert_reddit
+  CLUSTER_PORT: 8029
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8029 -t 60
+  PORT: 8029
+  TEMPLATE: socialbot_service
+socialbot_coronavirus_skill:
+  BASE_IMAGE: dp-agent-alexa_coronavirus_skill
+  CLUSTER_PORT: 8061
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8061
+  PORT: 8061
+  TEMPLATE: socialbot_service
+socialbot_dummy_skill_dialog:
+  BASE_IMAGE: dp-agent-alexa_dummy_skill_dialog
+  CLUSTER_PORT: 8052
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8052
+  PORT: 8052
+  TEMPLATE: socialbot_service
+socialbot_eliza:
+  BASE_IMAGE: dp-agent-alexa_eliza
+  CLUSTER_PORT: 8047
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8047
+  PORT: 8047
+  TEMPLATE: socialbot_service
+socialbot_emotion_classification:
+  BASE_IMAGE: dp-agent-alexa_emotion_classification
+  CLUSTER_PORT: 8038
+  CMD_SCRIPT: python -m deeppavlov riseapi annotators/DeepPavlovEmotionClassification/emo_bert.json
+    -p 8038
+  PORT: 8038
+  TEMPLATE: socialbot_service
+socialbot_emotion_skill:
+  BASE_IMAGE: dp-agent-alexa_emotion_skill
+  CLUSTER_PORT: 8049
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8049
+  PORT: 8049
+  TEMPLATE: socialbot_service
+socialbot_entertainment_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_entertainment_tfidf_retrieval
+  CLUSTER_PORT: 8040
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8040
+  PORT: 8040
+  TEMPLATE: socialbot_service
+socialbot_fashion_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_fashion_tfidf_retrieval
+  CLUSTER_PORT: 8041
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8041
+  PORT: 8041
+  TEMPLATE: socialbot_service
+socialbot_game_cooperative_skill:
+  BASE_IMAGE: dp-agent-alexa_game_cooperative_skill
+  CLUSTER_PORT: 8068
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8068
+  PORT: 8068
+  TEMPLATE: socialbot_service
+socialbot_greeting_skill:
+  BASE_IMAGE: dp-agent-alexa_greeting_skill
+  CLUSTER_PORT: 8070
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8070 --timeout=60 --preload
+  PORT: 8070
+  TEMPLATE: socialbot_service
+socialbot_intent_catcher:
+  BASE_IMAGE: dp-agent-alexa_intent_catcher
+  CLUSTER_PORT: 8014
+  CMD_SCRIPT: gunicorn --workers=1 --name=catcher --bind 0.0.0.0:8014 --timeout=100
+    server:app
+  PORT: 8014
+  TEMPLATE: socialbot_service
+socialbot_intent_responder:
+  BASE_IMAGE: dp-agent-alexa_intent_responder
+  CLUSTER_PORT: 8012
+  CMD_SCRIPT: gunicorn --workers=1 --name=responder --bind 0.0.0.0:8012 --timeout=100
+    server:app
+  PORT: 8012
+  TEMPLATE: socialbot_service
+socialbot_meta_script_skill:
+  BASE_IMAGE: dp-agent-alexa_meta_script_skill
+  CLUSTER_PORT: 8054
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8054
+  PORT: 8054
+  TEMPLATE: socialbot_service
+socialbot_misheard_asr:
+  BASE_IMAGE: dp-agent-alexa_misheard_asr
+  CLUSTER_PORT: 8033
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8033
+  PORT: 8033
+  TEMPLATE: socialbot_service
+socialbot_movie_skill:
+  BASE_IMAGE: dp-agent-alexa_movie_skill
+  CLUSTER_PORT: 8023
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8023 --timeout=300 --preload
+  PORT: 8023
+  TEMPLATE: socialbot_service
+socialbot_movie_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_movie_tfidf_retrieval
+  CLUSTER_PORT: 8042
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8042
+  PORT: 8042
+  TEMPLATE: socialbot_service
+socialbot_music_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_music_tfidf_retrieval
+  CLUSTER_PORT: 8034
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8034
+  PORT: 8034
+  TEMPLATE: socialbot_service
+socialbot_ner:
+  BASE_IMAGE: dp-agent-alexa_ner
+  CLUSTER_PORT: 8021
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8021 -t 100
+  PORT: 8021
+  TEMPLATE: socialbot_service
+socialbot_news_api_skill:
+  BASE_IMAGE: dp-agent-alexa_news_api_skill
+  CLUSTER_PORT: 8066
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8066 -t 15
+  PORT: 8066
+  TEMPLATE: socialbot_service
+socialbot_oscar_skill:
+  BASE_IMAGE: dp-agent-alexa_oscar_skill
+  CLUSTER_PORT: 8055
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8055
+  PORT: 8055
+  TEMPLATE: socialbot_service
+socialbot_personal_info_skill:
+  BASE_IMAGE: dp-agent-alexa_personal_info_skill
+  CLUSTER_PORT: 8030
+  CMD_SCRIPT: gunicorn --workers=4 server:app -b 0.0.0.0:8030
+  PORT: 8030
+  TEMPLATE: socialbot_service
+socialbot_personality_catcher:
+  BASE_IMAGE: dp-agent-alexa_personality_catcher
+  CLUSTER_PORT: 8010
+  CMD_SCRIPT: uvicorn server:app --host 0.0.0.0 --port 8010
+  PORT: 8010
+  TEMPLATE: socialbot_service
+socialbot_politics_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_politics_tfidf_retrieval
+  CLUSTER_PORT: 8043
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8043
+  PORT: 8043
+  TEMPLATE: socialbot_service
+socialbot_program_y:
+  BASE_IMAGE: dp-agent-alexa_program_y
+  CLUSTER_PORT: 8008
+  CMD_SCRIPT: ./sanic.sh
+  PORT: 8008
+  TEMPLATE: socialbot_service
+socialbot_program_y_dangerous:
+  BASE_IMAGE: dp-agent-alexa_program_y_dangerous
+  CLUSTER_PORT: 8022
+  CMD_SCRIPT: ./sanic.sh
+  PORT: 8022
+  TEMPLATE: socialbot_service
+socialbot_program_y_wide:
+  BASE_IMAGE: dp-agent-alexa_program_y_wide
+  CLUSTER_PORT: 8064
+  CMD_SCRIPT: ./sanic.sh
+  PORT: 8064
+  TEMPLATE: socialbot_service
+socialbot_reddit_ner_skill:
+  BASE_IMAGE: dp-agent-alexa_reddit_ner_skill
+  CLUSTER_PORT: 8035
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8035
+  PORT: 8035
+  TEMPLATE: socialbot_service
+socialbot_science_technology_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_science_technology_tfidf_retrieval
+  CLUSTER_PORT: 8044
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8044
+  PORT: 8044
+  TEMPLATE: socialbot_service
+socialbot_sentiment_classification:
+  BASE_IMAGE: dp-agent-alexa_sentiment_classification
+  CLUSTER_PORT: 8024
+  CMD_SCRIPT: python -m deeppavlov riseapi annotators/DeepPavlovSentimentClassification/sentiment_sst_conv_bert.json
+    -p 8024
+  PORT: 8024
+  TEMPLATE: socialbot_service
+socialbot_sentrewrite:
+  BASE_IMAGE: dp-agent-alexa_sentrewrite
+  CLUSTER_PORT: 8017
+  CMD_SCRIPT: bash -c "./setup.sh && gunicorn --workers=1 server:app -b 0.0.0.0:8017
+    -t 60"
+  PORT: 8017
+  TEMPLATE: socialbot_service
+socialbot_sentseg:
+  BASE_IMAGE: dp-agent-alexa_sentseg
+  CLUSTER_PORT: 8011
+  CMD_SCRIPT: bash -c "./setup.sh && gunicorn --workers=1 server:app -b 0.0.0.0:8011
+    -t 100"
+  PORT: 8011
+  TEMPLATE: socialbot_service
+socialbot_short_story_skill:
+  BASE_IMAGE: dp-agent-alexa_short_story_skill
+  CLUSTER_PORT: 8057
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8057
+  PORT: 8057
+  TEMPLATE: socialbot_service
+socialbot_small_talk_skill:
+  BASE_IMAGE: dp-agent-alexa_small_talk_skill
+  CLUSTER_PORT: 8062
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8062
+  PORT: 8062
+  TEMPLATE: socialbot_service
+socialbot_sport_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_sport_tfidf_retrieval
+  CLUSTER_PORT: 8045
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8045
+  PORT: 8045
+  TEMPLATE: socialbot_service
+socialbot_stop_detect:
+  BASE_IMAGE: dp-agent-alexa_stop_detect
+  CLUSTER_PORT: 8056
+  CMD_SCRIPT: python -m deeppavlov riseapi annotators/stop_detect/stop_detect.json
+    -p 8056
+  PORT: 8056
+  TEMPLATE: socialbot_service
+socialbot_superbowl_skill:
+  BASE_IMAGE: dp-agent-alexa_superbowl_skill
+  CLUSTER_PORT: 8051
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8051
+  PORT: 8051
+  TEMPLATE: socialbot_service
+socialbot_tfidf_retrieval:
+  BASE_IMAGE: dp-agent-alexa_tfidf_retrieval
+  CLUSTER_PORT: 8028
+  CMD_SCRIPT: bash -c " gunicorn --workers=1 server:app -b 0.0.0.0:8028"
+  PORT: 8028
+  TEMPLATE: socialbot_service
+socialbot_toxic_classification:
+  BASE_IMAGE: dp-agent-alexa_toxic_classification
+  CLUSTER_PORT: 8013
+  CMD_SCRIPT: python -m deeppavlov riseapi annotators/DeepPavlovToxicClassification/toxic_classification.json
+    -p 8013
+  PORT: 8013
+  TEMPLATE: socialbot_service
+socialbot_valentines_day_skill:
+  BASE_IMAGE: dp-agent-alexa_valentines_day_skill
+  CLUSTER_PORT: 8058
+  CMD_SCRIPT: gunicorn --workers=2 server:app -b 0.0.0.0:8058
+  PORT: 8058
+  TEMPLATE: socialbot_service
+socialbot_weather_skill:
+  BASE_IMAGE: dp-agent-alexa_weather_skill
+  CLUSTER_PORT: 8037
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8037
+  PORT: 8037
+  TEMPLATE: socialbot_service
