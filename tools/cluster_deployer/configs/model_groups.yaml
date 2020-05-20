@@ -19,6 +19,58 @@ stand:
   - stand_kbqa_ru
   - stand_chatbot_en_proxy
 
+socialbot:
+  - socialbot_alice
+  - socialbot_animals_tfidf_retrieval
+  - socialbot_asr
+  - socialbot_blacklisted_words
+  - socialbot_book_skill
+  - socialbot_book_tfidf_retrieval
+  - socialbot_christmas_new_year_skill
+  - socialbot_comet_atomic
+  - socialbot_comet_conceptnet
+  - socialbot_convers_evaluation_selector
+  - socialbot_convert_reddit
+  - socialbot_coronavirus_skill
+  - socialbot_dummy_skill_dialog
+  - socialbot_eliza
+  - socialbot_emotion_classification
+  - socialbot_emotion_skill
+  - socialbot_entertainment_tfidf_retrieval
+  - socialbot_fashion_tfidf_retrieval
+  - socialbot_game_cooperative_skill
+  - socialbot_greeting_skill
+  - socialbot_intent_catcher
+  - socialbot_intent_responder
+  - socialbot_meta_script_skill
+  - socialbot_misheard_asr
+  - socialbot_movie_skill
+  - socialbot_movie_tfidf_retrieval
+  - socialbot_music_tfidf_retrieval
+  - socialbot_ner
+  - socialbot_news_api_skill
+  - socialbot_oscar_skill
+  - socialbot_personal_info_skill
+  - socialbot_personality_catcher
+  - socialbot_politics_tfidf_retrieval
+  - socialbot_program_y
+  - socialbot_program_y_dangerous
+  - socialbot_program_y_wide
+  - socialbot_reddit_ner_skill
+  - socialbot_science_technology_tfidf_retrieval
+  - socialbot_sentiment_classification
+  - socialbot_sentrewrite
+  - socialbot_sentseg
+  - socialbot_short_story_skill
+  - socialbot_small_talk_skill
+  - socialbot_sport_tfidf_retrieval
+  - socialbot_stop_detect
+  - socialbot_superbowl_skill
+  - socialbot_tfidf_retrieval
+  - socialbot_toxic_classification
+  - socialbot_valentines_day_skill
+  - socialbot_weather_skill
+
 http_proxy: []
 
 alexaprize_idris_repo:
