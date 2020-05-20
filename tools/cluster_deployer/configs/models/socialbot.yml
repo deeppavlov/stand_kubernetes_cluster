@@ -208,19 +208,19 @@ socialbot_politics_tfidf_retrieval:
 socialbot_program_y:
   BASE_IMAGE: dp-agent-alexa_program_y
   CLUSTER_PORT: 8008
-  CMD_SCRIPT: ./sanic.sh
+  CMD_SCRIPT: cd /src/dream_aiml/scripts/xnix && ./sanic.sh
   PORT: 8008
   TEMPLATE: socialbot_service
 socialbot_program_y_dangerous:
   BASE_IMAGE: dp-agent-alexa_program_y_dangerous
   CLUSTER_PORT: 8022
-  CMD_SCRIPT: ./sanic.sh
+  CMD_SCRIPT: cd /src/dream_aiml/scripts/xnix && ./sanic.sh
   PORT: 8022
   TEMPLATE: socialbot_service
 socialbot_program_y_wide:
   BASE_IMAGE: dp-agent-alexa_program_y_wide
   CLUSTER_PORT: 8064
-  CMD_SCRIPT: ./sanic.sh
+  CMD_SCRIPT: cd /src/dream_aiml/scripts/xnix && ./sanic.sh
   PORT: 8064
   TEMPLATE: socialbot_service
 socialbot_reddit_ner_skill:
