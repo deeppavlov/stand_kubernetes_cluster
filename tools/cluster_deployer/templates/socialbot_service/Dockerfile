@@ -15,4 +15,6 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_FILE=$MODEL_NAME"_"$DATE_TIME"_"$POD_NODE"_"$POD_NAME".log" && \
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
+    if [ -f /root/.deeppavlov/env.env ]; then . /root/.deeppavlov/env.env; fi && \
+    echo $NEWS_API_KEY_1 > $LOG_DIR"/"asdf.log && \
     {{CMD_SCRIPT}} > $LOG_PATH 2>&1
