@@ -47,12 +47,14 @@ socialbot_comet_atomic:
   BASE_IMAGE: dp-agent-alexa_comet_atomic
   CLUSTER_PORT: 8053
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8053
+  GPU_UNITS_NUM: 1
   PORT: 8053
   TEMPLATE: socialbot_service
 socialbot_comet_conceptnet:
   BASE_IMAGE: dp-agent-alexa_comet_conceptnet
   CLUSTER_PORT: 8065
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8065
+  GPU_UNITS_NUM: 1
   PORT: 8065
   TEMPLATE: socialbot_service
 socialbot_convers_evaluation_selector:
@@ -90,6 +92,7 @@ socialbot_emotion_classification:
   CLUSTER_PORT: 8038
   CMD_SCRIPT: python -m deeppavlov riseapi annotators/DeepPavlovEmotionClassification/emo_bert.json
     -p 8038
+  GPU_UNITS_NUM: 1
   PORT: 8038
   TEMPLATE: socialbot_service
 socialbot_emotion_skill:
@@ -237,6 +240,7 @@ socialbot_sentiment_classification:
   CLUSTER_PORT: 8024
   CMD_SCRIPT: python -m deeppavlov riseapi annotators/DeepPavlovSentimentClassification/sentiment_sst_conv_bert.json
     -p 8024
+  GPU_UNITS_NUM: 1
   PORT: 8024
   TEMPLATE: socialbot_service
 socialbot_sentrewrite:
@@ -276,6 +280,7 @@ socialbot_stop_detect:
   CLUSTER_PORT: 8056
   CMD_SCRIPT: python -m deeppavlov riseapi annotators/stop_detect/stop_detect.json
     -p 8056
+  GPU_UNITS_NUM: 1
   PORT: 8056
   TEMPLATE: socialbot_service
 socialbot_superbowl_skill:
@@ -295,6 +300,7 @@ socialbot_toxic_classification:
   CLUSTER_PORT: 8013
   CMD_SCRIPT: python -m deeppavlov riseapi annotators/DeepPavlovToxicClassification/toxic_classification.json
     -p 8013
+  GPU_UNITS_NUM: 1
   PORT: 8013
   TEMPLATE: socialbot_service
 socialbot_valentines_day_skill:
