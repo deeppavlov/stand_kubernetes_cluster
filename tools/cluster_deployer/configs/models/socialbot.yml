@@ -1,6 +1,12 @@
-agent_nti_v0_2_mongo_db:
+socialbot_mongo_db:
   TEMPLATE: mongo_db
   CLUSTER_PORT: 8100
+socialbot_agent:
+  TEMPLATE: socialbot_service
+  BASE_IMAGE: assistant_agent
+  CLUSTER_PORT: 8099
+  CMD_SCRIPT: set -a && . /dp-agent/.env.stand && set +a && python -m deeppavlov_agent.run -pl demo_stand_pipeline_conf.json -ch http_client
+  PORT: 4242
 socialbot_alice:
   BASE_IMAGE: dp-agent-alexa_alice
   CLUSTER_PORT: 8000
