@@ -6,7 +6,7 @@ Demo stand Kubernetes cluster is based on following components:
 
 1. **Docker** with **NVIDIA Container Runtime for Docker**
 2. Kubernetes packages: **kubeadm**, **kubelet**, **kubectl**, **kubernetes-cni**
-3. **Docker registry** 
+3. **Docker registry**
 
 Docker and all Kubernetes packages should be deployed both on master and each worker node.
 NVIDIA Container Runtime for Docker should be deployed on each worker node with GPUs.
@@ -29,12 +29,12 @@ This docs are tested for following versions of demo stand components:
         ```
         curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
         sudo apt-key add -
-        
+
         distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-        
+
         curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
         sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-        
+
         sudo apt-get update
         ```
     2. Install nvidia-docker2 and reload the Docker daemon configuration:
@@ -46,7 +46,7 @@ This docs are tested for following versions of demo stand components:
 Reference resources:
 1. Docker installation: https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
 2. NVIDIA Docker installation: https://github.com/NVIDIA/nvidia-docker
-    
+
 ### Kubernetes installation
 1. Kubernetes can't operate with swap enabled on host machine. Disable swap on master and each slave node:
     ```
@@ -68,9 +68,9 @@ Reference resources:
 
 Reference resources:
 1. Kubernetes docs, kubeadm installation: https://kubernetes.io/docs/setup/independent/install-kubeadm/
- 
+
 ### Docker registry deployment
-For now plain insecure HTTP registry is used. 
+For now plain insecure HTTP registry is used.
 
 1. If required, install Docker on Docker registry host machine:
     ```
@@ -82,7 +82,7 @@ For now plain insecure HTTP registry is used.
     docker run -d -p <registry port, default=5000>:5000 --restart=always --name registry registry:2
     ```
 3. To enable insecure access to registry, follow these steps on master and each slave node (as well as each host that wants to access the registry):
-    
+
     1. Edit or create `/etc/docker/daemon.json` file with updating it with following contents:
         ```
         {
@@ -94,7 +94,7 @@ For now plain insecure HTTP registry is used.
         sudo systemctl daemon-reload
         sudo systemctl restart docker
         ```
-    
+
 Reference resources:
 1. Docker docs, docker registry: https://docs.docker.com/registry/
 2. Docker docs, insecure registry deployment: https://docs.docker.com/registry/insecure/
@@ -109,7 +109,7 @@ All commands are assumed to be executed on the master node. We use **Flannel** a
     ```
     git clone https://github.com/deepmipt/stand_kubernetes_cluster.git
     cd stand_kubernetes_cluster/tools/kube_scripts
-    ``` 
+    ```
 2. Initiate cluster master node:
     ```
     sudo sysctl net.bridge.bridge-nf-call-iptables=1
@@ -147,7 +147,7 @@ Reference resources:
     ```
     sudo kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
     ```
-    
+
 ### Cluster operations:
 1. Check all system pods are running:
     ```
@@ -196,15 +196,15 @@ To create these objects:
 2. We run demo stand payload in `stand-demo` **Namespace**. To create in run:
     ```
     kubectl create -f namespaces/stand_demo_ns.yaml
-    ```   
+    ```
 3. Create hostpath volumes for stand component and logs:
     ```
     kubectl create -f volumes/logs_hostpath
     kubectl create -f volumes/components_hostpath
     kubectl create -f volumes/db_hostpath
     kubectl create -f volumes/rb_hostpath
-    ``` 
-    
+    ```
+
 For Kubernetes storaging and **Volumes** you can reference:
 1. Kubernetes docs, **Volumes**: https://kubernetes.io/docs/concepts/storage/volumes/
 2. Kubernetes docs, **PersistentVolumes** manual: https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
@@ -227,7 +227,7 @@ To deploy stand payload:
 3. Create payload **Deployment** (Russian NER example):
     ```
     kubectl create -f stand_ner_ru/stand_ner_ru_dp.yaml
-    ``` 
+    ```
 4. Create payload **Service** (Russian NER example):
     ```
     kubectl create -f stand_ner_ru/stand_ner_ru_lb.yaml
@@ -235,13 +235,41 @@ To deploy stand payload:
 5. Or you can simply run following instead of steps 3-4:
     ```
     kubectl create -f stand_ner_ru
-    ``` 
+    ```
 
 For **Deployments** and **Services** definition you can reference:
 1. Kubernetes docs, deployments: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
 2. Kubernetes docs, deployments API: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/#deployment-v1-apps
 3. Kubernetes docs, services: https://kubernetes.io/docs/concepts/services-networking/service/
 4. Kubernetes docs, services API: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/#service-v1-core
+
+### Logs and metrics deployment
+
+- Create `monitoring` namespace
+  ```
+  kubectl create -f kuber_configs/common/namespaces/monitoring_ns.yaml
+  ```
+- Create hostpath volumes
+  ```
+  kubectl create -f kuber_configs/common/volumes/loki_hostpath
+  kubectl create -f kuber_configs/common/volumes/prometheus_hostpath
+  kubectl create -f kuber_configs/common/volumes/grafana_hostpath
+  ```
+
+- Make sure you have Helm [installed](https://helm.sh/docs/intro/install/)
+- Add helm repos:
+  ```
+  helm repo add grafana https://grafana.github.io/helm-charts
+  helm repo add loki https://grafana.github.io/loki/charts
+  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+  ```
+- Install:
+  ```
+  helm upgrade --install loki --namespace=monitoring loki/loki-stack -f kuber_configs/common/charts/loki/values.yml
+  helm upgrade --install prometheus --namespace=monitoring prometheus-community/prometheus -f kuber_configs/common/charts/prometheus/values.yml
+  helm upgrade --install grafana --namespace=monitoring grafana/grafana -f kuber_configs/common/charts/grafana/values.yml
+  ```
 
 ### Stand payload operations
 
@@ -274,7 +302,7 @@ Get detailed information about object:
     ```
     kubectl -n stand-demo describe pod <pod_name>
     ```
-    
+
 Delete object:
 1. **Service**:
     ```

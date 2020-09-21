@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: loki-hostpath-pv
+  namespace: monitoring
+spec:
+  storageClassName: loki-hostpath-sc
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/monitoring/loki/"

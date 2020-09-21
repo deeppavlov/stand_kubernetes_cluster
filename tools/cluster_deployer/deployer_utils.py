@@ -55,19 +55,19 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
     model_configs_path = config_dir_path / 'models'
 
     with config_file_path.open('r') as f:
-        config: dict = yaml.load(f)
+        config: dict = yaml.load(f, Loader=yaml.Loader)
 
     with model_groups_path.open('r') as f:
-        model_groups: dict = yaml.load(f)
+        model_groups: dict = yaml.load(f, Loader=yaml.Loader)
 
     with templates_path.open('r') as f:
-        templates: dict = yaml.load(f)
+        templates: dict = yaml.load(f, Loader=yaml.Loader)
 
     models = {}
     for models_config_file in model_configs_path.iterdir():
         if models_config_file.is_file():
             with models_config_file.open('r') as f:
-                model_configs = yaml.load(f)
+                model_configs = yaml.load(f, Loader=yaml.Loader)
                 models.update(**model_configs)
 
     if models_config_path:
@@ -95,7 +95,7 @@ def make_config_from_files(config_dir_path: Path, root_dir: Path, models_config_
         match = re.search(pattern, model_full_name)
 
         if not match:
-            raise KeyError(f'Wrong model full name: {model_full_name}, should be in <prefix>_<model_name> fromat')
+            raise KeyError(f'Wrong model full name: {model_full_name}, should be in <prefix>_<model_name> format')
         else:
             model_config['FULL_MODEL_NAME'] = model_full_name
             model_config['PREFIX'] = match.group(1)

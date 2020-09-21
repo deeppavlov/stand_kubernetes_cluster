@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: grafana-hostpath-pv
+  namespace: monitoring
+spec:
+  storageClassName: grafana-hostpath-sc
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/monitoring/grafana/"

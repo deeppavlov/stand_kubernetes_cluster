@@ -136,3 +136,11 @@ stand_go_bot_dstc2:
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber_no_tests
+
+stand_study:
+  CONFIG: squad_ru_bert_infer
+  TEMPLATE: dp
+  CLUSTER_PORT: 7025
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber_no_tests

@@ -1,0 +1,14 @@
+loki:
+  persistence.enabled: true
+  persistence.existingClaim: loki-hostpath-pvc
+
+promtail:
+  extraVolumes:
+  - name: dockerdata
+    hostPath:
+      path: /data/docker/containers
+
+  extraVolumeMounts:
+  - name: dockerdata
+    mountPath: /data/docker/containers
+    readOnly: true
