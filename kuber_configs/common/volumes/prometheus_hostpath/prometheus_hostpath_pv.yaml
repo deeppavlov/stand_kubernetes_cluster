@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: prometheus-hostpath-pv
+  namespace: monitoring
+spec:
+  storageClassName: prometheus-hostpath-sc
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/monitoring/prometheus/"

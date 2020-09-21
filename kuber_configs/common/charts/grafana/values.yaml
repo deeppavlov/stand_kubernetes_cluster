@@ -1,0 +1,123 @@
+service:
+  externalIPs:
+  - 10.11.1.1
+persistence:
+  enabled: true
+  existingClaim: grafana-hostpath-pvc
+
+adminPassword: ceW2IYwc1lDbLbMwIb5QV78Skebkf6IXY4YWZ8SF
+
+grafana.ini:
+  paths:
+    data: /var/lib/grafana/data
+    logs: /var/log/grafana
+    plugins: /var/lib/grafana/plugins
+    provisioning: /etc/grafana/provisioning
+  analytics:
+    check_for_updates: true
+  log:
+    mode: console
+    filters: "ldap:debug"
+  grafana_net:
+    url: https://grafana.net
+## LDAP Authentication can be enabled with the following values on grafana.ini
+## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
+  auth.ldap:
+    enabled: true
+    allow_sign_up: true
+    config_file: /etc/grafana/ldap.toml
+  users:
+    allow_sign_up: false
+    allow_org_create: false
+
+ldap:
+  # `existingSecret` is a reference to an existing secret containing the ldap configuration
+  # for Grafana in a key `ldap-toml`.
+  existingSecret: ""
+  # `config` is the content of `ldap.toml` that will be stored in the created secret
+  #config: ""
+  config: |-
+    verbose_logging = true
+    [[servers]]
+    host = "ipa.ipavlov.mipt.ru"
+    port = 389
+    use_ssl = false
+    start_tls = false
+    ssl_skip_verify = false
+    bind_dn = "uid=%s,cn=users,cn=compat,dc=ipavlov,dc=mipt,dc=ru"
+    search_filter = "(|(sAMAccountName=%s)(uid=%s)(cn=%s))"
+    search_base_dns = ["dc=ipavlov,dc=mipt,dc=ru"]
+    group_search_base_dns = ["cn=groups,cn=compat,dc=ipavlov,dc=mipt,dc=ru"]
+    group_search_filter = "(&(objectClass=posixGroup)(memberUid=%s))"
+    [servers.attributes]
+    name = "givenName"
+    surname = "sn"
+    username = "uid"
+    member_of = "memberOf"
+    email =  "mail"
+    # Read-only for any authenticated user
+    # Editors
+    [[servers.group_mappings]]
+    group_dn = "cn=editors,cn=groups,cn=compat,dc=ipavlov,dc=mipt,dc=ru"
+    org_role = "Editor"
+    # Administrators
+    [[servers.group_mappings]]
+    group_dn = "cn=admins,cn=groups,cn=compat,dc=ipavlov,dc=mipt,dc=ru"
+    org_role = "Admin"
+    [[servers.group_mappings]]
+    group_dn = "cn=lnsigo,cn=groups,cn=compat,dc=ipavlov,dc=mipt,dc=ru"
+    org_role = "Viewer"
+
+## Configure grafana datasources
+## ref: http://docs.grafana.org/administration/provisioning/#datasources
+##
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.monitoring.svc.cluster.local
+      access: proxy
+      isDefault: true
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki.monitoring.svc.cluster.local:3100
+      jsonData:
+        maxLines: 1000
+
+## Configure grafana dashboard providers
+## ref: http://docs.grafana.org/administration/provisioning/#dashboards
+##
+## `path` must be /var/lib/grafana/dashboards/<provider_name>
+##
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: true
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
+        foldersFromFilesStructure: true
+
+## Configure grafana dashboard to import
+## NOTE: To use dashboards you must also enable/configure dashboardProviders
+## ref: https://grafana.com/dashboards
+##
+## dashboards per provider, use provider name as key.
+dashboards:
+  default:
+    logs:
+      file: dashboards/logs.yaml
+    metrics:
+      file: dashboards/metrics.yaml
+    prometheus-stats:
+      gnetId: 2
+      revision: 2
+      datasource: Prometheus

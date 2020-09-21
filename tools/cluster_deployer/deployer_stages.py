@@ -314,9 +314,9 @@ class AbstractKuberEntitiesHandler(AbstractDeploymentStage):
 
         if dp_file.is_file():
             dp_name = self.config['models'][deployment_status.full_model_name]['KUBER_DP_NAME']
-            
+
             with dp_file.open('r') as f:
-                dp_config: dict = yaml.load(f)
+                dp_config: dict = yaml.load(f, Loader=yaml.Loader)
 
             try:
                 dp_namespace = dp_config['metadata']['namespace']
@@ -332,15 +332,15 @@ class AbstractKuberEntitiesHandler(AbstractDeploymentStage):
 
         if lb_file.is_file():
             lb_name = self.config['models'][deployment_status.full_model_name]['KUBER_LB_NAME']
-            
+
             with lb_file.open('r') as f:
-                lb_config: dict = yaml.load(f)
-                
+                lb_config: dict = yaml.load(f, Loader=yaml.Loader)
+
             try:
                 lb_namespace = lb_config['metadata']['namespace']
             except KeyError:
                 lb_namespace = 'default'
-                
+
             self.lb_data = KuberEntityData(lb_name, lb_namespace, lb_config)
 
     @abstractmethod
@@ -361,7 +361,7 @@ class DeployKuberDeploymentStage(AbstractKuberEntitiesHandler):
             create_dp_kwargs = {
                 'namespace':  self.dp_data.namespace,
                 'body': self.dp_data.config,
-                'include_uninitialized': True
+                #'include_uninitialized': True
             }
             self.kube_apps_v1_beta1_api.create_namespaced_deployment(**create_dp_kwargs)
             deployment_status.extended_stage_info += f'; created Deployment: {self.dp_data.name}'
@@ -371,7 +371,7 @@ class DeployKuberDeploymentStage(AbstractKuberEntitiesHandler):
             create_lb_kwargs = {
                 'namespace': self.lb_data.namespace,
                 'body': self.lb_data.config,
-                'include_uninitialized': True
+                #'include_uninitialized': True
             }
             self.kube_core_v1_api.create_namespaced_service(**create_lb_kwargs)
             deployment_status.extended_stage_info += f'; created Load Balancer: {self.lb_data.name}'
