@@ -204,7 +204,7 @@ To create these objects:
     kubectl create -f volumes/db_hostpath
     kubectl create -f volumes/rb_hostpath
     kubectl create -f volumes/tfhub_hostpath
-    ``` 
+    ```
 
 For Kubernetes storaging and **Volumes** you can reference:
 1. Kubernetes docs, **Volumes**: https://kubernetes.io/docs/concepts/storage/volumes/
@@ -265,12 +265,14 @@ For **Deployments** and **Services** definition you can reference:
   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   helm repo add stable https://kubernetes-charts.storage.googleapis.com/
   ```
+- Change adminPassword and service.externalIPs keys in `kuber_configs/common/charts/grafana/values.yml`
 - Install:
   ```
   helm upgrade --install loki --namespace=monitoring loki/loki-stack -f kuber_configs/common/charts/loki/values.yml
   helm upgrade --install prometheus --namespace=monitoring prometheus-community/prometheus -f kuber_configs/common/charts/prometheus/values.yml
   helm upgrade --install grafana --namespace=monitoring grafana/grafana -f kuber_configs/common/charts/grafana/values.yml
   ```
+- Make sure that grafana web UI is available service.externalIPs address
 
 ### Stand payload operations
 
