@@ -128,7 +128,7 @@ All commands are assumed to be executed on the master node. We use **Flannel** a
     ```
 4. Deploy Flannel network driver:
     ```
-    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
     ```
 5. Or you can simply run `kubeadm_init_flannel.sh` script from `stand_kubernetes_cluster/tools/kube_scripts` instead of steps 2-4:
     ```
@@ -174,7 +174,7 @@ Reference resources:
 5. To totally dismantle cluster first tear down all worker nodes then tear down master node as written above.
 
 Reference resources:
-1. Kubernetes docs, crating cluster: https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/
+1. Kubernetes docs, creating cluster: https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/
 2. GitHub, Kube-router deployment: https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/kubeadm.md
 3. Habrahabr, Kubernetes deployment: https://habrahabr.ru/company/southbridge/blog/334846/
 4. Habrahabr, Kubernetes deployment: https://habr.com/post/348688/
@@ -203,7 +203,8 @@ To create these objects:
     kubectl create -f volumes/components_hostpath
     kubectl create -f volumes/db_hostpath
     kubectl create -f volumes/rb_hostpath
-    ```
+    kubectl create -f volumes/tfhub_hostpath
+    ``` 
 
 For Kubernetes storaging and **Volumes** you can reference:
 1. Kubernetes docs, **Volumes**: https://kubernetes.io/docs/concepts/storage/volumes/

@@ -11,13 +11,13 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
+      - name: router-bot
         image: {{KUBER_IMAGE_TAG}}
         ports:
-        - name: router-bot-port
+        - name: dp-routerbot
           protocol: TCP
           containerPort: 80
-        - name: ssh-server-port
+        - name: dp-ssh
           protocol: TCP
           containerPort: 22
         volumeMounts:
@@ -57,10 +57,10 @@ spec:
           value: '{{TG_WEBHOOK}}'
         - name: TG_TOKEN
           value: '{{TG_TOKEN}}'
-      - name: {{FULL_MODEL_NAME_DASHED}}-db-mongo
+      - name: mongo
         image: {{MONGO_KUBER_IMAGE_TAG}}
         ports:
-        - name: mongo-db-port
+        - name: dp-mongo
           protocol: TCP
           containerPort: 27017
         volumeMounts:

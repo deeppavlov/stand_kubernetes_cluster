@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{KUBER_DP_NAME}}
+  namespace: stand-demo
+spec:
+  replicas: {{REPLICAS_NUM}}
+  template:
+    metadata:
+      labels:
+        app: {{KUBER_DP_NAME}}
+    spec:
+      containers:
+      - name: agent
+        image: {{KUBER_IMAGE_TAG}}
+        ports:
+        - name: dp-service
+          protocol: TCP
+          containerPort: 5000
+        volumeMounts:
+        - name: volume-logs
+          mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      volumes:
+      - name: volume-logs
+        persistentVolumeClaim:
+          claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - {{DNS_IP}}

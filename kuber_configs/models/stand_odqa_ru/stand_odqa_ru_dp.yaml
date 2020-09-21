@@ -11,13 +11,13 @@ spec:
         app: stand-odqa-ru-dp
     spec:
       containers:
-      - name: stand-odqa-ru
-        image: kubeadm.ipavlov.mipt.ru:5000/stand/odqa_ru
+      - name: model
+        image: kubeadm.ipavlov.mipt.ru:5000/stand_odqa_ru
         resources:
           limits:
             nvidia.com/gpu: 1
         ports:
-        - name: cp5000
+        - name: dp-model
           protocol: TCP
           containerPort: 5000
         volumeMounts:

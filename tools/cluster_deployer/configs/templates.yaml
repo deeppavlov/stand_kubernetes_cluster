@@ -4,8 +4,6 @@ _root:
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
   GPU_UNITS_NUM: 0
-  # TODO: investigate and remove
-  CUDA_VERSION: "9.0"
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   COMMIT: ""
   PORT: 5000
@@ -15,18 +13,14 @@ _root:
 
   # composed params
   LOG_FILE: "{{FULL_MODEL_NAME}}.log"
-  RUN_FILE: "run_{{MODEL_NAME}}.sh"
   KUBER_DP_FILE: "{{FULL_MODEL_NAME}}_dp.yaml"
   KUBER_LB_FILE: "{{FULL_MODEL_NAME}}_lb.yaml"
   KUBER_DP_NAME: "{{FULL_MODEL_NAME_DASHED}}-dp"
   KUBER_LB_NAME: "{{FULL_MODEL_NAME_DASHED}}-lb"
-  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/{{PREFIX}}/{{MODEL_NAME}}"
-  KUBER_CONTAINER_PORT_NAME: "cp{{PORT}}"
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/{{FULL_MODEL_NAME}}"
 
   # script generated params
   FULL_MODEL_NAME: ""
-  PREFIX: ""
-  MODEL_NAME: ""
   RUN_CMD: ""
   FULL_MODEL_NAME_DASHED: ""
 
@@ -52,11 +46,26 @@ _docs:
     --token: 343f5688-4df9-4ef1-a05e-cfd9af9114aa
 
 
-dp:
+dp_base_cpu:
+  # default params
+  # TODO: think about testing this template
+  pipeline: "make_files_and_docker_no_tests"
+  DOCKER_REGISTRY: "deeppavlov"
+
+  # composed params
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/base-cpu:{{IMAGE_VERSION}}"
+
+  # human set params
+  IMAGE_VERSION: ""
+  PYTHON_BASE_IMAGE: ""
+  COMMIT: ""
+
+
+dp_stand:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
-  BASE_IMAGE: "deeppavlov/base-cpu:0.6.1"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.7.1"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/probe"
@@ -66,6 +75,7 @@ dp:
   CONFIG: ""
   CLUSTER_PORT: ""
 
+
 agent_agent:
   # default_params:
   pipeline: "all_up_kuber_no_tests"
@@ -73,14 +83,27 @@ agent_agent:
   # human set params
   COMMIT: ""
 
+
 agent_service:
   # default_params:
   pipeline: "all_up_kuber_no_tests"
-  BASE_IMAGE: "deeppavlov/base-cpu:0.6.1"
+  BASE_IMAGE: "deeppavlov/base-cpu:0.7.1"
 
   # human set params
-  COMMIT: ""
+  DP_COMMIT: ""
+  DPA_COMMIT: ""
   CONFIG: ""
+
+
+agent_custom_service:
+  # default_params:
+  pipeline: "all_up_kuber_no_tests"
+
+  # human set params
+  BASE_IMAGE: ""
+  DPA_COMMIT: ""
+  CONFIG: ""
+
 
 router_bot:
   # default params

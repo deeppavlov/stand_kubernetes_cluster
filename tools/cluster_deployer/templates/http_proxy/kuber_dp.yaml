@@ -2,6 +2,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{KUBER_DP_NAME}}
+  namespace: stand-demo
 spec:
   replicas: 1
   template:
@@ -10,10 +11,10 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
+      - name: nginx
         image: {{KUBER_IMAGE_TAG}}
         ports:
-        - name: {{KUBER_CONTAINER_PORT_NAME}}
+        - name: dp-listened
           protocol: TCP
           containerPort: {{PORT}}
         env:

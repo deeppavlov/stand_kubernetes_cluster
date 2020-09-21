@@ -11,13 +11,13 @@ spec:
         app: stand-intents-en-dp
     spec:
       containers:
-      - name: stand-intents-en
-        image: kubeadm.ipavlov.mipt.ru:5000/stand/intents_en
+      - name: model
+        image: kubeadm.ipavlov.mipt.ru:5000/stand_intents_en
         resources:
           limits:
             nvidia.com/gpu: 0
         ports:
-        - name: cp5000
+        - name: dp-model
           protocol: TCP
           containerPort: 5000
         volumeMounts:

@@ -11,11 +11,10 @@ spec:
         app: {{KUBER_DP_NAME}}
     spec:
       containers:
-      - name: {{FULL_MODEL_NAME_DASHED}}
+      - name: mongo
         image: {{KUBER_IMAGE_TAG}}
-        # TODO: freese mongo port
         ports:
-        - name: {{KUBER_CONTAINER_PORT_NAME}}
+        - name: dp-mongo
           protocol: TCP
           containerPort: {{PORT}}
         volumeMounts:

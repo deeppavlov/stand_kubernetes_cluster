@@ -13,6 +13,8 @@ from pipelines import all_stages, preset_pipelines
 Logger = logging.getLoggerClass()
 
 
+# TODO: make dependencies build and run
+# TODO: think about refactoring from multiprocessing to async
 class Deployer:
     def __init__(self, config: dict):
         self.config: dict = config

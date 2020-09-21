@@ -37,4 +37,5 @@ CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; 
     LOG_PATH=$LOG_DIR$LOG_FILE && \
     mkdir -p $LOG_DIR && \
     cd /agent/dp-agent && \
-    python core/run.py -ch http_client -p 5000 -d > $LOG_PATH 2>&1
+    mkdir -p http_api/static && \
+    python -u run.py -ch http_client -p 5000 -d > $LOG_PATH 2>&1

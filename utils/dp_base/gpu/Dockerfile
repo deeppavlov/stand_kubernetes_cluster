@@ -76,21 +76,21 @@ RUN git clone https://github.com/deepmipt/DeepPavlov.git && \
     pip install -r deeppavlov/requirements/tf-gpu.txt && \
     rm -rf /root/.cache
 
-CMD if [ ! -z $COMMIT ]; then \
-        cd /base/DeepPavlov && \
-        git fetch --all --tags --prune && \
-        git checkout $COMMIT && \
-        python setup.py develop && \
-        python -c 'import deeppavlov.models'; \
-    fi && \
-    if [ -d /venv/$CONFIG ]; then \
+ENV DP_SKIP_NLTK_DOWNLOAD='True'
+
+CMD if [ -d /venv/$CONFIG ]; then \
         PATH=/venv/$CONFIG/bin:$PATH; \
     else \
+        if [ ! -z $COMMIT ]; then \
+            cd /base/DeepPavlov && \
+            git fetch --all --tags --prune && \
+            git checkout $COMMIT && \
+            python setup.py develop; \
+        fi && \
         python -m deeppavlov install $CONFIG && \
         if [ ! -d /venv/dp_internal_token_dir ]; then \
             mkdir /venv/$CONFIG && \
-            cp -R /base/venv/* /venv/$CONFIG && \
-            sed -i "\|VIRTUAL_ENV=|s|/base||g" "/venv/"$CONFIG"/bin/activate"; \
+            cp -R /base/venv/* /venv/$CONFIG; \
         fi; \
     fi && \
     python -m deeppavlov riseapi $CONFIG -p 5000 -d

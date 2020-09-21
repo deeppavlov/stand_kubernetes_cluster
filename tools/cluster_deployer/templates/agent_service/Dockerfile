@@ -1,11 +1,11 @@
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
 
-ARG COMMIT
+ARG DPA_COMMIT
+ARG DP_COMMIT
 ARG CONFIG
 ARG FULL_MODEL_NAME
 
-ENV COMMIT=$COMMIT
 ENV CONFIG=$CONFIG
 ENV TFHUB_CACHE_DIR=/tmp/tfhub
 
@@ -17,13 +17,19 @@ VOLUME /tmp/tfhub
 
 WORKDIR /agent
 
-RUN git clone https://github.com/deepmipt/dp-agent.git && \
-    cd dp-agent && \
-    if [ "$COMMIT" != "" ]; then \
-        git checkout $COMMIT; \
+RUN if [ "$DP_COMMIT" != "" ]; then \
+        cd /base/DeepPavlov && \
+        git fetch --all --tags --prune && \
+        git checkout $DP_COMMIT && \
+        python setup.py develop; \
     fi && \
-    python -m deeppavlov install $CONFIG && \
-    sed -i "/uvicorn.run/s/app,/app, timeout_keep_alive=20,/g" "/base/DeepPavlov/deeppavlov/utils/server/server.py"
+    cd /agent && \
+    git clone https://github.com/deepmipt/dp-agent.git && \
+    cd dp-agent && \
+    if [ "$DPA_COMMIT" != "" ]; then \
+        git checkout $DPA_COMMIT; \
+    fi && \
+    python -m deeppavlov install $CONFIG
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \
     if [ -z $POD_NAME ] || [ $POD_NAME = "" ]; then POD_NAME=$DEFAULT_POD_NAME; fi && \

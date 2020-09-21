@@ -1,3 +1,6 @@
+dp_base_cpu:
+  - dp_base_cpu_test
+
 stand:
   - stand_paraphraser_ru
   - stand_ner_ru
@@ -7,16 +10,16 @@ stand:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_cn
   - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
+  - stand_chatbot_en_proxy
 
-http_proxy:
-  - http_proxy_cloud_demo_01
-  - http_proxy_cloud_demo_02
+http_proxy: []
 
 alexaprize_idris_repo:
   - alexaprize_idris_repo_rb
@@ -24,15 +27,18 @@ alexaprize_idris_repo:
   - alexaprize_idris_repo_rb_dev
   - alexaprize_idris_repo_rbp_dev
 
-agent_nti_gopnik:
-  - agent_nti_gopnik
-  - agent_nti_gopnik_mongo_db
-  - agent_nti_gopnik_odqa
-  - agent_nti_gopnik_ranking_chitchat_2stage
-  - agent_nti_gopnik_ner
-  - agent_nti_gopnik_sentiment
-  - agent_nti_gopnik_rb
-  - agent_nti_gopnik_rbp
+toloka_go_bot_dstc2:
+  - toloka_go_bot_dstc2_model
+  - toloka_go_bot_dstc2_rb
+  - toloka_go_bot_dstc2_rbp
+
+agent_nti:
+  - agent_nti_v0_2
+  - agent_nti_v0_2_mongo_db
+  - agent_nti_v0_2_ranking_chitchat_2stage
+  - agent_nti_v0_2_chitchat_odqa
+  - agent_nti_v0_2_rb
+  - agent_nti_v0_2_rbp
 
 push_pull:
   - stand_paraphraser_ru
@@ -43,12 +49,14 @@ push_pull:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_cn
   - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
+  - stand_chatbot_en_proxy
 
 all:
   - stand_paraphraser_ru
@@ -59,13 +67,15 @@ all:
   - stand_ranking_en
   - stand_squad_ru
   - stand_squad_en
+  - stand_squad_cn
   - stand_squad_ml
   - stand_odqa_ru
   - stand_odqa_en
   - stand_ner_ml
   - stand_sentiment_ru
   - stand_kbqa_ru
-  - http_proxy_cloud_demo_01
-  - http_proxy_cloud_demo_02
+  - stand_chatbot_en_proxy
   - alexaprize_idris_repo_rb
   - alexaprize_idris_repo_rbp
+  - alexaprize_idris_repo_rb_dev
+  - alexaprize_idris_repo_rbp_dev

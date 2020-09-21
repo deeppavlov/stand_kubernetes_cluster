@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{KUBER_LB_NAME}}
+  namespace: stand-demo
 spec:
   selector:
     app: {{KUBER_DP_NAME}}
@@ -9,7 +10,7 @@ spec:
   externalIPs:
   - {{CLUSTER_IP}}
   ports:
-  - name: {{FULL_MODEL_NAME_DASHED}}
+  - name: lb-listened
     protocol: TCP
     port: {{CLUSTER_PORT}}
-    targetPort: {{KUBER_CONTAINER_PORT_NAME}}
+    targetPort: dp-listened
