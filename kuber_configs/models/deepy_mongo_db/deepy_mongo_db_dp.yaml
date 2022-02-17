@@ -1,9 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deepy-mongo-db-dp
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: deepy-mongo-db-dp
   replicas: 1
   template:
     metadata:

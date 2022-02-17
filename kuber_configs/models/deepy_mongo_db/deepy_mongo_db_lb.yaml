@@ -12,5 +12,5 @@ spec:
   ports:
   - name: lb-mongo
     protocol: TCP
-    port: 8101
+    port: 10101
     targetPort: dp-mongo
