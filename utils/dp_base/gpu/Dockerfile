@@ -38,6 +38,7 @@ RUN apt-get update && \
         liblzma-dev \
         libncursesw5-dev \
         libreadline-dev \
+        libsndfile-dev \
         libsqlite3-dev \
         libssl-dev \
         locales \

@@ -1,0 +1,53 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: socialbot-rbp-dp
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: socialbot-rbp-dp
+    spec:
+      containers:
+      - name: router-bot-poller
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/router_bot_poller
+        volumeMounts:
+        - name: volume-logs
+          mountPath: /logs
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: COMMIT
+          value: 
+        - name: RUN_CMD
+          value:   --agent --model_url http://10.11.1.251:7019/ --host 10.11.1.251 --port 7069 --token agent_socialbot 
+        - name: MODEL_NAME
+          value: socialbot_rbp
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      volumes:
+      - name: volume-logs
+        persistentVolumeClaim:
+          claimName: logs-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254

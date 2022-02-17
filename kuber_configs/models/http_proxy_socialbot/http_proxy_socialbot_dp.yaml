@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: http-proxy-socialbot-dp
+  namespace: stand-demo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: http-proxy-socialbot-dp
+    spec:
+      containers:
+      - name: nginx
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy
+        ports:
+        - name: dp-listened
+          protocol: TCP
+          containerPort: 7053
+        env:
+        - name: LISTENED_PORT
+          value: "7053"
+        - name: PROXYED_HOST
+          value: "10.11.1.251"
+        - name: PROXYED_PORT
+          value: "8099"
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254

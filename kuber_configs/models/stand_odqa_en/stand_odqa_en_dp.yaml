@@ -1,9 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stand-odqa-en-dp
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: stand-odqa-en-dp
   replicas: 1
   template:
     metadata:
@@ -13,9 +16,6 @@ spec:
       containers:
       - name: model
         image: kubeadm.ipavlov.mipt.ru:5000/stand_odqa_en
-        resources:
-          limits:
-            nvidia.com/gpu: 1
         ports:
         - name: dp-model
           protocol: TCP
@@ -37,6 +37,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: CUDA_VISIBLE_DEVICES
+          value: "3"
       volumes:
       - name: volume-logs
         persistentVolumeClaim:

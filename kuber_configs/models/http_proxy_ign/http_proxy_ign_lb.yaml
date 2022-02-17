@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: stand-chatbot-en-proxy-lb
+  name: http-proxy-ign-lb
   namespace: stand-demo
 spec:
   selector:
-    app: stand-chatbot-en-proxy-dp
+    app: http-proxy-ign-dp
   type: LoadBalancer
   externalIPs:
   - 10.11.1.251
   ports:
   - name: lb-listened
     protocol: TCP
-    port: 7018
+    port: 7072
     targetPort: dp-listened

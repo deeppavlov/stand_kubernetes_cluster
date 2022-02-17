@@ -298,7 +298,7 @@ class AbstractKuberEntitiesHandler(AbstractDeploymentStage):
         super(AbstractKuberEntitiesHandler, self).__init__(config, stage_name, in_queue, out_queue)
 
         kube_config.load_kube_config()
-        self.kube_apps_v1_beta1_api = kube_client.AppsV1beta1Api()
+        self.kube_apps_v1_beta1_api = kube_client.AppsV1Api()
         self.kube_core_v1_api = kube_client.CoreV1Api()
 
         self.dp_data: Optional[KuberEntityData] = None

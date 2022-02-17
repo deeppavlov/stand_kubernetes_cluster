@@ -35,9 +35,6 @@ RUN if [ "$COMMIT" != "" ]; then \
         python setup.py develop && \
         rm -rf /root/.cache; \
     fi && \
-    sed -i "\|enabled|s|false|true|g" "/base/DeepPavlov/deeppavlov/utils/settings/dialog_logger_config.json" && \
-    sed -i "s|~/.deeppavlov|/logs/$FULL_MODEL_NAME|g" "/base/DeepPavlov/deeppavlov/utils/settings/dialog_logger_config.json" && \
-    sed -i -E "s|\"model_args_names\":.+[^,]|\"model_args_names\": $MODEL_ARGS|g" "/base/DeepPavlov/deeppavlov/utils/settings/server_config.json" && \
     python -m deeppavlov install $CONFIG
 
 CMD if [ -z $POD_NODE ] || [ $POD_NODE = "" ]; then POD_NODE=$DEFAULT_POD_NODE; fi && \

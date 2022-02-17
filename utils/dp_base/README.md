@@ -92,7 +92,8 @@ docker run -p <your_port>:5000 \
 
 | COMMIT | PYTHON_BASE_IMAGE       | latest |
 | ------ | ----------------------- | ------ |
-| 0.7.1  | python:3.7-slim-stretch | V      |
+| 0.14.1 | python:3.7-slim-stretch | V      |
+| 0.7.1  | python:3.7-slim-stretch |        |
 | 0.6.1  | python:3.7-slim-stretch |        |
 | 0.5.1  | python:3.7-slim-stretch |        |
 | 0.3.0  | python:3.6-slim-stretch |        |
@@ -105,3 +106,12 @@ docker run -p <your_port>:5000 \
 | 0.6.1  | nvidia/cuda:10.0-devel-ubuntu16.04 | 7.6.2.24      | 3.7.4          |        |
 | 0.5.1  | nvidia/cuda:10.0-devel-ubuntu16.04 | 7.6.2.24      | 3.7.4          |        |
 | 0.3.0  | nvidia/cuda:9.0-devel-ubuntu16.04  | 7.1.4.18      | 3.6.9          |        |
+
+### NGC
+
+docker build -t ngc-deeppavlov --build-arg COMMIT=0.14.1 \
+    --build-arg NGC_BASE_IMAGE=nvcr.io/nvidia/tensorflow:20.11-tf1-py3 .
+
+| COMMIT | NGC_BASE_IMAGE                          |
+| ------ | --------------------------------------- |
+| 0.14.1 | nvcr.io/nvidia/tensorflow:20.11-tf1-py3 |

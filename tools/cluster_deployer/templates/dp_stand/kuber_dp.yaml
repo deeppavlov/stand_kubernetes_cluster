@@ -1,9 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{KUBER_DP_NAME}}
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: {{KUBER_DP_NAME}}
   replicas: {{REPLICAS_NUM}}
   template:
     metadata:
@@ -13,9 +16,6 @@ spec:
       containers:
       - name: model
         image: {{KUBER_IMAGE_TAG}}
-        resources:
-          limits:
-            nvidia.com/gpu: {{GPU_UNITS_NUM}}
         ports:
         - name: dp-model
           protocol: TCP
@@ -37,6 +37,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: CUDA_VISIBLE_DEVICES
+          value: "{{CUDA_VISIBLE_DEVICES}}"
       volumes:
       - name: volume-logs
         persistentVolumeClaim:

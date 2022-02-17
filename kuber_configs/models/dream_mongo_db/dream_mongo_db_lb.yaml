@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dream-mongo-db-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: dream-mongo-db-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-mongo
+    protocol: TCP
+    port: 10042
+    targetPort: dp-mongo

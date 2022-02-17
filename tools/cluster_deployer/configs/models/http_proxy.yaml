@@ -15,3 +15,69 @@ http_proxy_kuratov:
   CLUSTER_PORT: 7052
   PROXYED_HOST: 192.168.10.129
   PROXYED_PORT: 8337
+
+http_proxy_entity_linking:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7075
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8075
+
+http_proxy_wiki_parser:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7081
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8077
+
+http_proxy_el_context:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7030
+  PROXYED_HOST: 10.11.1.6
+  PROXYED_PORT: 8175
+
+http_proxy_sfc:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7068
+  PROXYED_HOST: 10.11.1.1
+  PROXYED_PORT: 8108
+
+http_proxy_5678:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7078
+  PROXYED_HOST: 10.11.1.6
+  PROXYED_PORT: 5678
+
+http_proxy_5679:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7079
+  PROXYED_HOST: 10.11.1.6
+  PROXYED_PORT: 5679
+
+http_proxy_jupyter:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7070
+  PROXYED_HOST: 10.11.1.4
+  PROXYED_PORT: 8887
+
+http_proxy_roomf:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7071
+  PROXYED_HOST: 10.11.1.56
+  PROXYED_PORT: 4242
+
+http_proxy_ign:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7072
+  PROXYED_HOST: 172.16.255.7
+  PROXYED_PORT: 4242
+
+http_proxy_asr:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7083
+  PROXYED_HOST: 10.11.1.56
+  PROXYED_PORT: 4343
+
+http_proxy_dream:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7019
+  PROXYED_HOST: 10.11.1.1
+  PROXYED_PORT: 4242

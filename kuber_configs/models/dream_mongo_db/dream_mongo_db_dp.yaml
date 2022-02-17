@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dream-mongo-db-dp
+  namespace: stand-demo
+spec:
+  selector:
+    matchLabels:
+      app: dream-mongo-db-dp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dream-mongo-db-dp
+    spec:
+      containers:
+      - name: mongo
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/db/mongo:4.0.6-xenial
+        ports:
+        - name: dp-mongo
+          protocol: TCP
+          containerPort: 27017
+        volumeMounts:
+        - name: volume-db-data
+          mountPath: /db_data
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: FULL_MODEL_NAME
+          value: 'dream_mongo_db'
+      volumes:
+      - name: volume-db-data
+        persistentVolumeClaim:
+          claimName: db-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254

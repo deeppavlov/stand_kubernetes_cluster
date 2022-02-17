@@ -4,6 +4,7 @@ _root:
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
   GPU_UNITS_NUM: 0
+  CUDA_VISIBLE_DEVICES: ""
   DOCKER_REGISTRY: "kubeadm.ipavlov.mipt.ru:5000"
   COMMIT: ""
   PORT: 5000

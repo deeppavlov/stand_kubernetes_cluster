@@ -90,3 +90,7 @@ agent_nti_v0_2_rbp:
     --host: "10.11.1.251"
     --port: "7067"
     --token: "agent_nti_gopnik"
+
+dream_mongo_db:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 10042

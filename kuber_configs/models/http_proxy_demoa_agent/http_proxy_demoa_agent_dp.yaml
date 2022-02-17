@@ -1,14 +1,17 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stand-chatbot-en-proxy-dp
+  name: http-proxy-demoa-agent-dp
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: http-proxy-demoa-agent-dp
   replicas: 1
   template:
     metadata:
       labels:
-        app: stand-chatbot-en-proxy-dp
+        app: http-proxy-demoa-agent-dp
     spec:
       containers:
       - name: nginx
@@ -16,12 +19,12 @@ spec:
         ports:
         - name: dp-listened
           protocol: TCP
-          containerPort: 7018
+          containerPort: 7084
         env:
         - name: LISTENED_PORT
-          value: "7018"
+          value: "7084"
         - name: PROXYED_HOST
-          value: "Docker-st-External-1918W05RU8XQW-178993125.us-east-1.elb.amazonaws.com"
+          value: "10.11.1.41"
         - name: PROXYED_PORT
           value: "4242"
       dnsPolicy: "None"

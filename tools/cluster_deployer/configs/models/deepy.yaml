@@ -1,0 +1,3 @@
+deepy_mongo_db:
+  TEMPLATE: mongo_db
+  CLUSTER_PORT: 8101
