@@ -16,9 +16,9 @@ spec:
     targetPort: dp-routerbot
   - name: lb-mongo
     protocol: TCP
-    port: 8098
+    port: 9098
     targetPort: dp-mongo
   - name: lb-ssh
     protocol: TCP
-    port: 8069
+    port: 9069
     targetPort: dp-ssh

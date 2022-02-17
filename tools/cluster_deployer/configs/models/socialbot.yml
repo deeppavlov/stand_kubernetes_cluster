@@ -1,11 +1,8 @@
-socialbot_mongo_db:
-  TEMPLATE: mongo_db
-  CLUSTER_PORT: 8100
 socialbot_rb:
   TEMPLATE: router_bot
   CLUSTER_PORT: 7069
-  CLUSTER_MONGO_PORT: 8098
-  CLUSTER_SSH_PORT: 8069
+  CLUSTER_MONGO_PORT: 9098
+  CLUSTER_SSH_PORT: 9069
   FB_PAGE_ACCESS_TOKEN: "dummy"
   FB_WEBHOOK_SECRET: "dummy"
 socialbot_rbp:

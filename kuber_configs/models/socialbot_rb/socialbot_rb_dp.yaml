@@ -1,9 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: socialbot-rb-dp
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: socialbot-rb-dp
   replicas: 1
   template:
     metadata:
@@ -40,7 +43,7 @@ spec:
         - name: MODEL_NAME
           value: 'socialbot_rb'
         - name: PROXYCHAINS_CONFIG_STRING
-          value: 'socks5 159.65.126.171 1337 ipavlov ipavlov_telegram'
+          value: '    '
         - name: MONGO_PROTOCOL
           value: 'mongodb'
         - name: MONGO_HOST
@@ -56,7 +59,7 @@ spec:
         - name: TG_WEBHOOK
           value: 'https://7069.lnsigo.mipt.ru/tg'
         - name: TG_TOKEN
-          value: '1319262262:AAGGSW20p2aP3jGNOY2ci2tzJ0KIj6NrZSg'
+          value: ''
       - name: mongo
         image: kubeadm.ipavlov.mipt.ru:5000/stand/db/mongo:4.0.6-xenial
         ports:

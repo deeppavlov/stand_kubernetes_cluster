@@ -1,9 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{KUBER_DP_NAME}}
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: {{KUBER_DP_NAME}}
   replicas: 1
   template:
     metadata:
