@@ -92,6 +92,8 @@ stand_odqa_en:
   CONFIG: en_odqa_pop_infer_enwiki20180211
   TEMPLATE: dp_stand
   BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
+  NODE_LIST:
+    - gpu9
   CUDA_VISIBLE_DEVICES: 3
   CLUSTER_PORT: 7011
   image_polling_timeout_sec: 2400
@@ -102,6 +104,8 @@ stand_odqa_ru:
   CONFIG: ru_odqa_infer_wiki_rubert_noans
   TEMPLATE: dp_stand
   BASE_IMAGE: "deeppavlov/base-gpu:0.7.1"
+  NODE_LIST:
+    - gpu9
   CUDA_VISIBLE_DEVICES: 4
   CLUSTER_PORT: 7012
   image_polling_timeout_sec: 600

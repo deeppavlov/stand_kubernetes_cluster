@@ -13,6 +13,14 @@ spec:
       labels:
         app: {{KUBER_DP_NAME}}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values: {{NODE_LIST}}
       containers:
       - name: model
         image: {{KUBER_IMAGE_TAG}}

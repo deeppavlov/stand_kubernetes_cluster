@@ -13,6 +13,14 @@ spec:
       labels:
         app: stand-odqa-en-dp
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values: ["gpu9"]
       containers:
       - name: model
         image: kubeadm.ipavlov.mipt.ru:5000/stand_odqa_en

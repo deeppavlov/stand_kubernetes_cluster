@@ -1,15 +1,26 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{KUBER_DP_NAME}}
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: {{KUBER_DP_NAME}}
   replicas: {{REPLICAS_NUM}}
   template:
     metadata:
       labels:
         app: {{KUBER_DP_NAME}}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values: {{NODE_LIST}}
       containers:
       - name: socialservice
         image: {{KUBER_IMAGE_TAG}}
@@ -37,6 +48,11 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: CUDA_VISIBLE_DEVICES
+          value: "{{CUDA_VISIBLE_DEVICES}}"
+        envFrom:
+          - secretRef:
+              name: {{SECRET_NAME}}
       volumes:
       - name: volume-logs
         persistentVolumeClaim:

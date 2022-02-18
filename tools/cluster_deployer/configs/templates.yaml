@@ -1,5 +1,6 @@
 _root:
   # default params
+  NODE_LIST: [gpu1, gpu9]
   CLUSTER_IP: "10.11.1.251"
   DNS_IP: "10.11.1.254"
   REPLICAS_NUM: 1
@@ -109,7 +110,7 @@ agent_custom_service:
 socialbot_service:
   # default_params:
   pipeline: "all_up_kuber_no_tests"
-
+  SECRET_NAME: "dream-secret"
   # human set params
   BASE_IMAGE: ""
 

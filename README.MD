@@ -328,6 +328,24 @@ Delete object:
     kubectl -n stand-demo delete pod <pod_name>
     ```
 
+
+## DeepPavlov DREAM
+
+Change .env and pipeline_conf.json services hosts to 10.11.1.251, add necessary secrets for news, games, weather,
+db host, port, name. Add FLASK_APP=server.
+
+Create secrets
+
+```commandline
+kubectl -n stand-demo delete secret dream-secret
+kubectl -n stand-demo create secret generic dream-secret --from-env-file=.env
+```
+
+Generate models config
+```commandline
+python tools/cluster_deployer/dream_generator.py
+```
+
 # License
 
 Apache 2.0 - licensed.

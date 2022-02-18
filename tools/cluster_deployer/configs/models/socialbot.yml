@@ -20,11 +20,8 @@ socialbot_rbp:
 #  CMD_SCRIPT: python -m deeppavlov_agent.run -ch http_client --cors -ul 85918482-3f79-4e16-a278-58191938994c -up 99a31eff-66bf-4663-9968-d21671600195
 #  PORT: 4242
 socialbot_cobot_topics:
-  REPLICAS_NUM: 1
   TEMPLATE: socialbot_service
   BASE_IMAGE: assistant_cobot_topics
-  CMD_SCRIPT: python -m deeppavlov riseapi annotators/cobot_topics/cobot_bert.json
-    -p 8001
+  CMD_SCRIPT: python -m deeppavlov riseapi annotators/cobot_topics/cobot_bert.json -p 8001
   CLUSTER_PORT: 8001
   PORT: 8001
-  GPU_UNITS_NUM: 1
