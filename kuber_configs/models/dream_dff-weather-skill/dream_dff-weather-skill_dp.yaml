@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dream-dff-weather-skill-dp
+  namespace: stand-demo
+spec:
+  selector:
+    matchLabels:
+      app: dream-dff-weather-skill-dp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dream-dff-weather-skill-dp
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values: ["gpu1", "gpu9"]
+      containers:
+      - name: socialservice
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_dff-weather-skill
+        resources:
+          limits:
+            nvidia.com/gpu: 0
+        ports:
+        - name: dp-service
+          protocol: TCP
+          containerPort: 8037
+        volumeMounts:
+        - name: volume-logs
+          mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: CUDA_VISIBLE_DEVICES
+          value: ""
+        envFrom:
+          - secretRef:
+              name: dream-secret
+      volumes:
+      - name: volume-logs
+        persistentVolumeClaim:
+          claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254

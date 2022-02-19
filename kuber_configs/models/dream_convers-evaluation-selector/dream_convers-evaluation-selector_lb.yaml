@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dream-convers-evaluation-selector-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: dream-convers-evaluation-selector-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-service
+    protocol: TCP
+    port: 8009
+    targetPort: dp-service

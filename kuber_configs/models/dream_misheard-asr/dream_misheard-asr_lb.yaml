@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dream-misheard-asr-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: dream-misheard-asr-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-service
+    protocol: TCP
+    port: 8033
+    targetPort: dp-service
