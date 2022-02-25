@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dialog-flow-sdk-speech-function-predictor-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: dialog-flow-sdk-speech-function-predictor-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-service
+    protocol: TCP
+    port: 8107
+    targetPort: dp-service
