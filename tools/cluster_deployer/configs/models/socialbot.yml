@@ -25,3 +25,29 @@ socialbot_cobot_topics:
   CMD_SCRIPT: python -m deeppavlov riseapi annotators/cobot_topics/cobot_bert.json -p 8001
   CLUSTER_PORT: 8001
   PORT: 8001
+dialog_flow_sdk_speech-function-predictor:
+  BASE_IMAGE: dialog_flow_sdk_speech-function-predictor
+  CLUSTER_PORT: 8107
+  CMD_SCRIPT: uvicorn server:app --host 0.0.0.0 --port 8107
+  PORT: 8107
+  TEMPLATE: socialbot_service
+dialog_flow_sdk_speech-function-classifier:
+  BASE_IMAGE: dialog_flow_sdk_speech-function-classifier
+  CLUSTER_PORT: 8108
+  CMD_SCRIPT: uvicorn server:app --host 0.0.0.0 --port 8108
+  PORT: 8108
+  TEMPLATE: socialbot_service
+book_dff-book-skill:
+  BASE_IMAGE: book_dff-book-skill
+  CLUSTER_PORT: 9032
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:9032 --reload
+  PORT: 9032
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "book-secret"
+book_agent:
+  BASE_IMAGE: book_agent
+  CLUSTER_PORT: 9033
+  CMD_SCRIPT: python -m deeppavlov_agent.run -ch telegram -pl book_pipeline.json
+  PORT: 9033
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "book-secret"

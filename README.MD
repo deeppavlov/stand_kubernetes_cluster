@@ -346,6 +346,10 @@ Generate models config
 python tools/cluster_deployer/dream_generator.py
 ```
 
+## Book
+
+docker-compose -p book -f docker-compose-book.yml -f assistant_dists/dream/docker-compose.override.yml build agent dff-book-skill
+
 # License
 
 Apache 2.0 - licensed.

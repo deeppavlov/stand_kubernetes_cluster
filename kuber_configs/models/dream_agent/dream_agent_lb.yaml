@@ -12,5 +12,5 @@ spec:
   ports:
   - name: lb-service
     protocol: TCP
-    port: 7096
+    port: 7019
     targetPort: dp-service
