@@ -350,6 +350,12 @@ python tools/cluster_deployer/dream_generator.py
 
 docker-compose -p book -f docker-compose-book.yml -f assistant_dists/dream/docker-compose.override.yml build agent dff-book-skill
 
+## DREAM SFC
+
+feat/sf-bookskill-new
+docker-compose -p dreamsfc -f docker-compose-book.yml -f assistant_dists/dream_sfc/docker-compose.override.yml build agent midas-classification dff-book-sfc-skill speech-function-classifier speech-function-predictor
+
+
 # License
 
 Apache 2.0 - licensed.

@@ -51,3 +51,41 @@ book_agent:
   PORT: 9033
   TEMPLATE: socialbot_service
   SECRET_NAME: "book-secret"
+dreamsfc_speech-function-predictor:
+  BASE_IMAGE: dreamsfc_speech-function-predictor
+  CLUSTER_PORT: 9107
+  CMD_SCRIPT: uvicorn server:app --host 0.0.0.0 --port 9107
+  PORT: 9107
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "dreamsfc-secret"
+dreamsfc_speech-function-classifier:
+  BASE_IMAGE: dreamsfc_speech-function-classifier
+  CLUSTER_PORT: 9108
+  CMD_SCRIPT: uvicorn server:app --host 0.0.0.0 --port 9108
+  PORT: 9108
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "dreamsfc-secret"
+dreamsfc_dff-book-sfc-skill:
+  BASE_IMAGE: dreamsfc_dff-book-sfc-skill
+  CLUSTER_PORT: 8034
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8034 --reload
+  PORT: 8034
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "dreamsfc-secret"
+dreamsfc_midas-classification:
+  CUDA_VISIBLE_DEVICES: 5
+  NODE_LIST:
+    - gpu9
+  BASE_IMAGE: dreamsfc_midas-classification
+  CLUSTER_PORT: 9090
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9090
+  PORT: 9090
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "dreamsfc-secret"
+dreamsfc_agent:
+  BASE_IMAGE: dreamsfc_agent
+  CLUSTER_PORT: 9035
+  CMD_SCRIPT: sh -c 'bin/wait && python -m deeppavlov_agent.run -ch telegram -pl sfc_dream.json'
+  PORT: 9035
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "dreamsfc-secret"

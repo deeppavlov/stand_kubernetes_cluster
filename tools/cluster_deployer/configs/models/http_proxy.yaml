@@ -81,3 +81,9 @@ http_proxy_dream:
   CLUSTER_PORT: 7019
   PROXYED_HOST: 10.11.1.1
   PROXYED_PORT: 4242
+
+http_proxy_max:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 7088
+  PROXYED_HOST: 10.11.1.9
+  PROXYED_PORT: 4243
