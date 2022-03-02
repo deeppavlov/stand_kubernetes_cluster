@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-proxy-max-dp
+  namespace: stand-demo
+spec:
+  selector:
+    matchLabels:
+      app: http-proxy-max-dp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: http-proxy-max-dp
+    spec:
+      containers:
+      - name: nginx
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/http_proxy
+        ports:
+        - name: dp-listened
+          protocol: TCP
+          containerPort: 7088
+        env:
+        - name: LISTENED_PORT
+          value: "7088"
+        - name: PROXYED_HOST
+          value: "10.11.1.9"
+        - name: PROXYED_PORT
+          value: "4243"
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254

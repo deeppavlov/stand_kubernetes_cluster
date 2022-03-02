@@ -111,6 +111,8 @@ socialbot_service:
   # default_params:
   pipeline: "all_up_kuber_no_tests"
   SECRET_NAME: "dream-secret"
+  VERSION_TAG: "latest"
+  KUBER_IMAGE_TAG: "{{DOCKER_REGISTRY}}/{{FULL_MODEL_NAME}}:{{VERSION_TAG}}"
   # human set params
   BASE_IMAGE: ""
 

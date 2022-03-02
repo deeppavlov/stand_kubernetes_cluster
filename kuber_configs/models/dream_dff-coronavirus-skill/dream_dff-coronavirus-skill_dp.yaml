@@ -23,7 +23,7 @@ spec:
                     values: ["gpu1", "gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_dff-coronavirus-skill
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_dff-coronavirus-skill:0.1.1
         resources:
           limits:
             nvidia.com/gpu: 0

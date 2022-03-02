@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dreamsfc-dff-book-sfc-skill-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: dreamsfc-dff-book-sfc-skill-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-service
+    protocol: TCP
+    port: 8034
+    targetPort: dp-service

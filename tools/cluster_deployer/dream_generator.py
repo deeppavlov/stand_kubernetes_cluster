@@ -13,6 +13,7 @@ parser.add_argument('-d', '--dream', default=None, help='path to dream directory
 parser.add_argument('-ap', '--agent-port', default=7019, help='agent port on kubeadm', type=str)
 parser.add_argument('-o', '--output', default=None, type=str)
 parser.add_argument('-s', '--secret', default=None, type=str)
+parser.add_argument('-v', '--version', default=None, type=str)
 
 args = parser.parse_args()
 
@@ -41,7 +42,8 @@ gpu = {
     'midas-classification': 0,
     'ner': 1,
     'text-qa': 2,
-    'wiki-parser': ''
+    'wiki-parser': '',
+    'midas-predictor': ''
 }
 
 
@@ -56,7 +58,7 @@ def get_config(dream_path, agent_port, drop_mongo=True):
     return conf
 
 
-def gen_models(conf, secret):
+def gen_models(conf, secret, version):
     _models = {}
     for key, val in conf.items():
         model_name = f'dream_{key}'
@@ -84,12 +86,14 @@ def gen_models(conf, secret):
                 _models[model_name]['NODE_LIST'] = ['gpu9']
         if secret is not None:
             _models[model_name]['SECRET_NAME'] = secret
+        if version is not None:
+            _models[model_name]['VERSION_TAG'] = version
     return _models
 
 
 if __name__ == '__main__':
     config = get_config(args.dream or default_dream_path, args.agent_port)
-    models = gen_models(config, args.secret)
+    models = gen_models(config, args.secret, args.version)
     with open(args.output or default_output_path, 'w') as fout:
         yaml.safe_dump(models, fout)
     print(yaml.dump({'dream': list(models.keys())}))

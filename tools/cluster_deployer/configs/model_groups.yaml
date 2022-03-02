@@ -71,6 +71,7 @@ dream:
   - dream_masked-lm
   - dream_meta-script-skill
   - dream_midas-classification
+  - dream_midas-predictor
   - dream_misheard-asr
   - dream_ner
   - dream_news-api-annotator
