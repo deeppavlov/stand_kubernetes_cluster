@@ -32,7 +32,7 @@ gpu = {
     'comet-conceptnet': 0,
     'convers-evaluator-annotator': 2,
     'entity-detection': 2,
-    'entity-linking': 2,
+    'entity-linking': 1,
     'fact-retrieval': 1,
     'hypothesis-scorer': 1,
     'kbqa': 2,
@@ -43,7 +43,8 @@ gpu = {
     'ner': 1,
     'text-qa': 2,
     'wiki-parser': '',
-    'midas-predictor': ''
+    'midas-predictor': '',
+    'dialogpt': 1
 }
 
 

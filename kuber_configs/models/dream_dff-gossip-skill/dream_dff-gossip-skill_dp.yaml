@@ -23,7 +23,7 @@ spec:
                     values: ["gpu1", "gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_dff-gossip-skill:0.1.1
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_dff-gossip-skill:0.1.4
         resources:
           limits:
             nvidia.com/gpu: 0

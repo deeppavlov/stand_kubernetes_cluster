@@ -53,6 +53,7 @@ dream:
   - dream_dff-travel-skill
   - dream_dff-weather-skill
   - dream_dff-wiki-skill
+  - dream_dialogpt
   - dream_dummy-skill-dialog
   - dream_eliza
   - dream_emotion-skill
@@ -63,7 +64,6 @@ dream:
   - dream_fact-retrieval
   - dream_factoid-qa
   - dream_game-cooperative-skill
-  - dream_hypothesis-scorer
   - dream_intent-catcher
   - dream_kbqa
   - dream_knowledge-grounding
