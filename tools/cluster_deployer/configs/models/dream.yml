@@ -5,21 +5,21 @@ dream_agent:
     assistant_dists/dream/pipeline_conf.json --cors'
   PORT: 4242
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_asr:
   BASE_IMAGE: dream_asr
   CLUSTER_PORT: 8031
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8031
   PORT: 8031
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_badlisted-words:
   BASE_IMAGE: dream_badlisted-words
   CLUSTER_PORT: 8018
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8018
   PORT: 8018
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_combined-classification:
   BASE_IMAGE: dream_combined-classification
   CLUSTER_PORT: 8087
@@ -29,7 +29,7 @@ dream_combined-classification:
   - gpu9
   PORT: 8087
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_comet-atomic:
   BASE_IMAGE: dream_comet-atomic
   CLUSTER_PORT: 8053
@@ -39,7 +39,7 @@ dream_comet-atomic:
   - gpu9
   PORT: 8053
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_comet-conceptnet:
   BASE_IMAGE: dream_comet-conceptnet
   CLUSTER_PORT: 8065
@@ -49,14 +49,14 @@ dream_comet-conceptnet:
   - gpu9
   PORT: 8065
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_convers-evaluation-selector:
   BASE_IMAGE: dream_convers-evaluation-selector
   CLUSTER_PORT: 8009
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8009
   PORT: 8009
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_convers-evaluator-annotator:
   BASE_IMAGE: dream_convers-evaluator-annotator
   CLUSTER_PORT: 8004
@@ -66,182 +66,182 @@ dream_convers-evaluator-annotator:
   - gpu9
   PORT: 8004
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_convert-reddit:
   BASE_IMAGE: dream_convert-reddit
   CLUSTER_PORT: 8029
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8029
   PORT: 8029
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-animals-skill:
   BASE_IMAGE: dream_dff-animals-skill
   CLUSTER_PORT: 8094
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8094
   PORT: 8094
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-art-skill:
   BASE_IMAGE: dream_dff-art-skill
   CLUSTER_PORT: 8117
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8117
   PORT: 8117
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-book-skill:
   BASE_IMAGE: dream_dff-book-skill
   CLUSTER_PORT: 8032
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8032 --reload
   PORT: 8032
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-bot-persona-skill:
   BASE_IMAGE: dream_dff-bot-persona-skill
   CLUSTER_PORT: 8105
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8105
   PORT: 8105
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-coronavirus-skill:
   BASE_IMAGE: dream_dff-coronavirus-skill
   CLUSTER_PORT: 8061
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8061 --reload
   PORT: 8061
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-food-skill:
   BASE_IMAGE: dream_dff-food-skill
   CLUSTER_PORT: 8097
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8097
   PORT: 8097
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-friendship-skill:
   BASE_IMAGE: dream_dff-friendship-skill
   CLUSTER_PORT: 8086
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8086
   PORT: 8086
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-funfact-skill:
   BASE_IMAGE: dream_dff-funfact-skill
   CLUSTER_PORT: 8104
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8104
   PORT: 8104
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-gaming-skill:
   BASE_IMAGE: dream_dff-gaming-skill
   CLUSTER_PORT: 8115
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8115
   PORT: 8115
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-gossip-skill:
   BASE_IMAGE: dream_dff-gossip-skill
   CLUSTER_PORT: 8109
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8109
   PORT: 8109
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-grounding-skill:
   BASE_IMAGE: dream_dff-grounding-skill
   CLUSTER_PORT: 8080
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8080 --reload
   PORT: 8080
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-intent-responder-skill:
   BASE_IMAGE: dream_dff-intent-responder-skill
   CLUSTER_PORT: 8012
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8012 --reload
   PORT: 8012
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-movie-skill:
   BASE_IMAGE: dream_dff-movie-skill
   CLUSTER_PORT: 8023
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8023 --timeout 180
   PORT: 8023
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-music-skill:
   BASE_IMAGE: dream_dff-music-skill
   CLUSTER_PORT: 8099
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8099
   PORT: 8099
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-program-y-dangerous-skill:
   BASE_IMAGE: dream_dff-program-y-dangerous-skill
   CLUSTER_PORT: 8022
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8022 --reload
   PORT: 8022
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-program-y-skill:
   BASE_IMAGE: dream_dff-program-y-skill
   CLUSTER_PORT: 8008
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8008 --reload
   PORT: 8008
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-program-y-wide-skill:
   BASE_IMAGE: dream_dff-program-y-wide-skill
   CLUSTER_PORT: 8064
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8064 --reload
   PORT: 8064
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-science-skill:
   BASE_IMAGE: dream_dff-science-skill
   CLUSTER_PORT: 8101
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8101
   PORT: 8101
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-short-story-skill:
   BASE_IMAGE: dream_dff-short-story-skill
   CLUSTER_PORT: 8057
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8057 --reload
   PORT: 8057
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-sport-skill:
   BASE_IMAGE: dream_dff-sport-skill
   CLUSTER_PORT: 8098
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8098
   PORT: 8098
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-template-skill:
   BASE_IMAGE: dream_dff-template-skill
   CLUSTER_PORT: 8120
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8120 --reload
   PORT: 8120
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-travel-skill:
   BASE_IMAGE: dream_dff-travel-skill
   CLUSTER_PORT: 8096
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8096
   PORT: 8096
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-weather-skill:
   BASE_IMAGE: dream_dff-weather-skill
   CLUSTER_PORT: 8037
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8037 --reload --timeout 500
   PORT: 8037
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dff-wiki-skill:
   BASE_IMAGE: dream_dff-wiki-skill
   CLUSTER_PORT: 8111
   CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:8111
   PORT: 8111
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dialogpt:
   BASE_IMAGE: dream_dialogpt
   CLUSTER_PORT: 8125
@@ -251,28 +251,28 @@ dream_dialogpt:
   - gpu9
   PORT: 8125
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_dummy-skill-dialog:
   BASE_IMAGE: dream_dummy-skill-dialog
   CLUSTER_PORT: 8052
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8052 --without-threads
   PORT: 8052
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_eliza:
   BASE_IMAGE: dream_eliza
   CLUSTER_PORT: 8047
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8047
   PORT: 8047
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_emotion-skill:
   BASE_IMAGE: dream_emotion-skill
   CLUSTER_PORT: 8049
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8049
   PORT: 8049
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_entity-detection:
   BASE_IMAGE: dream_entity-detection
   CLUSTER_PORT: 8103
@@ -282,7 +282,7 @@ dream_entity-detection:
   - gpu9
   PORT: 8103
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_entity-linking:
   BASE_IMAGE: dream_entity-linking
   CLUSTER_PORT: 8075
@@ -292,21 +292,21 @@ dream_entity-linking:
   - gpu9
   PORT: 8075
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_entity-storer:
   BASE_IMAGE: dream_entity-storer
   CLUSTER_PORT: 8089
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8089
   PORT: 8089
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_fact-random:
   BASE_IMAGE: dream_fact-random
   CLUSTER_PORT: 8119
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8119
   PORT: 8119
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_fact-retrieval:
   BASE_IMAGE: dream_fact-retrieval
   CLUSTER_PORT: 8100
@@ -316,28 +316,28 @@ dream_fact-retrieval:
   - gpu9
   PORT: 8100
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_factoid-qa:
   BASE_IMAGE: dream_factoid-qa
   CLUSTER_PORT: 8071
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8071
   PORT: 8071
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_game-cooperative-skill:
   BASE_IMAGE: dream_game-cooperative-skill
   CLUSTER_PORT: 8068
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8068
   PORT: 8068
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_intent-catcher:
   BASE_IMAGE: dream_intent-catcher
   CLUSTER_PORT: 8014
   CMD_SCRIPT: python -m flask run -h 0.0.0.0 -p 8014 --without-threads
   PORT: 8014
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_kbqa:
   BASE_IMAGE: dream_kbqa
   CLUSTER_PORT: 8072
@@ -347,7 +347,7 @@ dream_kbqa:
   - gpu9
   PORT: 8072
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_knowledge-grounding:
   BASE_IMAGE: dream_knowledge-grounding
   CLUSTER_PORT: 8083
@@ -357,7 +357,7 @@ dream_knowledge-grounding:
   - gpu9
   PORT: 8083
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_knowledge-grounding-skill:
   BASE_IMAGE: dream_knowledge-grounding-skill
   CLUSTER_PORT: 8085
@@ -365,7 +365,7 @@ dream_knowledge-grounding-skill:
   CUDA_VISIBLE_DEVICES: ''
   PORT: 8085
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_masked-lm:
   BASE_IMAGE: dream_masked-lm
   CLUSTER_PORT: 8088
@@ -375,14 +375,14 @@ dream_masked-lm:
   - gpu9
   PORT: 8088
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_meta-script-skill:
   BASE_IMAGE: dream_meta-script-skill
   CLUSTER_PORT: 8054
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8054
   PORT: 8054
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_midas-classification:
   BASE_IMAGE: dream_midas-classification
   CLUSTER_PORT: 8090
@@ -392,7 +392,7 @@ dream_midas-classification:
   - gpu9
   PORT: 8090
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_midas-predictor:
   BASE_IMAGE: dream_midas-predictor
   CLUSTER_PORT: 8121
@@ -400,14 +400,14 @@ dream_midas-predictor:
   CUDA_VISIBLE_DEVICES: ''
   PORT: 8121
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_misheard-asr:
   BASE_IMAGE: dream_misheard-asr
   CLUSTER_PORT: 8033
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8033
   PORT: 8033
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_ner:
   BASE_IMAGE: dream_ner
   CLUSTER_PORT: 8021
@@ -417,70 +417,70 @@ dream_ner:
   - gpu9
   PORT: 8021
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_news-api-annotator:
   BASE_IMAGE: dream_news-api-annotator
   CLUSTER_PORT: 8112
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8112
   PORT: 8112
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_news-api-skill:
   BASE_IMAGE: dream_news-api-skill
   CLUSTER_PORT: 8066
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8066
   PORT: 8066
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_personal-info-skill:
   BASE_IMAGE: dream_personal-info-skill
   CLUSTER_PORT: 8030
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8030
   PORT: 8030
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_personality-catcher:
   BASE_IMAGE: dream_personality-catcher
   CLUSTER_PORT: 8010
   CMD_SCRIPT: uvicorn server:app --host 0.0.0.0 --port 8010
   PORT: 8010
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_sentrewrite:
   BASE_IMAGE: dream_sentrewrite
   CLUSTER_PORT: 8017
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8017
   PORT: 8017
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_sentseg:
   BASE_IMAGE: dream_sentseg
   CLUSTER_PORT: 8011
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8011
   PORT: 8011
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_small-talk-skill:
   BASE_IMAGE: dream_small-talk-skill
   CLUSTER_PORT: 8062
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8062
   PORT: 8062
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_spacy-nounphrases:
   BASE_IMAGE: dream_spacy-nounphrases
   CLUSTER_PORT: 8006
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8006
   PORT: 8006
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_spelling-preprocessing:
   BASE_IMAGE: dream_spelling-preprocessing
   CLUSTER_PORT: 8074
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8074
   PORT: 8074
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_text-qa:
   BASE_IMAGE: dream_text-qa
   CLUSTER_PORT: 8078
@@ -490,28 +490,28 @@ dream_text-qa:
   - gpu9
   PORT: 8078
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_topic-recommendation:
   BASE_IMAGE: dream_topic-recommendation
   CLUSTER_PORT: 8113
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8113
   PORT: 8113
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_user-persona-extractor:
   BASE_IMAGE: dream_user-persona-extractor
   CLUSTER_PORT: 8114
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8114
   PORT: 8114
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_wiki-facts:
   BASE_IMAGE: dream_wiki-facts
   CLUSTER_PORT: 8116
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8116
   PORT: 8116
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
 dream_wiki-parser:
   BASE_IMAGE: dream_wiki-parser
   CLUSTER_PORT: 8077
@@ -519,4 +519,4 @@ dream_wiki-parser:
   CUDA_VISIBLE_DEVICES: ''
   PORT: 8077
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.1.4
+  VERSION_TAG: 0.1.6
