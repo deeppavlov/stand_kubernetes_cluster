@@ -89,6 +89,18 @@ dream:
   - dream_wiki-facts
   - dream_wiki-parser
 
+goals:
+  - goals_human-goals-detector
+  - goals_dff-share-problems-skill
+  - goals_dff-book-recommendation-skill
+  - goals_dff-series-recommendation-skill
+  - goals_dff-get-book-information-skill
+  - goals_dff-test-bot-skill
+  - goals_dff-travel-recommendation-skill
+  - goals_dff-have-fun-skill
+  - goals_goals-tracker
+  - goals_agent
+
 http_proxy: []
 
 alexaprize_idris_repo:
