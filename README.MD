@@ -365,7 +365,7 @@ docker-compose -f docker-compose.yml -f assistant_dists/dream/docker-compose.ove
 
 db name dream-goals
 Add TG_TOKEN=forth bot token
-
+Dockerfile agent hash c2bd03b970b7016f24e48db4d0c10a1d7ca4b6f8
 
 # License
 
