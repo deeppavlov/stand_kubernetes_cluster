@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ee-wiki-parser-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: ee-wiki-parser-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-service
+    protocol: TCP
+    port: 9077
+    targetPort: dp-service

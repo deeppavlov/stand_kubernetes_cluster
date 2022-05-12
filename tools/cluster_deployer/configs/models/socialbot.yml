@@ -89,3 +89,24 @@ dreamsfc_agent:
   PORT: 9035
   TEMPLATE: socialbot_service
   SECRET_NAME: "dreamsfc-secret"
+ee_agent:
+  BASE_IMAGE: entity_extraction_svc_agent
+  CLUSTER_PORT: 7040
+  CMD_SCRIPT: sh -c 'uvicorn server:app --host 0.0.0.0 --port $PORT --reload'
+  PORT: 9999
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "ee-secret"
+ee_wiki_parser:
+  BASE_IMAGE: entity_extraction_svc_wiki-parser
+  CLUSTER_PORT: 9077
+  CMD_SCRIPT: sh -c 'flask run -h 0.0.0.0 -p 9077'
+  PORT: 9077
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "ee-secret"
+ee_entity_extraction:
+  BASE_IMAGE: entity_extraction_svc_entity-extraction
+  CLUSTER_PORT: 9103
+  CMD_SCRIPT: sh -c 'python server.py'
+  PORT: 9103
+  TEMPLATE: socialbot_service
+  SECRET_NAME: "ee-secret"
