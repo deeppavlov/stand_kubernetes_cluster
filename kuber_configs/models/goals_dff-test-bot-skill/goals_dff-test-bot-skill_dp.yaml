@@ -23,7 +23,7 @@ spec:
                     values: ["gpu1", "gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/goals_dff-test-bot-skill:latest
+        image: kubeadm.ipavlov.mipt.ru:5000/goals_dff-test-bot-skill:0.1.7
         resources:
           limits:
             nvidia.com/gpu: 0

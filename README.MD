@@ -334,6 +334,10 @@ Delete object:
 Change .env and pipeline_conf.json services hosts to 10.11.1.251, add necessary secrets for news, games, weather,
 db host, port, name. Add FLASK_APP=server.
 
+DB name - dream-demo
+HOST - 10.11.1.251
+PORT - 10042
+
 Create secrets
 
 ```commandline
@@ -361,11 +365,14 @@ docker-compose -p dreamsfc -f docker-compose-book.yml -f assistant_dists/dream_s
 
 ## DREAM GOALS
 
-docker-compose -f docker-compose.yml -f assistant_dists/dream/docker-compose.override.yml build human-goals-detector dff-share-problems-skill dff-book-recommendation-skill dff-series-recommendation-skill dff-get-book-information-skill dff-test-bot-skill dff-travel-recommendation-skill dff-have-fun-skill goals-tracker agent
-
+docker-compose -f docker-compose.yml -f assistant_dists/dream/docker-compose.override.yml -p goals build human-goals-detector dff-share-problems-skill dff-book-recommendation-skill dff-series-recommendation-skill dff-get-book-information-skill dff-test-bot-skill dff-travel-recommendation-skill dff-have-fun-skill goals-tracker agent
 db name dream-goals
 Add TG_TOKEN=forth bot token
 Dockerfile agent hash c2bd03b970b7016f24e48db4d0c10a1d7ca4b6f8
+
+## DREAM TG
+
+dream-tg-secret 
 
 # License
 
