@@ -161,3 +161,8 @@ all:
   - alexaprize_idris_repo_rbp
   - alexaprize_idris_repo_rb_dev
   - alexaprize_idris_repo_rbp_dev
+
+entity_extraction:
+  - ee_agent
+  - ee_wiki_parser
+  - ee_entity_extraction

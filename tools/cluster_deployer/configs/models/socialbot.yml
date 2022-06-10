@@ -96,7 +96,7 @@ ee_agent:
   PORT: 9999
   TEMPLATE: socialbot_service
   SECRET_NAME: "ee-secret"
-  VERSION_TAG: 0.1.10
+  VERSION_TAG: 0.1.11
 ee_wiki_parser:
   BASE_IMAGE: entity_extraction_svc_wiki-parser
   CLUSTER_PORT: 9077
@@ -104,7 +104,7 @@ ee_wiki_parser:
   PORT: 9077
   TEMPLATE: socialbot_service
   SECRET_NAME: "ee-secret"
-  VERSION_TAG: 0.1.10
+  VERSION_TAG: 0.1.11
 ee_entity_extraction:
   BASE_IMAGE: entity_extraction_svc_entity-extraction
   CLUSTER_PORT: 9103
@@ -112,7 +112,7 @@ ee_entity_extraction:
   PORT: 9103
   TEMPLATE: socialbot_service
   SECRET_NAME: "ee-secret"
-  VERSION_TAG: 0.1.10
+  VERSION_TAG: 0.1.11
 goals_human-goals-detector:
   BASE_IMAGE: goals_human-goals-detector
   CLUSTER_PORT: 8122
