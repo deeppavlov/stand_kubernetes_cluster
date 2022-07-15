@@ -350,12 +350,6 @@ Generate models config
 python tools/cluster_deployer/dream_generator.py
 ```
 
-## DREAM SFC
-
-feat/sf-bookskill-new
-docker-compose -p dreamsfc -f docker-compose-book.yml -f assistant_dists/dream_sfc/docker-compose.override.yml build agent midas-classification dff-book-sfc-skill speech-function-classifier speech-function-predictor
-
-
 ## DREAM GOALS
 
 docker-compose -f docker-compose.yml -f assistant_dists/dream/docker-compose.override.yml -p goals build human-goals-detector dff-share-problems-skill dff-book-recommendation-skill dff-series-recommendation-skill dff-get-book-information-skill dff-test-bot-skill dff-travel-recommendation-skill dff-have-fun-skill goals-tracker agent
