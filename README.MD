@@ -350,13 +350,6 @@ Generate models config
 python tools/cluster_deployer/dream_generator.py
 ```
 
-## Book
-
-branch update_books_skill
-db name book-bot
-
-docker-compose -p book -f docker-compose-book.yml -f assistant_dists/dream/docker-compose.override.yml build agent dff-book-skill
-
 ## DREAM SFC
 
 feat/sf-bookskill-new
