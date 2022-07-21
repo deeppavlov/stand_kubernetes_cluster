@@ -23,7 +23,7 @@ spec:
                     values: ["gpu1", "gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/ee_entity_extraction:0.1.10
+        image: kubeadm.ipavlov.mipt.ru:5000/ee_entity_extraction:0.1.14
         resources:
           limits:
             nvidia.com/gpu: 0
