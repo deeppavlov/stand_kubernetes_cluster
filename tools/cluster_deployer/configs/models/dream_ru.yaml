@@ -1,0 +1,158 @@
+dream_ru_agent:
+  BASE_IMAGE: dream_ru_agent
+  CLUSTER_PORT: 9019
+  CMD_SCRIPT: sh -c 'bin/wait && python -m deeppavlov_agent.run agent.channel=telegram agent.telegram_token=$TG_TOKEN agent.pipeline_config=assistant_dists/dream_russian/pipeline_conf.json agent.db_config=assistant_dists/dream_russian/db_conf.json'
+  PORT: 4242
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_badlisted-words:
+  BASE_IMAGE: dream_ru_badlisted-words
+  CLUSTER_PORT: 9018
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9018
+  PORT: 9018
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_convers-evaluation-selector:
+  BASE_IMAGE: dream_ru_convers-evaluation-selector
+  CLUSTER_PORT: 9009
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9009
+  PORT: 9009
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_dff-friendship-skill:
+  BASE_IMAGE: dream_ru_dff-friendship-skill
+  CLUSTER_PORT: 9086
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:9086
+  PORT: 9086
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_dff-generative-skill:
+  BASE_IMAGE: dream_ru_dff-generative-skill
+  CLUSTER_PORT: 9092
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:9092 --reload
+  PORT: 9092
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_dff-intent-responder-skill:
+  BASE_IMAGE: dream_ru_dff-intent-responder-skill
+  CLUSTER_PORT: 9012
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:9012 --reload
+  PORT: 9012
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_dff-program-y-skill:
+  BASE_IMAGE: dream_ru_dff-program-y-skill
+  CLUSTER_PORT: 9008
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:9008 --reload
+  PORT: 9008
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_dff-template-skill:
+  BASE_IMAGE: dream_ru_dff-template-skill
+  CLUSTER_PORT: 9120
+  CMD_SCRIPT: gunicorn --workers=1 server:app -b 0.0.0.0:9120 --reload
+  PORT: 9120
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_dialogpt:
+  BASE_IMAGE: dream_ru_dialogpt
+  CLUSTER_PORT: 9091
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9091
+  CUDA_VISIBLE_DEVICES: 5
+  NODE_LIST:
+  - gpu9
+  PORT: 9091
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_dialogrpt:
+  BASE_IMAGE: dream_ru_dialogrpt
+  CLUSTER_PORT: 9122
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9122
+  CUDA_VISIBLE_DEVICES: 5
+  NODE_LIST:
+  - gpu9
+  PORT: 9122
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_entity-detection:
+  BASE_IMAGE: dream_ru_entity-detection
+  CLUSTER_PORT: 9203
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9203
+  PORT: 9203
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_entity-linking:
+  BASE_IMAGE: dream_ru_entity-linking
+  CLUSTER_PORT: 9075
+  CMD_SCRIPT: gunicorn  --workers=1 --timeout 500 server:app -b 0.0.0.0:9075
+  CUDA_VISIBLE_DEVICES: ''
+  PORT: 9075
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_intent-catcher:
+  BASE_IMAGE: dream_ru_intent-catcher
+  CLUSTER_PORT: 9014
+  CMD_SCRIPT: python -m flask run -h 0.0.0.0 -p 9014
+  CUDA_VISIBLE_DEVICES: 6
+  PORT: 9014
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_ner:
+  BASE_IMAGE: dream_ru_ner
+  CLUSTER_PORT: 9021
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9021 --without-threads
+  CUDA_VISIBLE_DEVICES: 6
+  NODE_LIST:
+  - gpu9
+  PORT: 9021
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_personal-info-skill:
+  BASE_IMAGE: dream_ru_personal-info-skill
+  CLUSTER_PORT: 9030
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9030
+  PORT: 9030
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_sentseg:
+  BASE_IMAGE: dream_ru_sentseg
+  CLUSTER_PORT: 9011
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9011
+  CUDA_VISIBLE_DEVICES: 7
+  NODE_LIST:
+  - gpu9
+  PORT: 9011
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_spacy-annotator:
+  BASE_IMAGE: dream_ru_spacy-annotator
+  CLUSTER_PORT: 9125
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9125
+  PORT: 9125
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_spelling-preprocessing:
+  BASE_IMAGE: dream_ru_spelling-preprocessing
+  CLUSTER_PORT: 9074
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9074
+  PORT: 9074
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_toxic-classification:
+  BASE_IMAGE: dream_ru_toxic-classification
+  CLUSTER_PORT: 9126
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9126
+  CUDA_VISIBLE_DEVICES: 7
+  NODE_LIST:
+  - gpu9
+  PORT: 9126
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service
+dream_ru_wiki-parser:
+  BASE_IMAGE: dream_ru_wiki-parser
+  CLUSTER_PORT: 9277
+  CMD_SCRIPT: flask run -h 0.0.0.0 -p 9277
+  CUDA_VISIBLE_DEVICES: ''
+  PORT: 9277
+  SECRET_NAME: "ru-secret"
+  TEMPLATE: socialbot_service

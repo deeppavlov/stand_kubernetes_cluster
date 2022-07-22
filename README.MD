@@ -359,6 +359,14 @@ don't forget to add FLASK_APP=server variable to .env
 
 dream-tg-secret 
 
+## DREAM RU
+
+ru-secret
+db name ru_dream
+
+change wiki-parser port to 9277 and entity-detection to 9203
+increase spelling preprocessing timeout to 3s
+
 # License
 
 Apache 2.0 - licensed.

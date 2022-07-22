@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dream-ru-dff-generative-skill-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: dream-ru-dff-generative-skill-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-service
+    protocol: TCP
+    port: 9092
+    targetPort: dp-service

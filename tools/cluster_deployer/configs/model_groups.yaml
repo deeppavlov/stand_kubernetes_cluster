@@ -89,6 +89,28 @@ dream:
   - dream_wiki-facts
   - dream_wiki-parser
 
+dream_ru:
+  - dream_ru_agent
+  - dream_ru_badlisted-words
+  - dream_ru_convers-evaluation-selector
+  - dream_ru_dff-friendship-skill
+  - dream_ru_dff-generative-skill
+  - dream_ru_dff-intent-responder-skill
+  - dream_ru_dff-program-y-skill
+  - dream_ru_dff-template-skill
+  - dream_ru_dialogpt
+  - dream_ru_dialogrpt
+  - dream_ru_entity-detection
+  - dream_ru_entity-linking
+  - dream_ru_intent-catcher
+  - dream_ru_ner
+  - dream_ru_personal-info-skill
+  - dream_ru_sentseg
+  - dream_ru_spacy-annotator
+  - dream_ru_spelling-preprocessing
+  - dream_ru_toxic-classification
+  - dream_ru_wiki-parser
+
 http_proxy: []
 
 alexaprize_idris_repo:
