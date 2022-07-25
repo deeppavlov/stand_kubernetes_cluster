@@ -94,6 +94,8 @@ dream_ru_intent-catcher:
   CLUSTER_PORT: 9014
   CMD_SCRIPT: python -m flask run -h 0.0.0.0 -p 9014
   CUDA_VISIBLE_DEVICES: 6
+  NODE_LIST:
+  - gpu9
   PORT: 9014
   SECRET_NAME: "ru-secret"
   TEMPLATE: socialbot_service
