@@ -20,7 +20,7 @@ spec:
               - matchExpressions:
                   - key: kubernetes.io/hostname
                     operator: In
-                    values: ["gpu1", "gpu9"]
+                    values: ["gpu9"]
       containers:
       - name: socialservice
         image: kubeadm.ipavlov.mipt.ru:5000/dream_ru_intent-catcher:latest

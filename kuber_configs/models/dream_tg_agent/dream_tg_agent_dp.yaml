@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dream-dff-template-skill-dp
+  name: dream-tg-agent-dp
   namespace: stand-demo
 spec:
   selector:
     matchLabels:
-      app: dream-dff-template-skill-dp
+      app: dream-tg-agent-dp
   replicas: 1
   template:
     metadata:
       labels:
-        app: dream-dff-template-skill-dp
+        app: dream-tg-agent-dp
     spec:
       affinity:
         nodeAffinity:
@@ -23,14 +23,14 @@ spec:
                     values: ["gpu1", "gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_dff-template-skill:0.1.7
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_tg_agent:0.1.7
         resources:
           limits:
             nvidia.com/gpu: 0
         ports:
         - name: dp-service
           protocol: TCP
-          containerPort: 8120
+          containerPort: 11005
         volumeMounts:
         - name: volume-logs
           mountPath: /logs
@@ -52,7 +52,7 @@ spec:
           value: ""
         envFrom:
           - secretRef:
-              name: dream-secret
+              name: dream-tg-secret
       volumes:
       - name: volume-logs
         persistentVolumeClaim:

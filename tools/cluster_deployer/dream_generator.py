@@ -38,13 +38,15 @@ gpu = {
     'kbqa': 2,
     'knowledge-grounding': 0,
     'knowledge-grounding-skill': '',
-    'masked-lm': 1,
+    'masked-lm': 0,
     'midas-classification': 0,
     'ner': 1,
-    'text-qa': 2,
+    'text-qa': 8,
     'wiki-parser': '',
     'midas-predictor': '',
-    'dialogpt': 1
+    'dialogpt': 8,
+    'infilling': 8,
+    'intent-catcher': 8
 }
 
 

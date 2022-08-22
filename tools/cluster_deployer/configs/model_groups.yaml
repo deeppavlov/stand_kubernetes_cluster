@@ -64,6 +64,7 @@ dream:
   - dream_fact-retrieval
   - dream_factoid-qa
   - dream_game-cooperative-skill
+  - dream_infilling
   - dream_intent-catcher
   - dream_kbqa
   - dream_knowledge-grounding
