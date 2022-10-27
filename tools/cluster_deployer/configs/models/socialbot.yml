@@ -40,11 +40,11 @@ dialog_flow_sdk_speech-function-classifier:
 ee_agent:
   BASE_IMAGE: entity_extraction_svc_agent
   CLUSTER_PORT: 7040
-  CMD_SCRIPT: sh -c 'uvicorn server:app --host 0.0.0.0 --port $PORT --reload'
+  CMD_SCRIPT: sh -c 'agent/bin/wait && uvicorn agent.server:app --host 0.0.0.0 --port $PORT --reload'
   PORT: 9999
   TEMPLATE: socialbot_service
   SECRET_NAME: "ee-secret"
-  VERSION_TAG: 0.1.18
+  VERSION_TAG: 0.2.0
 ee_wiki_parser:
   BASE_IMAGE: entity_extraction_svc_wiki-parser
   CLUSTER_PORT: 9077
@@ -52,7 +52,7 @@ ee_wiki_parser:
   PORT: 9077
   TEMPLATE: socialbot_service
   SECRET_NAME: "ee-secret"
-  VERSION_TAG: 0.1.18
+  VERSION_TAG: 0.2.0
 ee_entity_extraction:
   BASE_IMAGE: entity_extraction_svc_entity-extraction
   CLUSTER_PORT: 9103
@@ -60,7 +60,7 @@ ee_entity_extraction:
   PORT: 9103
   TEMPLATE: socialbot_service
   SECRET_NAME: "ee-secret"
-  VERSION_TAG: 0.1.18
+  VERSION_TAG: 0.2.0
 dream_tg_agent:
   BASE_IMAGE: dream_agent
   CLUSTER_PORT: 11005

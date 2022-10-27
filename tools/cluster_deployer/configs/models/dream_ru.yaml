@@ -81,6 +81,7 @@ dream_ru_entity-detection:
   PORT: 9203
   SECRET_NAME: "ru-secret"
   TEMPLATE: socialbot_service
+  VERSION_TAG: 0.1.7
 dream_ru_entity-linking:
   BASE_IMAGE: dream_ru_entity-linking
   CLUSTER_PORT: 9075

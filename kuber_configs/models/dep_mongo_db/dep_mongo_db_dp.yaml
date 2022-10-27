@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-mongo-db-dp
+  namespace: stand-demo
+spec:
+  selector:
+    matchLabels:
+      app: dep-mongo-db-dp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dep-mongo-db-dp
+    spec:
+      containers:
+      - name: mongo
+        image: kubeadm.ipavlov.mipt.ru:5000/stand/db/mongo:4.0.6-xenial
+        ports:
+        - name: dp-mongo
+          protocol: TCP
+          containerPort: 27017
+        volumeMounts:
+        - name: volume-db-data
+          mountPath: /db_data
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: FULL_MODEL_NAME
+          value: 'dep_mongo_db'
+      volumes:
+      - name: volume-db-data
+        persistentVolumeClaim:
+          claimName: db-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254
+for id in keys['dialog_ids']:
+    resp = requests.get(f'http://10.11.1.251:7019/api/dialogs/{id}')
+    with open(f'{id}.json', 'w') as fout:
+        import json
+        json.dump(resp.json(), fout)
