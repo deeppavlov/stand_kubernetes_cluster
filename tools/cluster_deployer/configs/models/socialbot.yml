@@ -61,11 +61,3 @@ ee_entity_extraction:
   TEMPLATE: socialbot_service
   SECRET_NAME: "ee-secret"
   VERSION_TAG: 0.2.0
-dream_tg_agent:
-  BASE_IMAGE: dream_agent
-  CLUSTER_PORT: 11005
-  CMD_SCRIPT: sh -c 'bin/wait && python -m deeppavlov_agent.run agent.channel=telegram agent.telegram_token=$TG_TOKEN agent.pipeline_config=assistant_dists/dream/pipeline_conf.json agent.db_config=assistant_dists/dream/db_conf.json'
-  PORT: 11005
-  TEMPLATE: socialbot_service
-  SECRET_NAME: "dream-tg-secret"
-  VERSION_TAG: 0.1.7

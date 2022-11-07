@@ -21,6 +21,7 @@ stand:
 
 dream:
   - dream_agent
+  - dream_tg_agent
   - dream_asr
   - dream_badlisted-words
   - dream_combined-classification

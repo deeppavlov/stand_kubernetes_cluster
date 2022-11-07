@@ -5,6 +5,13 @@ dream_agent:
   PORT: 4242
   TEMPLATE: socialbot_service
   VERSION_TAG: 0.2.1
+dream_tg_agent:
+  BASE_IMAGE: dream_agent
+  CLUSTER_PORT: 11005
+  CMD_SCRIPT: sh -c 'bin/wait && python -m deeppavlov_agent.run agent.channel=telegram agent.telegram_token=$TG_TOKEN agent.pipeline_config=assistant_dists/dream/pipeline_conf.json agent.db_config=assistant_dists/dream/db_conf.json'
+  PORT: 11005
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.2.1
 dream_asr:
   BASE_IMAGE: dream_asr
   CLUSTER_PORT: 8031
@@ -452,7 +459,7 @@ dream_prompt-storygpt:
   BASE_IMAGE: dream_prompt-storygpt
   CLUSTER_PORT: 8127
   CMD_SCRIPT: flask run -h 0.0.0.0 -p 8127
-  CUDA_VISIBLE_DEVICES: 9
+  CUDA_VISIBLE_DEVICES: 0
   NODE_LIST:
   - gpu9
   PORT: 8127

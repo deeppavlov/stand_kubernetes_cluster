@@ -23,7 +23,7 @@ spec:
                     values: ["gpu1", "gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_tg_agent:0.1.7
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_tg_agent:0.2.1
         resources:
           limits:
             nvidia.com/gpu: 0
@@ -52,7 +52,7 @@ spec:
           value: ""
         envFrom:
           - secretRef:
-              name: dream-tg-secret
+              name: dream-secret
       volumes:
       - name: volume-logs
         persistentVolumeClaim:
