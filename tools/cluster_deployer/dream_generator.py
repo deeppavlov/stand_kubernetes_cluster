@@ -46,7 +46,11 @@ gpu = {
     'midas-predictor': '',
     'dialogpt': 8,
     'infilling': 8,
-    'intent-catcher': 8
+    'intent-catcher': 8,
+    'dialogpt-persona-based': 9,
+    'prompt-storygpt': 9,
+    'sentence-ranker': 9,
+    'storygpt': 9
 }
 
 

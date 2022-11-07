@@ -54,6 +54,7 @@ dream:
   - dream_dff-weather-skill
   - dream_dff-wiki-skill
   - dream_dialogpt
+  - dream_dialogpt-persona-based
   - dream_dummy-skill-dialog
   - dream_eliza
   - dream_emotion-skill
@@ -64,12 +65,10 @@ dream:
   - dream_fact-retrieval
   - dream_factoid-qa
   - dream_game-cooperative-skill
-  - dream_infilling
   - dream_intent-catcher
   - dream_kbqa
   - dream_knowledge-grounding
   - dream_knowledge-grounding-skill
-  - dream_masked-lm
   - dream_meta-script-skill
   - dream_midas-classification
   - dream_midas-predictor
@@ -79,11 +78,16 @@ dream:
   - dream_news-api-skill
   - dream_personal-info-skill
   - dream_personality-catcher
+  - dream_prompt-storygpt
+  - dream_rake-keywords
+  - dream_relative-persona-extractor
+  - dream_sentence-ranker
   - dream_sentrewrite
   - dream_sentseg
   - dream_small-talk-skill
   - dream_spacy-nounphrases
   - dream_spelling-preprocessing
+  - dream_storygpt
   - dream_text-qa
   - dream_topic-recommendation
   - dream_user-persona-extractor
