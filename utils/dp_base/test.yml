@@ -1,0 +1,22 @@
+services:
+  cpu:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+      args:
+        - BASE_IMAGE=deeppavlov/deeppavlov:${DP_VERSION}
+    volumes:
+      - ~/.deeppavlov:/root/.deeppavlov
+      - ~/.cache:/root/.cache
+    command: pytest -k inferring_pretrained_model\[ -vv
+  gpu:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+      args:
+        - BASE_IMAGE=deeppavlov/deeppavlov:${DP_VERSION}-gpu
+    volumes:
+      - ~/.deeppavlov:/root/.deeppavlov
+      - ~/.cache:/root/.cache
+    command: pytest -k inferring_pretrained_model\[ -vv
+version: '3.7'

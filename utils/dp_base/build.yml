@@ -1,0 +1,18 @@
+services:
+  cpu:
+    build:
+      context: .
+      dockerfile: cpu.Dockerfile
+      args:
+        - BASE_IMAGE=python:3.7.13
+        - DP_VERSION=${DP_VERSION}
+    image: deeppavlov/deeppavlov:${DP_VERSION}
+  gpu:
+    build:
+      context: .
+      dockerfile: gpu.Dockerfile
+      args:
+        - BASE_IMAGE=pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime
+        - DP_VERSION=${DP_VERSION}
+    image: deeppavlov/deeppavlov:${DP_VERSION}-gpu
+version: '3.7'

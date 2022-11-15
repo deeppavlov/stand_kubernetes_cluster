@@ -115,3 +115,32 @@ docker build -t ngc-deeppavlov --build-arg COMMIT=0.14.1 \
 | COMMIT | NGC_BASE_IMAGE                          |
 | ------ | --------------------------------------- |
 | 0.14.1 | nvcr.io/nvidia/tensorflow:20.11-tf1-py3 |
+
+## 1.0.0+
+
+### GPU
+
+DP_VERSION=1.0.0
+docker build -t deeppavlov:$DP_VERSION-gpu \
+    -f gpu.Dockerfile \
+    --build-arg BASE_IMAGE=pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime \
+    --build-arg DP_VERSION=$DP_VERSION .
+
+| DP_VERSION | BASE_IMAGE                                     |
+|------------|------------------------------------------------|
+| 1.0.0      | pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime |
+
+### CPU
+
+docker build -t deeppavlov:$DP_VERSION \
+    -f cpu.Dockerfile \
+    --build-arg BASE_IMAGE=python:3.7.13 \
+    --build-arg DP_VERSION=$DP_VERSION .
+
+
+| DP_VERSION | BASE_IMAGE    |
+|------------|---------------|
+| 1.0.0      | python:3.7.13 |
+
+TODO:
+add tests. In particular, check that LANG == C.UTF-8 for python cpu image
