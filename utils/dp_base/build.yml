@@ -15,4 +15,22 @@ services:
         - BASE_IMAGE=pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime
         - DP_VERSION=${DP_VERSION}
     image: deeppavlov/deeppavlov:${DP_VERSION}-gpu
+  cpu-jupyter:
+    build:
+      context: .
+      dockerfile: jupyter.Dockerfile
+      args:
+        - BASE_IMAGE=deeppavlov/deeppavlov:${DP_VERSION}
+    ports:
+      - 5000:5000
+    image: deeppavlov/deeppavlov:${DP_VERSION}-jupyter
+  gpu-jupyter:
+    build:
+      context: .
+      dockerfile: jupyter.Dockerfile
+      args:
+        - BASE_IMAGE=deeppavlov/deeppavlov:${DP_VERSION}-gpu
+    ports:
+      - 5000:5000
+    image: deeppavlov/deeppavlov:${DP_VERSION}-gpu-jupyter
 version: '3.7'
