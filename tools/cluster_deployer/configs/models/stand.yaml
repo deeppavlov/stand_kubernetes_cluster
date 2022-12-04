@@ -127,3 +127,51 @@ stand_kbqa_ru:
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
   pipeline: all_up_kuber
+
+stand_rsg_terra:
+  CONFIG: russian_superglue_terra_rubert
+  TEMPLATE: dp_stand
+  CLUSTER_PORT: 7021
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber_no_tests
+
+stand_rsg_danet:
+  CONFIG: russian_superglue_danetqa_rubert
+  TEMPLATE: dp_stand
+  CLUSTER_PORT: 7000
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber_no_tests
+
+stand_rsg_rte:
+  CONFIG: glue_rte_roberta_mnli
+  TEMPLATE: dp_stand
+  CLUSTER_PORT: 7001
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber_no_tests
+
+stand_glue_mnli:
+  CONFIG: glue_mnli_roberta
+  TEMPLATE: dp_stand
+  CLUSTER_PORT: 7002
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber_no_tests
+
+stand_sg_boolq:
+  CONFIG: superglue_boolq_roberta_mnli
+  TEMPLATE: dp_stand
+  CLUSTER_PORT: 7043
+  image_polling_timeout_sec: 600
+  deployment_polling_timeout_sec: 1200
+  pipeline: all_up_kuber_no_tests
+
+stand_demo2:
+  BASE_IMAGE: demo2
+  CMD_SCRIPT: sh -c 'yarn start'
+  PORT: 3000
+  CLUSTER_PORT: 7042
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.2

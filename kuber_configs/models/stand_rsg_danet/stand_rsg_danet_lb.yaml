@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stand-rsg-danet-lb
+  namespace: stand-demo
+spec:
+  selector:
+    app: stand-rsg-danet-dp
+  type: LoadBalancer
+  externalIPs:
+  - 10.11.1.251
+  ports:
+  - name: lb-model
+    protocol: TCP
+    port: 7000
+    targetPort: dp-model

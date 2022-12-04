@@ -67,7 +67,7 @@ dp_stand:
   # default params
   run_mode: "riseapi"
   pipeline: "all_up_kuber_no_tests"
-  BASE_IMAGE: "deeppavlov/base-cpu:0.7.1"
+  BASE_IMAGE: "deeppavlov/deeppavlov:1.0.1"
 
   # composed params
   test_image_url: "http://0.0.0.0:{{PORT}}/probe"

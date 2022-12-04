@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stand-sg-boolq-dp
+  namespace: stand-demo
+spec:
+  selector:
+    matchLabels:
+      app: stand-sg-boolq-dp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stand-sg-boolq-dp
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values: ["gpu1", "gpu9"]
+      containers:
+      - name: model
+        image: kubeadm.ipavlov.mipt.ru:5000/stand_sg_boolq
+        ports:
+        - name: dp-model
+          protocol: TCP
+          containerPort: 5000
+        volumeMounts:
+        - name: volume-logs
+          mountPath: /logs
+        - name: volume-components
+          mountPath: /root/.deeppavlov
+        - name: volume-podinfo
+          mountPath: /etc/podinfo
+          readOnly: false
+        env:
+        - name: POD_NODE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: CUDA_VISIBLE_DEVICES
+          value: ""
+      volumes:
+      - name: volume-logs
+        persistentVolumeClaim:
+          claimName: logs-hostpath-pvc
+      - name: volume-components
+        persistentVolumeClaim:
+          claimName: components-hostpath-pvc
+      - name: volume-podinfo
+        downwardAPI:
+          items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.11.1.254
