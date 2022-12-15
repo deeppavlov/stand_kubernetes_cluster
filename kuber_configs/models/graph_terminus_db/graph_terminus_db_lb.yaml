@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dream-agent-lb
+  name: graph-terminus-db-lb
   namespace: stand-demo
 spec:
   selector:
-    app: dream-agent-dp
+    app: graph-terminus-db-dp
   type: LoadBalancer
   externalIPs:
   - 10.11.1.251
   ports:
-  - name: lb-service
+  - name: lb-terminus
     protocol: TCP
-    port: 7019
-    targetPort: dp-service
+    port: 7063
+    targetPort: dp-terminus

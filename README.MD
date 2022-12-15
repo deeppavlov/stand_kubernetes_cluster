@@ -202,6 +202,7 @@ To create these objects:
     kubectl create -f volumes/logs_hostpath
     kubectl create -f volumes/components_hostpath
     kubectl create -f volumes/db_hostpath
+    kubectl create -f volumes/gdb_hostpath
     kubectl create -f volumes/rb_hostpath
     kubectl create -f volumes/tfhub_hostpath
     ```
@@ -366,6 +367,14 @@ db name ru_dream
 
 change wiki-parser port to 9277 and entity-detection to 9203
 increase spelling preprocessing timeout to 3s
+
+## Terminus
+
+```commandline
+kubectl -n stand-demo delete secret gdb-secret
+kubectl -n stand-demo create secret generic gdb-secret --from-env-file=env
+kubectl create -f kuber_configs/models/graph_terminus_db/
+```
 
 # License
 

@@ -1,41 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dream-factoid-qa-dp
+  name: graph-terminus-db-dp
   namespace: stand-demo
 spec:
   selector:
     matchLabels:
-      app: dream-factoid-qa-dp
+      app: graph-terminus-db-dp
   replicas: 1
   template:
     metadata:
       labels:
-        app: dream-factoid-qa-dp
+        app: graph-terminus-db-dp
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values: ["gpu1", "gpu9"]
       containers:
-      - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_factoid-qa:0.6.2
-        resources:
-          limits:
-            nvidia.com/gpu: 0
+      - name: terminus
+        image: terminusdb/terminusdb-server:v10.1.10
         ports:
-        - name: dp-service
+        - name: dp-terminus
           protocol: TCP
-          containerPort: 8071
+          containerPort: 6363
         volumeMounts:
-        - name: volume-logs
-          mountPath: /logs
-        - name: volume-components
-          mountPath: /root/.deeppavlov
+        - name: volume-gdb-data
+          mountPath: /app/terminusdb/storage
         - name: volume-podinfo
           mountPath: /etc/podinfo
           readOnly: false
@@ -48,18 +35,15 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        - name: CUDA_VISIBLE_DEVICES
-          value: ""
+        - name: FULL_MODEL_NAME
+          value: 'graph_terminus_db'
         envFrom:
           - secretRef:
-              name: dream-secret
+              name: gdb-secret
       volumes:
-      - name: volume-logs
+      - name: volume-gdb-data
         persistentVolumeClaim:
-          claimName: logs-hostpath-pvc
-      - name: volume-components
-        persistentVolumeClaim:
-          claimName: components-hostpath-pvc
+          claimName: gdb-hostpath-pvc
       - name: volume-podinfo
         downwardAPI:
           items:

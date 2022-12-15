@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: stand-demo-gdb-hostpath-pv
+  namespace: stand-demo
+spec:
+  storageClassName: stand-demo-gdb-hostpath-sc
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/share/stand_demo/gdb/"

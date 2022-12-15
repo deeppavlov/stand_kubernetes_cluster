@@ -23,7 +23,7 @@ spec:
                     values: ["gpu1", "gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_rake-keywords:0.3.0
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_rake-keywords:0.6.2
         resources:
           limits:
             nvidia.com/gpu: 0
