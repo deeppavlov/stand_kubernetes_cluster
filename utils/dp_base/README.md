@@ -128,7 +128,7 @@ docker-compose -f build.yml build
 ### Test
 
 ```commandline
-export DP_VERSION=1.0.1
+export DP_VERSION=1.0.2
 docker-compose -f test.yml build
 docker-compose -f test.yml up
 ```
