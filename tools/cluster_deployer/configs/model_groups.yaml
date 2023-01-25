@@ -55,7 +55,6 @@ dream:
   - dream_dff-weather-skill
   - dream_dff-wiki-skill
   - dream_dialogpt
-  - dream_dialogpt-persona-based
   - dream_dummy-skill-dialog
   - dream_eliza
   - dream_emotion-skill
@@ -85,6 +84,7 @@ dream:
   - dream_sentence-ranker
   - dream_sentrewrite
   - dream_sentseg
+  - dream_seq2seq-persona-based
   - dream_small-talk-skill
   - dream_spacy-nounphrases
   - dream_spelling-preprocessing

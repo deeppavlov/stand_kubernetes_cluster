@@ -50,7 +50,8 @@ gpu = {
     'dialogpt-persona-based': 9,
     'prompt-storygpt': 9,
     'sentence-ranker': 9,
-    'storygpt': 0
+    'storygpt': 0,
+    'seq2seq-persona-based': 9
 }
 
 

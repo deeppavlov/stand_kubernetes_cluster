@@ -333,7 +333,7 @@ Delete object:
 ## DeepPavlov DREAM
 
 Change .env and pipeline_conf.json services hosts to 10.11.1.251, add necessary secrets for news, games, weather,
-db host, port, name. Add FLASK_APP=server.
+db host, port, name. Add FLASK_APP=server, TG_TOKEN, WAIT_HOSTS_TIMEOUT
 
 DB name - dream-demo
 HOST - 10.11.1.251
