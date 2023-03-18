@@ -362,6 +362,8 @@ dream-tg-secret
 
 ## DREAM RU
 
+docker-compose -p dream_ru -f docker-compose.yml -f assistant_dists/dream_russian/docker-compose.override.yml build ner-ru entity-detection-ru dialogpt-ru toxic-classification-ru dialogrpt-ru
+
 ru-secret
 db name ru_dream
 

@@ -174,4 +174,4 @@ stand_demo2:
   PORT: 3000
   CLUSTER_PORT: 7042
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.0.3
+  VERSION_TAG: 0.0.4
