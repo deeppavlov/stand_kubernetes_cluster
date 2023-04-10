@@ -20,7 +20,7 @@ spec:
               - matchExpressions:
                   - key: kubernetes.io/hostname
                     operator: In
-                    values: ["gpu1", "gpu9"]
+                    values: ["gpu1"]
       containers:
       - name: model
         image: kubeadm.ipavlov.mipt.ru:5000/stand_glue_mnli

@@ -87,3 +87,15 @@ http_proxy_max:
   CLUSTER_PORT: 7088
   PROXYED_HOST: 10.11.1.9
   PROXYED_PORT: 4243
+
+http_proxy_gptj:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 8130
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8130
+
+http_proxy_bloom:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 8146
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8146

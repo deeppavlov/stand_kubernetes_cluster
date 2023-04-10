@@ -1,21 +1,29 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stand-kbqa-ru-dp
   namespace: stand-demo
 spec:
+  selector:
+    matchLabels:
+      app: stand-kbqa-ru-dp
   replicas: 1
   template:
     metadata:
       labels:
         app: stand-kbqa-ru-dp
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values: ["gpu1"]
       containers:
       - name: model
         image: kubeadm.ipavlov.mipt.ru:5000/stand_kbqa_ru
-        resources:
-          limits:
-            nvidia.com/gpu: 0
         ports:
         - name: dp-model
           protocol: TCP
@@ -37,6 +45,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: CUDA_VISIBLE_DEVICES
+          value: ""
       volumes:
       - name: volume-logs
         persistentVolumeClaim:

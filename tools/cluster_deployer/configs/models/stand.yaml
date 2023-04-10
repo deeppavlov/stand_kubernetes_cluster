@@ -75,6 +75,8 @@ stand_intents_en:
 stand_ranking_en:
   CONFIG: ranking_insurance_interact
   TEMPLATE: dp_stand
+  NODE_LIST:
+    - gpu1
   CLUSTER_PORT: 7009
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -123,6 +125,8 @@ stand_sentiment_ru:
 stand_kbqa_ru:
   CONFIG: kbqa_rus
   TEMPLATE: dp_stand
+  NODE_LIST:
+    - gpu1
   CLUSTER_PORT: 7016
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -147,6 +151,8 @@ stand_rsg_danet:
 stand_rsg_rte:
   CONFIG: glue_rte_roberta_mnli
   TEMPLATE: dp_stand
+  NODE_LIST:
+    - gpu1
   CLUSTER_PORT: 7001
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -155,6 +161,8 @@ stand_rsg_rte:
 stand_glue_mnli:
   CONFIG: glue_mnli_roberta
   TEMPLATE: dp_stand
+  NODE_LIST:
+    - gpu1
   CLUSTER_PORT: 7002
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
@@ -163,6 +171,8 @@ stand_glue_mnli:
 stand_sg_boolq:
   CONFIG: superglue_boolq_roberta_mnli
   TEMPLATE: dp_stand
+  NODE_LIST:
+    - gpu1
   CLUSTER_PORT: 7043
   image_polling_timeout_sec: 600
   deployment_polling_timeout_sec: 1200
