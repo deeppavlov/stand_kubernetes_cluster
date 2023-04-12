@@ -94,8 +94,8 @@ http_proxy_gptj:
   PROXYED_HOST: 10.11.1.8
   PROXYED_PORT: 8130
 
-http_proxy_bloom:
+http_proxy_oasst12b:
   TEMPLATE: http_proxy
-  CLUSTER_PORT: 8146
+  CLUSTER_PORT: 8158
   PROXYED_HOST: 10.11.1.8
-  PROXYED_PORT: 8146
+  PROXYED_PORT: 8158
