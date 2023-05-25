@@ -185,3 +185,19 @@ stand_demo2:
   CLUSTER_PORT: 7042
   TEMPLATE: socialbot_service
   VERSION_TAG: 0.0.4
+
+stand_sentiment_twitter:
+  BASE_IMAGE: deeppavlov/deeppavlov:1.1.1
+  CLUSTER_PORT: 7023
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi sentiment_twitter -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.4
+
+stand_sentiment_sst_conv_bert:
+  BASE_IMAGE: deeppavlov/deeppavlov:1.1.1
+  CLUSTER_PORT: 7024
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi sentiment_sst_conv_bert -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.4
