@@ -30,7 +30,7 @@ dream_combined-classification:
   BASE_IMAGE: dream_combined-classification
   CLUSTER_PORT: 8087
   CMD_SCRIPT: gunicorn --workers=1 --bind 0.0.0.0:8087 --timeout=300 server:app
-  CUDA_VISIBLE_DEVICES: 1
+  CUDA_VISIBLE_DEVICES: 2
   NODE_LIST:
   - gpu9
   PORT: 8087
