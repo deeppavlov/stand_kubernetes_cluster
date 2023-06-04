@@ -99,3 +99,15 @@ http_proxy_oasst12b:
   CLUSTER_PORT: 8158
   PROXYED_HOST: 10.11.1.8
   PROXYED_PORT: 8158
+
+http_proxy_llama7bru:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 8149
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8149
+
+http_proxy_gptjt:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 8161
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8161
