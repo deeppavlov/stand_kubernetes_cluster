@@ -65,12 +65,13 @@ dream:
   - dream_fact-retrieval
   - dream_factoid-qa
   - dream_game-cooperative-skill
+  - dream_infilling
   - dream_intent-catcher
   - dream_kbqa
   - dream_knowledge-grounding
   - dream_knowledge-grounding-skill
+  - dream_masked-lm
   - dream_meta-script-skill
-  - dream_midas-classification
   - dream_midas-predictor
   - dream_misheard-asr
   - dream_ner
@@ -79,6 +80,7 @@ dream:
   - dream_personal-info-skill
   - dream_personality-catcher
   - dream_prompt-storygpt
+  - dream_property-extraction
   - dream_rake-keywords
   - dream_relative-persona-extractor
   - dream_sentence-ranker

@@ -27,7 +27,7 @@ commands = {
 }
 
 gpu = {
-    'combined-classification': 1,
+    'combined-classification': 2,
     'comet-atomic': 0,
     'comet-conceptnet': 0,
     'convers-evaluator-annotator': 2,
@@ -38,7 +38,7 @@ gpu = {
     'kbqa': 2,
     'knowledge-grounding': 0,
     'knowledge-grounding-skill': '',
-    'masked-lm': 0,
+    'masked-lm': 9,
     'midas-classification': 0,
     'ner': 1,
     'text-qa': 8,
@@ -56,7 +56,7 @@ gpu = {
 
 
 def get_config(dream_path, agent_port, drop_mongo=True):
-    conf = os.popen(f'cd {dream_path} && AGENT_PORT={agent_port} docker-compose -f docker-compose.yml'
+    conf = os.popen(f'cd {dream_path} && AGENT_PORT={agent_port} docker compose -f docker-compose.yml'
                     f' -f assistant_dists/dream/docker-compose.override.yml'
                     f' -f assistant_dists/dream/dev.yml'
                     f' -f assistant_dists/dream/test.yml config').read()

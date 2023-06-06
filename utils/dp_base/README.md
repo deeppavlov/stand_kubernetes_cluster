@@ -121,17 +121,22 @@ docker build -t ngc-deeppavlov --build-arg COMMIT=0.14.1 \
 ### Build and push
 
 ```commandline
-export DP_VERSION=1.1.1
+export DP_VERSION=1.2.0
 docker compose -f build.yml build cpu gpu
 docker compose -f build.yml build cpu-jupyter gpu-jupyter
 # for-loop below is needed to make proper order in deeppavlov dockerhub repo
 for service in gpu-jupyter cpu-jupyter gpu cpu; do docker compose -f build.yml push $service; done
+for tag in -gpu-jupyter -jupyter -gpu ''
+do
+    docker tag deeppavlov/deeppavlov:$DP_VERSION$tag deeppavlov/deeppavlov:latest$tag
+    docker push deeppavlov/deeppavlov:latest$tag
+done
 ```
 
 ### Test
 
 ```commandline
-export DP_VERSION=1.1.0
+export DP_VERSION=1.2.0
 docker-compose -f test.yml build
 docker-compose -f test.yml up
 ```
