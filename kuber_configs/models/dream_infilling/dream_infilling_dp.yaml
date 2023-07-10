@@ -23,14 +23,14 @@ spec:
                     values: ["gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_infilling:0.1.7
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_infilling:0.15
         resources:
           limits:
             nvidia.com/gpu: 0
         ports:
         - name: dp-service
           protocol: TCP
-          containerPort: 8122
+          containerPort: 8106
         volumeMounts:
         - name: volume-logs
           mountPath: /logs

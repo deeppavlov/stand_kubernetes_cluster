@@ -22,79 +22,26 @@ stand:
 dream:
   - dream_agent
   - dream_tg_agent
-  - dream_asr
-  - dream_badlisted-words
   - dream_combined-classification
-  - dream_comet-atomic
-  - dream_comet-conceptnet
-  - dream_convers-evaluation-selector
-  - dream_convers-evaluator-annotator
-  - dream_convert-reddit
-  - dream_dff-animals-skill
-  - dream_dff-art-skill
-  - dream_dff-book-skill
-  - dream_dff-bot-persona-skill
-  - dream_dff-coronavirus-skill
-  - dream_dff-food-skill
-  - dream_dff-friendship-skill
-  - dream_dff-funfact-skill
-  - dream_dff-gaming-skill
-  - dream_dff-gossip-skill
-  - dream_dff-grounding-skill
+  - dream_dff-dream-faq-prompted-skill
+  - dream_dff-dream-persona-chatgpt-prompted-skill
+  - dream_dff-google-api-skill
   - dream_dff-intent-responder-skill
-  - dream_dff-movie-skill
-  - dream_dff-music-skill
-  - dream_dff-program-y-dangerous-skill
-  - dream_dff-program-y-skill
-  - dream_dff-program-y-wide-skill
-  - dream_dff-science-skill
-  - dream_dff-short-story-skill
-  - dream_dff-sport-skill
-  - dream_dff-template-skill
-  - dream_dff-travel-skill
-  - dream_dff-weather-skill
-  - dream_dff-wiki-skill
-  - dream_dialogpt
-  - dream_dummy-skill-dialog
-  - dream_eliza
-  - dream_emotion-skill
   - dream_entity-detection
   - dream_entity-linking
-  - dream_entity-storer
-  - dream_fact-random
   - dream_fact-retrieval
   - dream_factoid-qa
-  - dream_game-cooperative-skill
-  - dream_infilling
   - dream_intent-catcher
   - dream_kbqa
-  - dream_knowledge-grounding
-  - dream_knowledge-grounding-skill
-  - dream_masked-lm
-  - dream_meta-script-skill
-  - dream_midas-predictor
-  - dream_misheard-asr
   - dream_ner
-  - dream_news-api-annotator
-  - dream_news-api-skill
-  - dream_personal-info-skill
-  - dream_personality-catcher
-  - dream_prompt-storygpt
+  - dream_openai-api-chatgpt
+  - dream_openai-api-chatgpt-16k
+  - dream_prompt-selector
   - dream_property-extraction
-  - dream_rake-keywords
-  - dream_relative-persona-extractor
+  - dream_ranking-based-response-selector
   - dream_sentence-ranker
-  - dream_sentrewrite
   - dream_sentseg
-  - dream_seq2seq-persona-based
-  - dream_small-talk-skill
-  - dream_spacy-nounphrases
-  - dream_spelling-preprocessing
-  - dream_storygpt
   - dream_text-qa
-  - dream_topic-recommendation
-  - dream_user-persona-extractor
-  - dream_wiki-facts
   - dream_wiki-parser
 
 dream_ru:
@@ -169,3 +116,11 @@ entity_extraction:
   - ee_agent
   - ee_wiki_parser
   - ee_entity_extraction
+
+tmp_stand:
+  - emotions_xlm_roberta_base
+  - insults_xlm_roberta_base
+  - intents_distilbert_base_multi
+  - sentiments_xlm_roberta_base
+  - topics_xlm_roberta_base
+  - ner_xlm_roberta_base

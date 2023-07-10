@@ -351,6 +351,8 @@ Generate models config
 python tools/cluster_deployer/dream_generator.py
 ```
 
+Return back agent-tg, rename base image to dream- (instead of dream_), return back dream_agent port and command.
+
 # EE
 
 ee-secret delete and create

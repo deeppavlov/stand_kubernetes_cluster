@@ -23,7 +23,10 @@ commands = {
     'comet-atomic': 'uvicorn server:app --host 0.0.0.0 --port 8053',
     'comet-conceptnet': 'uvicorn server:app --host 0.0.0.0 --port 8065',
     'convers-evaluator-annotator': 'gunicorn --workers=1 --bind 0.0.0.0:8004 --timeout=300 server:app',
-    'entity-linking': 'gunicorn  --workers=1 --timeout 500 server:app -b 0.0.0.0:8075'
+    'entity-linking': 'gunicorn  --workers=1 --timeout 500 server:app -b 0.0.0.0:8075',
+    'dff-dream-faq-prompted-skill': 'gunicorn --workers=1 server:app -b 0.0.0.0:8170 --reload --timeout 120',
+    'dff-dream-persona-chatgpt-prompted-skill': 'gunicorn --workers=1 server:app -b 0.0.0.0:8137 --reload --timeout 120',
+    'dff-google-api-skill': 'gunicorn --workers=1 server:app -b 0.0.0.0:8162'
 }
 
 gpu = {
@@ -51,7 +54,8 @@ gpu = {
     'prompt-storygpt': 9,
     'sentence-ranker': 9,
     'storygpt': 0,
-    'seq2seq-persona-based': 9
+    'seq2seq-persona-based': 9,
+    'openai-api-chatgpt': ''
 }
 
 

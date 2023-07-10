@@ -12,5 +12,5 @@ spec:
   ports:
   - name: lb-service
     protocol: TCP
-    port: 8122
+    port: 8106
     targetPort: dp-service

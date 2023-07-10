@@ -184,7 +184,7 @@ stand_demo2:
   PORT: 3000
   CLUSTER_PORT: 7042
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.0.5
+  VERSION_TAG: 0.0.8
 
 stand_sentiment_twitter:
   BASE_IMAGE: deeppavlov/deeppavlov:1.1.1
@@ -201,3 +201,86 @@ stand_sentiment_sst_conv_bert:
   PORT: 5000
   TEMPLATE: socialbot_service
   VERSION_TAG: 0.0.5
+
+stand_new_ner:
+  BASE_IMAGE: deeppavlov/deeppavlov:1.1.1
+  CLUSTER_PORT: 7025
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi ner_rus_bert -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+stand_new_paraphraser:
+  BASE_IMAGE: deeppavlov/deeppavlov:1.1.1
+  CLUSTER_PORT: 7026
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi paraphraser_rubert -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+emotions_xlm_roberta_base:
+  BASE_IMAGE: tmp_img:latest
+  CLUSTER_PORT: 7031
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi emotions_xlm_roberta_base -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+insults_xlm_roberta_base:
+  BASE_IMAGE: tmp_img:latest
+  CLUSTER_PORT: 7032
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi insults_xlm_roberta_base -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+intents_distilbert_base_multi:
+  BASE_IMAGE: tmp_img:latest
+  CLUSTER_PORT: 7033
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi intents_distilbert_base_multi -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+sentiments_xlm_roberta_base:
+  BASE_IMAGE: tmp_img:latest
+  CLUSTER_PORT: 7034
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi sentiments_xlm_roberta_base -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+topics_xlm_roberta_base:
+  BASE_IMAGE: tmp_img:latest
+  CLUSTER_PORT: 7035
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi topics_xlm_roberta_base -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+ner_xlm_roberta_base:
+  BASE_IMAGE: tmp_img:latest
+  CLUSTER_PORT: 7036
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi ner_xlm_roberta_base -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+entity_extraction_en:
+  BASE_IMAGE: tmp_dev:latest
+  CLUSTER_PORT: 7037
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi entity_extraction_en -d'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.5
+
+en_odqa_infer_wiki:
+  BASE_IMAGE: tmp_dev:latest
+  CLUSTER_PORT: 7038
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi en_odqa_infer_wiki -id'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.8
+  NODE_LIST:
+    - gpu9
+  CUDA_VISIBLE_DEVICES: 5

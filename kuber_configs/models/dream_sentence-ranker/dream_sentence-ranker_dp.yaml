@@ -23,7 +23,7 @@ spec:
                     values: ["gpu9"]
       containers:
       - name: socialservice
-        image: kubeadm.ipavlov.mipt.ru:5000/dream_sentence-ranker:0.14.2
+        image: kubeadm.ipavlov.mipt.ru:5000/dream_sentence-ranker:1.8
         resources:
           limits:
             nvidia.com/gpu: 0

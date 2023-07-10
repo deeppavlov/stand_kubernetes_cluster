@@ -111,3 +111,9 @@ http_proxy_gptjt:
   CLUSTER_PORT: 8161
   PROXYED_HOST: 10.11.1.8
   PROXYED_PORT: 8161
+
+http_proxy_ruxglm:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 8171
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8171

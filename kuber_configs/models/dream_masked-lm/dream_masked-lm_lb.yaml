@@ -12,5 +12,5 @@ spec:
   ports:
   - name: lb-service
     protocol: TCP
-    port: 8088
+    port: 8102
     targetPort: dp-service
