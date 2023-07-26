@@ -184,7 +184,7 @@ stand_demo2:
   PORT: 3000
   CLUSTER_PORT: 7042
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.0.8
+  VERSION_TAG: 0.0.9
 
 stand_sentiment_twitter:
   BASE_IMAGE: deeppavlov/deeppavlov:1.1.1

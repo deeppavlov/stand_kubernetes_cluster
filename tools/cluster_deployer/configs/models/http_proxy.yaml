@@ -117,3 +117,9 @@ http_proxy_ruxglm:
   CLUSTER_PORT: 8171
   PROXYED_HOST: 10.11.1.8
   PROXYED_PORT: 8171
+
+http_proxy_dialogrpt:
+  TEMPLATE: http_proxy
+  CLUSTER_PORT: 8122
+  PROXYED_HOST: 10.11.1.8
+  PROXYED_PORT: 8122
