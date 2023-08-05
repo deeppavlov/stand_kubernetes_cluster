@@ -184,7 +184,7 @@ stand_demo2:
   PORT: 3000
   CLUSTER_PORT: 7042
   TEMPLATE: socialbot_service
-  VERSION_TAG: 0.0.9
+  VERSION_TAG: 0.1.3
 
 stand_sentiment_twitter:
   BASE_IMAGE: deeppavlov/deeppavlov:1.1.1
@@ -284,3 +284,11 @@ en_odqa_infer_wiki:
   NODE_LIST:
     - gpu9
   CUDA_VISIBLE_DEVICES: 5
+
+ner_mult_long_demo:
+  BASE_IMAGE: new_classifiers:latest
+  CLUSTER_PORT: 7039
+  CMD_SCRIPT: sh -c 'python -m deeppavlov riseapi ner_mult_long_demo -id'
+  PORT: 5000
+  TEMPLATE: socialbot_service
+  VERSION_TAG: 0.0.9
